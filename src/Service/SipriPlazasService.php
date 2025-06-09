@@ -72,7 +72,7 @@ class SipriPlazasService
         $index_centro_end = $this->findFirstInvalidCodigoCentro($lines, $index_centro_start) - 1;
 
         //Bloque 8: Puesto (NO estable)
-        $index_puesto_end = $this->findLastFechaHoraLineIndex($lines) - 1;
+        $index_puesto_end = $this->findLastFechaHoraLineIndexOrLastLine($lines) - 1;
         $index_puesto_start = $this->findFirstNumericLineFrom($lines, $index_puesto_end) + 1;
 
         //Bloque 7: Nº Plazas (estable)
@@ -99,10 +99,9 @@ class SipriPlazasService
         $plazas = array_slice($lines, $index_plazas, $count);
         $puestos = array_slice($lines, $index_puesto_start, $index_puesto_end - $index_puesto_start + 1);
 
-
+        $centros = $this->fixDataDependingType($centros, $count, 'centro');
         $localidades = $this->fixDataDependingType($localidades, $count, 'localidad');
         $puestos = $this->fixDataDependingType($puestos, $count, 'puesto');
-        $centros = $this->fixDataDependingType($centros, $count, 'centro');
 
         $data = [];
         for ($i = 0; $i < $count; $i++) {
@@ -128,7 +127,8 @@ class SipriPlazasService
 
         match ($type) {
             'localidad' => $pattern = '/^\d+\s*-\s*/',
-            'puesto', 'centro' => $pattern = '/^\d{8}+\s*-\s*/',
+            'centro' => $pattern = '/^\d{8}+\s*-\s*/',
+            'puesto' => $pattern = '/^[a-zA-Z0-9]{8}\s*-\s*/',
             default => throw new \InvalidArgumentException("Tipo no soportado: $type"),
         };
 
@@ -163,7 +163,7 @@ class SipriPlazasService
         return null; // No encontrado
     }
 
-    protected function findLastFechaHoraLineIndex(array $lines): ?int
+    protected function findLastFechaHoraLineIndexOrLastLine(array $lines): ?int
     {
         $pattern = '/\b\d{2}\/\d{2}\/\d{4}[\t ]+\d{2}:\d{2}\b/';
         for ($i = count($lines) - 1; $i >= 0; $i--) {
@@ -171,7 +171,7 @@ class SipriPlazasService
                 return $i; // Devuelve el índice de línea
             }
         }
-        return null; // No se encontró
+        return count($lines); // No se encontró
     }
 
     function findFirstNumericLineFrom(array $lines, int $start): ?int
@@ -186,15 +186,19 @@ class SipriPlazasService
 
     function findFirstInvalidCodigoCentro(array $lines, int $start): ?int
     {
-        $pattern = '/^[A-Z0-9]{8} - /i';
+        // Patrón que indica el inicio del siguiente bloque: hasta 5 dígitos + ' - '
+        $patternSiguiente = '/^\d{1,5} - /';
 
         for ($i = $start; $i < count($lines); $i++) {
-            if (!preg_match($pattern, trim($lines[$i]))) {
+            $line = trim($lines[$i]);
+
+            // Si coincide con el patrón del siguiente bloque, devolvemos esta línea
+            if (preg_match($patternSiguiente, $line)) {
                 return $i;
             }
         }
 
-        return null; // todas cumplen el patrón desde $start
+        return null;
     }
 
 }

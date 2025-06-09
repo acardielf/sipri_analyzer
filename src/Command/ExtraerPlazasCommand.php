@@ -54,12 +54,14 @@ class ExtraerPlazasCommand extends Command
         $paginas = $this->sipriPlazasService->getPagesContentFromText($text);
 
         $resultados = [];
+
+
         foreach ($paginas as $numero => $contenido) {
             $resultadosPagina = $this->sipriPlazasService->extractPageContent($contenido);
-            $this->fileUtilitiesService->saveContentToFile(
-                $path . 'plazas_pag_' . $numero . '.txt',
-                $paginas[$numero]
-            );
+//            $this->fileUtilitiesService->saveContentToFile(
+//                $path . 'plazas_pag_' . $numero . '.txt',
+//                $paginas[$numero]
+//            );
             $resultados = array_merge($resultados, $resultadosPagina);
         }
 
