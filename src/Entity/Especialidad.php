@@ -11,9 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Especialidad
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?string $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
@@ -29,7 +28,16 @@ class Especialidad
         $this->plazas = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public static function fromString(mixed $especialidad): Especialidad
+    {
+        $object = new Especialidad();
+        $values = explode(' - ', $especialidad);
+        $object->setId($values[0]);
+        $object->setNombre($values[1]);
+        return $object;
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
     }

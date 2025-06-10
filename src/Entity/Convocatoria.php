@@ -18,7 +18,7 @@ class Convocatoria
     #[ORM\Column(length: 12)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'convocatorias')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'convocatorias')]
     private ?Curso $curso = null;
 
     /**
@@ -30,6 +30,15 @@ class Convocatoria
     public function __construct()
     {
         $this->plazas = new ArrayCollection();
+    }
+
+    public static function fromId(int $convocatoria): Convocatoria
+    {
+        $object = new Convocatoria();
+        $object->setId($convocatoria);
+        $object->setName(str_pad($convocatoria, 12, '0', STR_PAD_LEFT));
+
+        return $object;
     }
 
     public function getId(): ?int

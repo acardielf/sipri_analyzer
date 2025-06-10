@@ -29,6 +29,16 @@ class Provincia
         $this->localidades = new ArrayCollection();
     }
 
+    public static function fromString(string $name): Provincia
+    {
+        $provincia = new Provincia();
+        $values = explode(' - ', $name);
+        $provincia->setId($values[0]);
+        $provincia->setName($values[1]);
+
+        return $provincia;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

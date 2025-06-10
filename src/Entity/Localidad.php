@@ -15,7 +15,7 @@ class Localidad
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'localidades')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'localidades')]
     private ?Provincia $provincia = null;
 
     #[ORM\Column(length: 255)]
@@ -30,6 +30,17 @@ class Localidad
     public function __construct()
     {
         $this->centros = new ArrayCollection();
+    }
+
+    public static function fromString(string $localidad, string $provincia): Localidad
+    {
+        $object = new Localidad();
+        $values = explode(' - ', $localidad);
+        $object->setId($values[0]);
+        $object->setNombre($values[1]);
+        $object->setProvincia(Provincia::fromString($provincia));
+
+        return $object;
     }
 
     public function getId(): ?int

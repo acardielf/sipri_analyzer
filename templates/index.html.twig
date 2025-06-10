@@ -1,1 +1,30 @@
-hola
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Welcome!{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Plazas</h1>
+
+
+
+    {% for provincia in provincias %}
+        <div class="plaza">
+            <h2>{{ provincia.id }}</h2>
+            <h2>{{ provincia.name }}</h2>
+        </div>
+
+
+
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}

@@ -46,11 +46,15 @@ class GetConvocatoria extends Command
         $output->writeln('Convocatoria solicited: ' . $convocatoria);
 
         $localPath = 'pdfs/' . $convocatoria . '/';
-        $file = 'plazas.pdf';
+        $file_plazas = $convocatoria . '_plazas.pdf';
+        $file_convocados = $convocatoria . '_convocados.pdf';
 
         $this->fileUtilitiesService->createDirectoryIfNotExists('pdfs/' . $convocatoria);
 
-        if ($this->fileUtilitiesService->fileExists($localPath . $file)) {
+        if (
+            $this->fileUtilitiesService->fileExists($localPath . $file_plazas) &&
+            $this->fileUtilitiesService->fileExists($localPath . $file_convocados)
+        ) {
             $output->writeln('<info>Archivo PDF ya existe. No se descargará de nuevo.</info>');
             return Command::SUCCESS;
         }
@@ -68,14 +72,29 @@ class GetConvocatoria extends Command
             ]
         ]);
 
-        $this->client->request('GET', '/educacion/sipri/normativa/descarga/' . $convocatoria . '/C/2', [
-            'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-            ],
-            'cookies' => $this->jar,
-            'sink' => $localPath . $file
-        ]);
+        if ($this->fileUtilitiesService->fileExists($localPath . $file_plazas)) {
+            $output->writeln('<info>Archivo PDF de PLAZAS ya existe. No se descargará de nuevo.</info>');
+        } else {
+            $this->client->request('GET', '/educacion/sipri/normativa/descarga/' . $convocatoria . '/C/2', [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+                ],
+                'cookies' => $this->jar,
+                'sink' => $localPath . $file_plazas,
+            ]);
+        }
 
+        if ($this->fileUtilitiesService->fileExists($localPath . $file_convocados)) {
+            $output->writeln('<info>Archivo PDF de CONVOCADOS ya existe. No se descargará de nuevo.</info>');
+        } else {
+            $this->client->request('GET', '/educacion/sipri/normativa/descarga/' . $convocatoria . '/C/1', [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+                ],
+                'cookies' => $this->jar,
+                'sink' => $localPath . $file_convocados,
+            ]);
+        }
 
         return Command::SUCCESS;
     }

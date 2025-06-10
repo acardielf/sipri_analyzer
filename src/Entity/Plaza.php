@@ -16,13 +16,13 @@ class Plaza
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'plazas')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'plazas')]
     private ?Convocatoria $convocatoria = null;
 
-    #[ORM\ManyToOne(inversedBy: 'plazas')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'plazas')]
     private ?Centro $centro = null;
 
-    #[ORM\ManyToOne(inversedBy: 'plazas')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'plazas')]
     private ?Especialidad $especialidad = null;
 
     #[ORM\Column(enumType: TipoPlazaEnum::class)]
@@ -36,6 +36,26 @@ class Plaza
 
     #[ORM\Column]
     private ?int $numero = null;
+
+
+    public function __construct(
+        Convocatoria $convocatoria,
+        Centro $centro,
+        Especialidad $especialidad,
+        TipoPlazaEnum $tipo,
+        ObligatoriedadPlazaEnum $obligatoriedad,
+        ?\DateTime $fecha_prevista_cese = null,
+        int $numero = 0
+    )
+    {
+        $this->convocatoria = $convocatoria;
+        $this->centro = $centro;
+        $this->especialidad = $especialidad;
+        $this->tipo = $tipo;
+        $this->obligatoriedad = $obligatoriedad;
+        $this->fecha_prevista_cese = $fecha_prevista_cese;
+        $this->numero = $numero;
+    }
 
     public function getId(): ?int
     {

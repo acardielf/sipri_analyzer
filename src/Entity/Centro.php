@@ -15,7 +15,7 @@ class Centro
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'centros')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'centros')]
     private ?Localidad $localidad = null;
 
     /**
@@ -24,9 +24,23 @@ class Centro
     #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'centro')]
     private Collection $plazas;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nombre = null;
+
     public function __construct()
     {
         $this->plazas = new ArrayCollection();
+    }
+
+    public static function fromString(string $centro, string $localidad, string $provincia): Centro
+    {
+        $object = new Centro();
+        $values = explode(' - ', $centro);
+        $object->setId($values[0]);
+        $object->setNombre($values[1]);
+        $object->setLocalidad(Localidad::fromString($localidad, $provincia));
+
+        return $object;
     }
 
     public function getId(): ?int
@@ -82,4 +96,17 @@ class Centro
 
         return $this;
     }
+
+    public function setNombre(string $nombre): static
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    public function getNombre(): ?string
+    {
+        return $this->nombre;
+    }
+
 }
