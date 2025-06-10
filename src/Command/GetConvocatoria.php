@@ -5,12 +5,12 @@ namespace App\Command;
 use App\Service\FileUtilitiesService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\SessionCookieJar;
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
     name: 'sipri:get-convocatoria',
@@ -22,7 +22,6 @@ class GetConvocatoria extends Command
     private Client $client;
 
     public function __construct(
-        private readonly HttpClientInterface  $httpClient,
         private readonly FileUtilitiesService $fileUtilitiesService,
     )
     {
@@ -36,6 +35,9 @@ class GetConvocatoria extends Command
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria to download');
     }
 
+    /**
+     * @throws GuzzleException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $convocatoria = $input->getArgument('convocatoria');
@@ -43,7 +45,6 @@ class GetConvocatoria extends Command
 
         $output->writeln('Convocatoria solicited: ' . $convocatoria);
 
-        $url = 'https://www.juntadeandalucia.es/educacion/sipri/normativa/descarga/' . $convocatoria . '/C/2';
         $localPath = 'pdfs/' . $convocatoria . '/';
         $file = 'plazas.pdf';
 
