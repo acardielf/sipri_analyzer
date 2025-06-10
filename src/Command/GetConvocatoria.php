@@ -3,6 +3,8 @@
 namespace App\Command;
 
 use App\Service\FileUtilitiesService;
+use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\SessionCookieJar;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,6 +18,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class GetConvocatoria extends Command
 {
+    private SessionCookieJar $jar;
+    private Client $client;
+
     public function __construct(
         private readonly HttpClientInterface  $httpClient,
         private readonly FileUtilitiesService $fileUtilitiesService,
@@ -44,32 +49,32 @@ class GetConvocatoria extends Command
 
         $this->fileUtilitiesService->createDirectoryIfNotExists('pdfs/' . $convocatoria);
 
-        if ($this->fileUtilitiesService->fileExists($localPath . $file)){
-            $output->writeln('El PDF ya existe localmente, no se descarga.');
+        if ($this->fileUtilitiesService->fileExists($localPath . $file)) {
+            $output->writeln('<info>Archivo PDF ya existe. No se descargará de nuevo.</info>');
             return Command::SUCCESS;
         }
 
-        // Verificar si el PDF existe remotamente (HEAD)
-        try {
-            $response = $this->httpClient->request('HEAD', $url);
-            if ($response->getStatusCode() !== 200) {
-                $output->writeln("El archivo no existe o no es accesible (HTTP {$response->getStatusCode()}).");
-                return Command::FAILURE;
-            }
-        } catch (\Exception $e) {
-            $output->writeln('Error al comprobar el archivo remoto: ' . $e->getMessage());
-            return Command::FAILURE;
-        }
+        $this->jar = new SessionCookieJar('SipriSession', true);
 
-        // Descargar el archivo
-        try {
-            $response = $this->httpClient->request('GET', $url);
-            $this->fileUtilitiesService->saveContentToFile($localPath . $file, $response->getContent());
-            $output->writeln("PDF descargado en: $localPath");
-        } catch (\Exception $e) {
-            $output->writeln('Error al descargar el archivo: ' . $e->getMessage());
-            return Command::FAILURE;
-        }
+        $this->client = new Client([
+            'base_uri' => 'https://www.juntadeandalucia.es/',
+            'cookies' => $this->jar
+        ]);
+
+        $this->client->request('POST', '/educacion/sipri/normativa/historicobuscar/', [
+            'form_params' => [
+                'convocatoria' => $convocatoria,
+            ]
+        ]);
+
+        $this->client->request('GET', '/educacion/sipri/normativa/descarga/' . $convocatoria . '/C/2', [
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+            ],
+            'cookies' => $this->jar,
+            'sink' => $localPath . $file
+        ]);
+
 
         return Command::SUCCESS;
     }
