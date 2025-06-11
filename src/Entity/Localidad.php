@@ -11,8 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Localidad
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id;
+
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'localidades')]
     private ?Provincia $provincia = null;
@@ -27,26 +29,24 @@ class Localidad
     private Collection $centros;
 
     public function __construct(
-        int       $id,
         string    $nombre,
         Provincia $provincia,
     )
     {
-        $this->id = $id;
         $this->nombre = $nombre;
         $this->provincia = $provincia;
         $this->centros = new ArrayCollection();
     }
 
 
-    public function getId(): ?int
+    public function getIdInProvincia(): ?int
     {
-        return $this->id;
+        return $this->idInProvincia;
     }
 
-    public function setId(int $id): static
+    public function setIdInProvincia(int $idInProvincia): static
     {
-        $this->id = $id;
+        $this->idInProvincia = $idInProvincia;
 
         return $this;
     }
@@ -104,4 +104,16 @@ class Localidad
 
         return $this;
     }
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function setId(?string $id): void
+    {
+        $this->id = $id;
+    }
+
+
 }

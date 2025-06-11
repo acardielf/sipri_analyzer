@@ -20,11 +20,10 @@ readonly class LocalidadDtoToEntity
 
     public function get(LocalidadDto $dto, bool $persist = true): Localidad
     {
-        $localidad = $this->repository->find($dto->id);
+        $localidad = $this->repository->findByNombreAndProvincia($dto->nombre, $dto->provincia->id);
 
         if (!$localidad) {
             $localidad = new Localidad(
-                id: $dto->id,
                 nombre: $dto->nombre,
                 provincia: $this->provinciaDtoToEntity->get($dto->provincia),
             );

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250611153420 extends AbstractMigration
+final class Version20250611162010 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -39,7 +39,7 @@ final class Version20250611153420 extends AbstractMigration
             CREATE TABLE especialidad (id VARCHAR(255) NOT NULL, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(id))
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE TABLE localidad (id INTEGER NOT NULL, provincia_id INTEGER DEFAULT NULL, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(id), CONSTRAINT FK_4F68E0104E7121AF FOREIGN KEY (provincia_id) REFERENCES provincia (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
+            CREATE TABLE localidad (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, provincia_id INTEGER DEFAULT NULL, nombre VARCHAR(255) NOT NULL, CONSTRAINT FK_4F68E0104E7121AF FOREIGN KEY (provincia_id) REFERENCES provincia (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_4F68E0104E7121AF ON localidad (provincia_id)

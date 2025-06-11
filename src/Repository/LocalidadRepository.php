@@ -16,28 +16,15 @@ class LocalidadRepository extends ServiceEntityRepository
         parent::__construct($registry, Localidad::class);
     }
 
-    //    /**
-    //     * @return Localidad[] Returns an array of Localidad objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('l.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByNombreAndProvincia(string $nombre, int $provinceId): ?Localidad
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->andWhere('l.nombre = :nombre')
+            ->setParameter('nombre', $nombre);
 
-    //    public function findOneBySomeField($value): ?Localidad
-    //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $qb->andWhere('l.provincia = :provinceId')
+            ->setParameter('provinceId', $provinceId);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }
