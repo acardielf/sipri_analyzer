@@ -13,7 +13,7 @@ FROM frankenphp_upstream AS frankenphp_base
 
 WORKDIR /app
 
-VOLUME /app/var/
+# VOLUME /app/var/
 
 # persistent / runtime deps
 # hadolint ignore=DL3008

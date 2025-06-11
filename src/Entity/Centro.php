@@ -11,9 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Centro
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?string $id = null;
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'centros')]
     private ?Localidad $localidad = null;
@@ -28,7 +27,7 @@ class Centro
     private ?string $nombre = null;
 
     public function __construct(
-        int       $id,
+        string    $id,
         string    $nombre,
         Localidad $localidad,
     )
@@ -40,18 +39,7 @@ class Centro
         $this->plazas = new ArrayCollection();
     }
 
-    public static function fromString(string $centro, string $localidad, string $provincia): Centro
-    {
-        $object = new Centro();
-        $values = explode(' - ', $centro, 2);
-        $object->setId($values[0]);
-        $object->setNombre($values[1]);
-        $object->setLocalidad(Localidad::fromString($localidad, $provincia));
-
-        return $object;
-    }
-
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

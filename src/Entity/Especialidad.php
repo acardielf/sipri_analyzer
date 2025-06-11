@@ -33,15 +33,6 @@ class Especialidad
         $this->plazas = new ArrayCollection();
     }
 
-    public static function fromString(mixed $especialidad): Especialidad
-    {
-        $object = new Especialidad();
-        $values = explode(' - ', $especialidad, 2);
-        $object->setId($values[0] ?? null);
-        $object->setNombre($values[1] ?? null);
-        return $object;
-    }
-
     public function getId(): ?string
     {
         return $this->id;

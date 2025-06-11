@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Localidad
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
@@ -39,27 +38,6 @@ class Localidad
         $this->centros = new ArrayCollection();
     }
 
-    public static function fromStringAndProvincia(string $localidad, string $provincia): Localidad
-    {
-        $object = new Localidad();
-        $values = explode(' - ', $localidad, 2);
-        $object->setId($values[0]);
-        $object->setNombre($values[1]);
-        $object->setProvincia(Provincia::fromString($provincia));
-
-        return $object;
-    }
-
-    public static function fromString(string $localidad, Provincia $provincia): Localidad
-    {
-        $object = new Localidad();
-        $values = explode(' - ', $localidad, 2);
-        $object->setId($values[0]);
-        $object->setNombre($values[1]);
-        $object->setProvincia($provincia);
-
-        return $object;
-    }
 
     public function getId(): ?int
     {
