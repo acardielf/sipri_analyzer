@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    {{ curso.nombre }} - {{ especialidad.id }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+<h2>Plazas de <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
+<h2>Curso {{ curso.nombre }}</h2>
+<h2>Provincia {{ provincia.nombre }}</h2>
+
+{{ plazas|length }} plazas encontradas.
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>Provincia</th>
+        <th>Localidad</th>
+        <th>Centro</th>
+        <th>Convocatoria</th>
+        <th>Tipo</th>
+        <th>Obligatoriedad</th>
+        <th>F. Cese</th>
+    </tr>
+    {% for plaza in plazas %}
+    <tr>
+        <td>{{ provincia.nombre }}</td>
+        <td>{{ plaza.centro.localidad.nombre }}</td>
+        <td>{{ plaza.centro.nombre }}</td>
+        <td>{{ plaza.convocatoria.id }}</td>
+        <td>{{ plaza.tipo.value }}</td>
+        <td>{{ plaza.obligatoriedad.value }}</td>
+        <td>{{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '' }}</td>
+    </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}

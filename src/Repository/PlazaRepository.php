@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Dto\PlazaDto;
+use App\Entity\Curso;
+use App\Entity\Especialidad;
 use App\Entity\Plaza;
+use App\Entity\Provincia;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -91,5 +94,47 @@ class PlazaRepository extends ServiceEntityRepository
         );
 
         return $this->findOneBy(['hash' => $hash]);
+    }
+
+    public function findByEspecialidadAndCurso(Especialidad $especialidad, Curso $curso)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->join('p.convocatoria', 'c')
+            ->join('p.centro', 'cc')
+            ->join('cc.localidad', 'l')
+            ->join('l.provincia', 'prov')
+            ->where('p.especialidad = :especialidad')
+            ->andWhere('c.curso = :curso')
+            ->orderBy('prov.nombre', 'ASC')
+            ->addOrderBy('l.nombre', 'ASC')
+            ->setParameter('especialidad', $especialidad)
+            ->setParameter('curso', $curso);
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    /**
+     * @param Curso $curso
+     * @param Especialidad $especialidad
+     * @param int $provinciaId
+     * @return array<Plaza>
+     */
+    public function getEspecialidadesByCursoAndProvincia(Curso $curso, Especialidad $especialidad, Provincia $provincia): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->join('p.convocatoria', 'c')
+            ->join('p.centro', 'cc')
+            ->join('cc.localidad', 'l')
+            ->join('l.provincia', 'prov')
+            ->where('p.especialidad = :especialidad')
+            ->andWhere('c.curso = :curso')
+            ->andWhere('prov.id = :provincia')
+            ->orderBy('c.id','DESC')
+            ->setParameter('especialidad', $especialidad)
+            ->setParameter('curso', $curso)
+            ->setParameter('provincia', $provincia);
+
+        return $qb->getQuery()->getResult();
     }
 }

@@ -1,22 +1,35 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}<strong>Especialidad {{ especialidad.id }} - {{ especialidad.nombre }}</strong>{% endblock %}
+{% block title %}
+    {{ curso.nombre }} - {{ especialidad.id }}
+{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Plazas de <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h1>
+    <h2>Plazas de <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
+    <h2>Curso {{ curso.nombre }}</h2>
 
-    <ul>
-        {% for plaza in especialidad.plazas %}
-            <li>
-                {{ plaza.centro.nombre }} - {{ plaza.centro.localidad.nombre }} - {{ plaza.centro.localidad.provincia.nombre }}
-            </li>
+    {{ plazas|length }} plazas encontradas.
+
+    <table>
+        <tr>
+            <th>Provincia</th>
+            <th>Plazas</th>
+        </tr>
+        {% for provincia, pl in plazas %}
+            <tr>
+                <td>{{ provincia }}</td>
+                <td>
+                    <a href="{{ path('app_plazas_especialidad_curso_provincia', { curso: curso.id, especialidad: especialidad.id, provincia: provincia}) }}">{{ pl|length }}</a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
+
 
 {% endblock %}
 

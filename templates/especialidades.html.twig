@@ -13,7 +13,8 @@
     <ul>
         {% for especialidad in especialidades %}
             <li>
-                <a href="{{ path('app_especialidad_show', { 'id': especialidad.id } ) }}">{{ especialidad.id }}</a> - {{ especialidad.nombre }}
+                <a href="{{ path('app_especialidad_show', { 'curso': curso.id, 'especialidad': especialidad.id } ) }}">{{ especialidad.id }}</a>
+                - {{ especialidad.nombre }}
             </li>
         {% endfor %}
     </ul>

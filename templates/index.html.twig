@@ -11,34 +11,12 @@
     <h1>Plazas</h1>
 
     <hr>
-    <a href="{{ path('app_especialidad_index') }}">Especialidades</a>
-    <hr>
 
-    {% for provincia in provincias %}
-        <h2>{{ provincia.id }} - {{ provincia.nombre }}</h2>
-        <ul>
-            {% for localidad in provincia.localidades %}
-                <li>
-                    {{ localidad.id }} ({{ localidad.nombre }})
-                    <ul>
-                        {% for centro in localidad.centros %}
-                            <li>
-                                {{ centro.id }} - {{ centro.nombre }}
-{#                                <ul>#}
-{#                                    {% for plaza in centro.plazas %}#}
-{#                                        <li>#}
-{#                                            {{ plaza.especialidad.nombre }}#}
-{#                                        </li>#}
-{#                                    {% endfor %}#}
-{#                                </ul>#}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-        </ul>
-        <hr>
+    {% for curso in cursos %}
+        <a href="{{ path('app_especialidad_index', { 'curso': curso.id }) }}">Curso {{ curso.nombre }}</a>
     {% endfor %}
+
+    <hr>
 
 
 {% endblock %}

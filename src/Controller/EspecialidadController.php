@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Especialidad;
+use App\Entity\Plaza;
 use App\Repository\CentroRepository;
+use App\Repository\CursoRepository;
 use App\Repository\EspecialidadRepository;
 use App\Repository\LocalidadRepository;
 use App\Repository\PlazaRepository;
@@ -18,32 +20,61 @@ class EspecialidadController extends AbstractController
 
     public function __construct(
         private readonly EspecialidadRepository $especialidadRepository,
+        private readonly CursoRepository        $cursoRepository,
+        private readonly PlazaRepository        $plazaRepository,
+        private readonly ProvinciaRepository    $provinciaRepository,
     )
     {
     }
 
-    #[Route('/especialidades', name: 'app_especialidad_index')]
-    public function index(): Response
+    #[Route('/{curso}/especialidades', name: 'app_especialidad_index')]
+    public function index(int $curso): Response
     {
-        $array = array_filter($this->especialidadRepository->findAll(),
-            function (Especialidad $especialidad) {
-                return $especialidad->getNombre() !== "";
-            }
-        );
+        $curso = $this->cursoRepository->findOneBy(['id' => $curso]);
+
+        if (!$curso) {
+            throw $this->createNotFoundException('Curso not found');
+        }
+
+        $especialidades = $this->especialidadRepository->getEspecialidadesByCurso($curso);
+
         return $this->render('especialidades.html.twig', [
-            'especialidades' => $array,
+            'curso' => $curso,
+            'especialidades' => $especialidades,
         ]);
     }
 
 
-
-    #[Route('/especialidad/{id}/', name: 'app_especialidad_show')]
+    #[Route('{curso}/especialidad/{especialidad}/', name: 'app_especialidad_show')]
     public function especialidad(
-        string $id,
+        int    $curso,
+        string $especialidad,
     ): Response
     {
+        $curso = $this->cursoRepository->findOneBy(['id' => $curso]);
+        $especialidad = $this->especialidadRepository->findOneBy(['id' => $especialidad]);
+
+        if (!$curso) {
+            throw $this->createNotFoundException('Curso not found');
+        }
+        if (!$especialidad) {
+            throw $this->createNotFoundException('Especialidad not found');
+        }
+
+        $provincias = $this->provinciaRepository->findAll();
+        $plazas = $this->plazaRepository->findByEspecialidadAndCurso($especialidad, $curso);
+
+        $filtered = [];
+        foreach ($provincias as $provincia) {
+            $filtered[$provincia->getId()] = array_filter($plazas, function (Plaza $plaza) use ($provincia) {
+                return $plaza->getCentro()->getLocalidad()->getProvincia()->getId() === $provincia->getId();
+            });
+        }
+
         return $this->render('especialidad.html.twig', [
-            'especialidad' => $this->especialidadRepository->find($id),
+            'curso' => $curso,
+            'especialidad' => $especialidad,
+            'plazas' => $filtered,
         ]);
     }
 
