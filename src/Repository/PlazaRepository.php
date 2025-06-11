@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Dto\PlazaDto;
 use App\Entity\Plaza;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -74,5 +75,21 @@ class PlazaRepository extends ServiceEntityRepository
     {
         $this->em->persist($plaza);
         $this->em->flush();
+    }
+
+    public function findByHash(PlazaDto $dto, int $ocurrencia): ?Plaza
+    {
+        $hash = hash('sha256',
+            $dto->convocatoria->id .
+            $dto->centro->id .
+            $dto->especialidad->id .
+            $dto->tipoPlaza->value .
+            $dto->obligatoriedadPlaza->value .
+            $dto->fechaPrevistaCese?->format('Y-m-d') .
+            $dto->numero .
+            $ocurrencia
+        );
+
+        return $this->findOneBy(['hash' => $hash]);
     }
 }

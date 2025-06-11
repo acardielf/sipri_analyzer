@@ -21,17 +21,10 @@ readonly class PlazaDtoToEntity
     {
     }
 
-    public function get(PlazaDto $dto, bool $persist = true): ?object
+    public function get(PlazaDto $dto, int $ocurrencia, bool $persist = true): ?object
     {
-        $plaza = $this->repository->findByAttributes(
-            convocatoriaId: $dto->convocatoria->id,
-            centroId: $dto->centro->id,
-            especialidadId: $dto->especialidad->id,
-            tipo: $dto->tipoPlaza->value,
-            obligatoriedad: $dto->obligatoriedadPlaza->value,
-            fechaPrevistaCese: $dto->fechaPrevistaCese,
-            numero: $dto->numero,
-        );
+        $plaza = $this->repository->findByHash($dto, $ocurrencia);
+
 
         if (!$plaza) {
             $plaza = new Plaza(
@@ -42,11 +35,14 @@ readonly class PlazaDtoToEntity
                 obligatoriedad: $dto->obligatoriedadPlaza,
                 fechaPrevistaCese: $dto->fechaPrevistaCese,
                 numero: $dto->numero,
+                ocurrencia: $ocurrencia,
             );
+
             if ($persist) {
                 $this->em->persist($plaza);
             }
         }
+
 
         return $plaza;
     }

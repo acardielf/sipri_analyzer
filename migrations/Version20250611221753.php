@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250611162010 extends AbstractMigration
+final class Version20250611221753 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -46,7 +46,7 @@ final class Version20250611162010 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE plaza (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, convocatoria_id INTEGER DEFAULT NULL, centro_id VARCHAR(255) DEFAULT NULL, especialidad_id VARCHAR(255) DEFAULT NULL, tipo VARCHAR(255) NOT NULL, obligatoriedad VARCHAR(255) NOT NULL, fecha_prevista_cese DATE DEFAULT NULL --(DC2Type:date_immutable)
-            , numero INTEGER NOT NULL, CONSTRAINT FK_E8703ECC4EE93BE6 FOREIGN KEY (convocatoria_id) REFERENCES convocatoria (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_E8703ECC298137A7 FOREIGN KEY (centro_id) REFERENCES centro (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_E8703ECC16A490EC FOREIGN KEY (especialidad_id) REFERENCES especialidad (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
+            , numero INTEGER NOT NULL, ocurrencia INTEGER NOT NULL, hash VARCHAR(255) NOT NULL, CONSTRAINT FK_E8703ECC4EE93BE6 FOREIGN KEY (convocatoria_id) REFERENCES convocatoria (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_E8703ECC298137A7 FOREIGN KEY (centro_id) REFERENCES centro (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_E8703ECC16A490EC FOREIGN KEY (especialidad_id) REFERENCES especialidad (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_E8703ECC4EE93BE6 ON plaza (convocatoria_id)

@@ -35,8 +35,13 @@ class Plaza
     private ?\DateTimeImmutable $fechaPrevistaCese = null;
 
     #[ORM\Column]
-    private ?int $numero = null;
+    private ?int $numero;
 
+    #[ORM\Column]
+    private int $ocurrencia;
+
+    #[ORM\Column]
+    private string $hash;
 
     public function __construct(
         Convocatoria            $convocatoria,
@@ -45,7 +50,8 @@ class Plaza
         TipoPlazaEnum           $tipo,
         ObligatoriedadPlazaEnum $obligatoriedad,
         ?\DateTimeImmutable     $fechaPrevistaCese = null,
-        int                     $numero = 0
+        int                     $numero = 0,
+        int                     $ocurrencia = 1,
     )
     {
         $this->convocatoria = $convocatoria;
@@ -55,6 +61,18 @@ class Plaza
         $this->obligatoriedad = $obligatoriedad;
         $this->fechaPrevistaCese = $fechaPrevistaCese;
         $this->numero = $numero;
+        $this->ocurrencia = $ocurrencia;
+
+        $this->hash = hash('sha256',
+            $convocatoria->getId() .
+            $centro->getId() .
+            $especialidad->getId() .
+            $tipo->value .
+            $obligatoriedad->value .
+            ($fechaPrevistaCese ? $fechaPrevistaCese->format('Y-m-d') : '') .
+            $numero .
+            $ocurrencia
+        );
     }
 
     public function getId(): ?int
@@ -152,4 +170,16 @@ class Plaza
 
         return $this;
     }
+
+    public function getOcurrencia(): int
+    {
+        return $this->ocurrencia;
+    }
+
+    public function setOcurrencia(int $ocurrencia): void
+    {
+        $this->ocurrencia = $ocurrencia;
+    }
+
+
 }

@@ -79,7 +79,9 @@ class ExtraerPlazasCommand extends Command
             $resultados = array_merge($resultados, $resultadosPagina);
         }
 
+        $ocurrencia = 1;
         foreach ($resultados as $plaza_array) {
+
             $plazaDto = new PlazaDto(
                 id: null,
                 convocatoria: ConvocatoriaDto::fromId($convocatoria),
@@ -91,9 +93,9 @@ class ExtraerPlazasCommand extends Command
                 numero: intval($plaza_array['num_plazas'])
             );
 
-            $plaza = $this->plazaDtoToEntity->get($plazaDto);
-            $this->plazaRepository->save($plaza, true);
-
+            $plaza = $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
+            $this->plazaRepository->save($plaza);
+            $ocurrencia++;
             $output->writeln('<info>Plaza añadida:</info> ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
         }
 
