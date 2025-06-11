@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Especialidades{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Plazas</h1>
+
+    <ul>
+        {% for especialidad in especialidades %}
+            <li>
+                <a href="{{ path('app_especialidad_show', { 'id': especialidad.id } ) }}">{{ especialidad.id }}</a> - {{ especialidad.nombre }}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}

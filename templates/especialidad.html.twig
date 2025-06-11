@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}<strong>Especialidad {{ especialidad.id }} - {{ especialidad.nombre }}</strong>{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Plazas de <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h1>
+
+    <ul>
+        {% for plaza in especialidad.plazas %}
+            <li>
+                {{ plaza.centro.nombre }} - {{ plaza.centro.localidad.nombre }} - {{ plaza.centro.localidad.provincia.nombre }}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
