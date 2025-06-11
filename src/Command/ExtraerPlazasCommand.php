@@ -71,7 +71,7 @@ class ExtraerPlazasCommand extends Command
 
 
         foreach ($paginas as $numero => $contenido) {
-            $resultadosPagina = $this->plazasScrapperService->extractPageContent($contenido);
+            $resultadosPagina = $this->plazasScrapperService->extractPageContent($contenido, $convocatoria);
 //            $this->fileUtilitiesService->saveContentToFile(
 //                $path . 'plazas_pag_' . $numero . '.txt',
 //                $paginas[$numero]

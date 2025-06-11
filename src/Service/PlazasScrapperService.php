@@ -30,7 +30,7 @@ class PlazasScrapperService
         return $paginas;
     }
 
-    public function extractPageContent($content): array
+    public function extractPageContent(string $content, int $convocatoria): array
     {
         $lines = explode("\n", $content);
         $lines = array_map('trim', $lines);
@@ -102,6 +102,29 @@ class PlazasScrapperService
         $centros = $this->fixDataDependingType($centros, $count, 'centro');
         $localidades = $this->fixDataDependingType($localidades, $count, 'localidad');
         $puestos = $this->fixDataDependingType($puestos, $count, 'puesto');
+
+        //check all arrays have the same count
+        if (
+            count($centros) !== $count ||
+            count($localidades) !== $count ||
+            count($provincias) !== $count ||
+            count($puestos) !== $count ||
+            count($tipos) !== $count ||
+            count($plazas) !== $count ||
+            count($fechas) !== $count ||
+            count($obligatoriedad) !== $count
+        ) {
+            throw new \RuntimeException('Los datos extraídos de la convocatoria ' . $convocatoria . ' no tienen el mismo número de elementos: ' .
+                'centros: ' . count($centros) . ', ' .
+                'localidades: ' . count($localidades) . ', ' .
+                'provincias: ' . count($provincias) . ', ' .
+                'puestos: ' . count($puestos) . ', ' .
+                'tipos: ' . count($tipos) . ', ' .
+                'plazas: ' . count($plazas) . ', ' .
+                'fechas: ' . count($fechas) . ', ' .
+                'obligatoriedad: ' . count($obligatoriedad)
+            );
+        }
 
         $data = [];
         for ($i = 0; $i < $count; $i++) {
