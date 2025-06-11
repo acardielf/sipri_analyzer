@@ -27,8 +27,15 @@ class Curso
     #[ORM\OneToMany(targetEntity: Convocatoria::class, mappedBy: 'curso')]
     private Collection $convocatorias;
 
-    public function __construct()
+    public function __construct(
+        int    $id,
+        string $nombre,
+        string $simple,
+    )
     {
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->simple = $simple;
         $this->convocatorias = new ArrayCollection();
     }
 

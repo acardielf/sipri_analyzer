@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\CentroRepository;
-use App\Repository\ConvocatoriaRepository;
 use App\Repository\LocalidadRepository;
 use App\Repository\PlazaRepository;
 use App\Repository\ProvinciaRepository;
@@ -15,8 +14,8 @@ class IndexController extends AbstractController
 {
 
     public function __construct(
-        private readonly PlazaRepository $plazaRepository,
-        private readonly CentroRepository $centroRepository,
+        private readonly PlazaRepository     $plazaRepository,
+        private readonly CentroRepository    $centroRepository,
         private readonly ProvinciaRepository $provinciaRepository,
         private readonly LocalidadRepository $localidadRepository,
     )
@@ -26,7 +25,6 @@ class IndexController extends AbstractController
     #[Route('/')]
     public function index(): Response
     {
-        $plazas = $this->plazaRepository->findAll();
         return $this->render('index.html.twig', [
             'provincias' => $this->provinciaRepository->findAll(),
             'localidades' => $this->localidadRepository->findAll(),

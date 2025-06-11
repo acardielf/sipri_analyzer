@@ -32,15 +32,6 @@ class FileUtilitiesService
         return $this->filesystem->exists(Path::normalize($path));
     }
 
-    public function saveContentToFile(string $path, string $content): void
-    {
-        try {
-            $this->filesystem->dumpFile(Path::normalize($path), $content);
-        } catch (IOExceptionInterface $exception) {
-            echo "An error occurred while saving the file at " . $exception->getPath();
-        }
-    }
-
     public function getFileContent(string $pdfPath)
     {
         $normalizedPath = Path::normalize($pdfPath);

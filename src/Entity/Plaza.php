@@ -31,21 +31,21 @@ class Plaza
     #[ORM\Column(enumType: ObligatoriedadPlazaEnum::class)]
     private ?ObligatoriedadPlazaEnum $obligatoriedad = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $fecha_prevista_cese = null;
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $fechaPrevistaCese = null;
 
     #[ORM\Column]
     private ?int $numero = null;
 
 
     public function __construct(
-        Convocatoria $convocatoria,
-        Centro $centro,
-        Especialidad $especialidad,
-        TipoPlazaEnum $tipo,
+        Convocatoria            $convocatoria,
+        Centro                  $centro,
+        Especialidad            $especialidad,
+        TipoPlazaEnum           $tipo,
         ObligatoriedadPlazaEnum $obligatoriedad,
-        ?\DateTime $fecha_prevista_cese = null,
-        int $numero = 0
+        ?\DateTimeImmutable     $fechaPrevistaCese = null,
+        int                     $numero = 0
     )
     {
         $this->convocatoria = $convocatoria;
@@ -53,7 +53,7 @@ class Plaza
         $this->especialidad = $especialidad;
         $this->tipo = $tipo;
         $this->obligatoriedad = $obligatoriedad;
-        $this->fecha_prevista_cese = $fecha_prevista_cese;
+        $this->fechaPrevistaCese = $fechaPrevistaCese;
         $this->numero = $numero;
     }
 
@@ -129,14 +129,14 @@ class Plaza
         return $this;
     }
 
-    public function getFechaPrevistaCese(): ?\DateTime
+    public function getFechaPrevistaCese(): ?\DateTimeImmutable
     {
-        return $this->fecha_prevista_cese;
+        return $this->fechaPrevistaCese;
     }
 
-    public function setFechaPrevistaCese(?\DateTime $fecha_prevista_cese): static
+    public function setFechaPrevistaCese(?\DateTimeImmutable $fechaPrevistaCese): static
     {
-        $this->fecha_prevista_cese = $fecha_prevista_cese;
+        $this->fechaPrevistaCese = $fechaPrevistaCese;
 
         return $this;
     }

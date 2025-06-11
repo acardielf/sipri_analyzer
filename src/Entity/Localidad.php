@@ -27,18 +27,36 @@ class Localidad
     #[ORM\OneToMany(targetEntity: Centro::class, mappedBy: 'localidad')]
     private Collection $centros;
 
-    public function __construct()
+    public function __construct(
+        int       $id,
+        string    $nombre,
+        Provincia $provincia,
+    )
     {
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->provincia = $provincia;
         $this->centros = new ArrayCollection();
     }
 
-    public static function fromString(string $localidad, string $provincia): Localidad
+    public static function fromStringAndProvincia(string $localidad, string $provincia): Localidad
     {
         $object = new Localidad();
-        $values = explode(' - ', $localidad);
+        $values = explode(' - ', $localidad, 2);
         $object->setId($values[0]);
         $object->setNombre($values[1]);
         $object->setProvincia(Provincia::fromString($provincia));
+
+        return $object;
+    }
+
+    public static function fromString(string $localidad, Provincia $provincia): Localidad
+    {
+        $object = new Localidad();
+        $values = explode(' - ', $localidad, 2);
+        $object->setId($values[0]);
+        $object->setNombre($values[1]);
+        $object->setProvincia($provincia);
 
         return $object;
     }

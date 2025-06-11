@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Plaza;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -11,33 +12,67 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PlazaRepository extends ServiceEntityRepository
 {
+    protected EntityManagerInterface $em;
+
     public function __construct(ManagerRegistry $registry)
     {
+        $this->em = $registry->getManager();
         parent::__construct($registry, Plaza::class);
     }
 
-        /**
-         * @return Plaza[] Returns an array of Plaza objects
-         */
-        public function findByExampleField($value): array
-        {
-            return $this->createQueryBuilder('p')
-                ->andWhere('p.exampleField = :val')
-                ->setParameter('val', $value)
-                ->orderBy('p.id', 'ASC')
-                ->setMaxResults(10)
-                ->getQuery()
-                ->getResult()
-            ;
+    public function findByAttributes(
+        ?int                $convocatoriaId = null,
+        ?int                $centroId = null,
+        ?string             $especialidadId = null,
+        ?string             $tipo = null,
+        ?string             $obligatoriedad = null,
+        ?\DateTimeImmutable $fechaPrevistaCese = null,
+        ?int                $numero = null
+    ): ?Plaza
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if ($convocatoriaId) {
+            $qb->andWhere('p.convocatoria = :convocatoriaId')
+                ->setParameter('convocatoriaId', $convocatoriaId);
         }
 
-    //    public function findOneBySomeField($value): ?Plaza
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($centroId) {
+            $qb->andWhere('p.centro = :centroId')
+                ->setParameter('centroId', $centroId);
+        }
+
+        if ($especialidadId) {
+            $qb->andWhere('p.especialidad = :especialidadId')
+                ->setParameter('especialidadId', $especialidadId);
+        }
+
+        if ($tipo) {
+            $qb->andWhere('p.tipo = :tipo')
+                ->setParameter('tipo', $tipo);
+        }
+
+        if ($obligatoriedad) {
+            $qb->andWhere('p.obligatoriedad = :obligatoriedad')
+                ->setParameter('obligatoriedad', $obligatoriedad);
+        }
+
+        if ($fechaPrevistaCese) {
+            $qb->andWhere('p.fechaPrevistaCese = :fechaPrevistaCese')
+                ->setParameter('fechaPrevistaCese', $fechaPrevistaCese);
+        }
+
+        if ($numero !== null) {
+            $qb->andWhere('p.numero = :numero')
+                ->setParameter('numero', $numero);
+        }
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function save(Plaza $plaza)
+    {
+        $this->em->persist($plaza);
+        $this->em->flush();
+    }
 }

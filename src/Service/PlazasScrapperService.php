@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class SipriPlazasService
+class PlazasScrapperService
 {
 
     public function getPagesContentFromText(string $text): array
@@ -152,17 +152,6 @@ class SipriPlazasService
         return $result;
     }
 
-    protected function findLastCentroLineIndex(array $lines): ?int
-    {
-        // Recorremos desde el final hacia el inicio
-        for ($i = count($lines) - 1; $i >= 0; $i--) {
-            if (preg_match('/^\d{8} - /', $lines[$i])) {
-                return $i; // Línea encontrada
-            }
-        }
-        return null; // No encontrado
-    }
-
     protected function findLastFechaHoraLineIndexOrLastLine(array $lines): ?int
     {
         $pattern = '/\b\d{2}\/\d{2}\/\d{4}[\t ]+\d{2}:\d{2}\b/';
@@ -174,7 +163,7 @@ class SipriPlazasService
         return count($lines); // No se encontró
     }
 
-    function findFirstNumericLineFrom(array $lines, int $start): ?int
+    protected function findFirstNumericLineFrom(array $lines, int $start): ?int
     {
         for ($i = $start; $i >= 0; $i--) {
             if (preg_match('/^\d+$/', trim($lines[$i]))) {
@@ -184,7 +173,7 @@ class SipriPlazasService
         return null;
     }
 
-    function findFirstInvalidCodigoCentro(array $lines, int $start): ?int
+    protected function findFirstInvalidCodigoCentro(array $lines, int $start): ?int
     {
         // Patrón que indica el inicio del siguiente bloque: hasta 5 dígitos + ' - '
         $patternSiguiente = '/^\d{1,5} - /';

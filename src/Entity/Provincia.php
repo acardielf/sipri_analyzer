@@ -16,7 +16,7 @@ class Provincia
     private ?int $id = null;
 
     #[ORM\Column(length: 7)]
-    private ?string $name = null;
+    private ?string $nombre = null;
 
     /**
      * @var Collection<int, Localidad>
@@ -24,20 +24,26 @@ class Provincia
     #[ORM\OneToMany(targetEntity: Localidad::class, mappedBy: 'provincia')]
     private Collection $localidades;
 
-    public function __construct()
+    public function __construct(
+        int    $id = 0,
+        string $nombre = ''
+    )
     {
+        $this->id = $id;
+        $this->nombre = $nombre;
         $this->localidades = new ArrayCollection();
     }
 
     public static function fromString(string $name): Provincia
     {
         $provincia = new Provincia();
-        $values = explode(' - ', $name);
+        $values = explode(' - ', $name, 2);
         $provincia->setId($values[0]);
-        $provincia->setName($values[1]);
+        $provincia->setNombre($values[1]);
 
         return $provincia;
     }
+
 
     public function getId(): ?int
     {
@@ -51,14 +57,14 @@ class Provincia
         return $this;
     }
 
-    public function getName(): ?string
+    public function getNombre(): ?string
     {
-        return $this->name;
+        return $this->nombre;
     }
 
-    public function setName(string $name): static
+    public function setNombre(string $nombre): static
     {
-        $this->name = $name;
+        $this->nombre = $nombre;
 
         return $this;
     }

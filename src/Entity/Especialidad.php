@@ -23,17 +23,22 @@ class Especialidad
     #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'especialidad')]
     private Collection $plazas;
 
-    public function __construct()
+    public function __construct(
+        string $id,
+        string $nombre
+    )
     {
+        $this->id = $id;
+        $this->nombre = $nombre;
         $this->plazas = new ArrayCollection();
     }
 
     public static function fromString(mixed $especialidad): Especialidad
     {
         $object = new Especialidad();
-        $values = explode(' - ', $especialidad);
-        $object->setId($values[0]);
-        $object->setNombre($values[1]);
+        $values = explode(' - ', $especialidad, 2);
+        $object->setId($values[0] ?? null);
+        $object->setNombre($values[1] ?? null);
         return $object;
     }
 

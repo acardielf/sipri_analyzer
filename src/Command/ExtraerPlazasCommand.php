@@ -2,16 +2,17 @@
 
 namespace App\Command;
 
-use App\Entity\Centro;
-use App\Entity\Convocatoria;
-use App\Entity\Especialidad;
-use App\Entity\Plaza;
+use App\Dto\CentroDto;
+use App\Dto\ConvocatoriaDto;
+use App\Dto\EspecialidadDto;
+use App\Dto\PlazaDto;
 use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
+use App\Repository\PlazaRepository;
+use App\Service\DtoToEntity\PlazaDtoToEntity;
 use App\Service\FileUtilitiesService;
-use App\Service\SipriPlazasService;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\PlazasScrapperService;
+use DateTimeImmutable;
 use Smalot\PdfParser\Parser;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -26,9 +27,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ExtraerPlazasCommand extends Command
 {
     public function __construct(
-        private readonly FileUtilitiesService   $fileUtilitiesService,
-        private readonly SipriPlazasService     $sipriPlazasService,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly FileUtilitiesService  $fileUtilitiesService,
+        private readonly PlazasScrapperService $plazasScrapperService,
+        private readonly PlazaDtoToEntity      $plazaDtoToEntity,
+        private readonly PlazaRepository       $plazaRepository,
     )
     {
         parent::__construct();
@@ -63,13 +65,13 @@ class ExtraerPlazasCommand extends Command
         $pdf = $parser->parseContent($this->fileUtilitiesService->getFileContent($pdfPath));
         $text = $pdf->getText();
 
-        $paginas = $this->sipriPlazasService->getPagesContentFromText($text);
+        $paginas = $this->plazasScrapperService->getPagesContentFromText($text);
 
         $resultados = [];
 
 
         foreach ($paginas as $numero => $contenido) {
-            $resultadosPagina = $this->sipriPlazasService->extractPageContent($contenido);
+            $resultadosPagina = $this->plazasScrapperService->extractPageContent($contenido);
 //            $this->fileUtilitiesService->saveContentToFile(
 //                $path . 'plazas_pag_' . $numero . '.txt',
 //                $paginas[$numero]
@@ -77,20 +79,22 @@ class ExtraerPlazasCommand extends Command
             $resultados = array_merge($resultados, $resultadosPagina);
         }
 
-        foreach ($resultados as $plaza) {
-            $plaza = new Plaza(
-                Convocatoria::fromId($convocatoria),
-                Centro::fromString($plaza['centro'], localidad: $plaza['localidad'], provincia: $plaza['provincia']),
-                Especialidad::fromString($plaza['puesto']),
-                TipoPlazaEnum::fromString($plaza['tipo']),
-                ObligatoriedadPlazaEnum::fromString($plaza['voluntaria']),
-                $plaza['fecha_prevista_cese'] == "" ? null : DateTime::createFromFormat('d/m/y', $plaza['fecha_prevista_cese']),
-                intval($plaza['num_plazas'])
+        foreach ($resultados as $plaza_array) {
+            $plazaDto = new PlazaDto(
+                id: null,
+                convocatoria: ConvocatoriaDto::fromId($convocatoria),
+                centro: CentroDto::fromString($plaza_array['centro'], $plaza_array['localidad'], $plaza_array['provincia']),
+                especialidad: EspecialidadDto::fromString($plaza_array['puesto']),
+                tipoPlaza: TipoPlazaEnum::fromString($plaza_array['tipo']),
+                obligatoriedadPlaza: ObligatoriedadPlazaEnum::fromString($plaza_array['voluntaria']),
+                fechaPrevistaCese: $plaza_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat('d/m/y', $plaza_array['fecha_prevista_cese']),
+                numero: intval($plaza_array['num_plazas'])
             );
-            $this->entityManager->persist($plaza);
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-            $output->writeln('<info>Plaza añadida:</info> ' . $plaza->getCentro()->getNombre() . ' - ' . $plaza->getEspecialidad()->getNombre());
+
+            $plaza = $this->plazaDtoToEntity->get($plazaDto);
+            $this->plazaRepository->save($plaza, true);
+
+            $output->writeln('<info>Plaza añadida:</info> ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
         }
 
 

@@ -16,7 +16,7 @@ class Convocatoria
     private ?int $id = null;
 
     #[ORM\Column(length: 12)]
-    private ?string $name = null;
+    private ?string $nombre = null;
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'convocatorias')]
     private ?Curso $curso = null;
@@ -27,18 +27,16 @@ class Convocatoria
     #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'convocatoria')]
     private Collection $plazas;
 
-    public function __construct()
+    public function __construct(
+        int    $id,
+        string $nombre,
+        Curso  $curso,
+    )
     {
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->curso = $curso;
         $this->plazas = new ArrayCollection();
-    }
-
-    public static function fromId(int $convocatoria): Convocatoria
-    {
-        $object = new Convocatoria();
-        $object->setId($convocatoria);
-        $object->setName(str_pad($convocatoria, 12, '0', STR_PAD_LEFT));
-
-        return $object;
     }
 
     public function getId(): ?int
@@ -53,14 +51,14 @@ class Convocatoria
         return $this;
     }
 
-    public function getName(): ?string
+    public function getNombre(): ?string
     {
-        return $this->name;
+        return $this->nombre;
     }
 
-    public function setName(string $name): static
+    public function setNombre(string $nombre): static
     {
-        $this->name = $name;
+        $this->nombre = $nombre;
 
         return $this;
     }

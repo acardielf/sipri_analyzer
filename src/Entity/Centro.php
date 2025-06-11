@@ -27,15 +27,23 @@ class Centro
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
 
-    public function __construct()
+    public function __construct(
+        int       $id,
+        string    $nombre,
+        Localidad $localidad,
+    )
     {
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->localidad = $localidad;
+
         $this->plazas = new ArrayCollection();
     }
 
     public static function fromString(string $centro, string $localidad, string $provincia): Centro
     {
         $object = new Centro();
-        $values = explode(' - ', $centro);
+        $values = explode(' - ', $centro, 2);
         $object->setId($values[0]);
         $object->setNombre($values[1]);
         $object->setLocalidad(Localidad::fromString($localidad, $provincia));
