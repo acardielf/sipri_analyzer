@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Entity\Convocatoria;
+use Exception;
 use RuntimeException;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -14,6 +16,33 @@ class FileUtilitiesService
     public function __construct()
     {
         $this->filesystem = new Filesystem();
+    }
+
+
+    /**
+     * @throws Exception
+     */
+    public static function getLocalPathForConvocatoria(int $convocatoria): string
+    {
+        $cursoDto = Convocatoria::getCursoFromConvocatoria($convocatoria);
+        return 'pdfs/' . $cursoDto->id . '/';
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function getFilesForConvocatoria(int $convocatoria): array
+    {
+        return [
+            'plazas' => [
+                'url' => '/C/2', // in same cases is '/C/1'
+                'sink' => static::getLocalPathForConvocatoria($convocatoria) . $convocatoria . '_plazas.pdf',
+            ],
+            'adjudicados' => [
+                'url' => '/A/2',
+                'sink' => static::getLocalPathForConvocatoria($convocatoria) . $convocatoria . '_adjudicados.pdf',
+            ],
+        ];
     }
 
     public function createDirectoryIfNotExists(string $path): void
@@ -37,5 +66,6 @@ class FileUtilitiesService
         $normalizedPath = Path::normalize($pdfPath);
         return $this->filesystem->readFile($normalizedPath);
     }
+
 
 }

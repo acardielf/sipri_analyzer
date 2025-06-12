@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ConvocatoriaRepository::class)]
 class Convocatoria
 {
+    use ConvocatoriaConfigurationTrait;
+
     #[ORM\Id]
     #[ORM\Column]
     private ?int $id = null;
