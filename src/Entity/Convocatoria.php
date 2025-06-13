@@ -42,7 +42,7 @@ class Convocatoria
 
     public static function isNaturalOrder(int $convocatoria): bool
     {
-        return in_array($convocatoria, static::CONVOCATORIA_ORDEN_ALTERNATIVO, true);
+        return !in_array($convocatoria, static::CONVOCATORIA_ORDEN_ALTERNATIVO, true);
     }
 
     public function getId(): ?int
