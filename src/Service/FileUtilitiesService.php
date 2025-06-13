@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\Convocatoria;
 use Exception;
-use RuntimeException;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
@@ -33,17 +32,20 @@ class FileUtilitiesService
      */
     public static function getFilesForConvocatoria(int $convocatoria): array
     {
+        $natural = Convocatoria::isNaturalOrder($convocatoria);
+
         return [
             'plazas' => [
-                'url' => '/C/2', // in same cases is '/C/1'
+                'url' => $natural ? '/C/2' : '/C/1/',
                 'sink' => static::getLocalPathForConvocatoria($convocatoria) . $convocatoria . '_plazas.pdf',
             ],
             'adjudicados' => [
-                'url' => '/A/2',
+                'url' => $natural ? '/A/2' : '/A/1/',
                 'sink' => static::getLocalPathForConvocatoria($convocatoria) . $convocatoria . '_adjudicados.pdf',
             ],
         ];
     }
+
 
     public function createDirectoryIfNotExists(string $path): void
     {

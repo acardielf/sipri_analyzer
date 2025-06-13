@@ -59,3 +59,13 @@ for i in $(seq 1 30); do
     sleep 5
 done
 ```
+
+
+Localizar convocatorias con orden desordenado
+```bash
+find . -type f -name "*_adjudicados.pdf" -exec pdftotext {} {}.txt \;
+find . -type f -name "*_adjudicados.pdf.txt" -print0 | xargs -0 grep -L "ANEXO II" > ausentes.txt
+
+# borrar los ficheros
+find . -type f -name "*_adjudicados.pdf.txt" -exec rm {} \;
+```
