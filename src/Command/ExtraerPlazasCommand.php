@@ -44,15 +44,16 @@ class ExtraerPlazasCommand extends Command
 
     /**
      * @throws \DateMalformedStringException
+     * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $convocatoria = $input->getArgument('convocatoria');
         $convocatoria = intval($convocatoria);
 
-        $output->writeln('Convocatoria solicited: ' . $convocatoria);
+        $output->writeln('Convocatoria solicitada: ' . $convocatoria);
 
-        $path = 'pdfs/' . $convocatoria . '/';
+        $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
         $pdfPath = $path . $convocatoria . '_plazas.pdf';
         $outputPath = $path . $convocatoria . '_plazas.json';
 
@@ -71,7 +72,7 @@ class ExtraerPlazasCommand extends Command
 
 
         foreach ($paginas as $numero => $contenido) {
-            $resultadosPagina = $this->plazasScrapperService->extractPageContent($contenido, $convocatoria);
+            $resultadosPagina = $this->plazasScrapperService->extractPageContent($numero, $contenido, $convocatoria);
 //            $this->fileUtilitiesService->saveContentToFile(
 //                $path . 'plazas_pag_' . $numero . '.txt',
 //                $paginas[$numero]
