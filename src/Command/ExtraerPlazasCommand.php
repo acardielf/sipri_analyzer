@@ -13,6 +13,7 @@ use App\Service\DtoToEntity\PlazaDtoToEntity;
 use App\Service\FileUtilitiesService;
 use App\Service\PlazasScrapperService;
 use DateTimeImmutable;
+use Exception;
 use Smalot\PdfParser\Parser;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -40,11 +41,11 @@ class ExtraerPlazasCommand extends Command
     {
         $this->setHelp('Este comando extrae plazas desde un PDF y las guarda en formato JSON');
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
+        $this->addOption('info', 'info', InputArgument::OPTIONAL, 'Muestra información adicional sobre la convocatoria', true);
     }
 
     /**
-     * @throws \DateMalformedStringException
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -73,10 +74,6 @@ class ExtraerPlazasCommand extends Command
 
         foreach ($paginas as $numero => $contenido) {
             $resultadosPagina = $this->plazasScrapperService->extractPageContent($numero, $contenido, $convocatoria);
-//            $this->fileUtilitiesService->saveContentToFile(
-//                $path . 'plazas_pag_' . $numero . '.txt',
-//                $paginas[$numero]
-//            );
             $resultados = array_merge($resultados, $resultadosPagina);
         }
 
@@ -94,17 +91,18 @@ class ExtraerPlazasCommand extends Command
                 numero: intval($plaza_array['num_plazas'])
             );
 
-            if ($this->plazaDtoToEntity->getIfExists($plazaDto, $ocurrencia)) {
-                $output->writeln('<comment>Plaza ya existe:</comment> ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
-            } else {
+            if (!$this->plazaDtoToEntity->getIfExists($plazaDto, $ocurrencia)) {
                 $plaza = $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
                 $this->plazaRepository->save($plaza);
-                $output->writeln('<info>Plaza añadida:</info> ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
+            }
+
+            if ($input->getOption('info')) {
+                $texto = $this->plazaDtoToEntity->getIfExists($plazaDto, $ocurrencia) ? '<comment>Plaza ya existe:</comment> ' : '<info>Plaza añadida:</info> ';
+                $output->writeln($texto . ' ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
             }
 
             $ocurrencia++;
         }
-
 
         // Guardar en JSON
         if (!is_dir(dirname($outputPath))) {
