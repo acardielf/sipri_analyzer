@@ -26,6 +26,10 @@ trait ConvocatoriaConfigurationTrait
         73, // Convocatoria 73 no se publicó por COVID-19
     ];
 
+    private const array CONVOCATORIA_ULTIMA_PAGINA_UN_REGISTRO = [
+        44, 47
+    ];
+
     /**
      * @throws Exception
      */

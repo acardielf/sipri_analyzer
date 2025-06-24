@@ -10,12 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EspecialidadRepository::class)]
 class Especialidad
 {
-    #[ORM\Id]
-    #[ORM\Column]
-    private ?string $id = null;
+    #[ORM\Id, ORM\Column]
+    private ?string $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $nombre = null;
+    private ?string $nombre;
 
     /**
      * @var Collection<int, Plaza>

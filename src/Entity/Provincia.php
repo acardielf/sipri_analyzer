@@ -10,12 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProvinciaRepository::class)]
 class Provincia
 {
-    #[ORM\Id]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Id, ORM\Column]
+    private ?int $id;
 
     #[ORM\Column(length: 7)]
-    private ?string $nombre = null;
+    private ?string $nombre;
 
     /**
      * @var Collection<int, Localidad>
@@ -76,22 +75,22 @@ class Provincia
         return $this->localidades;
     }
 
-    public function addLocalidade(Localidad $localidade): static
+    public function addLocalidad(Localidad $localidad): static
     {
-        if (!$this->localidades->contains($localidade)) {
-            $this->localidades->add($localidade);
-            $localidade->setProvincia($this);
+        if (!$this->localidades->contains($localidad)) {
+            $this->localidades->add($localidad);
+            $localidad->setProvincia($this);
         }
 
         return $this;
     }
 
-    public function removeLocalidade(Localidad $localidade): static
+    public function removeLocalidad(Localidad $localidad): static
     {
-        if ($this->localidades->removeElement($localidade)) {
+        if ($this->localidades->removeElement($localidad)) {
             // set the owning side to null (unless already changed)
-            if ($localidade->getProvincia() === $this) {
-                $localidade->setProvincia(null);
+            if ($localidad->getProvincia() === $this) {
+                $localidad->setProvincia(null);
             }
         }
 

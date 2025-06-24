@@ -21,11 +21,6 @@ readonly class PlazaDtoToEntity
     {
     }
 
-    public function getIfExists(PlazaDto $dto, int $ocurrencia): bool
-    {
-        return (bool)$this->repository->findByHash($dto, $ocurrencia);
-    }
-
     public function get(PlazaDto $dto, int $ocurrencia, bool $persist = true): ?object
     {
         $plaza = $this->repository->findByHash($dto, $ocurrencia);

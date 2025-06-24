@@ -91,13 +91,14 @@ class ExtraerPlazasCommand extends Command
                 numero: intval($plaza_array['num_plazas'])
             );
 
-            if (!$this->plazaDtoToEntity->getIfExists($plazaDto, $ocurrencia)) {
-                $plaza = $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
+            $plaza = $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
+            $texto = $plaza->getId() !== null ? '<comment>Plaza ya existe:</comment> ' : '<info>Plaza añadida:</info> ';
+
+            if ($plaza->getId() == null) {
                 $this->plazaRepository->save($plaza);
             }
 
             if ($input->getOption('info')) {
-                $texto = $this->plazaDtoToEntity->getIfExists($plazaDto, $ocurrencia) ? '<comment>Plaza ya existe:</comment> ' : '<info>Plaza añadida:</info> ';
                 $output->writeln($texto . ' ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
             }
 

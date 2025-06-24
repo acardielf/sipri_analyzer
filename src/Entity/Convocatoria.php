@@ -12,8 +12,7 @@ class Convocatoria
 {
     use ConvocatoriaConfigurationTrait;
 
-    #[ORM\Id]
-    #[ORM\Column]
+    #[ORM\Id, ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 12)]

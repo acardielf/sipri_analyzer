@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CentroRepository::class)]
 class Centro
 {
-    #[ORM\Id]
-    #[ORM\Column]
+    #[ORM\Id, ORM\Column]
     private ?string $id = null;
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'centros')]

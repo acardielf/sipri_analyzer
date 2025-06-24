@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CursoRepository::class)]
 class Curso
 {
-    #[ORM\Id]
-    #[ORM\Column]
+    #[ORM\Id, ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 9)]
