@@ -2,6 +2,11 @@
 
 namespace App\Service;
 
+use App\Entity\ConvocatoriaConfigurationTrait;
+use App\Enum\ProvinciaEnum;
+use App\Enum\TipoPlazaEnum;
+use App\Service\DtoToEntity\ConvocatoriaDtoToEntity;
+
 class PlazasScrapperService
 {
 
@@ -43,6 +48,7 @@ class PlazasScrapperService
         }
 
         if (count($lines) <= 6) {
+            //this only applies to docs like ConvocatoriaConfigurationTrait::CONVOCATORIA_ULTIMA_PAGINA_UN_REGISTRO;
             $result = $this->extractOnlyOneRecord($pagina, $convocatoria, $lines);
         } else {
             $result = $this->extractNormalCase($pagina, $convocatoria, $lines);
@@ -149,7 +155,7 @@ class PlazasScrapperService
          */
 
         $obligatoriedad = [];
-        foreach ($lines as $i => $line) {
+        foreach ($lines as $line) {
             if (preg_match('/^[SN](\/[SN])?$/', $line)) {
                 $obligatoriedad[] = $line;
             } else {
@@ -235,44 +241,115 @@ class PlazasScrapperService
         ];
     }
 
+    protected function extractProvincia(array $lines): ?string
+    {
+        foreach ($lines as $line) {
+            foreach (ProvinciaEnum::cases() as $province) {
+                if (stripos($line, $province->getWithCode()) !== false) {
+                    return $province->getWithCode();
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+
+    protected function extractTipo(array $lines): ?string
+    {
+        foreach ($lines as $line) {
+            foreach (TipoPlazaEnum::cases() as $tipo) {
+                if (stripos($line, $tipo->getLabel()) !== false) {
+                    return $tipo->getLabel();
+                }
+            }
+        }
+
+        return null;
+
+    }
+
     private function extractOnlyOneRecord(int $pagina, int $convocatoria, array $lines): array
     {
-        $parts = array_merge(explode("\t", $lines[0]), explode("\t", $lines[1]));
+        $parts = array_merge(...array_map(fn($line) => explode("\t", $line), $lines));
+
+        $provincia = $this->extractProvincia($parts);
+        $tipo = $this->extractTipo($parts);
+
+        $parts = $this->removeFoundedValuesFromLines($parts, [$provincia, $tipo]);
+
+        $localidad = $this->extractLocalidad($parts);
+
+        $numeroPlazas = $this->extractNumeroPlazas($parts);
+
+        $parts = $this->removeFoundedValuesFromLines($parts, [$localidad]);
+        $parts = $this->removeFoundedValuesFromLines($parts, [$numeroPlazas], strict: true);
+
 
         $cadena = implode(' ', $parts);
 
-        $ultima_posicion_guion = strrpos($parts[0], " - ");
-        $partidas = array_map('trim', explode('-', strrev($parts[0]), -1));
-
-        $numero_ciudad = strrev(substr($partidas[1], 0, strpos($partidas[1], " ")));
-        $numero_provincia = strrev(substr($partidas[2], 0, strpos($partidas[2], " ")));
-
-        $provincia = $numero_provincia . " - " . strrev(substr($partidas[1], strlen($numero_ciudad) + 1, strlen($partidas[1]) - 1));
-        $ciudad = $numero_ciudad . ' - ' . strrev($partidas[0]);
-
-
-        $resultado = substr($parts[0], $ultima_posicion_guion + 3);
-
-
-// Obtener los valores
-        $centro = trim($partes[0]);
-        $provincia = trim($partes[1]);
-        $localidad = trim($partes[2]);
-
-
         return [
-            'count' => $count,
+            'count' => null,
             'pagina' => $pagina,
             'convocatoria' => $convocatoria,
             'centros' => $centros,
-            'localidades' => $localidades,
-            'provincias' => $provincias,
+            'localidades' => [$localidad],
+            'provincias' => [$provincia],
             'puestos' => $puestos,
-            'tipos' => $tipos,
-            'plazas' => $plazas,
-            'obligatoriedad' => $obligatoriedad,
+            'tipos' => $tipo,
+            'plazas' => [$numeroPlazas],
+            'obligatoriedad' => [$tipo],
             'fechas' => $fechas
         ];
+    }
+
+    private function removeFoundedValuesFromLines(array $lines, array $encontrados, bool $strict = false): array
+    {
+        $sanitized = [];
+        foreach ($lines as $line) {
+            $sanitizedLine = $line;
+            foreach ($encontrados as $toRemove) {
+                if ($strict && $toRemove == $sanitizedLine) {
+                    $sanitizedLine = "";
+                }
+                $sanitizedLine = str_replace($toRemove, "", $sanitizedLine);
+            }
+            $sanitized[] = $sanitizedLine;
+        }
+
+        return array_filter($sanitized, fn($line) => trim($line) !== '');
+    }
+
+    private function extractLocalidad(array $lines): ?string
+    {
+        $lines = array_values($lines);
+        foreach ($lines as $index => $line) {
+            if (preg_match('/(?<!\d)\d{1,2} - .+$/', $line, $coincidencias)) {
+
+                $resultado = $coincidencias[0];
+
+                if ($index !== sizeof($lines) - 1) {
+                    if (!preg_match('/^\d/', $lines[$index + 1])) {
+                        // Si la siguiente línea no empieza con un número, es parte de la localidad
+                        $resultado .= ' ' . $lines[$index + 1];
+                    }
+                }
+
+                echo $resultado;
+            }
+        }
+        return $resultado ?? null;
+    }
+
+    private function extractNumeroPlazas(array $lines): ?int
+    {
+        foreach ($lines as $line) {
+            if (ctype_digit($line)) {
+                return (int)$line;
+            }
+        }
+        return null;
     }
 
 }

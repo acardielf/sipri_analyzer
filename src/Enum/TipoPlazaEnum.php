@@ -16,4 +16,12 @@ enum TipoPlazaEnum: string
         };
     }
 
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::SUSTITUCION => 'Sustitución',
+            self::VACANTE => 'Vacante',
+        };
+    }
+
 }
