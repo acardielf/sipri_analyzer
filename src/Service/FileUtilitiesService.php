@@ -32,15 +32,13 @@ class FileUtilitiesService
      */
     public static function getFilesForConvocatoria(int $convocatoria): array
     {
-        $natural = Convocatoria::isNaturalOrder($convocatoria);
-
         return [
             'plazas' => [
-                'url' => $natural ? '/C/2' : '/C/1/',
+                'url' => null,
                 'sink' => static::getLocalPathForConvocatoria($convocatoria) . $convocatoria . '_plazas.pdf',
             ],
             'adjudicados' => [
-                'url' => $natural ? '/A/2' : '/A/1/',
+                'url' => null,
                 'sink' => static::getLocalPathForConvocatoria($convocatoria) . $convocatoria . '_adjudicados.pdf',
             ],
         ];

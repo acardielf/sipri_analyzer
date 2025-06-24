@@ -11,7 +11,9 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DomCrawler\Crawler;
 
 #[AsCommand(
     name: 'sipri:get-convocatoria',
@@ -23,8 +25,8 @@ class GetConvocatoria extends Command
     private Client $client;
 
     const BASE_URL = 'https://www.juntadeandalucia.es';
-    const DOWNLOAD_URL = '/educacion/sipri/normativa/descarga/';
     const HISTORICO_BUSCAR_URL = '/educacion/sipri/normativa/historicobuscar/';
+    const CLIENT_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3';
 
     public function __construct(
         private readonly FileUtilitiesService $fileUtilitiesService,
@@ -38,6 +40,7 @@ class GetConvocatoria extends Command
     {
         $this->setHelp('This command allows you to get convocatoria from SIPRI');
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria to download');
+        $this->addOption('force', 'f', InputOption::VALUE_NEGATABLE, 'Force download even if files already exist', false);
     }
 
     /**
@@ -56,38 +59,57 @@ class GetConvocatoria extends Command
 
         $this->fileUtilitiesService->createDirectoryIfNotExists($localPath);
 
-        $allFilesExist = $this->checkIfAllFilesExist(array_map(
-            fn($file) => $file['sink'],
-            $files
-        ));
 
-        if ($allFilesExist) {
-            $output->writeln('<info>Todos los archivos ya existen. No se descargarán de nuevo.</info>');
-            return Command::SUCCESS;
+        if (!$input->getOption('force')) {
+            $allFilesExist = $this->checkIfAllFilesExist(array_map(
+                fn($file) => $file['sink'],
+                $files
+            ));
+
+            if ($allFilesExist) {
+                $output->writeln('<info>Todos los archivos ya existen. No se descargarán de nuevo.</info>');
+                return Command::SUCCESS;
+            }
         }
 
         $this->jar = new SessionCookieJar('SipriSession', true);
 
         $this->client = new Client([
             'base_uri' => self::BASE_URL,
-            'cookies' => $this->jar
+            'cookies' => $this->jar,
+            'headers' => [
+                'User-Agent' => self::CLIENT_AGENT,
+            ],
         ]);
 
-        $this->client->request('POST', self::HISTORICO_BUSCAR_URL, [
+        $response = $this->client->request('POST', self::HISTORICO_BUSCAR_URL, [
             'form_params' => [
                 'convocatoria' => $convocatoria,
-            ]
+            ],
         ]);
 
-        foreach ($files as $key => $file) {
+        $crawler = new Crawler($response->getBody()->getContents());
 
-            if ($this->fileUtilitiesService->fileExists($file['sink'])) {
+        $files['plazas']['url'] = $crawler->filter('a')->reduce(function (Crawler $node) {
+            return trim($node->text()) === 'Anexo II Convocatoria';
+        });
+
+        $files['adjudicados']['url'] = $crawler->filter('a')->reduce(function (Crawler $node) {
+            return trim($node->text()) === 'Anexo I (Adjudicados Orden Alfabético)';
+        });
+
+        if ($files['plazas']['url']->count() === 0 || $files['adjudicados']['url']->count() === 0) {
+            $output->writeln('<error>No se encontraron archivos para la convocatoria ' . $convocatoria . '</error>');
+            return Command::FAILURE;
+        }
+
+        foreach ($files as $key => $file) {
+            if ($this->fileUtilitiesService->fileExists($file['sink']) && $input->getOption('force') === false) {
                 $output->writeln("<info>Archivo PDF de $key ya existe. No se descargará de nuevo.</info>");
             } else {
-                $this->client->request('GET', self::DOWNLOAD_URL . $convocatoria . $file['url'], [
-                    'headers' => [
-                        'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-                    ],
+                $url = parse_url($file['url']->attr('href'), PHP_URL_PATH);
+                $url = str_replace('/historicobuscar', '', $url);
+                $this->client->request('GET', $url, [
                     'cookies' => $this->jar,
                     'sink' => $file['sink'],
                 ]);

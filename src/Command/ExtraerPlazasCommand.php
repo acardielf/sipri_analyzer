@@ -19,6 +19,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
@@ -41,7 +42,7 @@ class ExtraerPlazasCommand extends Command
     {
         $this->setHelp('Este comando extrae plazas desde un PDF y las guarda en formato JSON');
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
-        $this->addOption('info', 'info', InputArgument::OPTIONAL, 'Muestra información adicional sobre la convocatoria', true);
+        $this->addOption('info', 'info', InputOption::VALUE_NONE, 'Muestra información adicional sobre la convocatoria');
     }
 
     /**

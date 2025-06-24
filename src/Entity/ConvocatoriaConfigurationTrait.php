@@ -17,17 +17,13 @@ trait ConvocatoriaConfigurationTrait
         ['min' => 263, 'max' => 324, 'year' => 2023],
         ['min' => 325, 'max' => 388, 'year' => 2024],
     ];
-
-    private const array CONVOCATORIA_ORDEN_ALTERNATIVO = [
-        2, 106, 158, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 261, 262, 280, 335, 336, 348,
-    ];
     private const array CONVOCATORIA_AUSENTE = [
         26, 45, 91, 114, 155, 180, 199, 260, 265,
         73, // Convocatoria 73 no se publicó por COVID-19
     ];
 
     private const array CONVOCATORIA_ULTIMA_PAGINA_UN_REGISTRO = [
-        44, 47
+        80, 95, 121, 124, 141, 158, 170, 171, 184, 215, 219, 229, 239, 268, 279, 293, 357
     ];
 
     /**
