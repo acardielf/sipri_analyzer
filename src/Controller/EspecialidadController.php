@@ -75,6 +75,7 @@ class EspecialidadController extends AbstractController
             'curso' => $curso,
             'especialidad' => $especialidad,
             'plazas' => $filtered,
+            'provincias' => $provincias,
         ]);
     }
 

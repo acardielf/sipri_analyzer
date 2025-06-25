@@ -22,7 +22,7 @@
         </tr>
         {% for provincia, pl in plazas %}
             <tr>
-                <td>{{ provincia }}</td>
+                <td>{{ provincia_label(provincia) }}</td>
                 <td>
                     <a href="{{ path('app_plazas_especialidad_curso_provincia', { curso: curso.id, especialidad: especialidad.id, provincia: provincia}) }}">{{ pl|length }}</a>
                 </td>

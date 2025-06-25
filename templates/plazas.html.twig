@@ -22,6 +22,7 @@
         <th>Localidad</th>
         <th>Centro</th>
         <th>Convocatoria</th>
+        <th>Fecha</th>
         <th>Tipo</th>
         <th>Obligatoriedad</th>
         <th>F. Cese</th>
@@ -32,6 +33,7 @@
         <td>{{ plaza.centro.localidad.nombre }}</td>
         <td>{{ plaza.centro.nombre }}</td>
         <td>{{ plaza.convocatoria.id }}</td>
+        <td>{{ plaza.convocatoria.fecha|date('d/m/Y')  }}</td>
         <td>{{ plaza.tipo.value }}</td>
         <td>{{ plaza.obligatoriedad.value }}</td>
         <td>{{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '' }}</td>

@@ -29,6 +29,21 @@ enum ProvinciaEnum: string
         };
     }
 
+    public static function fromCode(int $code): self
+    {
+        return match ($code) {
+            4 => self::ALMERIA,
+            11 => self::CADIZ,
+            14 => self::CORDOBA,
+            18 => self::GRANADA,
+            21 => self::HUELVA,
+            23 => self::JAEN,
+            29 => self::MALAGA,
+            41 => self::SEVILLA,
+            default => throw new \InvalidArgumentException("Invalid code for ProvinciaEnum: $code"),
+        };
+    }
+
     public function getWithCode(): string
     {
         return match ($this) {
