@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Enum\ProvinciaEnum;
 use App\Enum\TipoPlazaEnum;
+use DateTimeImmutable;
 
 class PlazasScrapperService
 {
@@ -414,6 +415,17 @@ class PlazasScrapperService
         }
 
         return $code . " - " . $rest;
+    }
+
+    public function extractDateTimeFromText(string $text): ?\DateTimeImmutable
+    {
+        $pattern = '/^(\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2})/';
+
+        if (preg_match($pattern, $text, $matches)) {
+            $dateTime = $matches[0];
+            return DateTimeImmutable::createFromFormat('d/m/Y H:i', $dateTime);
+        }
+        return null;
     }
 
 }

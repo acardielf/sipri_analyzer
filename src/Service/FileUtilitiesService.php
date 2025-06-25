@@ -61,10 +61,19 @@ class FileUtilitiesService
         return $this->filesystem->exists(Path::normalize($path));
     }
 
-    public function getFileContent(string $pdfPath)
+    public function getFileContent(string $pdfPath): string
     {
         $normalizedPath = Path::normalize($pdfPath);
         return $this->filesystem->readFile($normalizedPath);
+    }
+
+    public function removeFile(string $path): void
+    {
+        try {
+            $this->filesystem->remove(Path::normalize($path));
+        } catch (IOExceptionInterface $exception) {
+            echo "An error occurred while removing the file at " . $exception->getPath();
+        }
     }
 
 

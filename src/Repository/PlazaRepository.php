@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Dto\PlazaDto;
+use App\Entity\Convocatoria;
 use App\Entity\Curso;
 use App\Entity\Especialidad;
 use App\Entity\Plaza;
@@ -136,5 +137,13 @@ class PlazaRepository extends ServiceEntityRepository
             ->setParameter('provincia', $provincia);
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function remove(Plaza $entity, bool $flush = true): void
+    {
+        $this->getEntityManager()->remove($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 }

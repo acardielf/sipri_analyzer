@@ -18,24 +18,30 @@ class Convocatoria
     #[ORM\Column(length: 12)]
     private ?string $nombre = null;
 
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $fecha = null;
+
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'convocatorias')]
     private ?Curso $curso = null;
 
     /**
      * @var Collection<int, Plaza>
      */
-    #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'convocatoria')]
+    #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'convocatoria', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $plazas;
 
     public function __construct(
-        int    $id,
-        string $nombre,
-        Curso  $curso,
+        int                 $id,
+        string              $nombre,
+        ?\DateTimeImmutable $fecha,
+        Curso               $curso,
     )
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->curso = $curso;
+        $this->fecha = $fecha;
         $this->plazas = new ArrayCollection();
     }
 
@@ -104,4 +110,15 @@ class Convocatoria
 
         return $this;
     }
+
+    public function getFecha(): ?\DateTimeImmutable
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(?\DateTimeImmutable $fecha): void
+    {
+        $this->fecha = $fecha;
+    }
+
 }

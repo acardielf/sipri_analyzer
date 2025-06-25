@@ -55,7 +55,7 @@ class ExtraerPlazasCommand extends Command
         $convocatoria = $input->getArgument('convocatoria');
         $convocatoria = intval($convocatoria);
 
-        $output->writeln('Convocatoria solicitada: ' . $convocatoria);
+        $output->writeln('Procesando convocatoria: ' . $convocatoria);
 
         $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
         $pdfPath = $path . $convocatoria . '_plazas.pdf';
@@ -70,6 +70,7 @@ class ExtraerPlazasCommand extends Command
         $pdf = $parser->parseContent($this->fileUtilitiesService->getFileContent($pdfPath));
         $text = $pdf->getText();
 
+        $fechaConvocatoria = $this->plazasScrapperService->extractDateTimeFromText($text);
         $paginas = $this->plazasScrapperService->getPagesContentFromText($text);
 
         $resultados = [];
@@ -92,7 +93,7 @@ class ExtraerPlazasCommand extends Command
 
             $plazaDto = new PlazaDto(
                 id: null,
-                convocatoria: ConvocatoriaDto::fromId($convocatoria),
+                convocatoria: ConvocatoriaDto::fromId($convocatoria, $fechaConvocatoria),
                 centro: CentroDto::fromString($plaza_array['centro'], $plaza_array['localidad'], $plaza_array['provincia']),
                 especialidad: EspecialidadDto::fromString($plaza_array['puesto']),
                 tipoPlaza: TipoPlazaEnum::fromString($plaza_array['tipo']),

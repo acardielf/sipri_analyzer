@@ -26,6 +26,7 @@ readonly class ConvocatoriaDtoToEntity
             $convocatoria = new Convocatoria(
                 id: $dto->id,
                 nombre: $dto->nombre,
+                fecha: $dto->fecha,
                 curso: $this->cursoDtoToEntity->get($dto->curso)
             );
             if ($persist) {
