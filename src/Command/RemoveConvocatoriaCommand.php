@@ -27,15 +27,15 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'sipri:eliminar-convocatoria',
+    name: 'sipri:del',
     description: 'Elimina una convocatoria, sus plazas y archivos asociados',
 )]
 class RemoveConvocatoriaCommand extends Command
 {
     public function __construct(
-        private readonly FileUtilitiesService  $fileUtilitiesService,
+        private readonly FileUtilitiesService   $fileUtilitiesService,
         private readonly ConvocatoriaRepository $convocatoriaRepository,
-        private readonly PlazaRepository       $plazaRepository,
+        private readonly PlazaRepository        $plazaRepository,
     )
     {
         parent::__construct();
@@ -45,6 +45,7 @@ class RemoveConvocatoriaCommand extends Command
     {
         $this->setHelp('Este comando elimina una convocatoria, sus plazas y archivos asociados');
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
+        $this->addOption('full', 'f', InputOption::VALUE_NEGATABLE, 'Elimina también los archivos asociados a la convocatoria');
     }
 
     /**
@@ -59,40 +60,45 @@ class RemoveConvocatoriaCommand extends Command
 
         $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
 
-        $pdfPath = $path . $convocatoria . '_plazas.pdf';
-        $outputPath = $path . $convocatoria . '_plazas.json';
-        $adjudicadosPath = $path . $convocatoria . '_adjudicados.pdf';
+        if ($input->getOption('full')) {
+            $pdfPath = $path . $convocatoria . '_plazas.pdf';
+            $outputPath = $path . $convocatoria . '_plazas.json';
+            $adjudicadosPath = $path . $convocatoria . '_adjudicados.pdf';
 
-        if ($this->fileUtilitiesService->fileExists($pdfPath)) {
-            $this->fileUtilitiesService->removeFile($pdfPath);
+            if ($this->fileUtilitiesService->fileExists($pdfPath)) {
+                $this->fileUtilitiesService->removeFile($pdfPath);
+            }
+
+            if ($this->fileUtilitiesService->fileExists($outputPath)) {
+                $this->fileUtilitiesService->removeFile($outputPath);
+            }
+
+            if ($this->fileUtilitiesService->fileExists($adjudicadosPath)) {
+                $this->fileUtilitiesService->removeFile($adjudicadosPath);
+            }
+            $output->writeln('<info>Archivos PDF eliminados.</info>');
         }
 
-        if ($this->fileUtilitiesService->fileExists($outputPath)) {
-            $this->fileUtilitiesService->removeFile($outputPath);
-        }
-
-        if ($this->fileUtilitiesService->fileExists($adjudicadosPath)) {
-            $this->fileUtilitiesService->removeFile($adjudicadosPath);
-        }
 
         $convocatoriaEntity = $this->convocatoriaRepository->find($convocatoria);
         $plazas = $this->plazaRepository->findBy(['convocatoria' => $convocatoria]);
-
-        if (!$plazas) {
-            $output->writeln('<error>No se encontraron plazas asociadas.</error>');
-        }
 
         foreach ($plazas as $plaza) {
             $this->plazaRepository->remove($plaza);
         }
 
+        if (!$plazas) {
+            $output->writeln('<error>No se encontraron plazas asociadas.</error>');
+        } else {
+            $output->writeln('<info>Eliminadas ' . count($plazas) . ' plazas asociadas.</info>');
+        }
+
         if ($convocatoriaEntity) {
             $this->convocatoriaRepository->remove($convocatoriaEntity);
+            $output->writeln('<info>Convocatoria eliminada.</info>');
         } else {
             $output->writeln('<error>Convocatoria no encontrada.</error>');
         }
-
-
 
         return Command::SUCCESS;
     }
