@@ -75,10 +75,13 @@ class PlazaRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function save(Plaza $plaza)
+    public function save(Plaza $plaza, bool $clear = false): void
     {
         $this->em->persist($plaza);
         $this->em->flush();
+        if ($clear) {
+            $this->em->clear();
+        }
     }
 
     public function findByHash(PlazaDto $dto, int $ocurrencia): ?Plaza

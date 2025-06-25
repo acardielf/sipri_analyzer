@@ -105,7 +105,7 @@ class ExtraerPlazasCommand extends Command
             $texto = $plaza->getId() !== null ? '<comment>Plaza ya existe:</comment> ' : '<info>Plaza añadida:</info> ';
 
             if ($plaza->getId() == null) {
-                $this->plazaRepository->save($plaza);
+                $this->plazaRepository->save($plaza, clear: true);
                 $nuevas++;
             }
 
