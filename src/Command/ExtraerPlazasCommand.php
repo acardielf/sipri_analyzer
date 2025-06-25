@@ -15,8 +15,10 @@ use App\Service\PlazasScrapperService;
 use DateTimeImmutable;
 use Exception;
 use Smalot\PdfParser\Parser;
+use Spatie\PdfToText\Pdf;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -79,6 +81,13 @@ class ExtraerPlazasCommand extends Command
         }
 
         $ocurrencia = 1;
+        $nuevas = 0;
+
+        $progressBar = new ProgressBar($output, sizeof($resultados));
+        if (!$input->getOption('info')) {
+            $progressBar->start();
+        }
+
         foreach ($resultados as $plaza_array) {
 
             $plazaDto = new PlazaDto(
@@ -97,14 +106,24 @@ class ExtraerPlazasCommand extends Command
 
             if ($plaza->getId() == null) {
                 $this->plazaRepository->save($plaza);
+                $nuevas++;
             }
 
             if ($input->getOption('info')) {
                 $output->writeln($texto . ' ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
+            } else {
+                $progressBar->advance();
             }
 
             $ocurrencia++;
+
         }
+
+        if (!$input->getOption('info')) {
+            $progressBar->finish();
+            $output->writeln('');
+        }
+
 
         // Guardar en JSON
         if (!is_dir(dirname($outputPath))) {
@@ -114,6 +133,9 @@ class ExtraerPlazasCommand extends Command
         file_put_contents($outputPath, json_encode($resultados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         $output->writeln('<info>Guardado:</info> ' . $outputPath . ' (' . count($resultados) . ' plazas)');
 
+        $output->writeln('<info>Nuevas plazas:</info> ' . $nuevas);
+        $output->writeln('<info>Plazas omitidas:</info> ' . ($ocurrencia-1 - $nuevas));
+        $output->writeln('<info>Total plazas:</info> ' . $ocurrencia-1);
 
         return Command::SUCCESS;
     }

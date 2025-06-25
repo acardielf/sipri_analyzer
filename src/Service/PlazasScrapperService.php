@@ -2,10 +2,8 @@
 
 namespace App\Service;
 
-use App\Entity\ConvocatoriaConfigurationTrait;
 use App\Enum\ProvinciaEnum;
 use App\Enum\TipoPlazaEnum;
-use App\Service\DtoToEntity\ConvocatoriaDtoToEntity;
 
 class PlazasScrapperService
 {
@@ -48,7 +46,6 @@ class PlazasScrapperService
         }
 
         if (count($lines) <= 6) {
-            //this only applies to docs like ConvocatoriaConfigurationTrait::CONVOCATORIA_ULTIMA_PAGINA_UN_REGISTRO;
             $result = $this->extractOnlyOneRecord($pagina, $convocatoria, $lines);
         } else {
             $result = $this->extractNormalCase($pagina, $convocatoria, $lines);
@@ -282,25 +279,28 @@ class PlazasScrapperService
         $localidad = $this->extractLocalidad($parts);
 
         $numeroPlazas = $this->extractNumeroPlazas($parts);
+        $fecha = $this->extractFecha($parts);
 
         $parts = $this->removeFoundedValuesFromLines($parts, [$localidad]);
-        $parts = $this->removeFoundedValuesFromLines($parts, [$numeroPlazas], strict: true);
+        $parts = $this->removeFoundedValuesFromLines($parts, [$fecha, $numeroPlazas], strict: true);
 
+        $obligatoriedad = $this->extractObligatoriedad(reset($parts));
+        $centro = $this->extractCentro(reset($parts));
+        $especialidad = $this->extractEspecialidad(end($parts));
 
-        $cadena = implode(' ', $parts);
 
         return [
-            'count' => null,
+            'count' => 1,
             'pagina' => $pagina,
             'convocatoria' => $convocatoria,
-            'centros' => $centros,
+            'centros' => [$centro],
             'localidades' => [$localidad],
             'provincias' => [$provincia],
-            'puestos' => $puestos,
-            'tipos' => $tipo,
+            'puestos' => [$especialidad],
+            'tipos' => [$tipo],
             'plazas' => [$numeroPlazas],
-            'obligatoriedad' => [$tipo],
-            'fechas' => $fechas
+            'obligatoriedad' => [$obligatoriedad],
+            'fechas' => [$fecha]
         ];
     }
 
@@ -310,10 +310,13 @@ class PlazasScrapperService
         foreach ($lines as $line) {
             $sanitizedLine = $line;
             foreach ($encontrados as $toRemove) {
-                if ($strict && $toRemove == $sanitizedLine) {
-                    $sanitizedLine = "";
+                if ($strict) {
+                    if ($toRemove == $sanitizedLine) {
+                        $sanitizedLine = "";
+                    }
+                } else {
+                    $sanitizedLine = str_replace($toRemove, "", $sanitizedLine);
                 }
-                $sanitizedLine = str_replace($toRemove, "", $sanitizedLine);
             }
             $sanitized[] = $sanitizedLine;
         }
@@ -326,17 +329,11 @@ class PlazasScrapperService
         $lines = array_values($lines);
         foreach ($lines as $index => $line) {
             if (preg_match('/(?<!\d)\d{1,2} - .+$/', $line, $coincidencias)) {
-
                 $resultado = $coincidencias[0];
-
-                if ($index !== sizeof($lines) - 1) {
-                    if (!preg_match('/^\d/', $lines[$index + 1])) {
-                        // Si la siguiente línea no empieza con un número, es parte de la localidad
-                        $resultado .= ' ' . $lines[$index + 1];
-                    }
+                if ($index !== sizeof($lines) - 1 && !preg_match('/^\d/', $lines[$index + 1])) {
+                    // Si la siguiente línea no empieza con un número, es parte de la localidad
+                    $resultado .= ' ' . $lines[$index + 1];
                 }
-
-                echo $resultado;
             }
         }
         return $resultado ?? null;
@@ -345,11 +342,78 @@ class PlazasScrapperService
     private function extractNumeroPlazas(array $lines): ?int
     {
         foreach ($lines as $line) {
+            if (preg_match('/^(\d{2}\/\d{2}\/\d{2})(\d)$/', $line, $matches) && isset($matches[2])) {
+                return (int)$matches[2];
+            }
+
             if (ctype_digit($line)) {
                 return (int)$line;
             }
         }
         return null;
+    }
+
+    private function extractFecha(array $lines): ?string
+    {
+        foreach ($lines as $line) {
+            if (preg_match('/^(\d{2}\/\d{2}\/\d{2})(\d)$/', $line, $matches) && isset($matches[1])) {
+                return $matches[1];
+            }
+        }
+        return null;
+    }
+
+    private function extractObligatoriedad(string $reset): ?string
+    {
+        $parts = explode(' - ', $reset);
+
+        if (count($parts) < 2) {
+            return null;
+        }
+        $obligatoriedad = trim($parts[0]);
+
+        if (empty($obligatoriedad)) {
+            return null;
+        }
+
+        return $obligatoriedad[0];
+    }
+
+
+    private function extractCentro(string $string): ?string
+    {
+        $result = $this->extractCentroOrEspecialidad($string);
+        if ($result === null) {
+            return null;
+        }
+        // Elimina espacios y dígitos al final de la cadena
+        $limpia = preg_replace('/[\s\d]+$/', '', $result);
+        return substr($limpia, 1);
+    }
+
+    private function extractEspecialidad(string $string): ?string
+    {
+        $result = $this->extractCentroOrEspecialidad($string);
+        if ($result === null) {
+            return null;
+        }
+        return $result;
+    }
+
+    private function extractCentroOrEspecialidad(string $string): ?string
+    {
+        $parts = explode(' - ', $string);
+        if (count($parts) < 2) {
+            return null;
+        }
+        $code = trim($parts[0]);
+        $rest = trim($parts[1]);
+
+        if (empty($rest) || empty($code)) {
+            return null;
+        }
+
+        return $code . " - " . $rest;
     }
 
 }
