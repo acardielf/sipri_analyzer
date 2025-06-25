@@ -15,7 +15,6 @@ use App\Service\PlazasScrapperService;
 use DateTimeImmutable;
 use Exception;
 use Smalot\PdfParser\Parser;
-use Spatie\PdfToText\Pdf;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
