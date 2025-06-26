@@ -17,6 +17,18 @@ class Adjudicacion
     #[ORM\OneToOne(inversedBy: 'adjudicacion', cascade: ['persist', 'remove'])]
     private ?Plaza $plaza = null;
 
+    /**
+     * @param int|null $id
+     * @param int|null $puesto
+     * @param Plaza|null $plaza
+     */
+    public function __construct(?int $id, ?int $puesto, ?Plaza $plaza)
+    {
+        $this->id = $id;
+        $this->puesto = $puesto;
+        $this->plaza = $plaza;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

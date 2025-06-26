@@ -87,11 +87,6 @@ class ScrapperService
 
         $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
 
-//        if (count($lines) <= 6) {
-//            //$result = $this->extractPlazasOnlyOneRecord($pagina, $convocatoria, $lines);
-//        } else {
-//            $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
-//        }
 
         $data = [];
         for ($i = 0; $i < $result['count']; $i++) {
@@ -101,6 +96,7 @@ class ScrapperService
                 'puesto' => $result['puestos'][$i] ?? '',
                 'tipo' => $result['tipos'][$i] ?? '',
                 'num_plazas' => $result['plazas'][$i] ?? '',
+                'orden' => $result['orden'][$i] ?? '',
                 'voluntaria' => $result['obligatoriedad'][$i] ?? '',
                 'fecha_prevista_cese' => $result['fechas'][$i] ?? '',
             ];
@@ -324,16 +320,24 @@ class ScrapperService
 
 
         /*
-         * Bloque: Posicion
+         * Bloque: Posición/Especialidad
+         *
+         * Buscamos desde el final la primera línea que tenga una fecha y hora y ponemos el fin 2 posiciones antes
+         * Si no aparece esa fecha, o aparece muy lejos (más de $count líneas), tomamos el final como la última línea
          */
         $indice = null;
         for ($i = count($lines) - 1; $i >= 0; $i--) {
-            if ($lines[$i] === "") {
+            if (preg_match('/^\d{2}\/\d{2}\/\d{4} {3}\d{2}:\d{2}$/', $lines[$i])) {
                 $indice = $i;
                 break;
             }
         }
-        $index_puesto_end = $indice - 1;
+        if ($indice === null || (count($lines) - $indice) > $count) {
+            $index_puesto_end = count($lines) - 1;
+        } else {
+            $index_puesto_end = $indice - 2;
+        }
+
 
         $indice = null;
         for ($i = $index_puesto_end; $i >= 0; $i--) {
@@ -376,6 +380,15 @@ class ScrapperService
 
         $puestos = $this->fixDataDependingType($puesto, $count, 'puesto');
 
+        // extraer solo el codigo de puesto (antes del - )
+        $puestos = array_map(function ($puesto) {
+            if (preg_match('/^([A-Za-z0-9]{8}) - /', $puesto, $matches)) {
+                return $matches[1]; // Solo el código de puesto
+            }
+            return '';
+        }, $puestos);
+
+
         //check all arrays have the same count
         if (
             count($centros) !== $count ||
@@ -383,6 +396,7 @@ class ScrapperService
             count($puestos) !== $count ||
             count($tipos) !== $count ||
             count($fechas) !== $count ||
+            count($orden) !== $count ||
             count($obligatoriedad) !== $count
         ) {
             throw new \RuntimeException(
@@ -392,6 +406,7 @@ class ScrapperService
                 'puestos: ' . count($puestos) . ', ' .
                 'tipos: ' . count($tipos) . ', ' .
                 'fechas: ' . count($fechas) . ', ' .
+                'orden: ' . count($orden) . ', ' .
                 'obligatoriedad: ' . count($obligatoriedad)
             );
         }
@@ -404,6 +419,7 @@ class ScrapperService
             'provincias' => $provincias,
             'puestos' => $puestos,
             'tipos' => $tipos,
+            'orden' => $orden,
             'obligatoriedad' => $obligatoriedad,
             'fechas' => $fechas
         ];

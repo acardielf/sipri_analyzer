@@ -8,6 +8,9 @@ use App\Entity\Curso;
 use App\Entity\Especialidad;
 use App\Entity\Plaza;
 use App\Entity\Provincia;
+use App\Enum\ObligatoriedadPlazaEnum;
+use App\Enum\TipoPlazaEnum;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,15 +28,25 @@ class PlazaRepository extends ServiceEntityRepository
         parent::__construct($registry, Plaza::class);
     }
 
+    /**
+     * @param int|null $convocatoriaId
+     * @param string|null $centroId
+     * @param string|null $especialidadId
+     * @param TipoPlazaEnum|null $tipo
+     * @param ObligatoriedadPlazaEnum|null $obligatoriedad
+     * @param DateTimeImmutable|null $fechaPrevistaCese
+     * @param int|null $numero
+     * @return array<Plaza>|null
+     */
     public function findByAttributes(
         ?int $convocatoriaId = null,
         ?string $centroId = null,
         ?string $especialidadId = null,
-        ?string $tipo = null,
-        ?string $obligatoriedad = null,
-        ?\DateTimeImmutable $fechaPrevistaCese = null,
+        ?TipoPlazaEnum $tipo = null,
+        ?ObligatoriedadPlazaEnum $obligatoriedad = null,
+        ?DateTimeImmutable $fechaPrevistaCese = null,
         ?int $numero = null
-    ): ?Plaza {
+    ): ?array {
         $qb = $this->createQueryBuilder('p');
 
         if ($convocatoriaId) {
@@ -71,7 +84,7 @@ class PlazaRepository extends ServiceEntityRepository
                 ->setParameter('numero', $numero);
         }
 
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getResult();
     }
 
     public function save(Plaza $plaza, bool $clear = false): void

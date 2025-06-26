@@ -6,8 +6,10 @@ use App\Dto\CentroDto;
 use App\Dto\ConvocatoriaDto;
 use App\Dto\EspecialidadDto;
 use App\Dto\PlazaDto;
+use App\Entity\Adjudicacion;
 use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
+use App\Repository\AdjudicacionRepository;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
 use App\Service\ScrapperService;
@@ -16,6 +18,7 @@ use Exception;
 use Smalot\PdfParser\Parser;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -39,6 +42,13 @@ class ExtraerAdjudicacionesCommand extends Command
     {
         $this->setHelp('Este comando extrae plazas desde un PDF y las guarda en formato JSON');
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
+        $this->addOption(
+            'pagina',
+            'p',
+            InputOption::VALUE_OPTIONAL,
+            'Número de página a procesar (opcional, por defecto procesa todas las páginas)',
+            null
+        );
         $this->addOption(
             'info',
             'info',
@@ -69,10 +79,18 @@ class ExtraerAdjudicacionesCommand extends Command
         $parser = new Parser();
         $pdf = $parser->parseContent($this->fileUtilitiesService->getFileContent($pdfPath));
         $text = $pdf->getText();
-        //$text = Pdf::getText($pdfPath);
 
-        $fechaAdjudicacion = $this->scrapperService->extractDateTimeFromText($text);
         $paginas = $this->scrapperService->getPagesContentFromText($text);
+
+        if ($input->getOption('pagina') !== null) {
+            $pagina = intval($input->getOption('pagina'));
+            if (isset($paginas[$pagina])) {
+                $paginas = [$pagina => $paginas[$pagina]];
+            } else {
+                $output->writeln('<error>Página no encontrada.</error>');
+                return Command::FAILURE;
+            }
+        }
 
         $resultados = [];
         foreach ($paginas as $numero => $contenido) {
@@ -84,60 +102,72 @@ class ExtraerAdjudicacionesCommand extends Command
             $resultados = array_merge($resultados, $resultadosPagina);
         }
 
+        $progressBar = new ProgressBar($output, sizeof($resultados));
+        if (!$input->getOption('info')) {
+            $progressBar->start();
+        }
+
+        $omitidas = 0;
+        $nuevas = 0;
+        $noEncontradas = 0;
         foreach ($resultados as $adjudicaciones_array) {
             $plazaObjetivo = $this->plazaRepository->findByAttributes(
                 convocatoriaId: $convocatoria,
                 centroId: $adjudicaciones_array['centro'],
                 especialidadId: $adjudicaciones_array['puesto'],
-                tipo: $adjudicaciones_array['tipo'],
-                obligatoriedad: $adjudicaciones_array['voluntaria'],
+                tipo: TipoPlazaEnum::fromString($adjudicaciones_array['tipo']),
+                //obligatoriedad: ObligatoriedadPlazaEnum::fromString($adjudicaciones_array['voluntaria']),
                 fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
                     'd/m/y',
                     $adjudicaciones_array['fecha_prevista_cese']
                 )
             );
 
-            if ($plazaObjetivo !== null) {
-                $output->writeln('<comment>Plaza ya existe:</comment> ' . $plazaObjetivo->getId());
+            if (count($plazaObjetivo) > 1) {
+                $output->writeln(
+                    '<error>Ambigüedad: Más de una plaza encontrada para los criterios especificados.</error>'
+                );
+                return Command::FAILURE;
+            }
+
+            if (empty($plazaObjetivo)) {
+                $output->writeln('<error>No se ha encontrado ninguna plaza para los criterios especificados.</error>');
+                $output->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
+                $noEncontradas++;
                 continue;
             }
 
+            $plaza = $plazaObjetivo[0];
 
-            $plazaDto = new PlazaDto(
-                id: null,
-                convocatoria: ConvocatoriaDto::fromId($convocatoria, fecha: null),
-                centro: CentroDto::fromString(
-                    $adjudicaciones_array['centro'],
-                    $adjudicaciones_array['localidad'],
-                    $adjudicaciones_array['provincia']
-                ),
-                especialidad: EspecialidadDto::fromString($adjudicaciones_array['puesto']),
-                tipoPlaza: TipoPlazaEnum::fromString($adjudicaciones_array['tipo']),
-                obligatoriedadPlaza: ObligatoriedadPlazaEnum::fromString($adjudicaciones_array['voluntaria']),
-                fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
-                    'd/m/y',
-                    $adjudicaciones_array['fecha_prevista_cese']
-                ),
-                numero: intval($adjudicaciones_array['num_plazas'])
-            );
-
-            $plaza = $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
-            $texto = $plaza->getId() !== null ? '<comment>Plaza ya existe:</comment> ' : '<info>Plaza añadida:</info> ';
-
-            if ($plaza->getId() == null) {
-                $this->plazaRepository->save($plaza, clear: true);
+            if ($plaza->getAdjudicacion() === null) {
+                $plaza->setAdjudicacion(
+                    new Adjudicacion(
+                        id: null,
+                        puesto: intval($adjudicaciones_array['puesto']),
+                        plaza: $plazaObjetivo[0],
+                    )
+                );
                 $nuevas++;
+            } else {
+                $omitidas++;
             }
 
+            $this->plazaRepository->save($plaza, clear: true);
+
             if ($input->getOption('info')) {
-                $output->writeln($texto . ' ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
+                $output->writeln($plaza->getId() . ' se le ha encontrado adjudicación');
+                $output->writeln('No vinculadas: ' . $noEncontradas);
+                $output->writeln('Omitidas: ' . $omitidas);
+                $output->writeln('Nuevas: ' . $nuevas);
             } else {
                 $progressBar->advance();
             }
-
-            $ocurrencia++;
         }
 
+        if (!$input->getOption('info')) {
+            $progressBar->finish();
+            $output->writeln('');
+        }
 
         return Command::SUCCESS;
     }

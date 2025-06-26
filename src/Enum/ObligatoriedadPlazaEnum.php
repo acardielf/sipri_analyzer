@@ -8,7 +8,7 @@ enum ObligatoriedadPlazaEnum: string
     case OBL = 'OBLIGATORIA';
     case SN = 'SÍ/NO';
 
-    public static function fromString(mixed $obligatoriedad)
+    public static function fromString(mixed $obligatoriedad): ObligatoriedadPlazaEnum
     {
         if (is_string($obligatoriedad)) {
             $obligatoriedad = mb_strtoupper($obligatoriedad);
