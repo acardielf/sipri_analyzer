@@ -2,15 +2,9 @@
 
 namespace App\Command;
 
-use App\Dto\CentroDto;
-use App\Dto\ConvocatoriaDto;
-use App\Dto\EspecialidadDto;
-use App\Dto\PlazaDto;
 use App\Entity\Adjudicacion;
 use App\Entity\Centro;
-use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
-use App\Repository\AdjudicacionRepository;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
 use App\Service\ScrapperService;
@@ -150,10 +144,12 @@ class ExtraerAdjudicacionesCommand extends Command
                     $output->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
                 }
                 foreach ($plazaObjetivo as $plazaComprueba) {
+                    $plaza = $plazaComprueba;
                     if ($plazaComprueba->getAdjudicacion() !== null) {
                         $omitidas++;
+                    } else {
+                        break;
                     }
-                    $plaza = $plazaComprueba;
                 }
             } else {
                 $plaza = $plazaObjetivo[0];
