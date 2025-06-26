@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
 use App\Repository\PlazaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,12 @@ class Plaza
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'plazas')]
     private ?Especialidad $especialidad = null;
+
+    /**
+     * @var Collection<int, Adjudicacion>
+     */
+    #[ORM\OneToMany(targetEntity: Adjudicacion::class, mappedBy: 'plaza', cascade: ['persist', 'remove'])]
+    private Collection $adjudicaciones;
 
     #[ORM\Column(enumType: TipoPlazaEnum::class)]
     private ?TipoPlazaEnum $tipo = null;
@@ -41,20 +49,17 @@ class Plaza
     #[ORM\Column]
     private string $hash;
 
-    #[ORM\OneToOne(mappedBy: 'plaza', cascade: ['persist', 'remove'])]
-    private ?Adjudicacion $adjudicacion = null;
 
     public function __construct(
-        Convocatoria            $convocatoria,
-        Centro                  $centro,
-        Especialidad            $especialidad,
-        TipoPlazaEnum           $tipo,
+        Convocatoria $convocatoria,
+        Centro $centro,
+        Especialidad $especialidad,
+        TipoPlazaEnum $tipo,
         ObligatoriedadPlazaEnum $obligatoriedad,
-        ?\DateTimeImmutable     $fechaPrevistaCese = null,
-        int                     $numero = 0,
-        int                     $ocurrencia = 1,
-    )
-    {
+        ?\DateTimeImmutable $fechaPrevistaCese = null,
+        int $numero = 0,
+        int $ocurrencia = 1,
+    ) {
         $this->convocatoria = $convocatoria;
         $this->centro = $centro;
         $this->especialidad = $especialidad;
@@ -64,7 +69,8 @@ class Plaza
         $this->numero = $numero;
         $this->ocurrencia = $ocurrencia;
 
-        $this->hash = hash('sha256',
+        $this->hash = hash(
+            'sha256',
             $convocatoria->getId() .
             $centro->getId() .
             $especialidad->getId() .
@@ -74,6 +80,7 @@ class Plaza
             $numero .
             $ocurrencia
         );
+        $this->adjudicaciones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,24 +189,46 @@ class Plaza
         $this->ocurrencia = $ocurrencia;
     }
 
-    public function getAdjudicacion(): ?Adjudicacion
+    /**
+     * @return Collection<int, Adjudicacion>
+     */
+    public function getAdjudicaciones(): Collection
     {
-        return $this->adjudicacion;
+        return $this->adjudicaciones;
     }
 
-    public function setAdjudicacion(?Adjudicacion $adjudicacion): static
+    public function getAdjudicacionesAsString(): string
     {
-        // unset the owning side of the relation if necessary
-        if ($adjudicacion === null && $this->adjudicacion !== null) {
-            $this->adjudicacion->setPlaza(null);
+        return implode(', ', $this->adjudicaciones->map(fn(Adjudicacion $a) => (string)$a->getOrden())->toArray());
+    }
+
+    public function adjudicadaCompletamente(): bool
+    {
+        return count($this->getAdjudicaciones()) >= $this->numero;
+    }
+
+    public function addAdjudicacion(Adjudicacion $adjudicacion): static
+    {
+        if (count($this->getAdjudicaciones()) > $this->numero) {
+            throw new \LogicException('No se pueden añadir más adjudicaciones a esta plaza. Límite alcanzado.');
         }
 
-        // set the owning side of the relation if necessary
-        if ($adjudicacion !== null && $adjudicacion->getPlaza() !== $this) {
+        if (!$this->adjudicaciones->contains($adjudicacion)) {
+            $this->adjudicaciones->add($adjudicacion);
             $adjudicacion->setPlaza($this);
         }
 
-        $this->adjudicacion = $adjudicacion;
+        return $this;
+    }
+
+    public function removeAdjudicacion(Adjudicacion $adjudicacion): static
+    {
+        if ($this->adjudicaciones->removeElement($adjudicacion)) {
+            // set the owning side to null (unless already changed)
+            if ($adjudicacion->getPlaza() === $this) {
+                $adjudicacion->setPlaza(null);
+            }
+        }
 
         return $this;
     }

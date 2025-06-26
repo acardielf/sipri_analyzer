@@ -19,6 +19,7 @@
         "spatie/pdf-to-text": "^1.54.1",
         "stenope/stenope": "^0.9.0",
         "symfony/asset": "7.3.*",
+        "symfony/asset-mapper": "7.3.*",
         "symfony/console": "7.3.*",
         "symfony/css-selector": "7.3.*",
         "symfony/dom-crawler": "7.3.*",
@@ -31,7 +32,9 @@
         "symfony/serializer": "7.3.*",
         "symfony/twig-bundle": "7.3.*",
         "symfony/validator": "7.3.*",
-        "symfony/yaml": "7.3.*"
+        "symfony/yaml": "7.3.*",
+        "twig/extra-bundle": "^2.12|^3.21",
+        "twig/twig": "^2.12|^3.21.1"
     },
     "config": {
         "allow-plugins": {
@@ -65,7 +68,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "importmap:install": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

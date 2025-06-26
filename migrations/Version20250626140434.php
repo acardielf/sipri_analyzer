@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250626122725 extends AbstractMigration
+final class Version20250626140434 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,7 +24,7 @@ final class Version20250626122725 extends AbstractMigration
             CREATE TABLE adjudicacion (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, plaza_id INTEGER DEFAULT NULL, orden INTEGER NOT NULL, CONSTRAINT FK_1299069AEF34C0BD FOREIGN KEY (plaza_id) REFERENCES plaza (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE UNIQUE INDEX UNIQ_1299069AEF34C0BD ON adjudicacion (plaza_id)
+            CREATE INDEX IDX_1299069AEF34C0BD ON adjudicacion (plaza_id)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE centro (id VARCHAR(255) NOT NULL, localidad_id INTEGER DEFAULT NULL, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(id), CONSTRAINT FK_2675036B67707C89 FOREIGN KEY (localidad_id) REFERENCES localidad (id) NOT DEFERRABLE INITIALLY IMMEDIATE)

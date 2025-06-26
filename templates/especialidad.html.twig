@@ -5,17 +5,13 @@
     {{ curso.nombre }} - {{ especialidad.id }}
 {% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-{% endblock %}
-
 {% block body %}
     <h2>Plazas de <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
     <h2>Curso {{ curso.nombre }}</h2>
 
     {{ plazas|length }} plazas encontradas.
 
-    <table>
+    <table class="table-bordered table table-striped">
         <tr>
             <th>Provincia</th>
             <th>Plazas</th>
@@ -31,8 +27,4 @@
     </table>
 
 
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('js/app.js') }}"></script>
 {% endblock %}

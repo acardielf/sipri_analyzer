@@ -290,3 +290,45 @@ for i in {325..388}; do php bin/console sipri:ex "$i"; done
 for i in {325..388}; do php bin/console sipri:adj "$i"; done
  php bin/console sipri:del --adjudicaciones 364
 exit
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create 
+php bin/console make:migration
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+ php bin/console sipri:get 364
+ php bin/console sipri:ex 364
+ php bin/console sipri:adj 364
+ php bin/console sipri:del --adjudicaciones 364
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create 
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+ php bin/console sipri:get 364
+ php bin/console sipri:ex 364
+ php bin/console sipri:adj 364
+ php bin/console sipri:del --adjudicaciones 364
+ php bin/console sipri:del --adjudicaciones 364
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 364 
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 364 
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:del --adjudicaciones 364 
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 364 
+for i in {325..388}; do php bin/console sipri:get "$i"; done
+for i in {325..388}; do php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+php bin/console make:entity 
+php bin/console make:entity Plaza
+php bin/console make:entity Plaza
+exit
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create 
+php bin/console make:migration
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+for i in {325..388}; do php bin/console:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+for i in {325..388}; do php bin/console:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+composer require symfony/asset-mapper symfony/asset symfony/twig-pack
+php bin/console importmap:require bootstrap
+php bin/console importmap:install
+php bin/console cache:clear
+php bin/console importmap:require bootstrap/dist/js/bootstrap.min.js
+php bin/console importmap:require bootstrap-icons/font/bootstrap-icons.min.css
+exit

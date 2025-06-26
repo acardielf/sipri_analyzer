@@ -135,7 +135,7 @@ class ExtraerAdjudicacionesCommand extends Command
                 continue;
             }
 
-            $plaza =  null;
+            $plaza = null;
             if (count($plazaObjetivo) > 1) {
                 if ($input->getOption('info')) {
                     $output->writeln(
@@ -145,7 +145,7 @@ class ExtraerAdjudicacionesCommand extends Command
                 }
                 foreach ($plazaObjetivo as $plazaComprueba) {
                     $plaza = $plazaComprueba;
-                    if ($plazaComprueba->getAdjudicacion() !== null) {
+                    if ($plazaComprueba->adjudicadaCompletamente()) {
                         $omitidas++;
                     } else {
                         break;
@@ -156,8 +156,8 @@ class ExtraerAdjudicacionesCommand extends Command
             }
 
 
-            if ($plaza?->getAdjudicacion() === null) {
-                $plaza->setAdjudicacion(
+            if (!$plaza->adjudicadaCompletamente()) {
+                $plaza->addAdjudicacion(
                     new Adjudicacion(
                         id: null,
                         puesto: intval($adjudicaciones_array['orden']),
@@ -186,7 +186,7 @@ class ExtraerAdjudicacionesCommand extends Command
         $output->writeln('<info>No asociadas: ' . $noEncontradas);
         $output->writeln('OCEP - Servicios otros centros: ' . $ocep);
         $output->writeln('Omitidas: ' . $omitidas);
-        $output->writeln('Nuevas: ' . $nuevas. '</info>');
+        $output->writeln('Nuevas: ' . $nuevas . '</info>');
 
         return Command::SUCCESS;
     }

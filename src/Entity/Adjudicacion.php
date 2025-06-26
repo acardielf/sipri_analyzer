@@ -14,15 +14,15 @@ class Adjudicacion
     #[ORM\Column]
     private ?int $orden = null;
 
-    #[ORM\OneToOne(inversedBy: 'adjudicacion', cascade: ['persist'])]
+    #[ORM\ManyToOne(inversedBy: 'adjudicaciones')]
     private ?Plaza $plaza = null;
+
 
     /**
      * @param int|null $id
      * @param int|null $puesto
-     * @param Plaza|null $plaza
      */
-    public function __construct(?int $id, ?int $puesto, ?Plaza $plaza)
+    public function __construct(?int $id, ?int $puesto, ?Plaza $plaza = null)
     {
         $this->id = $id;
         $this->orden = $puesto;
@@ -64,4 +64,5 @@ class Adjudicacion
 
         return $this;
     }
+
 }
