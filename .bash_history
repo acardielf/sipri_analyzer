@@ -332,3 +332,49 @@ php bin/console cache:clear
 php bin/console importmap:require bootstrap/dist/js/bootstrap.min.js
 php bin/console importmap:require bootstrap-icons/font/bootstrap-icons.min.css
 exit
+php bin/console debug:asset
+php bin/console cache:clear
+php bin/console debug:asset
+php bin/console cache:clear
+php bin/console debug:asset-map
+php bin/console asset-map:compile
+php bin/console asset-map:debug
+   php bin/console cache:clear
+php bin/console asset-map:
+php bin/console asset-map
+php bin/console 
+php bin/console asset-map:compile
+php bin/console cache:clear
+php bin/console assetmap:require bootstrap
+php bin/console importmap:require bootstrap
+ls -l public/assets/
+php bin/console importmap:require bootstrap
+php bin/console importmap:require bootstrap
+php bin/console importmap:require bootstrap
+php bin/console importmap:install
+php bin/console importmap:outdated
+php bin/console importmap:update
+php bin/console debug:routes
+php bin/console debug:router
+php bin/console asset-map:compile
+php bin/console debug:asset-map
+composer update
+composer why --tree erusev/parsedown
+composer why erusev/parsedown
+git config --global --add safe.directory /app
+composer why erusev/parsedown
+for i in {1..360}; do php bin/console:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+for i in {114..360}; do php bin/console:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --pagina 11 --info 119
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --pagina 11 --info 119
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --pagina 11 --info 119
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
+bin/console stenope:build ./static
+exit
