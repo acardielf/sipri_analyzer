@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Especialidades{% endblock %}
+
+{% block body %}
+    <h2>Especialidad: <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
+
+
+    <table class="table table-striped">
+        <tr>
+            <th>Provincia</th>
+            {% for curso in cursos %}
+                <th>Curso {{ curso.nombre }}</th>
+            {% endfor %}
+        </tr>
+        {% for provincia in provincias %}
+            <tr>
+                <td>
+                    {{ provincia.nombre }}
+                </td>
+                {% for curso_codigo, curso in plazasFiltradas %}
+                    <td>
+                        <a href="{{ path('app_especialidad_detail', { especialidad: especialidad.id, curso: curso_codigo, provincia: provincia.id } ) }}">
+                            <span class="badge link-primary">{{ curso[provincia.id]|length }}</span>
+                        </a>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

@@ -7,6 +7,8 @@ use App\Enum\TipoPlazaEnum;
 use App\Repository\PlazaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -201,6 +203,7 @@ class Plaza
     {
         return implode(', ', $this->adjudicaciones->map(fn(Adjudicacion $a) => (string)$a->getOrden())->toArray());
     }
+
 
     public function adjudicadaCompletamente(): bool
     {

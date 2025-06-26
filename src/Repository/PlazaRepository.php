@@ -150,7 +150,8 @@ class PlazaRepository extends ServiceEntityRepository
             ->where('p.especialidad = :especialidad')
             ->andWhere('c.curso = :curso')
             ->andWhere('prov.id = :provincia')
-            ->orderBy('c.id', 'DESC')
+            ->orderBy('p.convocatoria', 'DESC')
+            ->addOrderBy('p.centro', 'ASC')
             ->setParameter('especialidad', $especialidad)
             ->setParameter('curso', $curso)
             ->setParameter('provincia', $provincia);
