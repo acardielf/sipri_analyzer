@@ -41,7 +41,7 @@ class Plaza
     #[ORM\Column]
     private string $hash;
 
-    #[ORM\OneToOne(mappedBy: 'plaza', cascade: ['persist'])]
+    #[ORM\OneToOne(mappedBy: 'plaza', cascade: ['persist', 'remove'])]
     private ?Adjudicacion $adjudicacion = null;
 
     public function __construct(

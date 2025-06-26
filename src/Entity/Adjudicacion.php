@@ -14,7 +14,7 @@ class Adjudicacion
     #[ORM\Column]
     private ?int $orden = null;
 
-    #[ORM\OneToOne(inversedBy: 'adjudicacion', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'adjudicacion', cascade: ['persist'])]
     private ?Plaza $plaza = null;
 
     /**
