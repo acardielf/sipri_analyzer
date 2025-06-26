@@ -76,7 +76,7 @@ class PlazaRepository extends ServiceEntityRepository
 
         if ($fechaPrevistaCese) {
             $qb->andWhere('p.fechaPrevistaCese = :fechaPrevistaCese')
-                ->setParameter('fechaPrevistaCese', $fechaPrevistaCese);
+                ->setParameter('fechaPrevistaCese', $fechaPrevistaCese->format('Y-m-d'));
         }
 
         if ($numero !== null) {

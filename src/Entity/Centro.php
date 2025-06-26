@@ -10,6 +10,17 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CentroRepository::class)]
 class Centro
 {
+    public const array OCEP_OTROS_CENTROS = [
+        '04989892', //Almería
+        '11989895', //Cádiz
+        '14989894', //Córdoba
+        '18989891', //Granada
+        '21989897', //Huelva
+        '23989891', //Jaén
+        '29989898', //Málaga
+        '41989890', //Sevilla
+    ];
+
     #[ORM\Id, ORM\Column]
     private ?string $id = null;
 
@@ -26,11 +37,10 @@ class Centro
     private ?string $nombre = null;
 
     public function __construct(
-        string    $id,
-        string    $nombre,
+        string $id,
+        string $nombre,
         Localidad $localidad,
-    )
-    {
+    ) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->localidad = $localidad;

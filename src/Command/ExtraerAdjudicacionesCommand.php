@@ -7,6 +7,7 @@ use App\Dto\ConvocatoriaDto;
 use App\Dto\EspecialidadDto;
 use App\Dto\PlazaDto;
 use App\Entity\Adjudicacion;
+use App\Entity\Centro;
 use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
 use App\Repository\AdjudicacionRepository;
@@ -110,6 +111,8 @@ class ExtraerAdjudicacionesCommand extends Command
         $omitidas = 0;
         $nuevas = 0;
         $noEncontradas = 0;
+        $ocep = 0;
+
         foreach ($resultados as $adjudicaciones_array) {
             $plazaObjetivo = $this->plazaRepository->findByAttributes(
                 convocatoriaId: $convocatoria,
@@ -118,26 +121,43 @@ class ExtraerAdjudicacionesCommand extends Command
                 tipo: TipoPlazaEnum::fromString($adjudicaciones_array['tipo']),
                 //obligatoriedad: ObligatoriedadPlazaEnum::fromString($adjudicaciones_array['voluntaria']),
                 fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
-                    'd/m/y',
+                    '!d/m/y',
                     $adjudicaciones_array['fecha_prevista_cese']
                 )
             );
 
-            if (count($plazaObjetivo) > 1) {
-                $output->writeln(
-                    '<error>Ambigüedad: Más de una plaza encontrada para los criterios especificados.</error>'
-                );
-                return Command::FAILURE;
-            }
-
             if (empty($plazaObjetivo)) {
-                $output->writeln('<error>No se ha encontrado ninguna plaza para los criterios especificados.</error>');
-                $output->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
-                $noEncontradas++;
+                if (in_array($adjudicaciones_array['centro'], Centro::OCEP_OTROS_CENTROS)) {
+                    $ocep++;
+                } else {
+                    if ($input->getOption('info')) {
+                        $output->writeln(
+                            '<error>No se ha encontrado ninguna plaza para los criterios especificados.</error>'
+                        );
+                        $output->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
+                    }
+                    $noEncontradas++;
+                }
                 continue;
             }
 
-            $plaza = $plazaObjetivo[0];
+            if (count($plazaObjetivo) > 1) {
+                if ($input->getOption('info')) {
+                    $output->writeln(
+                        '<info>Ambigüedad: Más de una plaza encontrada para los criterios especificados.</info>',
+                    );
+                    $output->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
+                }
+                foreach ($plazaObjetivo as $plazaComprueba) {
+                    if ($plazaComprueba->getAdjudicacion() !== null) {
+                        $omitidas++;
+                    }
+                    $plaza = $plazaComprueba;
+                }
+            } else {
+                $plaza = $plazaObjetivo[0];
+            }
+
 
             if ($plaza->getAdjudicacion() === null) {
                 $plaza->setAdjudicacion(
@@ -154,20 +174,22 @@ class ExtraerAdjudicacionesCommand extends Command
 
             $this->plazaRepository->save($plaza, clear: true);
 
-            if ($input->getOption('info')) {
-                $output->writeln($plaza->getId() . ' se le ha encontrado adjudicación');
-                $output->writeln('No vinculadas: ' . $noEncontradas);
-                $output->writeln('Omitidas: ' . $omitidas);
-                $output->writeln('Nuevas: ' . $nuevas);
-            } else {
+            if (!$input->getOption('info')) {
                 $progressBar->advance();
             }
         }
+
 
         if (!$input->getOption('info')) {
             $progressBar->finish();
             $output->writeln('');
         }
+
+        $output->writeln('');
+        $output->writeln('<info>No asociadas: ' . $noEncontradas);
+        $output->writeln('OCEP - Servicios otros centros: ' . $ocep);
+        $output->writeln('Omitidas: ' . $omitidas);
+        $output->writeln('Nuevas: ' . $nuevas. '</info>');
 
         return Command::SUCCESS;
     }

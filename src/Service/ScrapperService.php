@@ -85,7 +85,11 @@ class ScrapperService
         });
         $lines = array_values($lines); // Reindexar
 
-        $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
+        if (count($lines) <= 12) {
+            $result = $this->extractAdjudicacionOnlyOneRecord($pagina, $convocatoria, $lines);
+        } else {
+            $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
+        }
 
 
         $data = [];
@@ -360,6 +364,7 @@ class ScrapperService
         $index_provincia_end = $index_tipo_start - 1;
         $index_provincia_start = $index_provincia_end - $count + 1;
 
+        $codigos_centros = [];
         for ($i = $index_orden_end + 1; $i < $index_provincia_start; $i++) {
             if (preg_match('/^([A-Za-z0-9]{8}) - /', $lines[$i], $matches)) {
                 $codigos_centros[] = $matches[1]; // Solo el código de centro
@@ -610,6 +615,53 @@ class ScrapperService
             return DateTimeImmutable::createFromFormat('d/m/Y H:i', $dateTime);
         }
         return null;
+    }
+
+    private function extractAdjudicacionOnlyOneRecord(int $pagina, int $convocatoria, array $lines): array
+    {
+        $parts = array_merge(...array_map(fn($line) => explode("\t", $line), $lines));
+
+        $codigos = [];
+        foreach ($lines as $line) {
+            preg_match_all('/(\d{8})(?=\s*-\s*.+)/', $line, $matches);
+            $codigos = array_merge($codigos, $matches[1]);
+        }
+
+        $centro = $codigos[0] ?? null;
+        $puesto = $codigos[1] ?? null;
+
+        $parts = $this->removeFoundedValuesFromLines($parts, [$centro, $puesto]);
+
+        $orden = null;
+        foreach ($parts as $line) {
+            if (preg_match('/\s(\d{1,5})\b/', $line, $match)) {
+                $orden = $match[1];
+                break;
+            }
+        }
+        $parts = $this->removeFoundedValuesFromLines($parts, [$orden]);
+
+        $resultado = [];
+        foreach ($lines as $line) {
+            if (preg_match_all('/\b([NSV])\b/', $line, $matches)) {
+                $resultado = array_merge($resultado, $matches[1]);
+            }
+        }
+
+        $tipo = $resultado[0] ?? null;
+        $obligatoriedad = $resultado[1] ?? null;
+
+        return [
+            'count' => 1,
+            'pagina' => $pagina,
+            'convocatoria' => $convocatoria,
+            'centros' => [$centro],
+            'provincias' => [""],
+            'puestos' => [$puesto],
+            'tipos' => [$tipo],
+            'orden' => [$orden],
+            'obligatoriedad' => [$obligatoriedad],
+        ];
     }
 
 }
