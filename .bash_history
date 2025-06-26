@@ -378,3 +378,9 @@ XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj -
 XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 380
 bin/console stenope:build ./static
 exit
+composer why erusev/parsedown
+ls
+mv docs wiki
+mv static/ docs
+git commit -m 'change folders'
+exit
