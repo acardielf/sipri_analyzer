@@ -41,6 +41,9 @@ class Plaza
     #[ORM\Column]
     private string $hash;
 
+    #[ORM\OneToOne(mappedBy: 'plaza', cascade: ['persist', 'remove'])]
+    private ?Adjudicacion $adjudicacion = null;
+
     public function __construct(
         Convocatoria            $convocatoria,
         Centro                  $centro,
@@ -177,6 +180,28 @@ class Plaza
     public function setOcurrencia(int $ocurrencia): void
     {
         $this->ocurrencia = $ocurrencia;
+    }
+
+    public function getAdjudicacion(): ?Adjudicacion
+    {
+        return $this->adjudicacion;
+    }
+
+    public function setAdjudicacion(?Adjudicacion $adjudicacion): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($adjudicacion === null && $this->adjudicacion !== null) {
+            $this->adjudicacion->setPlaza(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($adjudicacion !== null && $adjudicacion->getPlaza() !== $this) {
+            $adjudicacion->setPlaza($this);
+        }
+
+        $this->adjudicacion = $adjudicacion;
+
+        return $this;
     }
 
 

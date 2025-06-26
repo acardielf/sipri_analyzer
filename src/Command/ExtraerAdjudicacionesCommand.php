@@ -9,7 +9,6 @@ use App\Dto\PlazaDto;
 use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
 use App\Repository\PlazaRepository;
-use App\Service\DtoToEntity\PlazaDtoToEntity;
 use App\Service\FileUtilitiesService;
 use App\Service\ScrapperService;
 use DateTimeImmutable;
@@ -17,22 +16,20 @@ use Exception;
 use Smalot\PdfParser\Parser;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'sipri:extraer-plazas',
-    description: 'Extrae plazas desde un PDF y las guarda en formato JSON'
+    name: 'sipri:adj',
+    description: 'Extrae adjudicaciones desde un PDF y las guarda en formato JSON',
 )]
-class ExtraerPlazasCommand extends Command
+class ExtraerAdjudicacionesCommand extends Command
 {
     public function __construct(
         private readonly FileUtilitiesService $fileUtilitiesService,
         private readonly ScrapperService $scrapperService,
-        private readonly PlazaDtoToEntity $plazaDtoToEntity,
         private readonly PlazaRepository $plazaRepository,
     ) {
         parent::__construct();
@@ -61,8 +58,8 @@ class ExtraerPlazasCommand extends Command
         $output->writeln('Procesando convocatoria: ' . $convocatoria);
 
         $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
-        $pdfPath = $path . $convocatoria . '_plazas.pdf';
-        $outputPath = $path . $convocatoria . '_plazas.json';
+        $pdfPath = $path . $convocatoria . '_adjudicados.pdf';
+
 
         if (!$this->fileUtilitiesService->fileExists($pdfPath)) {
             $output->writeln('<error>Archivo PDF no encontrado.</error>');
@@ -72,15 +69,14 @@ class ExtraerPlazasCommand extends Command
         $parser = new Parser();
         $pdf = $parser->parseContent($this->fileUtilitiesService->getFileContent($pdfPath));
         $text = $pdf->getText();
+        //$text = Pdf::getText($pdfPath);
 
-        $fechaConvocatoria = $this->scrapperService->extractDateTimeFromText($text);
+        $fechaAdjudicacion = $this->scrapperService->extractDateTimeFromText($text);
         $paginas = $this->scrapperService->getPagesContentFromText($text);
 
         $resultados = [];
-
-
         foreach ($paginas as $numero => $contenido) {
-            $resultadosPagina = $this->scrapperService->extractPlazasFromPageContent(
+            $resultadosPagina = $this->scrapperService->extractAdjudicacionFromPageContent(
                 $numero,
                 $contenido,
                 $convocatoria
@@ -88,31 +84,41 @@ class ExtraerPlazasCommand extends Command
             $resultados = array_merge($resultados, $resultadosPagina);
         }
 
-        $ocurrencia = 1;
-        $nuevas = 0;
+        foreach ($resultados as $adjudicaciones_array) {
+            $plazaObjetivo = $this->plazaRepository->findByAttributes(
+                convocatoriaId: $convocatoria,
+                centroId: $adjudicaciones_array['centro'],
+                especialidadId: $adjudicaciones_array['puesto'],
+                tipo: $adjudicaciones_array['tipo'],
+                obligatoriedad: $adjudicaciones_array['voluntaria'],
+                fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
+                    'd/m/y',
+                    $adjudicaciones_array['fecha_prevista_cese']
+                )
+            );
 
-        $progressBar = new ProgressBar($output, sizeof($resultados));
-        if (!$input->getOption('info')) {
-            $progressBar->start();
-        }
+            if ($plazaObjetivo !== null) {
+                $output->writeln('<comment>Plaza ya existe:</comment> ' . $plazaObjetivo->getId());
+                continue;
+            }
 
-        foreach ($resultados as $plaza_array) {
+
             $plazaDto = new PlazaDto(
                 id: null,
-                convocatoria: ConvocatoriaDto::fromId($convocatoria, $fechaConvocatoria),
+                convocatoria: ConvocatoriaDto::fromId($convocatoria, fecha: null),
                 centro: CentroDto::fromString(
-                    $plaza_array['centro'],
-                    $plaza_array['localidad'],
-                    $plaza_array['provincia']
+                    $adjudicaciones_array['centro'],
+                    $adjudicaciones_array['localidad'],
+                    $adjudicaciones_array['provincia']
                 ),
-                especialidad: EspecialidadDto::fromString($plaza_array['puesto']),
-                tipoPlaza: TipoPlazaEnum::fromString($plaza_array['tipo']),
-                obligatoriedadPlaza: ObligatoriedadPlazaEnum::fromString($plaza_array['voluntaria']),
-                fechaPrevistaCese: $plaza_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
+                especialidad: EspecialidadDto::fromString($adjudicaciones_array['puesto']),
+                tipoPlaza: TipoPlazaEnum::fromString($adjudicaciones_array['tipo']),
+                obligatoriedadPlaza: ObligatoriedadPlazaEnum::fromString($adjudicaciones_array['voluntaria']),
+                fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
                     'd/m/y',
-                    $plaza_array['fecha_prevista_cese']
+                    $adjudicaciones_array['fecha_prevista_cese']
                 ),
-                numero: intval($plaza_array['num_plazas'])
+                numero: intval($adjudicaciones_array['num_plazas'])
             );
 
             $plaza = $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
@@ -132,22 +138,6 @@ class ExtraerPlazasCommand extends Command
             $ocurrencia++;
         }
 
-        if (!$input->getOption('info')) {
-            $progressBar->finish();
-            $output->writeln('');
-        }
-
-
-        // Guardar en JSON
-        if (!is_dir(dirname($outputPath))) {
-            mkdir(dirname($outputPath), 0775, true);
-        }
-
-        file_put_contents($outputPath, json_encode($resultados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $output->writeln('<info>Guardado:</info> ' . $outputPath . ' (' . count($resultados) . ' plazas)');
-        $output->writeln('<info>Nuevas plazas:</info> ' . $nuevas);
-        $output->writeln('<info>Plazas omitidas:</info> ' . ($ocurrencia - 1 - $nuevas));
-        $output->writeln('<info>Total plazas:</info> ' . $ocurrencia - 1);
 
         return Command::SUCCESS;
     }

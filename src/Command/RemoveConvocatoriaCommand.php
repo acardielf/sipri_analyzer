@@ -2,25 +2,12 @@
 
 namespace App\Command;
 
-use App\Dto\CentroDto;
-use App\Dto\ConvocatoriaDto;
-use App\Dto\EspecialidadDto;
-use App\Dto\PlazaDto;
-use App\Entity\Convocatoria;
-use App\Enum\ObligatoriedadPlazaEnum;
-use App\Enum\TipoPlazaEnum;
 use App\Repository\ConvocatoriaRepository;
 use App\Repository\PlazaRepository;
-use App\Service\DtoToEntity\PlazaDtoToEntity;
 use App\Service\FileUtilitiesService;
-use App\Service\PlazasScrapperService;
-use DateTimeImmutable;
 use Exception;
-use Smalot\PdfParser\Parser;
-use Spatie\PdfToText\Pdf;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

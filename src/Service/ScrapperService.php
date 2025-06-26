@@ -6,7 +6,7 @@ use App\Enum\ProvinciaEnum;
 use App\Enum\TipoPlazaEnum;
 use DateTimeImmutable;
 
-class PlazasScrapperService
+class ScrapperService
 {
 
     public function getPagesContentFromText(string $text): array
@@ -34,7 +34,7 @@ class PlazasScrapperService
         return $paginas;
     }
 
-    public function extractPageContent(int $pagina, string $content, int $convocatoria): array
+    public function extractPlazasFromPageContent(int $pagina, string $content, int $convocatoria): array
     {
         $lines = explode("\n", $content);
         $lines = array_map('trim', $lines);
@@ -47,9 +47,9 @@ class PlazasScrapperService
         }
 
         if (count($lines) <= 6) {
-            $result = $this->extractOnlyOneRecord($pagina, $convocatoria, $lines);
+            $result = $this->extractPlazasOnlyOneRecord($pagina, $convocatoria, $lines);
         } else {
-            $result = $this->extractNormalCase($pagina, $convocatoria, $lines);
+            $result = $this->extractPlazasNormalCase($pagina, $convocatoria, $lines);
         }
 
         $data = [];
@@ -57,6 +57,46 @@ class PlazasScrapperService
             $data[] = [
                 'centro' => $result['centros'][$i] ?? '',
                 'localidad' => $result['localidades'][$i] ?? '',
+                'provincia' => $result['provincias'][$i] ?? '',
+                'puesto' => $result['puestos'][$i] ?? '',
+                'tipo' => $result['tipos'][$i] ?? '',
+                'num_plazas' => $result['plazas'][$i] ?? '',
+                'voluntaria' => $result['obligatoriedad'][$i] ?? '',
+                'fecha_prevista_cese' => $result['fechas'][$i] ?? '',
+            ];
+        }
+
+        return $data;
+    }
+
+
+    public function extractAdjudicacionFromPageContent(int $pagina, string $content, int $convocatoria): array
+    {
+        $lines = explode("\n", $content);
+        $lines = array_map('trim', $lines);
+        $lines = array_filter($lines, function ($line) {
+            return
+                !str_starts_with($line, 'Tipo') &&
+                !str_starts_with($line, 'Plaza AND') &&
+                !str_starts_with($line, 'Apellidos, nombre y NIF/NIE') &&
+                !preg_match('/^\d{3} - /', $line) &&
+                !str_starts_with($line, 'F. Prev.') &&
+                !str_starts_with($line, 'Cese Puesto');
+        });
+        $lines = array_values($lines); // Reindexar
+
+        $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
+
+//        if (count($lines) <= 6) {
+//            //$result = $this->extractPlazasOnlyOneRecord($pagina, $convocatoria, $lines);
+//        } else {
+//            $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
+//        }
+
+        $data = [];
+        for ($i = 0; $i < $result['count']; $i++) {
+            $data[] = [
+                'centro' => $result['centros'][$i] ?? '',
                 'provincia' => $result['provincias'][$i] ?? '',
                 'puesto' => $result['puestos'][$i] ?? '',
                 'tipo' => $result['tipos'][$i] ?? '',
@@ -139,7 +179,7 @@ class PlazasScrapperService
         return null;
     }
 
-    private function extractNormalCase(int $pagina, int $convocatoria, array $lines): array
+    private function extractPlazasNormalCase(int $pagina, int $convocatoria, array $lines): array
     {
         /**
          * 1 - Voluntaria
@@ -212,7 +252,8 @@ class PlazasScrapperService
             count($fechas) !== $count ||
             count($obligatoriedad) !== $count
         ) {
-            throw new \RuntimeException('Los datos extraídos de la pagina ' . $pagina . ' convocatoria ' . $convocatoria . ' no tienen el mismo número de elementos: ' .
+            throw new \RuntimeException(
+                'Los datos extraídos de la pagina ' . $pagina . ' convocatoria ' . $convocatoria . ' no tienen el mismo número de elementos: ' .
                 'centros: ' . count($centros) . ', ' .
                 'localidades: ' . count($localidades) . ', ' .
                 'provincias: ' . count($provincias) . ', ' .
@@ -239,6 +280,135 @@ class PlazasScrapperService
         ];
     }
 
+    private function extractAdjudicacionNormalCase(int $pagina, int $convocatoria, array $lines): array
+    {
+        /**
+         * 1 - Apellidos, nombre y NIF/NIE
+         * 2 - Orden
+         * 3 - Centro
+         * 4 - Localidad
+         * 5 - Provincia
+         * 6 - Puesto
+         * 7 - Tipo plaza
+         * 8 - F. Prevista Cese
+         * 9 - AND
+         */
+
+        $obligatoriedad = [];
+        foreach ($lines as $line) {
+            if (preg_match('/^[SNV](\/[SNV])?$/', $line)) {
+                $obligatoriedad[] = $line;
+            }
+        }
+        $count = count($obligatoriedad) / 2;
+
+        /*
+         * Bloque 1: Apellidos, Nombre y NIF/NIE
+         * Se omite por privacidad y protección de datos personales
+         * Buscamos la primera línea que contenga un número de 1 a 99999
+         * Que serán las posiciones de los adjudicatarios
+         */
+        $indice = null;
+        foreach ($lines as $i => $valor) {
+            if ($valor === "" || preg_match('/^[1-9][0-9]{0,4}$/', $valor)) {
+                $indice = $i;
+                break;
+            }
+        }
+
+        /*
+         * Bloque 2: Orden
+         */
+        $index_orden_start = $indice;
+        $index_orden_end = $indice + $count - 1;
+
+
+        /*
+         * Bloque: Posicion
+         */
+        $indice = null;
+        for ($i = count($lines) - 1; $i >= 0; $i--) {
+            if ($lines[$i] === "") {
+                $indice = $i;
+                break;
+            }
+        }
+        $index_puesto_end = $indice - 1;
+
+        $indice = null;
+        for ($i = $index_puesto_end; $i >= 0; $i--) {
+            if ($lines[$i] === "N" || $lines[$i] === "S") {
+                $indice = $i;
+                break;
+            }
+        }
+        $index_puesto_start = $indice + 1;
+
+        $index_obligatoriedad_end = $indice;
+        $index_obligatoriedad_start = $index_obligatoriedad_end - $count + 1;
+
+        $index_fecha_end = $index_obligatoriedad_start - 1;
+        $index_fecha_start = $index_fecha_end - $count + 1;
+
+        $index_tipo_end = $index_fecha_start - 1;
+        $index_tipo_start = $index_tipo_end - $count + 1;
+
+        $index_provincia_end = $index_tipo_start - 1;
+        $index_provincia_start = $index_provincia_end - $count + 1;
+
+        for ($i = $index_orden_end + 1; $i < $index_provincia_start; $i++) {
+            if (preg_match('/^([A-Za-z0-9]{8}) - /', $lines[$i], $matches)) {
+                $codigos_centros[] = $matches[1]; // Solo el código de centro
+            }
+        }
+
+        $centros = $codigos_centros;
+        $provincias = array_slice($lines, $index_provincia_start, $index_provincia_end - $index_provincia_start + 1);
+        $tipos = array_slice($lines, $index_tipo_start, $index_tipo_end - $index_tipo_start + 1);
+        $fechas = array_slice($lines, $index_fecha_start, $index_fecha_end - $index_fecha_start + 1);
+        $puesto = array_slice($lines, $index_puesto_start, $index_puesto_end - $index_puesto_start + 1);
+        $orden = array_slice($lines, $index_orden_start, $index_orden_end - $index_orden_start + 1);
+        $obligatoriedad = array_slice(
+            $lines,
+            $index_obligatoriedad_start,
+            $index_obligatoriedad_end - $index_obligatoriedad_start + 1
+        );
+
+        $puestos = $this->fixDataDependingType($puesto, $count, 'puesto');
+
+        //check all arrays have the same count
+        if (
+            count($centros) !== $count ||
+            count($provincias) !== $count ||
+            count($puestos) !== $count ||
+            count($tipos) !== $count ||
+            count($fechas) !== $count ||
+            count($obligatoriedad) !== $count
+        ) {
+            throw new \RuntimeException(
+                'Los datos extraídos de la pagina ' . $pagina . ' convocatoria ' . $convocatoria . ' no tienen el mismo número de elementos: ' .
+                'centros: ' . count($centros) . ', ' .
+                'provincias: ' . count($provincias) . ', ' .
+                'puestos: ' . count($puestos) . ', ' .
+                'tipos: ' . count($tipos) . ', ' .
+                'fechas: ' . count($fechas) . ', ' .
+                'obligatoriedad: ' . count($obligatoriedad)
+            );
+        }
+
+        return [
+            'count' => $count,
+            'pagina' => $pagina,
+            'convocatoria' => $convocatoria,
+            'centros' => $centros,
+            'provincias' => $provincias,
+            'puestos' => $puestos,
+            'tipos' => $tipos,
+            'obligatoriedad' => $obligatoriedad,
+            'fechas' => $fechas
+        ];
+    }
+
     protected function extractProvincia(array $lines): ?string
     {
         foreach ($lines as $line) {
@@ -250,7 +420,6 @@ class PlazasScrapperService
         }
 
         return null;
-
     }
 
 
@@ -265,10 +434,9 @@ class PlazasScrapperService
         }
 
         return null;
-
     }
 
-    private function extractOnlyOneRecord(int $pagina, int $convocatoria, array $lines): array
+    private function extractPlazasOnlyOneRecord(int $pagina, int $convocatoria, array $lines): array
     {
         $parts = array_merge(...array_map(fn($line) => explode("\t", $line), $lines));
 

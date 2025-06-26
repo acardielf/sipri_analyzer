@@ -14,7 +14,7 @@ final class Version20250611221753 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Estructura base';
     }
 
     public function up(Schema $schema): void

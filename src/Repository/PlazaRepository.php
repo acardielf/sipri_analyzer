@@ -26,15 +26,14 @@ class PlazaRepository extends ServiceEntityRepository
     }
 
     public function findByAttributes(
-        ?int                $convocatoriaId = null,
-        ?int                $centroId = null,
-        ?string             $especialidadId = null,
-        ?string             $tipo = null,
-        ?string             $obligatoriedad = null,
+        ?int $convocatoriaId = null,
+        ?string $centroId = null,
+        ?string $especialidadId = null,
+        ?string $tipo = null,
+        ?string $obligatoriedad = null,
         ?\DateTimeImmutable $fechaPrevistaCese = null,
-        ?int                $numero = null
-    ): ?Plaza
-    {
+        ?int $numero = null
+    ): ?Plaza {
         $qb = $this->createQueryBuilder('p');
 
         if ($convocatoriaId) {
@@ -86,7 +85,8 @@ class PlazaRepository extends ServiceEntityRepository
 
     public function findByHash(PlazaDto $dto, int $ocurrencia): ?Plaza
     {
-        $hash = hash('sha256',
+        $hash = hash(
+            'sha256',
             $dto->convocatoria->id .
             $dto->centro->id .
             $dto->especialidad->id .
@@ -124,8 +124,11 @@ class PlazaRepository extends ServiceEntityRepository
      * @param int $provinciaId
      * @return array<Plaza>
      */
-    public function getEspecialidadesByCursoAndProvincia(Curso $curso, Especialidad $especialidad, Provincia $provincia): array
-    {
+    public function getEspecialidadesByCursoAndProvincia(
+        Curso $curso,
+        Especialidad $especialidad,
+        Provincia $provincia
+    ): array {
         $qb = $this->createQueryBuilder('p')
             ->join('p.convocatoria', 'c')
             ->join('p.centro', 'cc')
@@ -134,7 +137,7 @@ class PlazaRepository extends ServiceEntityRepository
             ->where('p.especialidad = :especialidad')
             ->andWhere('c.curso = :curso')
             ->andWhere('prov.id = :provincia')
-            ->orderBy('c.id','DESC')
+            ->orderBy('c.id', 'DESC')
             ->setParameter('especialidad', $especialidad)
             ->setParameter('curso', $curso)
             ->setParameter('provincia', $provincia);
