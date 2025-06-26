@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Repository\AdjudicacionRepository;
 use App\Repository\ConvocatoriaRepository;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
@@ -20,11 +21,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class RemoveConvocatoriaCommand extends Command
 {
     public function __construct(
-        private readonly FileUtilitiesService   $fileUtilitiesService,
+        private readonly FileUtilitiesService $fileUtilitiesService,
         private readonly ConvocatoriaRepository $convocatoriaRepository,
-        private readonly PlazaRepository        $plazaRepository,
-    )
-    {
+        private readonly PlazaRepository $plazaRepository,
+        private readonly AdjudicacionRepository $adjudicacionRepository,
+    ) {
         parent::__construct();
     }
 
@@ -32,7 +33,18 @@ class RemoveConvocatoriaCommand extends Command
     {
         $this->setHelp('Este comando elimina una convocatoria, sus plazas y archivos asociados');
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
-        $this->addOption('full', 'f', InputOption::VALUE_NEGATABLE, 'Elimina también los archivos asociados a la convocatoria');
+        $this->addOption(
+            'adjudicaciones',
+            'a',
+            InputOption::VALUE_NEGATABLE,
+            'Elimina las adjudicaciones asociadas a la convocatoria'
+        );
+        $this->addOption(
+            'full',
+            'f',
+            InputOption::VALUE_NEGATABLE,
+            'Elimina también los archivos asociados a la convocatoria'
+        );
     }
 
     /**
@@ -66,6 +78,12 @@ class RemoveConvocatoriaCommand extends Command
             $output->writeln('<info>Archivos PDF eliminados.</info>');
         }
 
+        if ($input->getOption('adjudicaciones')) {
+            $adjudicaciones = $this->adjudicacionRepository->findByConvocatoria($convocatoria);
+            $this->adjudicacionRepository->removeAll($adjudicaciones);
+            $output->writeln('<info>Adjudicaciones eliminadas.</info>');
+            return Command::SUCCESS;
+        }
 
         $convocatoriaEntity = $this->convocatoriaRepository->find($convocatoria);
         $plazas = $this->plazaRepository->findBy(['convocatoria' => $convocatoria]);

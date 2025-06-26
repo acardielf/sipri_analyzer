@@ -10,16 +10,22 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250611221753 extends AbstractMigration
+final class Version20250626122435 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Estructura base';
+        return '';
     }
 
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql(<<<'SQL'
+            CREATE TABLE adjudicacion (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, plaza_id INTEGER DEFAULT NULL, orden INTEGER NOT NULL, CONSTRAINT FK_1299069AEF34C0BD FOREIGN KEY (plaza_id) REFERENCES plaza (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_1299069AEF34C0BD ON adjudicacion (plaza_id)
+        SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE centro (id VARCHAR(255) NOT NULL, localidad_id INTEGER DEFAULT NULL, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(id), CONSTRAINT FK_2675036B67707C89 FOREIGN KEY (localidad_id) REFERENCES localidad (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
         SQL);
@@ -27,7 +33,8 @@ final class Version20250611221753 extends AbstractMigration
             CREATE INDEX IDX_2675036B67707C89 ON centro (localidad_id)
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE TABLE convocatoria (id INTEGER NOT NULL, curso_id INTEGER DEFAULT NULL, nombre VARCHAR(12) NOT NULL, PRIMARY KEY(id), CONSTRAINT FK_6D77302187CB4A1F FOREIGN KEY (curso_id) REFERENCES curso (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
+            CREATE TABLE convocatoria (id INTEGER NOT NULL, curso_id INTEGER DEFAULT NULL, nombre VARCHAR(12) NOT NULL, fecha DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
+            , PRIMARY KEY(id), CONSTRAINT FK_6D77302187CB4A1F FOREIGN KEY (curso_id) REFERENCES curso (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_6D77302187CB4A1F ON convocatoria (curso_id)
@@ -65,6 +72,9 @@ final class Version20250611221753 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql(<<<'SQL'
+            DROP TABLE adjudicacion
+        SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE centro
         SQL);

@@ -12,7 +12,7 @@ class Adjudicacion
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $puesto = null;
+    private ?int $orden = null;
 
     #[ORM\OneToOne(inversedBy: 'adjudicacion', cascade: ['persist', 'remove'])]
     private ?Plaza $plaza = null;
@@ -25,7 +25,7 @@ class Adjudicacion
     public function __construct(?int $id, ?int $puesto, ?Plaza $plaza)
     {
         $this->id = $id;
-        $this->puesto = $puesto;
+        $this->orden = $puesto;
         $this->plaza = $plaza;
     }
 
@@ -41,14 +41,14 @@ class Adjudicacion
         return $this;
     }
 
-    public function getPuesto(): ?int
+    public function getOrden(): ?int
     {
-        return $this->puesto;
+        return $this->orden;
     }
 
-    public function setPuesto(int $puesto): static
+    public function setOrden(int $orden): static
     {
-        $this->puesto = $puesto;
+        $this->orden = $orden;
 
         return $this;
     }

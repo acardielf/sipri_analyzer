@@ -141,6 +141,7 @@ class ExtraerAdjudicacionesCommand extends Command
                 continue;
             }
 
+            $plaza =  null;
             if (count($plazaObjetivo) > 1) {
                 if ($input->getOption('info')) {
                     $output->writeln(
@@ -159,11 +160,11 @@ class ExtraerAdjudicacionesCommand extends Command
             }
 
 
-            if ($plaza->getAdjudicacion() === null) {
+            if ($plaza?->getAdjudicacion() === null) {
                 $plaza->setAdjudicacion(
                     new Adjudicacion(
                         id: null,
-                        puesto: intval($adjudicaciones_array['puesto']),
+                        puesto: intval($adjudicaciones_array['orden']),
                         plaza: $plazaObjetivo[0],
                     )
                 );

@@ -16,28 +16,27 @@ class AdjudicacionRepository extends ServiceEntityRepository
         parent::__construct($registry, Adjudicacion::class);
     }
 
-    //    /**
-    //     * @return Adjudicacion[] Returns an array of Adjudicacion objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByConvocatoria(int $convocatoria)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.plaza', 'p')
+            ->andWhere('p.convocatoria = :convocatoria')
+            ->setParameter('convocatoria', $convocatoria)
+            ->orderBy('a.orden', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Adjudicacion
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * @param array<Adjudicacion> $adjudicaciones
+     * @return void
+     */
+    public function removeAll(array $adjudicaciones): void
+    {
+        foreach ($adjudicaciones as $adjudicacion) {
+            $this->getEntityManager()->remove($adjudicacion);
+        }
+        $this->getEntityManager()->flush();
+        $this->getEntityManager()->clear();
+    }
 }

@@ -352,6 +352,13 @@ class ScrapperService
         }
         $index_puesto_start = $indice + 1;
 
+        if (!preg_match('/^\d{8} - /', $lines[$index_puesto_start])) {
+            // Estamos ante un salto de página. Es decir, un puesto ha sido dividido en 2 páginas
+            // por lo que omitimos la primera fila si no empieza por el código de la especialidad
+            // caso ejemplo: Adjudicacion 3. Página 10
+            $index_puesto_start += 1;
+        }
+
         $index_obligatoriedad_end = $indice;
         $index_obligatoriedad_start = $index_obligatoriedad_end - $count + 1;
 
