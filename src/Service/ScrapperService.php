@@ -85,7 +85,7 @@ class ScrapperService
         });
         $lines = array_values($lines); // Reindexar
 
-        if (count($lines) <= 12) {
+        if (count($lines) <= 15) {
             $result = $this->extractAdjudicacionOnlyOneRecord($pagina, $convocatoria, $lines);
         } else {
             $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
@@ -352,7 +352,7 @@ class ScrapperService
         }
         $index_puesto_start = $indice + 1;
 
-        if (!preg_match('/^\d{8} - /', $lines[$index_puesto_start])) {
+        if (!preg_match('/^[A-Za-z0-9]{8} - /', $lines[$index_puesto_start])) {
             // Estamos ante un salto de página. Es decir, un puesto ha sido dividido en 2 páginas
             // por lo que omitimos la primera fila si no empieza por el código de la especialidad
             // caso ejemplo: Adjudicacion 3. Página 10

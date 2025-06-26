@@ -107,7 +107,7 @@ class ExtraerAdjudicacionesCommand extends Command
         $noEncontradas = 0;
         $ocep = 0;
 
-        foreach ($resultados as $adjudicaciones_array) {
+        foreach ($resultados as $index => $adjudicaciones_array) {
             $plazaObjetivo = $this->plazaRepository->findByAttributes(
                 convocatoriaId: $convocatoria,
                 centroId: $adjudicaciones_array['centro'],
