@@ -1,18 +1,28 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Welcome!{% endblock %}
+{% block title %}SIPRI Analyzer{% endblock %}
+{% block header %}{% endblock %}
 
 {% block body %}
-    <h2>Plazas</h2>
 
-    <hr>
+    <div class="text-center">
+        <h1 class="mb-0">
+            <a href="{{ path('app_index') }}" class="fw-bold text-black text-decoration-none">
+                <i class="bi bi-bar-chart-fill"></i>
+                <span>SIPRI Analyzer</span>
+            </a>
+        </h1>
 
-    {% for curso in cursos %}
-        <a href="{{ path('app_especialidad_index', { 'curso': curso.id }) }}">Curso {{ curso.nombre }}</a>
-    {% endfor %}
+        <p class="lead">
+            Esta página pretende recoger de forma organizada los datos acumulados del Sistema de Provisión de Interinidades de la Consejería de Desarrollo Educativo y Formación Profesional de la Junta de Andalucía para su consulta.
 
-    <hr>
+        </p>
+        <p class="lead">
+            <a href="{{ path('app_lista_especialidades') }}" class="btn btn-lg btn-secondary fw-bold ">Listado
+                especialidades</a>
+        </p>
+    </div>
 
 
 {% endblock %}

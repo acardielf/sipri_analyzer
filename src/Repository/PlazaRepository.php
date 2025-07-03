@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Dto\PlazaDto;
-use App\Entity\Convocatoria;
 use App\Entity\Curso;
 use App\Entity\Especialidad;
 use App\Entity\Plaza;
@@ -134,7 +133,7 @@ class PlazaRepository extends ServiceEntityRepository
     /**
      * @param Curso $curso
      * @param Especialidad $especialidad
-     * @param int $provinciaId
+     * @param Provincia $provincia
      * @return array<Plaza>
      */
     public function getEspecialidadesByCursoAndProvincia(
@@ -147,10 +146,12 @@ class PlazaRepository extends ServiceEntityRepository
             ->join('p.centro', 'cc')
             ->join('cc.localidad', 'l')
             ->join('l.provincia', 'prov')
+            ->leftJoin('p.adjudicaciones', 'a')
             ->where('p.especialidad = :especialidad')
             ->andWhere('c.curso = :curso')
             ->andWhere('prov.id = :provincia')
             ->orderBy('p.convocatoria', 'DESC')
+            ->addOrderBy('a.orden', 'DESC')
             ->addOrderBy('p.centro', 'ASC')
             ->setParameter('especialidad', $especialidad)
             ->setParameter('curso', $curso)

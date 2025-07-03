@@ -12,17 +12,16 @@
         {% endblock %}
     {% endblock %}
 </head>
-<body>
-<div class="container">
-    {% include 'header.html.twig' %}
-    {% block body %}{% endblock %}
+<body class="d-flex h-100">
+
+<div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    {% block header %}{% include 'header.html.twig' %}{% endblock %}
+    <main class="px-3">
+        {% block body %}{% endblock %}
+    </main>
+    {% block footer %}{% include 'footer.html.twig' %}{% endblock %}
 </div>
 
-</body>
-<footer>
-    <div class="container">
-        {% include 'footer.html.twig' %}
-    </div>
 
-</footer>
+</body>
 </html>

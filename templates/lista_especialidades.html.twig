@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+    <h2>Plazas</h2>
+
+    <hr>
+
+    {% for curso in cursos %}
+        <a href="{{ path('app_especialidad_index', { 'curso': curso.id }) }}">Curso {{ curso.nombre }}</a>
+    {% endfor %}
+
+    <hr>
+
+
+{% endblock %}

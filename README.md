@@ -69,3 +69,9 @@ find . -type f -name "*_adjudicados.pdf.txt" -print0 | xargs -0 grep -L "ANEXO I
 # borrar los ficheros
 find . -type f -name "*_adjudicados.pdf.txt" -exec rm {} \;
 ```
+
+
+Generar static
+```bash
+bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+```   

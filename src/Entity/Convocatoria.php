@@ -28,16 +28,18 @@ class Convocatoria
     /**
      * @var Collection<int, Plaza>
      */
-    #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'convocatoria', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'convocatoria', cascade: [
+        'persist',
+        'remove'
+    ], orphanRemoval: true)]
     private Collection $plazas;
 
     public function __construct(
-        int                 $id,
-        string              $nombre,
+        int $id,
+        string $nombre,
         ?\DateTimeImmutable $fecha,
-        Curso               $curso,
-    )
-    {
+        Curso $curso,
+    ) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->curso = $curso;
@@ -121,4 +123,20 @@ class Convocatoria
         $this->fecha = $fecha;
     }
 
+    public function hasAdjudicacion(): bool
+    {
+        /** @var Plaza $plaza */
+        foreach ($this->plazas as $plaza) {
+            if ($plaza->hasAtLeastOneAdjudicacion()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getPlazasDesiertas(): array
+    {
+        return $this->plazas->filter(fn(Plaza $plaza) => $plaza->isDesierta())->toArray();
+    }
 }
+

@@ -46,11 +46,17 @@ class EspecialidadProvinciaCursoController extends AbstractController
 
         $plazas = $this->plazaRepository->getEspecialidadesByCursoAndProvincia($curso, $especialidad, $provincia);
 
+        $desiertas = count(array_filter($plazas, function (Plaza $plaza) {
+            return $plaza->isDesierta();
+        }));
+
         return $this->render('especialidades/detalle.html.twig', [
             'curso' => $curso,
             'especialidad' => $especialidad,
             'provincia' => $provincia,
             'plazas' => $plazas,
+            'desiertas' => $desiertas,
+            'minOrden' => $this->encontrarOrdenMinimo($plazas) ?? 0,
             'maxOrden' => $this->encontrarOrdenMaximo($plazas) ?? 0,
         ]);
     }
@@ -70,6 +76,26 @@ class EspecialidadProvinciaCursoController extends AbstractController
 
                 $ordenMaximoActual = max($ordenesAdjudicaciones->toArray());
                 return $ordenMaximo === null ? $ordenMaximoActual : max($ordenMaximo, $ordenMaximoActual);
+            },
+            null
+        );
+    }
+
+    private function encontrarOrdenMinimo(array $plazas): ?int
+    {
+        return array_reduce(
+            $plazas,
+            function (?int $ordenMinimo, Plaza $plaza) {
+                $ordenesAdjudicaciones = $plaza->getAdjudicaciones()
+                    ->map(fn(Adjudicacion $adjudicacion) => $adjudicacion->getOrden())
+                    ->filter(fn($orden) => $orden !== null);
+
+                if ($ordenesAdjudicaciones->isEmpty()) {
+                    return $ordenMinimo;
+                }
+
+                $ordenMinimoActual = min($ordenesAdjudicaciones->toArray());
+                return $ordenMinimo === null ? $ordenMinimoActual : min($ordenMinimo, $ordenMinimoActual);
             },
             null
         );

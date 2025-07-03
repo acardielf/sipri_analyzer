@@ -236,5 +236,15 @@ class Plaza
         return $this;
     }
 
+    public function hasAtLeastOneAdjudicacion(): bool
+    {
+        return !$this->adjudicaciones->isEmpty();
+    }
+
+    public function isDesierta(): bool
+    {
+        return $this->convocatoria->hasAdjudicacion() && count($this->getAdjudicaciones()) == 0;
+    }
+
 
 }
