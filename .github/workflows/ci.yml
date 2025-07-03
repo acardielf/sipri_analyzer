@@ -12,6 +12,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_sqlite
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --no-progress --no-interaction
+
+      - name: Execute doctrine migrations
+        run: php bin/console doctrine:migration:migrate --no-interaction
+
+      - name: Build with Stenope
+        run: php bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --no-sitemap ./docs  
+  
   tests:
     name: Tests
     runs-on: ubuntu-latest

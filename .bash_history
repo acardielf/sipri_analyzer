@@ -384,3 +384,56 @@ mv docs wiki
 mv static/ docs
 git commit -m 'change folders'
 exit
+bin/console stenope:build --help
+bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --no-sitemap ./docs
+bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+clear
+for i in {1..360}; do php bin/console:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:ext "$i"; done
+for i in {1..360}; do php bin/console:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+for i in {163..360}; do php bin/console sipri:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+ php bin/console sipri:ex 168 
+ php bin/console sipri:adj 168 
+ php bin/console sipri:adj 268 
+ php bin/console sipri:adj 268 
+ php bin/console sipri:ext 268 
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console sipri:adj --info 268
+bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+php -d memory_limit=-1 bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+php -d memory_limit=-1 bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+cd docs/
+rm -rf * 
+ls
+cd ..
+php -d memory_limit=-1 bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+bin/console asset-map:compile
+bin/console -e prod cache:clear
+php -d memory_limit=-1 bin/console --env=prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+php bin/console -e prod doctrine:database:create
+php bin/console -e prod doctrine:migrate:migrate
+php bin/console -e prod doctrine:migrations:migrate
+cp /app/var/data_dev.db /app/var/data_prod.db 
+bin/console asset-map:compile
+bin/console -e prod cache:clear
+php -d memory_limit=-1 bin/console --env=prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+exit

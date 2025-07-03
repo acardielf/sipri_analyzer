@@ -60,7 +60,7 @@ class ExtraerAdjudicacionesCommand extends Command
         $convocatoria = $input->getArgument('convocatoria');
         $convocatoria = intval($convocatoria);
 
-        $output->writeln('Procesando convocatoria: ' . $convocatoria);
+        $output->writeln('Extrayendo adjudicaciones para la convocatoria: ' . $convocatoria);
 
         $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
         $pdfPath = $path . $convocatoria . '_adjudicados.pdf';

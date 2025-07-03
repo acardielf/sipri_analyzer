@@ -1,67 +1,111 @@
-# Symfony Docker
+# SIPRI Analyzer
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+![img.png](img.png)
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+[![License](https://img.shields.io/github/license/acardielf/sipri_analyzer)]
 
 ## Getting Started
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
 2. Run `docker compose build --pull --no-cache` to build fresh images
 3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
+4. Open `https://localhost` in your favorite web browser
+   and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
 5. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
-## Features
-
-* Production, development and CI ready
-* Just 1 service by default
-* Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://github.com/dunglas/frankenphp/blob/main/docs/worker.md) (automatically enabled in prod mode)
-* [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-* Automatic HTTPS (in dev and prod)
-* HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-* Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-* [Vulcain](https://vulcain.rocks) support
-* Native [XDebug](docs/xdebug.md) integration
-* Super-readable configuration
-
-**Enjoy!**
-
-## Docs
-
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
-
-## License
-
-Symfony Docker is available under the MIT License.
-
-## Credits
-
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
-
-
-## Run commands in the container
+## Join the container
 
 ```bash
-for i in $(seq 1 30); do
-    php bin/console sipri:ex $i
-    sleep 5
-done
+docker compose exec -it sipri bash
+```
+
+## Usage
+
+### Install dependencies and first run
+
+```bash
+# Consider running this command inside the container:
+bin/console composer install
+bin/console doctrine:database:create --if-not-exists
+bin/console doctrine:migrations:migrate --no-interaction
+```
+
+### Basic commands
+
+#### To get required PDFs from the SIPRI website
+
+```bash
+bin/console sipri:get 1
+
+#use --force to force download even if the file already exists
+bin/console sipri:get --force 1
+```
+
+#### To extract positions from the PDFs
+
+```bash
+bin/console sipri:ext 1
+
+# use --pagina to specify the page number to extract from
+bin/console sipri:ext --pagina 8 1
+```
+
+#### To extract adjudications from the PDFs and attach to the offered positions
+
+```bash
+bin/console sipri:adj 1
+
+# use --pagina to specify the page number to extract from
+bin/console sipri:adj --pagina 8 1
+```
+
+#### Remove convocatorias and all related adjudications
+
+```bash
+bin/console sipri:del 1
+```
+
+#### Remove only adjudications
+
+```bash
+bin/console sipri:del --adj 1
 ```
 
 
-Localizar convocatorias con orden desordenado
+#### Remove convocatorias and all related adjudications and files
+
+```bash
+bin/console sipri:del --full 1
+```
+
+
+#### Get, extract and process adjudications, in a loop
+
+```bash
+# use desired range {1..10} to get the affected convocatorias
+for i in {1..10}; do 
+    php bin/console:get "$i"; 
+    php bin/console sipri:ex "$i"; 
+    php bin/console sipri:adj "$i";
+done
+```
+
+#### Generar static website
+
+```bash
+bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+```   
+
+### Debugging
+
+If you need to debug the application, you can use the following command to start a Symfony server with Xdebug enabled:
+
+```bash
+XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console <your-command>
+```
+
+### Localizar convocatorias con orden desordenado
+
 ```bash
 find . -type f -name "*_adjudicados.pdf" -exec pdftotext {} {}.txt \;
 find . -type f -name "*_adjudicados.pdf.txt" -print0 | xargs -0 grep -L "ANEXO II" > ausentes.txt
@@ -70,8 +114,9 @@ find . -type f -name "*_adjudicados.pdf.txt" -print0 | xargs -0 grep -L "ANEXO I
 find . -type f -name "*_adjudicados.pdf.txt" -exec rm {} \;
 ```
 
+## Credits
 
-Generar static
-```bash
-bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
-```   
+Created by Ángel Cardiel, based on dunglas/symfony-docker template.
+Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and
+sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+

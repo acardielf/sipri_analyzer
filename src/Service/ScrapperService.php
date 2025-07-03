@@ -80,12 +80,13 @@ class ScrapperService
                 !str_starts_with($line, 'Plaza AND') &&
                 !str_starts_with($line, 'Apellidos, nombre y NIF/NIE') &&
                 !preg_match('/^\d{3} - /', $line) &&
+                !str_starts_with($line, 'TB000 - ') &&
                 !str_starts_with($line, 'F. Prev.') &&
                 !str_starts_with($line, 'Cese Puesto');
         });
         $lines = array_values($lines); // Reindexar
 
-        if (count($lines) <= 15) {
+        if (count($lines) <= 17) {
             $result = $this->extractAdjudicacionOnlyOneRecord($pagina, $convocatoria, $lines);
         } else {
             $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);

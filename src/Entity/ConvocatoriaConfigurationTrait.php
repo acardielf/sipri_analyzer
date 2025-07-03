@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Dto\CursoDto;
 use Exception;
+use http\Exception\RuntimeException;
 
 trait ConvocatoriaConfigurationTrait
 {
@@ -23,12 +24,12 @@ trait ConvocatoriaConfigurationTrait
     ];
 
     /**
-     * @throws Exception
+     * @throws RuntimeException
      */
     public static function getCursoFromConvocatoria(int $convocatoria): CursoDto
     {
         if (in_array($convocatoria, self::CONVOCATORIA_AUSENTE, true)) {
-            throw new Exception(
+            throw new RuntimeException(
                 sprintf('No existe ninguna convocatoria convocatoria con el número %d', $convocatoria)
             );
         }
@@ -39,7 +40,7 @@ trait ConvocatoriaConfigurationTrait
             }
         }
 
-        throw new Exception(
+        throw new RuntimeException(
             sprintf('No se encontró curso para la convocatoria %d', $convocatoria)
         );
     }
