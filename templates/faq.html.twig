@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Preguntas frecuentes{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h2>Preguntas frecuentes</h2>
+
+        <div class="accordion" id="preguntas">
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q01JZ7VCMQEWAFJ4TCF9CCAFXAP">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a01JZ7VCMQEWAFJ4TCF9CCAFXAP" aria-expanded="true"
+                            aria-controls="a01JZ7VCMQEWAFJ4TCF9CCAFXAP">
+                        <strong>¿Es 100% fiable la información que se muestra?</strong>
+                    </button>
+                </h2>
+                <div id="a01JZ7VCMQEWAFJ4TCF9CCAFXAP" class="accordion-collapse collapse show"
+                     aria-labelledby="q01JZ7VCMQEWAFJ4TCF9CCAFXAP"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        <strong>No</strong>. Los datos pueden tener errores. De hecho, se han detectado algunas
+                        adjudicaciones de determinadas convocatorias que no están bien tratadas por el sistema puesto
+                        que hay plazas que aparecen divididas de forma casual en páginas del PDF. Así que es
+                        absolutamente seguro que los datos no son correctos ni completos del todo, aunque son bastante
+                        cercanos a la realidad.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q01JZ7TSZV0X2TVYRVN5BR80GVT">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a01JZ7TSZV0X2TVYRVN5BR80GVT" aria-expanded="false"
+                            aria-controls="a01JZ7TSZV0X2TVYRVN5BR80GVT">
+                        <strong>¿Cómo se obtienen los datos? ¿Qué tecnología se usa?</strong>
+                    </button>
+                </h2>
+                <div id="a01JZ7TSZV0X2TVYRVN5BR80GVT" class="accordion-collapse collapse"
+                     aria-labelledby="q01JZ7TSZV0X2TVYRVN5BR80GVT"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        La tecnología que hay detrás del sistema es una aplicacion Symfony que se encarga de descargar,
+                        procesar las plazas y las adjudicaciones de las diferentes convocatorias. El esqueleto de la
+                        aplicación
+                        es una plantilla (<code>dunglas/symfony-docker</code>) que permite ejecutar un entorno de
+                        desarrollo en local.
+                        Una vez se han procesado los datos, con la librería <code>Stenope</code> se generan los archivos
+                        estáticos y se publican en el repositorio.
+                        <br>
+                        El código fuente de la aplicación está disponible en <a
+                            href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i> GitHub</a> y
+                        es susceptible de ser
+                        mejorado por cualquier persona interesada en el proyecto. Animo a que creen issues o pull
+                        requests o que contacten por si tienen alguna duda o sugerencia.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q67900d98">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a67900d98" aria-expanded="false" aria-controls="a67900d98">
+                        <strong>¿Planes para actualizar los datos?</strong>
+                    </button>
+                </h2>
+                <div id="a67900d98" class="accordion-collapse collapse" aria-labelledby="q67900d98"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        Los datos son obtenidos de los anexos oficiales publicados en SIPRI en PDF. Por lo tanto, a
+                        medida
+                        que la Junta vaya publicando nuevas convocatorias, la idea es que se vayan actualizando los
+                        datos. Sin embargo, esto no es algo inmediato, ya que el proceso de extracción hay que
+                        lanzarlo manualmente y tampoco sabemos como se va a comportar el sistema una vez que se inicien
+                        las convocatorias del nuevo curso escolar.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q01JZ7VG8KXR251KSM4EMK2VMP2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a01JZ7VGG1ZKKN88ZZJBD0TFBFN" aria-expanded="false"
+                            aria-controls="a01JZ7VGG1ZKKN88ZZJBD0TFBFN">
+                        <strong>Información legal y protección de datos</strong>
+                    </button>
+                </h2>
+                <div id="a01JZ7VGG1ZKKN88ZZJBD0TFBFN" class="accordion-collapse collapse"
+                     aria-labelledby="q01JZ7VG8KXR251KSM4EMK2VMP2"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        Este sitio web es estático, y no almacena, recoge ni procesa ningún tipo de información
+                        personal.
+                        En lo relativo a las ajudicaciones se omite premeditamente todo aquel dato que suponga una
+                        vinculación
+                        individual con datos personales de las personas adjudicatarias tal y como se puede observar en
+                        el código fuente.
+                        No se hace uso de cookies de ningún tipo y ni se rastrea de forma alguna su uso.
+                        El creador de este sitio web es Ángel Cardiel
+                        Ferrero.
+                        Puedes contactar en la dirección <code>1655777+acardielf@users.noreply.github.com</code>. Los
+                        datos que se
+                        muestran en este sitio web han sido obtenidos de los directorios públicos de la Consejería de
+                        Desarrollo Educativo y Formación Profesional de la Junta de Andalucía, accesibles a través de la
+                        web de forma totalmente pública.
+                        La web estática se aloja en GitHub Pages, y está sujeta a las condiciones de uso.
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -14,6 +14,7 @@
             class="badge text-bg-secondary">{{ provincia.nombre }}</span></h3>
 
 
+
     <table class="table table-bordered  table-striped">
         <thead class="table-light">
         <tr>
@@ -29,38 +30,39 @@
         </thead>
     </table>
 
-    <table class="table table-striped table-bordered">
-        <tr>
-            <th>Convocatoria</th>
-            <th>Provincia</th>
-            <th>Localidad</th>
-            <th>Centro</th>
-            <th>Tipo</th>
-            <th>Obligatoriedad</th>
-            <th>Num. Plazas</th>
-            <th>Fecha prev. cese</th>
-            <th>Posición adjudicada</th>
-        </tr>
-        {% for plaza in plazas %}
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
             <tr>
-                <td class="text-nowrap"><span class="badge text-bg-dark">{{ plaza.convocatoria.id }}</span><span
-                        class="badge text-bg-light">{{ plaza.convocatoria.fecha|date('d/m/Y') }}</span></td>
-                <td><span class="small">{{ provincia.nombre }}</span></td>
-                <td class="text-nowrap"><span class="small">{{ plaza.centro.localidad.nombre }}</span></td>
-                <td class="text-nowrap"><span class="small">{{ plaza.centro.id }} - {{ plaza.centro.nombre }}</span>
-                </td>
-                <td><span class="small">{{ plaza.tipo.value }}</span></td>
-                <td><span class=" small">{{ plaza.obligatoriedad.value }}</span></td>
-                <td><span class="small">{{ plaza.numero }}</span></td>
-                <td><span
-                        class="small">{{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '' }}</span>
-                </td>
-                <td><span
-                        class="small font-monospace">{% if plaza.isDesierta %}Desierta{% else %}{{ plaza.adjudicaciones ? plaza.adjudicacionesAsString }}{% endif %}</span>
-                </td>
+                <th>Convocatoria</th>
+                <th>Provincia</th>
+                <th>Localidad</th>
+                <th>Centro</th>
+                <th>Tipo</th>
+                <th>Obligatoriedad</th>
+                <th>Num. Plazas</th>
+                <th>Fecha prev. cese</th>
+                <th>Posición adjudicada</th>
             </tr>
-        {% endfor %}
-    </table>
-
+            {% for plaza in plazas %}
+                <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">{{ plaza.convocatoria.id }}</span><span
+                            class="badge text-bg-light">{{ plaza.convocatoria.fecha|date('d/m/Y') }}</span></td>
+                    <td><span class="small">{{ provincia.nombre }}</span></td>
+                    <td class="text-nowrap"><span class="small">{{ plaza.centro.localidad.nombre }}</span></td>
+                    <td class="text-nowrap"><span class="small">{{ plaza.centro.id }} - {{ plaza.centro.nombre }}</span>
+                    </td>
+                    <td><span class="small">{{ plaza.tipo.value }}</span></td>
+                    <td><span class=" small">{{ plaza.obligatoriedad.value }}</span></td>
+                    <td><span class="small">{{ plaza.numero }}</span></td>
+                    <td><span
+                            class="small">{{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '' }}</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">{% if plaza.isDesierta %}Desierta{% else %}{{ plaza.adjudicaciones ? plaza.adjudicacionesAsString }}{% endif %}</span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

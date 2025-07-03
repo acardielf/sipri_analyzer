@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}SIPRI Analyzer{% endblock %}
 {% block header %}{% endblock %}
 
@@ -15,12 +14,17 @@
         </h1>
 
         <p class="lead">
-            Esta página pretende recoger de forma organizada los datos acumulados del Sistema de Provisión de Interinidades de la Consejería de Desarrollo Educativo y Formación Profesional de la Junta de Andalucía para su consulta.
+            Esta página pretende recoger de forma organizada los datos acumulados del Sistema de Provisión de
+            Interinidades de la Consejería de Desarrollo Educativo y Formación Profesional de la Junta de Andalucía para
+            su consulta.
 
         </p>
         <p class="lead">
             <a href="{{ path('app_lista_especialidades') }}" class="btn btn-lg btn-secondary fw-bold ">Listado
                 especialidades</a>
+        </p>
+        <p class="lead">
+            <div  class="alert alert-secondary" role="alert">Datos actualizados a: {{ "now"|date("m/d/Y") }}</div>
         </p>
     </div>
 
