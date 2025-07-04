@@ -51,7 +51,8 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> FAQ</a>
+                    <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
+                        frecuentes</a>
                 </li>
             </ul>
         </div>
@@ -67,27 +68,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
         <div class="accordion" id="preguntas">
 
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q01JZ7VCMQEWAFJ4TCF9CCAFXAP">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ7VCMQEWAFJ4TCF9CCAFXAP" aria-expanded="true"
-                            aria-controls="a01JZ7VCMQEWAFJ4TCF9CCAFXAP">
-                        <strong>¿Es 100% fiable la información que se muestra?</strong>
-                    </button>
-                </h2>
-                <div id="a01JZ7VCMQEWAFJ4TCF9CCAFXAP" class="accordion-collapse collapse show"
-                     aria-labelledby="q01JZ7VCMQEWAFJ4TCF9CCAFXAP"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        <strong>No</strong>. Los datos pueden tener errores. De hecho, se han detectado algunas
-                        adjudicaciones de determinadas convocatorias que no están bien tratadas por el sistema puesto
-                        que hay plazas que aparecen divididas de forma casual en páginas del PDF. Así que es
-                        absolutamente seguro que los datos no son correctos ni completos del todo, aunque son bastante
-                        cercanos a la realidad.
-                    </div>
-                </div>
-            </div>
-
 
             <div class="accordion-item">
                 <h2 class="accordion-header" id="q01JZ7TSZV0X2TVYRVN5BR80GVT">
@@ -101,40 +81,24 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                      aria-labelledby="q01JZ7TSZV0X2TVYRVN5BR80GVT"
                      data-bs-parent="#preguntas">
                     <div class="accordion-body">
-                        La tecnología que hay detrás del sistema es una aplicacion Symfony que se encarga de descargar,
-                        procesar las plazas y las adjudicaciones de las diferentes convocatorias. El esqueleto de la
-                        aplicación
-                        es una plantilla (<code>dunglas/symfony-docker</code>) que permite ejecutar un entorno de
+                        La tecnología que hay detrás del sistema es una aplicación Symfony dockerizada que se encarga de
+                        descargar,
+                        procesar las plazas y las adjudicaciones de las diferentes convocatorias.
+                        El esqueleto de la
+                        aplicación es una plantilla (<code>dunglas/symfony-docker</code>) que permite ejecutar un
+                        entorno de
                         desarrollo en local.
                         Una vez se han procesado los datos, con la librería <code>Stenope</code> se generan los archivos
                         estáticos y se publican en el repositorio.
+                        <br> En el archivo README.md existen algunas instrucciones para poder hacer build del contenedor
+                        y poder ejecutar los comandos
+                        en la terminal para poder hacerlo funcionar en tu propio equipo.
                         <br>
                         El código fuente de la aplicación está disponible en <a
                             href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i> GitHub</a> y
                         es susceptible de ser
                         mejorado por cualquier persona interesada en el proyecto. Animo a que creen issues o pull
                         requests o que contacten por si tienen alguna duda o sugerencia.
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q67900d98">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a67900d98" aria-expanded="false" aria-controls="a67900d98">
-                        <strong>¿Planes para actualizar los datos?</strong>
-                    </button>
-                </h2>
-                <div id="a67900d98" class="accordion-collapse collapse" aria-labelledby="q67900d98"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        Los datos son obtenidos de los anexos oficiales publicados en SIPRI en PDF. Por lo tanto, a
-                        medida
-                        que la Junta vaya publicando nuevas convocatorias, la idea es que se vayan actualizando los
-                        datos. Sin embargo, esto no es algo inmediato, ya que el proceso de extracción hay que
-                        lanzarlo manualmente y tampoco sabemos como se va a comportar el sistema una vez que se inicien
-                        las convocatorias del nuevo curso escolar.
                     </div>
                 </div>
             </div>
@@ -161,7 +125,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                         No se hace uso de cookies de ningún tipo y ni se rastrea de forma alguna su uso.
                         El creador de este sitio web es Ángel Cardiel
                         Ferrero.
-                        Puedes contactar en la dirección <code>1655777+acardielf@users.noreply.github.com</code>. Los
+                        Puedes contactar en la dirección <code>angel.cardiel@protonmail.com</code>. Los
                         datos que se
                         muestran en este sitio web han sido obtenidos de los directorios públicos de la Consejería de
                         Desarrollo Educativo y Formación Profesional de la Junta de Andalucía, accesibles a través de la
@@ -170,7 +134,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </div>
                 </div>
             </div>
-
 
 
             <div class="accordion-item">
@@ -186,12 +149,106 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                      data-bs-parent="#preguntas">
                     <div class="accordion-body">
                         <ul>
-                            <li>Existen adjudicaciones a centros "OCEP" que no están asociados</li>
-                            <li>La determinación de plazas desiertas es en ocasiones complicado de averiguar porque no se especifican concretamente en la resolución</li>
-                            <li>Problemas en las adjudicaciones de las convocatorias: 173, 177, 226, 229, 252, 268 y, por tanto, podrían estar incompletas</li>
+                            <li>Existen adjudicaciones a centros "OCEP" que no aparecen en los listados finales.</li>
+                            <li>La determinación de si una plaza ha quedado desierta o no, no es siempre es precisa.
+                            </li>
+                            <li>Existen problemas conocidos en las adjudicaciones 173, 177, 226, 229, 252, 268 y, por
+                                tanto, podrían estar incompletas.
+                            </li>
                         </ul>
+
+                        Se irá actualizando esta sección a medida que se vayan detectando y/o solucionando problemas.
                     </div>
-                    Se irá actualizando esta sección a medida que se vayan detectando y/o solucionando problemas.
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q67900d98">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a67900d98" aria-expanded="false" aria-controls="a67900d98">
+                        <strong>¿Planes para actualizar los datos?</strong>
+                    </button>
+                </h2>
+                <div id="a67900d98" class="accordion-collapse collapse" aria-labelledby="q67900d98"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        Los datos son obtenidos de los anexos oficiales publicados en SIPRI en PDF. Por lo tanto, a
+                        medida
+                        que la Junta vaya publicando nuevas convocatorias, la idea es que se vayan actualizando los
+                        datos. Sin embargo, esto no es algo inmediato, ya que el proceso de extracción hay que
+                        lanzarlo manualmente y tampoco sabemos como se va a comportar el sistema una vez que se inicien
+                        las convocatorias del nuevo curso escolar.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q01JZ9310NHKAT108RE9DQRAEWC">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a01JZ9310NHKAT108RE9DQRAEWC" aria-expanded="false"
+                            aria-controls="a01JZ9310NHKAT108RE9DQRAEWC">
+                        <strong>¿Por qué he hecho esta página?</strong>
+                    </button>
+                </h2>
+                <div id="a01JZ9310NHKAT108RE9DQRAEWC" class="accordion-collapse collapse"
+                     aria-labelledby="q01JZ9310NHKAT108RE9DQRAEWC"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        Principalmente porque me encanta programar <i class="bi-emoji-smile"></i> y creo que es una
+                        información, que está a disposición de todo el mundo a través
+                        de las convocatorias públicas de SIPRI, pero que no están agrupadas para poder saber las
+                        tendencias de las adjudicaciones,
+                        las posiciones en la bolsa de trabajo que van siendo llamadas durante el curso escolar, las
+                        diferentes plazas que se ofertan, etc.
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q01JZ7VCMQEWAFJ4TCF9CCAFXAP">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a01JZ7VCMQEWAFJ4TCF9CCAFXAP" aria-expanded="true"
+                            aria-controls="a01JZ7VCMQEWAFJ4TCF9CCAFXAP">
+                        <strong>¿Es 100% fiable la información que se muestra?</strong>
+                    </button>
+                </h2>
+                <div id="a01JZ7VCMQEWAFJ4TCF9CCAFXAP" class="accordion-collapse collapse show"
+                     aria-labelledby="q01JZ7VCMQEWAFJ4TCF9CCAFXAP"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        <strong>No</strong>. Los datos pueden tener errores. De hecho, se han detectado algunas
+                        adjudicaciones de determinadas convocatorias que no están bien tratadas por el sistema. Aparecen
+                        detalladas en "Problemas conocidos" de esta misma página de preguntas frecuencias.
+                        Así que es absolutamente seguro que los datos no son completos del todo, aunque son bastante
+                        cercanos a la realidad.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q01JZ92S87Y3V3RES2MCYMC98WM">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a01JZ92S87Y3V3RES2MCYMC98WM" aria-expanded="false"
+                            aria-controls="a01JZ92S87Y3V3RES2MCYMC98WM">
+                        <strong>He encontrado un problema, imprecisión o tengo alguna sugerencia</strong>
+                    </button>
+                </h2>
+                <div id="a01JZ92S87Y3V3RES2MCYMC98WM" class="accordion-collapse collapse"
+                     aria-labelledby="q01JZ92S87Y3V3RES2MCYMC98WM"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        Puedes contactar en la dirección <code>angel.cardiel@protonmail.com</code>.
+                        Además, el código fuente de la aplicación está disponible en <a
+                            href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i> GitHub</a> y
+                        es susceptible de ser
+                        mejorado por cualquier persona interesada en el proyecto. Animo a que creen issues o pull
+                        requests o que contacten por si tienen alguna duda o sugerencia.
+                    </div>
+
                 </div>
             </div>
 
@@ -212,7 +269,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 07/03/2025
+            Datos actualizados a: 07/04/2025
 
         </small>
     </div>
