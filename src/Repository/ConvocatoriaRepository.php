@@ -23,4 +23,21 @@ class ConvocatoriaRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * @return array<Convocatoria>
+     */
+    public function findWithoutAdjudicacion(): array
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT c
+                    FROM App\Entity\Convocatoria c
+                    WHERE NOT EXISTS (
+                        SELECT 1
+                        FROM App\Entity\Adjudicacion a
+                        JOIN a.plaza p
+                        WHERE p.convocatoria = c
+                    )'
+        )->getResult();
+    }
 }

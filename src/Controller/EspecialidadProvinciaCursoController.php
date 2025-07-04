@@ -46,16 +46,20 @@ class EspecialidadProvinciaCursoController extends AbstractController
 
         $plazas = $this->plazaRepository->getEspecialidadesByCursoAndProvincia($curso, $especialidad, $provincia);
 
-        $desiertas = count(array_filter($plazas, function (Plaza $plaza) {
-            return $plaza->isDesierta();
-        }));
+        $desiertas = $this->plazaRepository->findPlazasDesiertas($plazas);
+
+        $desiertasId = array_map(
+            fn(Plaza $plaza) => $plaza->getId(),
+            $desiertas
+        );
+
 
         return $this->render('especialidades/detalle.html.twig', [
             'curso' => $curso,
             'especialidad' => $especialidad,
             'provincia' => $provincia,
             'plazas' => $plazas,
-            'desiertas' => $desiertas,
+            'desiertas' => $desiertasId,
             'minOrden' => $this->encontrarOrdenMinimo($plazas) ?? 0,
             'maxOrden' => $this->encontrarOrdenMaximo($plazas) ?? 0,
         ]);

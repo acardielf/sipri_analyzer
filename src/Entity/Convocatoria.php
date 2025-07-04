@@ -123,20 +123,5 @@ class Convocatoria
         $this->fecha = $fecha;
     }
 
-    public function hasAdjudicacion(): bool
-    {
-        /** @var Plaza $plaza */
-        foreach ($this->plazas as $plaza) {
-            if ($plaza->hasAtLeastOneAdjudicacion()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function getPlazasDesiertas(): array
-    {
-        return $this->plazas->filter(fn(Plaza $plaza) => $plaza->isDesierta())->toArray();
-    }
 }
 

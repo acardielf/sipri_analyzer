@@ -167,4 +167,38 @@ class PlazaRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
+    /**
+     * @param array<Plaza>|null $plazas
+     * @return array<Plaza>
+     */
+    public function findPlazasDesiertas(?array $plazas): array
+    {
+        $dql = '
+        SELECT p
+        FROM App\Entity\Plaza p
+        LEFT JOIN p.adjudicaciones a
+        WHERE a.id IS NULL
+          AND EXISTS (
+              SELECT 1
+              FROM App\Entity\Adjudicacion a2
+              JOIN a2.plaza p2
+              WHERE p2.convocatoria = p.convocatoria
+          )
+        ';
+
+        if ($plazas) {
+            $dql .= ' AND p IN (:plazas)';
+        }
+
+        $query = $this->getEntityManager()->createQuery($dql);
+
+        if ($plazas) {
+            $query->setParameter('plazas', $plazas);
+        }
+
+        return $query->getResult();
+    }
+
 }
