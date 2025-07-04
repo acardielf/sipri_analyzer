@@ -173,7 +173,7 @@ class PlazaRepository extends ServiceEntityRepository
      * @param array<Plaza>|null $plazas
      * @return array<Plaza>
      */
-    public function findPlazasDesiertas(?array $plazas): array
+    public function findPlazasDesiertas(array $plazas): array
     {
         $dql = '
         SELECT p
