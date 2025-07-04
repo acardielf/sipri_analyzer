@@ -188,15 +188,11 @@ class PlazaRepository extends ServiceEntityRepository
           )
         ';
 
-        if ($plazas) {
-            $dql .= ' AND p IN (:plazas)';
-        }
+        $dql .= ' AND p IN (:plazas)';
 
         $query = $this->getEntityManager()->createQuery($dql);
 
-        if ($plazas) {
-            $query->setParameter('plazas', $plazas);
-        }
+        $query->setParameter('plazas', $plazas);
 
         return $query->getResult();
     }
