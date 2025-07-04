@@ -437,3 +437,7 @@ bin/console asset-map:compile
 bin/console -e prod cache:clear
 php -d memory_limit=-1 bin/console --env=prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
 exit
+cp -R public/assets/ docs/
+exit
+php -d memory_limit=-1 bin/console --env=prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+exit
