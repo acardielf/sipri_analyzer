@@ -89,22 +89,29 @@ class TabulaPythonService
     private function fixDoubledLines(array $original): array
     {
         foreach ($original as $pageNumber => $pageContent) {
-            $original[$pageNumber] = array_values($this->mergeEmptyEndingLines($pageContent));
+            $original[$pageNumber] = array_values($this->mergeEmptyEndingLinesOnSamePage($pageContent, $pageNumber));
         }
         return array_values($original);
     }
 
-    private function mergeEmptyEndingLines(array $pageContent): array
+    private function mergeEmptyEndingLinesOnSamePage(array $pageContent, int $pageNumber): array
     {
         foreach ($pageContent as $rowIndex => $cells) {
             if ($this->shouldMergeRow($cells, $rowIndex)) {
-                $previousRowIndex = $this->findPreviousValidRow($pageContent, $rowIndex);
-                $pageContent = $this->mergeCellsWithPreviousRow(
-                    $pageContent,
-                    $rowIndex,
-                    $previousRowIndex,
-                    $cells
-                );
+
+                if ($rowIndex === 0) {
+                    // If it's the first row, we cannot merge with a previous row.
+                    // TODO: Merge with previous page
+                } else {
+                    $previousRowIndex = $this->findPreviousValidRow($pageContent, $rowIndex);
+                    $pageContent = $this->mergeCellsWithPreviousRow(
+                        $pageContent,
+                        $rowIndex,
+                        $previousRowIndex,
+                        $cells
+                    );
+                }
+
             }
         }
         return $pageContent;
@@ -112,7 +119,7 @@ class TabulaPythonService
 
     private function shouldMergeRow(array $cells, int $rowIndex): bool
     {
-        return end($cells) === "" && $rowIndex !== 0;
+        return end($cells) === "";
     }
 
     private function findPreviousValidRow(array $pageContent, int $currentRow): int
@@ -131,7 +138,7 @@ class TabulaPythonService
         array $cells
     ): array {
         foreach ($cells as $columnIndex => $value) {
-            $pageContent[$previousRow][$columnIndex] .= $pageContent[$currentRow][$columnIndex];
+            $pageContent[$previousRow][$columnIndex] .= " " . $pageContent[$currentRow][$columnIndex];
         }
         unset($pageContent[$currentRow]);
         return $pageContent;

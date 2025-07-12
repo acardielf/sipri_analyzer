@@ -25,7 +25,7 @@ tabula.convert_into(
     area=[
         151,
         25,
-        531,
+        560,
         805,
     ],  # [top, left, bottom, right]
 )
