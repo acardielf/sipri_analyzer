@@ -8,6 +8,7 @@ use App\Enum\TipoPlazaEnum;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
 use App\Service\ScrapperService;
+use App\Service\TabulaPythonService;
 use DateTimeImmutable;
 use Exception;
 use Smalot\PdfParser\Parser;
@@ -29,6 +30,7 @@ class ExtraerAdjudicacionesCommand extends Command
         private readonly FileUtilitiesService $fileUtilitiesService,
         private readonly ScrapperService $scrapperService,
         private readonly PlazaRepository $plazaRepository,
+        private readonly TabulaPythonService $tabulaService,
     ) {
         parent::__construct();
     }
@@ -70,6 +72,16 @@ class ExtraerAdjudicacionesCommand extends Command
             $output->writeln('<error>Archivo PDF no encontrado.</error>');
             return Command::FAILURE;
         }
+
+        $json = $this->tabulaService->generateJsonFromPdf(
+            $pdfPath,
+        );
+
+        //extraidos con Tabula.
+
+
+
+
 
         $parser = new Parser();
         $pdf = $parser->parseContent($this->fileUtilitiesService->getFileContent($pdfPath));

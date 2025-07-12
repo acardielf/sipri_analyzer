@@ -3,12 +3,12 @@ from pathlib import Path
 import sys
 
 pdf_file = sys.argv[1]
-csv_file = str(Path(pdf_file).with_suffix('.csv'))
+csv_file = str(Path(pdf_file).with_suffix('.json'))
 
 tabula.convert_into(
     pdf_file,
     csv_file,
-    output_format="csv",
+    output_format="json",
     pages='all',
     relative_columns=True,
     columns=[
@@ -24,8 +24,8 @@ tabula.convert_into(
     ],
     area=[
         151,
-        26,
-        538,
-        805
+        25,
+        531,
+        805,
     ],  # [top, left, bottom, right]
 )
