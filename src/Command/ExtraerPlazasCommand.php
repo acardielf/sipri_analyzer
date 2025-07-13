@@ -8,10 +8,12 @@ use App\Dto\EspecialidadDto;
 use App\Dto\PlazaDto;
 use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
+use App\Enum\TipoProcesoEnum;
 use App\Repository\PlazaRepository;
 use App\Service\DtoToEntity\PlazaDtoToEntity;
 use App\Service\FileUtilitiesService;
 use App\Service\ScrapperService;
+use App\Service\TabulaPythonService;
 use DateTimeImmutable;
 use Exception;
 use Smalot\PdfParser\Parser;
@@ -34,6 +36,7 @@ class ExtraerPlazasCommand extends Command
         private readonly ScrapperService $scrapperService,
         private readonly PlazaDtoToEntity $plazaDtoToEntity,
         private readonly PlazaRepository $plazaRepository,
+        private readonly TabulaPythonService $tabulaService,
     ) {
         parent::__construct();
     }
@@ -74,12 +77,18 @@ class ExtraerPlazasCommand extends Command
         $text = $pdf->getText();
 
         $fechaConvocatoria = $this->scrapperService->extractDateTimeFromText($text);
-        $paginas = $this->scrapperService->getPagesContentFromText($text);
+
+
+        $json = $this->tabulaService->generateJsonFromPdf(
+            TipoProcesoEnum::PLAZA,
+            $convocatoria,
+            $pdfPath,
+        );
+
 
         $resultados = [];
 
-
-        foreach ($paginas as $numero => $contenido) {
+        foreach ($json as $numero => $contenido) {
             $resultadosPagina = $this->scrapperService->extractPlazasFromPageContent(
                 $numero,
                 $contenido,
@@ -138,13 +147,7 @@ class ExtraerPlazasCommand extends Command
         }
 
 
-        // Guardar en JSON
-        if (!is_dir(dirname($outputPath))) {
-            mkdir(dirname($outputPath), 0775, true);
-        }
-
         file_put_contents($outputPath, json_encode($resultados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $output->writeln('<info>Guardado:</info> ' . $outputPath . ' (' . count($resultados) . ' plazas)');
         $output->writeln('<info>Nuevas plazas:</info> ' . $nuevas);
         $output->writeln('<info>Plazas omitidas:</info> ' . ($ocurrencia - 1 - $nuevas));
         $output->writeln('<info>Total plazas:</info> ' . $ocurrencia - 1);
