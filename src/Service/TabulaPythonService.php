@@ -197,8 +197,8 @@ class TabulaPythonService
     {
         return
             str_contains($cell, 'Apellidos') ||
-            str_contains($cell, 'F. Prev.') ||
-            preg_match('/^[A-Za-z0-9]{3,5} - .+/', $cell);
+            str_contains($cell, 'F. Prev') ||
+            preg_match('/^[A-Za-z0-9]{2,5} - .+/', $cell);
     }
 
 

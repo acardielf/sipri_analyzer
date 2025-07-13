@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Adjudicacion;
 use App\Entity\Centro;
+use App\Enum\ObligatoriedadPlazaEnum;
 use App\Enum\TipoPlazaEnum;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;

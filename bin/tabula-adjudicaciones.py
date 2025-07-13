@@ -17,15 +17,15 @@ tabula.convert_into(
     pages='all',
     relative_columns=False,
     columns=[
-        210, # Apellidos, nombre y NIF
-        385, # Puesto
-        415, # Orden
-        605, # Centro
-        665, # Localidad
-        710, # Provincia
-        738, # Tipo Plaza
-        775, # F.Prev.Cese
-        800, # Obligatoriedad
+        218, # Apellidos, nombre y NIF
+        245, # Orden
+        425, # Centro
+        512, # Localidad
+        556, # Provincia
+        715, # Puesto
+        745, # Tipo Plaza
+        779, # F.Prev.Cese
+        803, # Obligatoriedad
     ],
     area=[
         100,

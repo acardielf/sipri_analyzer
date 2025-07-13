@@ -76,11 +76,11 @@ class ScrapperService
 
         foreach ($records as $record) {
             $data[] = [
-                'puesto' => $record[1] ?? '',
-                'orden' => $record[2] ?? '',
-                'centro' => $record[3] ?? '',
-                'localidad' => $record[4] ?? '',
-                'provincia' => $record[5] ?? '',
+                'orden' => $record[1] ?? '',
+                'centro' => explode(' - ',$record[2])[0]  ?? '',
+                'localidad' => $record[3] ?? '',
+                'provincia' => $record[4] ?? '',
+                'puesto' => explode(' - ',$record[5])[0] ?? '',
                 'tipo' => $record[6] ?? '',
                 'fecha_prevista_cese' => $record[7] ?? '',
                 'voluntaria' => $record[8] ?? '',
