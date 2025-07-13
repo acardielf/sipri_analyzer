@@ -77,30 +77,8 @@ class ExtraerAdjudicacionesCommand extends Command
             $pdfPath,
         );
 
-        //extraidos con Tabula.
-
-
-
-
-
-        $parser = new Parser();
-        $pdf = $parser->parseContent($this->fileUtilitiesService->getFileContent($pdfPath));
-        $text = $pdf->getText();
-
-        $paginas = $this->scrapperService->getPagesContentFromText($text);
-
-        if ($input->getOption('pagina') !== null) {
-            $pagina = intval($input->getOption('pagina'));
-            if (isset($paginas[$pagina])) {
-                $paginas = [$pagina => $paginas[$pagina]];
-            } else {
-                $output->writeln('<error>Página no encontrada.</error>');
-                return Command::FAILURE;
-            }
-        }
-
         $resultados = [];
-        foreach ($paginas as $numero => $contenido) {
+        foreach ($json as $numero => $contenido) {
             $resultadosPagina = $this->scrapperService->extractAdjudicacionFromPageContent(
                 $numero,
                 $contenido,

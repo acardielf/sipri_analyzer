@@ -90,47 +90,27 @@ class TabulaPythonService
     {
         foreach ($original as $pageNumber => $pageContent) {
             $original = array_values(
-                $this->mergeEmptyEndingLinesOnSamePage($original, $pageContent, $pageNumber)
+                $this->mergeEmptyEndingLines($original, $pageContent, $pageNumber)
             );
         }
         return array_values($original);
     }
 
-    private function mergeEmptyEndingLinesOnSamePage(array $original, array $pageContent, int $pageNumber): array
+    private function mergeEmptyEndingLines(array $original, array $pageContent, int $pageNumber): array
     {
         foreach ($pageContent as $rowIndex => $cells) {
             if ($this->shouldMergeRow($cells)) {
-                if ($rowIndex === 0) {
-                    // If it's the first row, we cannot merge with a previous row.
-                    // so, we must merge with the last row of the previous page.
+                $toPageIndex = $this->findPreviousValidPage($original, $pageNumber, $rowIndex);
+                $toRowIndex = $this->findPreviousValidRow($original, $pageNumber, $rowIndex, $toPageIndex);
 
-                    $previousPageIndex = $pageNumber - 1;
-                    if ($previousPageIndex < 0 || !array_key_exists($previousPageIndex, $original)) {
-                        // No previous page to merge with.
-                        continue;
-                    }
-
-                    $array = array_keys($original[$previousPageIndex]);
-                    $previousRowIndex = end($array);
-                    $original = $this->mergeCellsWithPreviousRow(
-                        content: $original,
-                        fromPage: $pageNumber,
-                        fromRow: $rowIndex,
-                        toPage: $previousPageIndex,
-                        toRow: $previousRowIndex,
-                        cells: $cells,
-                    );
-                } else {
-                    $previousRowIndex = $this->findPreviousValidRow($pageContent, $rowIndex);
-                    $original = $this->mergeCellsWithPreviousRow(
-                        content: $original,
-                        fromPage: $pageNumber,
-                        fromRow: $rowIndex,
-                        toPage: $pageNumber,
-                        toRow: $previousRowIndex,
-                        cells: $cells,
-                    );
-                }
+                $original = $this->mergeCellsFromTo(
+                    content: $original,
+                    fromPage: $pageNumber,
+                    fromRow: $rowIndex,
+                    toPage: $toPageIndex,
+                    toRow: $toRowIndex,
+                    cells: $cells,
+                );
             }
         }
         return $original;
@@ -141,16 +121,43 @@ class TabulaPythonService
         return end($cells) === "";
     }
 
-    private function findPreviousValidRow(array $pageContent, int $currentRow): int
+    private function findPreviousValidRow(array $pageContent, int $pageNumber, int $currentRow, int $previousValidPage): int
     {
-        $offset = 1;
-        while (!array_key_exists($currentRow - $offset, $pageContent)) {
-            $offset++;
+        if ($pageNumber == $previousValidPage) {
+            $offset = 1;
+            while (!array_key_exists($currentRow - $offset, $pageContent[$pageNumber])) {
+                $offset++;
+            }
+            $previousValidRow = $currentRow - $offset;
+        } else {
+            $keys = array_keys($pageContent[$previousValidPage]);
+            $previousValidRow = end($keys);
         }
-        return $currentRow - $offset;
+
+        return $previousValidRow;
     }
 
-    private function mergeCellsWithPreviousRow(
+    private function findPreviousValidPage(array $pageContent, int $pageNumber, int $currentRow): int
+    {
+        // check if the current row is the first row of the page
+
+        $array = array_keys($pageContent[$pageNumber]);
+        $firstKey = reset($array);
+
+        $previousValidPage = $pageNumber;
+
+        if ($currentRow == $firstKey) {
+            $offset = 1;
+            while (!array_key_exists($pageNumber - $offset, $pageContent)) {
+                $offset++;
+            }
+            return $pageNumber - $offset;
+        }
+
+        return $previousValidPage;
+    }
+
+    private function mergeCellsFromTo(
         array $content,
         int $fromPage,
         int $fromRow,
@@ -160,11 +167,7 @@ class TabulaPythonService
     ): array {
         foreach ($cells as $columnIndex => $value) {
             if ($content[$fromPage][$fromRow][$columnIndex] != "") {
-                try {
-                    $content[$toPage][$toRow][$columnIndex] .= " " . $content[$fromPage][$fromRow][$columnIndex];
-                } catch (\Exception $e) {
-                    echo "error fromPage: $fromPage, fromRow: $fromRow, toPage: $toPage, toRow: $toRow, columnIndex: $columnIndex, value: $value\n";
-                }
+                $content[$toPage][$toRow][$columnIndex] .= " " . $content[$fromPage][$fromRow][$columnIndex];
             }
         }
         unset($content[$fromPage][$fromRow]);

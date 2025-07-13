@@ -70,40 +70,20 @@ class ScrapperService
     }
 
 
-    public function extractAdjudicacionFromPageContent(int $pagina, string $content, int $convocatoria): array
+    public function extractAdjudicacionFromPageContent(int $pagina, array $records, int $convocatoria): array
     {
-        $lines = explode("\n", $content);
-        $lines = array_map('trim', $lines);
-        $lines = array_filter($lines, function ($line) {
-            return
-                !str_starts_with($line, 'Tipo') &&
-                !str_starts_with($line, 'Plaza AND') &&
-                !str_starts_with($line, 'Apellidos, nombre y NIF/NIE') &&
-                !preg_match('/^\d{3} - /', $line) &&
-                !str_starts_with($line, 'TB000 - ') &&
-                !str_starts_with($line, 'F. Prev.') &&
-                !str_starts_with($line, 'Cese Puesto');
-        });
-        $lines = array_values($lines); // Reindexar
-
-        if (count($lines) <= 17) {
-            $result = $this->extractAdjudicacionOnlyOneRecord($pagina, $convocatoria, $lines);
-        } else {
-            $result = $this->extractAdjudicacionNormalCase($pagina, $convocatoria, $lines);
-        }
-
-
         $data = [];
-        for ($i = 0; $i < $result['count']; $i++) {
+
+        foreach ($records as $record) {
             $data[] = [
-                'centro' => $result['centros'][$i] ?? '',
-                'provincia' => $result['provincias'][$i] ?? '',
-                'puesto' => $result['puestos'][$i] ?? '',
-                'tipo' => $result['tipos'][$i] ?? '',
-                'num_plazas' => $result['plazas'][$i] ?? '',
-                'orden' => $result['orden'][$i] ?? '',
-                'voluntaria' => $result['obligatoriedad'][$i] ?? '',
-                'fecha_prevista_cese' => $result['fechas'][$i] ?? '',
+                'puesto' => $record[1] ?? '',
+                'orden' => $record[2] ?? '',
+                'centro' => $record[3] ?? '',
+                'localidad' => $record[4] ?? '',
+                'provincia' => $record[5] ?? '',
+                'tipo' => $record[6] ?? '',
+                'fecha_prevista_cese' => $record[7] ?? '',
+                'voluntaria' => $record[8] ?? '',
             ];
         }
 
