@@ -40,8 +40,8 @@ class TabulaPythonService
         }
 
         $jsonToArray = json_decode(implode("\n", $output), true);
-
         $sanitized = $this->sanitizeJsonOutput($jsonToArray);
+        $sanitized = $this->removeUnusedLines($sanitized);
         return $this->fixDoubledLines($sanitized);
     }
 
@@ -121,8 +121,12 @@ class TabulaPythonService
         return end($cells) === "";
     }
 
-    private function findPreviousValidRow(array $pageContent, int $pageNumber, int $currentRow, int $previousValidPage): int
-    {
+    private function findPreviousValidRow(
+        array $pageContent,
+        int $pageNumber,
+        int $currentRow,
+        int $previousValidPage
+    ): int {
         if ($pageNumber == $previousValidPage) {
             $offset = 1;
             while (!array_key_exists($currentRow - $offset, $pageContent[$pageNumber])) {
@@ -172,6 +176,29 @@ class TabulaPythonService
         }
         unset($content[$fromPage][$fromRow]);
         return $content;
+    }
+
+    private function removeUnusedLines(array $sanitized): array
+    {
+        foreach ($sanitized as $page => $content) {
+            foreach ($content as $row => $cells) {
+                if (!empty(array_filter($cells, [$this, 'containNonRequiredElements']))) {
+                    unset($sanitized[$page][$row]);
+                } else {
+                    $sanitized[$page][$row] = array_values($cells);
+                }
+            }
+        }
+
+        return $sanitized;
+    }
+
+    private function containNonRequiredElements($cell): bool
+    {
+        return
+            str_contains($cell, 'Apellidos') ||
+            str_contains($cell, 'F. Prev.') ||
+            preg_match('/^[A-Za-z0-9]{3,5} - .+/', $cell);
     }
 
 
