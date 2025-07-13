@@ -75,6 +75,7 @@ class ExtraerAdjudicacionesCommand extends Command
         }
 
         $json = $this->tabulaService->generateJsonFromPdf(
+            $convocatoria,
             $pdfPath,
         );
 

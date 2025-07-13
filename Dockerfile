@@ -39,7 +39,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-17-jre-headless \
     pipx  \
     python3 \
-    python3-pip
+    python3-pip \
+    fonts-liberation fonts-dejavu-core
+
 
 RUN set -eux; \
     pip3 install tabula-py[jpype] --break-system-packages \

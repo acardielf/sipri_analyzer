@@ -5,7 +5,16 @@ namespace App\Service;
 class TabulaPythonService
 {
 
-    public function generateJsonFromPdf(string $pdfPath, bool $delete = true): array
+    protected function getScriptPathAccordingConvocatoria(int $convocatoria): string
+    {
+        return match ($convocatoria) {
+            1 => __DIR__ . '/../../bin/tabula-adjudicaciones-no-agrupadas.py',
+            default => __DIR__ . '/../../bin/tabula-adjudicaciones.py',
+        };
+    }
+
+
+    public function generateJsonFromPdf(int $convocatoria, string $pdfPath, bool $delete = true): array
     {
         $jsonFilePath = str_replace('.pdf', '.json', $pdfPath);
 
@@ -15,7 +24,7 @@ class TabulaPythonService
 
         $command = sprintf(
             'python3 %s %s',
-            escapeshellarg(__DIR__ . '/../../bin/tabula-adjudicaciones.py'),
+            escapeshellarg($this->getScriptPathAccordingConvocatoria($convocatoria)),
             escapeshellarg($pdfPath),
         );
 
