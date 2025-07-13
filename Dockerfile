@@ -35,6 +35,28 @@ RUN set -eux; \
 		zip \
 	;
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openjdk-17-jre-headless \
+    pipx  \
+    python3 \
+    python3-pip \
+    fonts-liberation fonts-dejavu-core
+
+
+RUN set -eux; \
+    pip3 install tabula-py[jpype] --break-system-packages \
+    ;
+
+RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION.(PHP_ZTS ? '-zts' : '');") \
+&& architecture=$(uname -m) \
+&& curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/$architecture/$version \
+&& mkdir -p /tmp/blackfire \
+&& tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
+&& mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
+&& printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8307\n" > /usr/local/etc/php/conf.d/blackfire.ini \
+&& rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+
+
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 

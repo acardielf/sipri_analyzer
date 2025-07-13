@@ -11,7 +11,32 @@
         <div class="accordion" id="preguntas">
 
 
+
             <div class="accordion-item">
+                <h2 class="accordion-header" id="q01JZ7VCMQEWAFJ4TCF9CCAFXAP">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a01JZ7VCMQEWAFJ4TCF9CCAFXAP" aria-expanded="true"
+                            aria-controls="a01JZ7VCMQEWAFJ4TCF9CCAFXAP">
+                        <strong>¿Es oficial y completamente fiable la información que se muestra en esta página?</strong>
+                    </button>
+                </h2>
+                <div id="a01JZ7VCMQEWAFJ4TCF9CCAFXAP" class="accordion-collapse collapse show"
+                     aria-labelledby="q01JZ7VCMQEWAFJ4TCF9CCAFXAP"
+                     data-bs-parent="#preguntas">
+                    <div class="accordion-body">
+                        <strong>No</strong>. El único lugar oficial para las convocatorias son las resoluciones publicadas
+                        periódicamente en <a href="https://www.juntadeandalucia.es/educacion/sipri/inicio/">la web de SIPRI</a> la Consejería de Desarrollo Educativo y Formación Profesional de la Junta de Andalucía.
+                        <br>
+                        Los datos que aquí se muestran pueden tener errores, puesto que el procesamiento de los datos se hace de forma automática sin revisión humana.
+                        Recomiendo visitar la sección de "Problemas conocidos" de esta misma página de preguntas frecuentes.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="accordion-item">
+
+
                 <h2 class="accordion-header" id="q01JZ7TSZV0X2TVYRVN5BR80GVT">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#a01JZ7TSZV0X2TVYRVN5BR80GVT" aria-expanded="false"
@@ -19,28 +44,47 @@
                         <strong>¿Cómo se obtienen los datos? ¿Qué tecnología se usa?</strong>
                     </button>
                 </h2>
+
+
                 <div id="a01JZ7TSZV0X2TVYRVN5BR80GVT" class="accordion-collapse collapse"
                      aria-labelledby="q01JZ7TSZV0X2TVYRVN5BR80GVT"
                      data-bs-parent="#preguntas">
                     <div class="accordion-body">
-                        La tecnología que hay detrás del sistema es una aplicación Symfony dockerizada que se encarga de
-                        descargar,
-                        procesar las plazas y las adjudicaciones de las diferentes convocatorias.
-                        El esqueleto de la
-                        aplicación es una plantilla (<code>dunglas/symfony-docker</code>) que permite ejecutar un
-                        entorno de
-                        desarrollo en local.
-                        Una vez se han procesado los datos, con la librería <code>Stenope</code> se generan los archivos
-                        estáticos y se publican en el repositorio.
-                        <br> En el archivo README.md existen algunas instrucciones para poder hacer build del contenedor
-                        y poder ejecutar los comandos
-                        en la terminal para poder hacerlo funcionar en tu propio equipo.
-                        <br>
-                        El código fuente de la aplicación está disponible en <a
-                            href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i> GitHub</a> y
-                        es susceptible de ser
-                        mejorado por cualquier persona interesada en el proyecto. Animo a que creen issues o pull
-                        requests o que contacten por si tienen alguna duda o sugerencia.
+                        <ul>
+                            <li>Los datos se obtienen de los anexos oficiales publicados en SIPRI en PDF. Para ello, se
+                                utiliza
+                                un aplicación desarrollada en PHP / Symfony que se encarga de descargar los datos,
+                                procesar las plazas y las adjudicaciones de las diferentes convocatorias.
+                            </li>
+                            <li>El esqueleto de la
+                                aplicación es una plantilla (<code>dunglas/symfony-docker</code>) que permite ejecutar
+                                un
+                                entorno de
+                                desarrollo en local.
+                            </li>
+                            <li>La aplicación además utiliza un wrapper de python de <code><a
+                                        href="https://tabula.technology/">Tabula</a></code> para
+                                poder extraer las tablas de los PDFs de las convocatorias.
+                            </li>
+                            <li>Una vez se han procesado los datos, con la librería <code>Stenope</code> se generan los
+                                archivos
+                                estáticos y se publican en el repositorio.
+                            </li>
+                            <li>En el archivo README.md existen algunas instrucciones para poder hacer build del
+                                contenedor
+                                y poder ejecutar los comandos
+                                en la terminal para poder hacerlo funcionar en tu propio equipo.
+                            </li>
+                            <li>El código fuente de la aplicación está disponible en <a
+                                    href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i>
+                                    GitHub</a> y
+                                es susceptible de ser
+                                mejorado por cualquier persona interesada en el proyecto. Animo a que creen issues o
+                                pull
+                                requests o que contacten por si tienen alguna duda o sugerencia.
+                            </li>
+                        </ul>
+
                     </div>
                 </div>
             </div>
@@ -92,14 +136,11 @@
                     <div class="accordion-body">
                         <ul>
                             <li>Existen adjudicaciones a centros "OCEP" que no aparecen en los listados finales.</li>
-                            <li>La determinación de si una plaza ha quedado desierta o no, no es siempre es precisa.
-                            </li>
-                            <li>Existen problemas conocidos en las adjudicaciones 173, 177, 226, 229, 252, 268 y, por
-                                tanto, podrían estar incompletas.
+                            <li>La determinación de si una determinada plaza ha quedado desierta en la convocatoria o
+                                no, no es siempre es precisa.
                             </li>
                         </ul>
-
-                        Se irá actualizando esta sección a medida que se vayan detectando y/o solucionando problemas.
+                        En caso de detectar nuevos problemas, se irán detallando en esta sección.
                     </div>
                 </div>
             </div>
@@ -137,38 +178,22 @@
                      aria-labelledby="q01JZ9310NHKAT108RE9DQRAEWC"
                      data-bs-parent="#preguntas">
                     <div class="accordion-body">
-                        Principalmente porque me encanta programar <i class="bi-emoji-smile"></i> y creo que es una
-                        información, que está a disposición de todo el mundo a través
-                        de las convocatorias públicas de SIPRI, pero que no están agrupadas para poder saber las
-                        tendencias de las adjudicaciones,
+                        SIPRI es un sistema genial para la cobertura de plazas docentes en Andalucía, pero la
+                        información
+                        que nos ofrecen en ocasiones es muy difícil de interpretar al no estar agrupadas por
+                        especialidad.
+                        <br>
+                        Así que, como soy interino y me gusta la programación, decidí hacer una página que no requiera
+                        de
+                        un servidor en ejecución para poder consultar los datos de las convocatorias, en la que poder
+                        agrupar las plazas por especialidad y que permita ver de forma sencilla la información de las
+                        convocatorias,
                         las posiciones en la bolsa de trabajo que van siendo llamadas durante el curso escolar, las
                         diferentes plazas que se ofertan, etc.
                     </div>
                 </div>
             </div>
 
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q01JZ7VCMQEWAFJ4TCF9CCAFXAP">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ7VCMQEWAFJ4TCF9CCAFXAP" aria-expanded="true"
-                            aria-controls="a01JZ7VCMQEWAFJ4TCF9CCAFXAP">
-                        <strong>¿Es 100% fiable la información que se muestra?</strong>
-                    </button>
-                </h2>
-                <div id="a01JZ7VCMQEWAFJ4TCF9CCAFXAP" class="accordion-collapse collapse show"
-                     aria-labelledby="q01JZ7VCMQEWAFJ4TCF9CCAFXAP"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        <strong>No</strong>. Los datos pueden tener errores. De hecho, se han detectado algunas
-                        adjudicaciones de determinadas convocatorias que no están bien tratadas por el sistema. Aparecen
-                        detalladas en "Problemas conocidos" de esta misma página de preguntas frecuencias.
-                        Así que es absolutamente seguro que los datos no son completos del todo, aunque son bastante
-                        cercanos a la realidad.
-                    </div>
-                </div>
-            </div>
 
 
             <div class="accordion-item">
