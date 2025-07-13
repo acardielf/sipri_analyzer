@@ -4,15 +4,15 @@ namespace App\Command;
 
 use App\Entity\Adjudicacion;
 use App\Entity\Centro;
-use App\Enum\ObligatoriedadPlazaEnum;
+use App\Entity\Plaza;
 use App\Enum\TipoPlazaEnum;
+use App\Enum\TipoProcesoEnum;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
 use App\Service\ScrapperService;
 use App\Service\TabulaPythonService;
 use DateTimeImmutable;
 use Exception;
-use Smalot\PdfParser\Parser;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -34,6 +34,26 @@ class ExtraerAdjudicacionesCommand extends Command
         private readonly TabulaPythonService $tabulaService,
     ) {
         parent::__construct();
+    }
+
+    /**
+     * @param int $convocatoria
+     * @param mixed $adjudicaciones_array
+     * @return Plaza[]|null
+     */
+    public function getPlazaObjetivoIfExists(int $convocatoria, mixed $adjudicaciones_array): ?array
+    {
+        return $this->plazaRepository->findByAttributes(
+            convocatoriaId: $convocatoria,
+            centroId: $adjudicaciones_array['centro'],
+            especialidadId: $adjudicaciones_array['puesto'],
+            tipo: TipoPlazaEnum::fromString($adjudicaciones_array['tipo']),
+            //obligatoriedad: ObligatoriedadPlazaEnum::fromString($adjudicaciones_array['voluntaria']),
+            fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
+                '!d/m/y',
+                $adjudicaciones_array['fecha_prevista_cese']
+            )
+        );
     }
 
     protected function configure(): void
@@ -68,13 +88,13 @@ class ExtraerAdjudicacionesCommand extends Command
         $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
         $pdfPath = $path . $convocatoria . '_adjudicados.pdf';
 
-
         if (!$this->fileUtilitiesService->fileExists($pdfPath)) {
             $output->writeln('<error>Archivo PDF no encontrado.</error>');
             return Command::FAILURE;
         }
 
         $json = $this->tabulaService->generateJsonFromPdf(
+            TipoProcesoEnum::ADJUDICACION,
             $convocatoria,
             $pdfPath,
         );
@@ -100,17 +120,7 @@ class ExtraerAdjudicacionesCommand extends Command
         $ocep = 0;
 
         foreach ($resultados as $index => $adjudicaciones_array) {
-            $plazaObjetivo = $this->plazaRepository->findByAttributes(
-                convocatoriaId: $convocatoria,
-                centroId: $adjudicaciones_array['centro'],
-                especialidadId: $adjudicaciones_array['puesto'],
-                tipo: TipoPlazaEnum::fromString($adjudicaciones_array['tipo']),
-                //obligatoriedad: ObligatoriedadPlazaEnum::fromString($adjudicaciones_array['voluntaria']),
-                fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
-                    '!d/m/y',
-                    $adjudicaciones_array['fecha_prevista_cese']
-                )
-            );
+            $plazaObjetivo = $this->getPlazaObjetivoIfExists($convocatoria, $adjudicaciones_array);
 
             if (empty($plazaObjetivo)) {
                 if (in_array($adjudicaciones_array['centro'], Centro::OCEP_OTROS_CENTROS)) {

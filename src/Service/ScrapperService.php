@@ -34,35 +34,20 @@ class ScrapperService
         return $paginas;
     }
 
-    public function extractPlazasFromPageContent(int $pagina, string $content, int $convocatoria): array
+    public function extractPlazasFromPageContent(int $pagina, array $records, int $convocatoria): array
     {
-        $lines = explode("\n", $content);
-        $lines = array_map('trim', $lines);
-        $lines = array_filter($lines, fn($line) => !str_starts_with($line, 'F. Prev. Cese Puesto'));
-        $lines = array_values($lines); // Reindexar
-
-        // Eliminar cabecera si está presente
-        if (preg_match('/VoluntariaCentro.*Localidad.*Provincia.*Tipo.*Nº Plazas/i', $lines[0])) {
-            array_shift($lines);
-        }
-
-        if (count($lines) <= 6) {
-            $result = $this->extractPlazasOnlyOneRecord($pagina, $convocatoria, $lines);
-        } else {
-            $result = $this->extractPlazasNormalCase($pagina, $convocatoria, $lines);
-        }
-
         $data = [];
-        for ($i = 0; $i < $result['count']; $i++) {
+
+        foreach ($records as $record) {
             $data[] = [
-                'centro' => $result['centros'][$i] ?? '',
-                'localidad' => $result['localidades'][$i] ?? '',
-                'provincia' => $result['provincias'][$i] ?? '',
-                'puesto' => $result['puestos'][$i] ?? '',
-                'tipo' => $result['tipos'][$i] ?? '',
-                'num_plazas' => $result['plazas'][$i] ?? '',
-                'voluntaria' => $result['obligatoriedad'][$i] ?? '',
-                'fecha_prevista_cese' => $result['fechas'][$i] ?? '',
+                'centro' => explode(' - ',$record[0])[0]  ?? '',
+                'localidad' => explode(' - ',$record[1])[1]  ?? '',
+                'provincia' => explode(' - ',$record[2])[0]  ?? '',
+                'puesto' => explode(' - ',$record[3])[0] ?? '',
+                'tipo' => $record[4] ?? '',
+                'num_plazas' => $record[5] ?? '',
+                'voluntaria' => $record[6] ?? '',
+                'fecha_prevista_cese' => $record[7] ?? '',
             ];
         }
 

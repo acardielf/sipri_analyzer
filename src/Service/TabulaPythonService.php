@@ -2,10 +2,12 @@
 
 namespace App\Service;
 
+use App\Enum\TipoProcesoEnum;
+
 class TabulaPythonService
 {
 
-    protected function getScriptPathAccordingConvocatoria(int $convocatoria): string
+    private function getAdjudicacionScriptPath(int $convocatoria): string
     {
         return match ($convocatoria) {
             1 => __DIR__ . '/../../bin/tabula-adjudicaciones-no-agrupadas.py',
@@ -13,9 +15,29 @@ class TabulaPythonService
         };
     }
 
-
-    public function generateJsonFromPdf(int $convocatoria, string $pdfPath, bool $delete = true): array
+    private function getPlazaScriptPath(int $convocatoria): string
     {
+        return match ($convocatoria) {
+            default => __DIR__ . '/../../bin/tabula-plazas.py',
+        };
+    }
+
+    protected function getScriptPathAccordingConvocatoria(TipoProcesoEnum $procesoEnum, int $convocatoria): string
+    {
+        return match ($procesoEnum) {
+            TipoProcesoEnum::ADJUDICACION => $this->getAdjudicacionScriptPath($convocatoria),
+            TipoProcesoEnum::PLAZA => $this->getPlazaScriptPath($convocatoria),
+            default => throw new \InvalidArgumentException('Unsupported process type'),
+        };
+    }
+
+
+    public function generateJsonFromPdf(
+        TipoProcesoEnum $tipoProcesoEnum,
+        int $convocatoria,
+        string $pdfPath,
+        bool $delete = true
+    ): array {
         $jsonFilePath = str_replace('.pdf', '.json', $pdfPath);
 
         if (!file_exists($pdfPath)) {
@@ -24,7 +46,7 @@ class TabulaPythonService
 
         $command = sprintf(
             'python3 %s %s',
-            escapeshellarg($this->getScriptPathAccordingConvocatoria($convocatoria)),
+            escapeshellarg($this->getScriptPathAccordingConvocatoria($tipoProcesoEnum, $convocatoria)),
             escapeshellarg($pdfPath),
         );
 
@@ -50,8 +72,8 @@ class TabulaPythonService
 
         $jsonToArray = json_decode(implode("\n", $output), true);
         $sanitized = $this->sanitizeJsonOutput($jsonToArray);
-        $sanitized = $this->removeUnusedLines($sanitized);
-        return $this->fixDoubledLines($sanitized);
+        $sanitized = $this->removeUnusedLines($tipoProcesoEnum, $sanitized);
+        return $this->fixDoubledLines($tipoProcesoEnum, $sanitized);
     }
 
     private function deleteFile(string $path): void
@@ -95,20 +117,24 @@ class TabulaPythonService
     }
 
 
-    private function fixDoubledLines(array $original): array
+    private function fixDoubledLines(TipoProcesoEnum $tipoProcesoEnum, array $original): array
     {
         foreach ($original as $pageNumber => $pageContent) {
             $original = array_values(
-                $this->mergeEmptyEndingLines($original, $pageContent, $pageNumber)
+                $this->mergeEmptyEndingLines($tipoProcesoEnum, $original, $pageContent, $pageNumber)
             );
         }
         return array_values($original);
     }
 
-    private function mergeEmptyEndingLines(array $original, array $pageContent, int $pageNumber): array
-    {
+    private function mergeEmptyEndingLines(
+        TipoProcesoEnum $tipoProcesoEnum,
+        array $original,
+        array $pageContent,
+        int $pageNumber
+    ): array {
         foreach ($pageContent as $rowIndex => $cells) {
-            if ($this->shouldMergeRow($cells)) {
+            if ($this->shouldMergeRow($tipoProcesoEnum, $cells)) {
                 $toPageIndex = $this->findPreviousValidPage($original, $pageNumber, $rowIndex);
                 $toRowIndex = $this->findPreviousValidRow($original, $pageNumber, $rowIndex, $toPageIndex);
 
@@ -125,9 +151,18 @@ class TabulaPythonService
         return $original;
     }
 
-    private function shouldMergeRow(array $cells): bool
+    private function shouldMergeRow(TipoProcesoEnum $tipoProcesoEnum, array $cells): bool
     {
-        return end($cells) === "";
+        if ($tipoProcesoEnum === TipoProcesoEnum::ADJUDICACION) {
+            // si la última celda está vacía (obligatoriedad), se considera que es una fila que debe ser unida
+            return end($cells) === "";
+        } elseif ($tipoProcesoEnum === TipoProcesoEnum::PLAZA) {
+            // si es una Plaza, se considera que es una fila que debe ser unida si el penúltimo elemento es vacío
+            $arrayKeys = array_keys($cells);
+            end($arrayKeys);
+            return $cells[prev($arrayKeys)] === "";
+        }
+        return false;
     }
 
     private function findPreviousValidRow(
@@ -153,7 +188,6 @@ class TabulaPythonService
     private function findPreviousValidPage(array $pageContent, int $pageNumber, int $currentRow): int
     {
         // check if the current row is the first row of the page
-
         $array = array_keys($pageContent[$pageNumber]);
         $firstKey = reset($array);
 
@@ -161,7 +195,7 @@ class TabulaPythonService
 
         if ($currentRow == $firstKey) {
             $offset = 1;
-            while (!array_key_exists($pageNumber - $offset, $pageContent)) {
+            while (!array_key_exists($pageNumber - $offset, $pageContent) && $offset <= $pageNumber) {
                 $offset++;
             }
             return $pageNumber - $offset;
@@ -187,11 +221,15 @@ class TabulaPythonService
         return $content;
     }
 
-    private function removeUnusedLines(array $sanitized): array
+    private function removeUnusedLines(TipoProcesoEnum $tipoProcesoEnum, array $sanitized): array
     {
         foreach ($sanitized as $page => $content) {
             foreach ($content as $row => $cells) {
-                if (!empty(array_filter($cells, [$this, 'containNonRequiredElements']))) {
+                if (!empty(
+                array_filter($cells, function ($cell) use ($tipoProcesoEnum) {
+                    return $this->containNonRequiredElements($cell, $tipoProcesoEnum);
+                })
+                )) {
                     unset($sanitized[$page][$row]);
                 } else {
                     $sanitized[$page][$row] = array_values($cells);
@@ -202,12 +240,18 @@ class TabulaPythonService
         return $sanitized;
     }
 
-    private function containNonRequiredElements($cell): bool
+    private function containNonRequiredElements($cell, TipoProcesoEnum $tipoProcesoEnum): bool
     {
-        return
-            str_contains($cell, 'Apellidos') ||
+        $result = str_contains($cell, 'Apellidos') ||
             str_contains($cell, 'F. Prev') ||
-            preg_match('/^[A-Za-z0-9]{2,5} - .+/', $cell);
+            str_contains($cell, 'Localidad') ||
+            str_contains($cell, 'F. Prev. Cese');
+
+        if ($tipoProcesoEnum === TipoProcesoEnum::ADJUDICACION) {
+            $result = $result || preg_match('/^[A-Za-z0-9]{2,5} - .+/', $cell);
+        }
+
+        return $result;
     }
 
 
