@@ -77,6 +77,11 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "generate-static": [
+            "@auto-scripts",
+            "bin/console -e prod cache:clear",
+            "php -d memory_limit=-1 bin/console --env=prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs"
         ]
     },
     "conflict": {
