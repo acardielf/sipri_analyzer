@@ -16,6 +16,7 @@ tabula.convert_into(
     output_format="json",
     pages='all',
     relative_columns=False,
+    silent=True,
     columns=[
         196, # Centro
         286, # Localidad

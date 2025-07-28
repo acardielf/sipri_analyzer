@@ -16,6 +16,7 @@ tabula.convert_into(
     output_format="json",
     pages='all',
     relative_columns=False,
+    silent=True,
     columns=[
         200, # Apellidos, nombre y NIF
         242, # Orden

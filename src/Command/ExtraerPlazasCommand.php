@@ -136,8 +136,7 @@ readonly class ExtraerPlazasCommand
         }
 
         if (!$info) {
-            $progressBar->finish();
-            $io->writeln('');
+            $progressBar->clear();
         }
 
         file_put_contents($outputPath, json_encode($resultados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
