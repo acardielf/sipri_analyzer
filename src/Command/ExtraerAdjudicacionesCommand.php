@@ -7,41 +7,159 @@ use App\Entity\Centro;
 use App\Entity\Plaza;
 use App\Enum\TipoPlazaEnum;
 use App\Enum\TipoProcesoEnum;
+use App\Repository\AdjudicacionRepository;
+use App\Repository\ConvocatoriaRepository;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
 use App\Service\ScrapperService;
 use App\Service\TabulaPythonService;
 use DateTimeImmutable;
 use Exception;
+use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'sipri:adj',
     description: 'Extrae adjudicaciones desde un PDF y las guarda en formato JSON',
 )]
-class ExtraerAdjudicacionesCommand extends Command
+readonly class ExtraerAdjudicacionesCommand
 {
     public function __construct(
-        private readonly FileUtilitiesService $fileUtilitiesService,
-        private readonly ScrapperService $scrapperService,
-        private readonly PlazaRepository $plazaRepository,
-        private readonly TabulaPythonService $tabulaService,
+        private FileUtilitiesService $fileUtilitiesService,
+        private ScrapperService $scrapperService,
+        private PlazaRepository $plazaRepository,
+        private TabulaPythonService $tabulaService,
+        private ConvocatoriaRepository $convocatoriaRepository,
+        private AdjudicacionRepository $adjudicacionRepository,
     ) {
-        parent::__construct();
     }
+
+    /**
+     * @throws Exception
+     */
+    public function __invoke(
+        SymfonyStyle $io,
+        #[Argument(
+            description: 'Convocatoria a procesar',
+            name: 'convocatoria',
+        )] int $convocatoria,
+        #[Option(
+            description: 'Muestra información adicional sobre la convocatoria',
+            name: 'info',
+            shortcut: 'i',
+        )] bool $info = false,
+    ): int {
+        $io->title('ADJUDICACIONES: ' . $convocatoria);
+
+        $pdfPath = $this->getPdfPathAdjudicaciones($convocatoria);
+
+        if (!$this->fileUtilitiesService->fileExists($pdfPath)) {
+            $io->writeln('<error>Archivo PDF no encontrado.</error>');
+            return Command::FAILURE;
+        }
+
+        $adjudicacionesPasadas = $this->adjudicacionRepository->findByConvocatoria($convocatoria);
+        if (!empty($adjudicacionesPasadas)) {
+            $io->note(
+                [
+                    "Ya existen adjudicaciones para esta convocatoria.",
+                    "Elimínelas primero con sipri:del $convocatoria --adjudicaciones"
+                ]
+            );
+            return Command::FAILURE;
+        }
+
+        $adjudicaciones = $this->procesarAdjudicaciones($convocatoria, $pdfPath);
+
+
+        $progressBar = new ProgressBar($io, sizeof($adjudicaciones));
+        if (!$info) {
+            $progressBar->start();
+        }
+
+        $omitidas = 0;
+        $nuevas = 0;
+        $noEncontradas = [];
+        $ocep = 0;
+
+        foreach ($adjudicaciones as $index => $adjudicaciones_array) {
+            $plaza = null;
+            $plazasObjetivo = $this->getPlazasObjetivoIfExists($convocatoria, $adjudicaciones_array);
+
+
+            // CASE: No encuentra plazas candidatas. Quizás son OCEP o es que no las encuentra...
+
+            if (empty($plazasObjetivo)) {
+                if ($this->isPlazaOCEP($adjudicaciones_array)) {
+                    $ocep++;
+                }
+
+                if (!$this->isPlazaOCEP($adjudicaciones_array)) {
+                    $noEncontradas[] = $adjudicaciones_array;
+                    if ($info) {
+                        $io->writeln(
+                            '<error>No se ha encontrado ninguna plaza para los criterios especificados.</error>'
+                        );
+                        $io->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array) . '</info>');
+                    }
+                }
+                continue;
+            }
+
+            $plaza = $this->decidirPlazaObjetivo($plazasObjetivo);
+
+            if (!$plaza) {
+                continue;
+            }
+
+            if (!$plaza->adjudicadaCompletamente()) {
+                $plaza->addAdjudicacion(
+                    new Adjudicacion(
+                        id: null,
+                        puesto: intval($adjudicaciones_array['orden']),
+                        plaza: $plazasObjetivo[0],
+                    )
+                );
+                $nuevas++;
+            } else {
+                $omitidas++;
+            }
+
+            $this->plazaRepository->save($plaza, clear: true);
+
+            if (!$info) {
+                $progressBar->advance();
+            }
+        }
+
+
+        if (!$info) {
+            $progressBar->clear();
+        }
+
+        $io->table(['Resultado', 'Valor'], [
+            ['Convocatoria', $convocatoria],
+            ['Adjudicaciones procesadas', count($adjudicaciones)],
+            ['Adjudicaciones OCEP', $ocep],
+            ['Adjudicaciones no asociadas a plazas', count($noEncontradas)],
+            ['Adjudicaciones omitidas', $omitidas],
+            ['Adjudicaciones asociadas a plazas', $nuevas],
+        ]);
+
+        return Command::SUCCESS;
+    }
+
 
     /**
      * @param int $convocatoria
      * @param mixed $adjudicaciones_array
      * @return Plaza[]|null
      */
-    public function getPlazaObjetivoIfExists(int $convocatoria, mixed $adjudicaciones_array): ?array
+    public function getPlazasObjetivoIfExists(int $convocatoria, mixed $adjudicaciones_array): ?array
     {
         return $this->plazaRepository->findByAttributes(
             convocatoriaId: $convocatoria,
@@ -56,43 +174,19 @@ class ExtraerAdjudicacionesCommand extends Command
         );
     }
 
-    protected function configure(): void
-    {
-        $this->setHelp('Este comando extrae plazas desde un PDF y las guarda en formato JSON');
-        $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
-        $this->addOption(
-            'pagina',
-            'p',
-            InputOption::VALUE_OPTIONAL,
-            'Número de página a procesar (opcional, por defecto procesa todas las páginas)',
-            null
-        );
-        $this->addOption(
-            'info',
-            'info',
-            InputOption::VALUE_NONE,
-            'Muestra información adicional sobre la convocatoria'
-        );
-    }
-
     /**
+     * @param int $convocatoria
+     * @return string
      * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    private function getPdfPathAdjudicaciones(int $convocatoria): string
     {
-        $convocatoria = $input->getArgument('convocatoria');
-        $convocatoria = intval($convocatoria);
-
-        $output->writeln('Extrayendo adjudicaciones para la convocatoria: ' . $convocatoria);
-
         $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
-        $pdfPath = $path . $convocatoria . '_adjudicados.pdf';
+        return $path . $convocatoria . '_adjudicados.pdf';
+    }
 
-        if (!$this->fileUtilitiesService->fileExists($pdfPath)) {
-            $output->writeln('<error>Archivo PDF no encontrado.</error>');
-            return Command::FAILURE;
-        }
-
+    private function procesarAdjudicaciones(int $convocatoria, string $pdfPath): array
+    {
         $json = $this->tabulaService->generateJsonFromPdf(
             TipoProcesoEnum::ADJUDICACION,
             $convocatoria,
@@ -109,88 +203,42 @@ class ExtraerAdjudicacionesCommand extends Command
             $resultados = array_merge($resultados, $resultadosPagina);
         }
 
-        $progressBar = new ProgressBar($output, sizeof($resultados));
-        if (!$input->getOption('info')) {
-            $progressBar->start();
+        return $resultados;
+    }
+
+    private function isPlazaOCEP(mixed $adjudicaciones_array): bool
+    {
+        return in_array($adjudicaciones_array['centro'], Centro::OCEP_OTROS_CENTROS);
+    }
+
+    private function muestraPlazaNoEncontrada(
+        SymfonyStyle $io,
+        mixed $adjudicaciones_array,
+        bool $info
+    ): void {
+        if (!$this->isPlazaOCEP($adjudicaciones_array) && $info) {
+            $io->writeln(
+                '<error>No se ha encontrado ninguna plaza para los criterios especificados.</error>'
+            );
+            $io->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
+        }
+    }
+
+    private function decidirPlazaObjetivo(array $plazasObjetivo): ?Plaza
+    {
+        if (count($plazasObjetivo) === 1) {
+            return $plazasObjetivo[0];
         }
 
-        $omitidas = 0;
-        $nuevas = 0;
-        $noEncontradas = 0;
-        $ocep = 0;
-
-        foreach ($resultados as $index => $adjudicaciones_array) {
-            $plazaObjetivo = $this->getPlazaObjetivoIfExists($convocatoria, $adjudicaciones_array);
-
-            if (empty($plazaObjetivo)) {
-                if (in_array($adjudicaciones_array['centro'], Centro::OCEP_OTROS_CENTROS)) {
-                    $ocep++;
-                } else {
-                    if ($input->getOption('info')) {
-                        $output->writeln(
-                            '<error>No se ha encontrado ninguna plaza para los criterios especificados.</error>'
-                        );
-                        $output->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
-                    }
-                    $noEncontradas++;
+        if (count($plazasObjetivo) > 1) {
+            foreach ($plazasObjetivo as $plazaComprueba) {
+                $plaza = $plazaComprueba;
+                if (!$plazaComprueba->adjudicadaCompletamente()) {
+                    return $plaza;
                 }
-                continue;
-            }
-
-            $plaza = null;
-            if (count($plazaObjetivo) > 1) {
-                if ($input->getOption('info')) {
-                    $output->writeln(
-                        '<info>Ambigüedad: Más de una plaza encontrada para los criterios especificados.</info>',
-                    );
-                    $output->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
-                }
-                foreach ($plazaObjetivo as $plazaComprueba) {
-                    $plaza = $plazaComprueba;
-                    if ($plazaComprueba->adjudicadaCompletamente()) {
-                        $omitidas++;
-                    } else {
-                        break;
-                    }
-                }
-            } else {
-                $plaza = $plazaObjetivo[0];
-            }
-
-
-            if (!$plaza->adjudicadaCompletamente()) {
-                $plaza->addAdjudicacion(
-                    new Adjudicacion(
-                        id: null,
-                        puesto: intval($adjudicaciones_array['orden']),
-                        plaza: $plazaObjetivo[0],
-                    )
-                );
-                $nuevas++;
-            } else {
-                $omitidas++;
-            }
-
-            $this->plazaRepository->save($plaza, clear: true);
-
-            if (!$input->getOption('info')) {
-                $progressBar->advance();
             }
         }
-
-
-        if (!$input->getOption('info')) {
-            $progressBar->finish();
-            $output->writeln('');
-        }
-
-        $output->writeln('');
-        $output->writeln('<info>No asociadas: ' . $noEncontradas);
-        $output->writeln('OCEP - Servicios otros centros: ' . $ocep);
-        $output->writeln('Omitidas: ' . $omitidas);
-        $output->writeln('Nuevas: ' . $nuevas . '</info>');
-
-        return Command::SUCCESS;
+        return null;
     }
 
 }

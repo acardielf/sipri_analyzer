@@ -6,6 +6,7 @@ use App\Repository\AdjudicacionRepository;
 use App\Repository\ConvocatoriaRepository;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
+use Exception;
 use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Attribute\Option;
@@ -16,19 +17,18 @@ use Symfony\Component\Console\Style\SymfonyStyle;
     name: 'sipri:del',
     description: 'Elimina una convocatoria, sus plazas y archivos asociados',
 )]
-class RemoveConvocatoriaCommand extends Command
+readonly class RemoveConvocatoriaCommand
 {
     public function __construct(
-        private readonly FileUtilitiesService $fileUtilitiesService,
-        private readonly ConvocatoriaRepository $convocatoriaRepository,
-        private readonly PlazaRepository $plazaRepository,
-        private readonly AdjudicacionRepository $adjudicacionRepository,
+        private FileUtilitiesService $fileUtilitiesService,
+        private ConvocatoriaRepository $convocatoriaRepository,
+        private PlazaRepository $plazaRepository,
+        private AdjudicacionRepository $adjudicacionRepository,
     ) {
-        parent::__construct();
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function __invoke(
         SymfonyStyle $io,

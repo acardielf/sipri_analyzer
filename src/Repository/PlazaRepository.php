@@ -87,25 +87,13 @@ class PlazaRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param array<Plaza>|Plaza $plaza
+     * @param Plaza $plaza
      * @param bool $clear
      * @return void
      */
-    public function save(array|Plaza $plaza, bool $clear = false): void
+    public function save(Plaza $plaza, bool $clear = false): void
     {
-        if (is_array($plaza)) {
-            foreach ($plaza as $p) {
-                if (!$p instanceof Plaza) {
-                    throw new \InvalidArgumentException('Expected Plaza entity in array.');
-                }
-                $this->em->persist($p);
-            }
-        } elseif ($plaza instanceof Plaza) {
-            $this->em->persist($plaza);
-        } else {
-            throw new \InvalidArgumentException('Expected Plaza or array of Plaza entities.');
-        }
-
+        $this->em->persist($plaza);
         $this->em->flush();
         if ($clear) {
             $this->em->clear();

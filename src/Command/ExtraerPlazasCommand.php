@@ -142,7 +142,7 @@ readonly class ExtraerPlazasCommand
         }
 
         $ocurrencia = 1;
-        $insertar = [];
+        $toInsert = [];
         $omitidas = [];
 
         foreach ($plazas as $plazaArray) {
@@ -153,7 +153,8 @@ readonly class ExtraerPlazasCommand
                 $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
 
             if ($plaza->getId() === null) {
-                $insertar[] = $plaza;
+                $toInsert[] = $plaza;
+                $this->plazaRepository->save($plaza);
             } else {
                 $omitidas[] = $plaza;
             }
@@ -162,15 +163,13 @@ readonly class ExtraerPlazasCommand
             $ocurrencia++;
         }
 
-        $this->plazaRepository->save($insertar);
-
         if (!$info) {
             $progressBar->clear();
         }
 
         return [
             'total' => $ocurrencia - 1,
-            'nuevas' => count($insertar),
+            'nuevas' => count($toInsert),
             'omitidas' => count($omitidas),
         ];
     }
