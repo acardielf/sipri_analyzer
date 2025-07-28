@@ -30,7 +30,7 @@ class Plaza
     /**
      * @var Collection<int, Adjudicacion>
      */
-    #[ORM\OneToMany(targetEntity: Adjudicacion::class, mappedBy: 'plaza', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: Adjudicacion::class, mappedBy: 'plaza', cascade: ['persist'])]
     private Collection $adjudicaciones;
 
     #[ORM\Column(enumType: TipoPlazaEnum::class)]
@@ -48,7 +48,13 @@ class Plaza
     #[ORM\Column]
     private int $ocurrencia;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private int $pagina;
+
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private int $linea;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private string $hash;
 
 
@@ -58,6 +64,8 @@ class Plaza
         Especialidad $especialidad,
         TipoPlazaEnum $tipo,
         ObligatoriedadPlazaEnum $obligatoriedad,
+        int $pagina,
+        int $linea,
         ?\DateTimeImmutable $fechaPrevistaCese = null,
         int $numero = 0,
         int $ocurrencia = 1,
@@ -67,21 +75,23 @@ class Plaza
         $this->especialidad = $especialidad;
         $this->tipo = $tipo;
         $this->obligatoriedad = $obligatoriedad;
+        $this->pagina = $pagina;
+        $this->linea = $linea;
         $this->fechaPrevistaCese = $fechaPrevistaCese;
         $this->numero = $numero;
         $this->ocurrencia = $ocurrencia;
 
-        $this->hash = hash(
-            'sha256',
-            $convocatoria->getId() .
-            $centro->getId() .
-            $especialidad->getId() .
-            $tipo->value .
-            $obligatoriedad->value .
-            ($fechaPrevistaCese ? $fechaPrevistaCese->format('Y-m-d') : '') .
-            $numero .
-            $ocurrencia
+        $this->hash = self::buildHash(
+            convocatoriaId: $convocatoria->getId(),
+            centroId: $centro->getId(),
+            especialidadId: $especialidad->getId(),
+            tipoPlaza: $tipo,
+            obligatoriedadPlaza: $obligatoriedad,
+            fechaPrevistaCese: $fechaPrevistaCese,
+            numero: $numero,
+            ocurrencia: $ocurrencia,
         );
+
         $this->adjudicaciones = new ArrayCollection();
     }
 
@@ -234,6 +244,61 @@ class Plaza
         }
 
         return $this;
+    }
+
+    public static function buildHash(
+        int $convocatoriaId,
+        string $centroId,
+        string $especialidadId,
+        TipoPlazaEnum $tipoPlaza,
+        ObligatoriedadPlazaEnum $obligatoriedadPlaza,
+        ?\DateTimeImmutable $fechaPrevistaCese,
+        int $numero,
+        ?int $ocurrencia,
+    ): string {
+        return hash(
+            algo: 'sha256',
+            data: implode('|', [
+                $convocatoriaId,
+                $centroId,
+                $especialidadId,
+                $tipoPlaza->value,
+                $obligatoriedadPlaza->value,
+                $fechaPrevistaCese?->format('Y-m-d') ?? '',
+                $numero,
+                $ocurrencia ?? 1,
+            ])
+        );
+    }
+
+    public function getPagina(): int
+    {
+        return $this->pagina;
+    }
+
+    public function setPagina(int $pagina): void
+    {
+        $this->pagina = $pagina;
+    }
+
+    public function getLinea(): int
+    {
+        return $this->linea;
+    }
+
+    public function setLinea(int $linea): void
+    {
+        $this->linea = $linea;
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): void
+    {
+        $this->hash = $hash;
     }
 
 

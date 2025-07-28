@@ -6,13 +6,11 @@ use App\Repository\AdjudicacionRepository;
 use App\Repository\ConvocatoriaRepository;
 use App\Repository\PlazaRepository;
 use App\Service\FileUtilitiesService;
-use Exception;
+use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'sipri:del',
@@ -29,83 +27,109 @@ class RemoveConvocatoriaCommand extends Command
         parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this->setHelp('Este comando elimina una convocatoria, sus plazas y archivos asociados');
-        $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
-        $this->addOption(
-            'adjudicaciones',
-            'a',
-            InputOption::VALUE_NEGATABLE,
-            'Elimina las adjudicaciones asociadas a la convocatoria'
-        );
-        $this->addOption(
-            'full',
-            'f',
-            InputOption::VALUE_NEGATABLE,
-            'Elimina también los archivos asociados a la convocatoria'
-        );
-    }
-
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $convocatoria = $input->getArgument('convocatoria');
-        $convocatoria = intval($convocatoria);
+    public function __invoke(
+        SymfonyStyle $io,
+        #[Argument(
+            description: 'Convocatoria a procesar',
+            name: 'convocatoria',
+        )] int $convocatoria,
+        #[Option(
+            description: 'Elimina también los archivos asociados a la convocatoria.',
+            name: 'files',
+            shortcut: 'f',
+        )] bool $removeFiles = false,
+        #[Option(
+            description: 'Elimina las adjudicaciones asociadas a la convocatoria',
+            name: 'adjudicaciones',
+            shortcut: 'a',
+        )] bool $adjudicaciones = false,
+    ): int {
+        {
+            $io->title('ELIMINAR CONVOCATORIA: ' . $convocatoria);
 
-        $output->writeln('Eliminando convocatoria: ' . $convocatoria);
+            $io->table(['Opciones', 'Valor'], [
+                ['Eliminar ficheros', $removeFiles ? 'Sí' : 'No'],
+                ['Modo', $adjudicaciones ? 'Adjudicaciones' : 'Plazas y Convocatoria'],
+            ]);
 
-        $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
+            $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
 
-        if ($input->getOption('full')) {
-            $pdfPath = $path . $convocatoria . '_plazas.pdf';
-            $outputPath = $path . $convocatoria . '_plazas.json';
-            $adjudicadosPath = $path . $convocatoria . '_adjudicados.pdf';
-
-            if ($this->fileUtilitiesService->fileExists($pdfPath)) {
-                $this->fileUtilitiesService->removeFile($pdfPath);
+            if ($removeFiles) {
+                $this->removeFiles($path, $convocatoria, $io);
             }
 
-            if ($this->fileUtilitiesService->fileExists($outputPath)) {
-                $this->fileUtilitiesService->removeFile($outputPath);
+            if ($adjudicaciones) {
+                $this->removeOnlyAdjudicaciones($convocatoria, $io);
             }
 
-            if ($this->fileUtilitiesService->fileExists($adjudicadosPath)) {
-                $this->fileUtilitiesService->removeFile($adjudicadosPath);
+            if (!$adjudicaciones) {
+                $this->removePlazasAndConvocatoria($convocatoria, $io);
             }
-            $output->writeln('<info>Archivos PDF eliminados.</info>');
-        }
 
-        if ($input->getOption('adjudicaciones')) {
-            $adjudicaciones = $this->adjudicacionRepository->findByConvocatoria($convocatoria);
-            $this->adjudicacionRepository->removeAll($adjudicaciones);
-            $output->writeln('<info>Adjudicaciones eliminadas.</info>');
             return Command::SUCCESS;
         }
+    }
 
+    private function removePlazasAndConvocatoria(int $convocatoria, SymfonyStyle $io): int
+    {
         $convocatoriaEntity = $this->convocatoriaRepository->find($convocatoria);
-        $plazas = $this->plazaRepository->findBy(['convocatoria' => $convocatoria]);
 
-        foreach ($plazas as $plaza) {
-            $this->plazaRepository->remove($plaza);
+        if (!$convocatoriaEntity) {
+            $io->note('Convocatoria no encontrada.');
+            return Command::FAILURE;
         }
 
-        if (!$plazas) {
-            $output->writeln('<error>No se encontraron plazas asociadas.</error>');
-        } else {
-            $output->writeln('<info>Eliminadas ' . count($plazas) . ' plazas asociadas.</info>');
-        }
+        $numPlazas = count($convocatoriaEntity->getPlazas());
+        $this->plazaRepository->removeAll($convocatoriaEntity->getPlazas());
+        $this->convocatoriaRepository->remove($convocatoriaEntity);
 
-        if ($convocatoriaEntity) {
-            $this->convocatoriaRepository->remove($convocatoriaEntity);
-            $output->writeln('<info>Convocatoria eliminada.</info>');
-        } else {
-            $output->writeln('<error>Convocatoria no encontrada.</error>');
-        }
-
+        $io->table(['Resultado', 'Valor'], [
+            ['Convocatoria eliminada', $convocatoria],
+            ['Plazas eliminadas', $numPlazas],
+        ]);
         return Command::SUCCESS;
     }
 
+    private function removeOnlyAdjudicaciones(int $convocatoria, SymfonyStyle $io): void
+    {
+        $listaAdjudicaciones = $this->adjudicacionRepository->findByConvocatoria($convocatoria);
+        $numAdjudicaciones = count($listaAdjudicaciones);
+        $this->adjudicacionRepository->removeAll($listaAdjudicaciones);
+
+        $io->table(['Resultado', 'Valor'], [
+            ['Convocatoria tratada', $convocatoria],
+            ['Adjudicaciones eliminadas', $numAdjudicaciones],
+        ]);
+    }
+
+    /**
+     * @param string $path
+     * @param int $convocatoria
+     * @param SymfonyStyle $io
+     * @return void
+     */
+    public function removeFiles(string $path, int $convocatoria, SymfonyStyle $io): void
+    {
+        $pdfPath = $path . $convocatoria . '_plazas.pdf';
+        $outputPath = $path . $convocatoria . '_plazas.json';
+        $adjudicadosPath = $path . $convocatoria . '_adjudicados.pdf';
+
+        if ($this->fileUtilitiesService->fileExists($pdfPath)) {
+            $this->fileUtilitiesService->removeFile($pdfPath);
+            $io->comment("Archivo $pdfPath eliminado.");
+        }
+
+        if ($this->fileUtilitiesService->fileExists($outputPath)) {
+            $this->fileUtilitiesService->removeFile($outputPath);
+            $io->comment("Archivo $outputPath eliminado.");
+        }
+
+        if ($this->fileUtilitiesService->fileExists($adjudicadosPath)) {
+            $this->fileUtilitiesService->removeFile($adjudicadosPath);
+            $io->comment("Archivo $adjudicadosPath eliminado.");
+        }
+    }
 }

@@ -86,9 +86,26 @@ class PlazaRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function save(Plaza $plaza, bool $clear = false): void
+    /**
+     * @param array<Plaza>|Plaza $plaza
+     * @param bool $clear
+     * @return void
+     */
+    public function save(array|Plaza $plaza, bool $clear = false): void
     {
-        $this->em->persist($plaza);
+        if (is_array($plaza)) {
+            foreach ($plaza as $p) {
+                if (!$p instanceof Plaza) {
+                    throw new \InvalidArgumentException('Expected Plaza entity in array.');
+                }
+                $this->em->persist($p);
+            }
+        } elseif ($plaza instanceof Plaza) {
+            $this->em->persist($plaza);
+        } else {
+            throw new \InvalidArgumentException('Expected Plaza or array of Plaza entities.');
+        }
+
         $this->em->flush();
         if ($clear) {
             $this->em->clear();
@@ -97,19 +114,7 @@ class PlazaRepository extends ServiceEntityRepository
 
     public function findByHash(PlazaDto $dto, int $ocurrencia): ?Plaza
     {
-        $hash = hash(
-            'sha256',
-            $dto->convocatoria->id .
-            $dto->centro->id .
-            $dto->especialidad->id .
-            $dto->tipoPlaza->value .
-            $dto->obligatoriedadPlaza->value .
-            $dto->fechaPrevistaCese?->format('Y-m-d') .
-            $dto->numero .
-            $ocurrencia
-        );
-
-        return $this->findOneBy(['hash' => $hash]);
+        return $this->findOneBy(['hash' => $dto->getHash($ocurrencia)]);
     }
 
     public function findByEspecialidadAndCurso(Especialidad $especialidad, Curso $curso)
@@ -168,6 +173,18 @@ class PlazaRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param array<Plaza> $plazas
+     * @return void
+     */
+    public function removeAll(iterable $plazas): void
+    {
+        foreach ($plazas as $plaza) {
+            $this->getEntityManager()->remove($plaza);
+        }
+        $this->getEntityManager()->flush();
+    }
+
 
     /**
      * @param array<Plaza>|null $plazas
@@ -196,5 +213,6 @@ class PlazaRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
 
 }

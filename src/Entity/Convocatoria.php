@@ -28,10 +28,7 @@ class Convocatoria
     /**
      * @var Collection<int, Plaza>
      */
-    #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'convocatoria', cascade: [
-        'persist',
-        'remove'
-    ], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'convocatoria', cascade: ['persist'])]
     private Collection $plazas;
 
     public function __construct(

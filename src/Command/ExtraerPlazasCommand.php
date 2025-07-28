@@ -22,6 +22,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
@@ -30,6 +31,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 readonly class ExtraerPlazasCommand
 {
+    private const string DATE_FORMAT = 'd/m/y';
+    private const int JSON_FLAGS = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+
     public function __construct(
         private FileUtilitiesService $fileUtilitiesService,
         private ScrapperService $scrapperService,
@@ -56,103 +60,191 @@ readonly class ExtraerPlazasCommand
     ): int {
         $io->title('CONVOCATORIA: ' . $convocatoria);
 
-        $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
-        $pdfPath = $path . $convocatoria . '_plazas.pdf';
-        $outputPath = $path . $convocatoria . '_plazas.json';
+        $archivos = $this->prepararArchivos($convocatoria);
 
-        if (!$this->fileUtilitiesService->fileExists($pdfPath)) {
+        if (!$this->fileUtilitiesService->fileExists($archivos['pdf'])) {
             $io->writeln('<error>Archivo PDF no encontrado.</error>');
             return Command::FAILURE;
         }
 
+        $fechaConvocatoria = $this->extraerFechaConvocatoria($archivos['pdf']);
+        $plazas = $this->procesarPlazas($convocatoria, $archivos['pdf']);
+        $this->guardarResultadosJson($plazas, $archivos['output']);
+        $resultadoProcesamiento = $this->persistirPlazas($plazas, $fechaConvocatoria, $convocatoria, $io, $info);
+
+        $this->mostrarResumen($io, $convocatoria, $fechaConvocatoria, $resultadoProcesamiento);
+
+        return Command::SUCCESS;
+    }
+
+    /**
+     * @param int $convocatoria
+     * @return array [
+     *      'pdf' => string
+     *      'output' => string
+     * ]
+     * @throws Exception
+     */
+    private function prepararArchivos(int $convocatoria): array
+    {
+        $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
+        return [
+            'pdf' => $path . $convocatoria . '_plazas.pdf',
+            'output' => $path . $convocatoria . '_plazas.json'
+        ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function extraerFechaConvocatoria(string $pdfPath): DateTimeImmutable
+    {
         $parser = new Parser();
         $pdf = $parser->parseContent($this->fileUtilitiesService->getFileContent($pdfPath));
-        $text = $pdf->getText();
+        return $this->scrapperService->extractDateTimeFromText($pdf->getText());
+    }
 
-        $fechaConvocatoria = $this->scrapperService->extractDateTimeFromText($text);
-
-
+    private function procesarPlazas(int $convocatoria, string $pdfPath): array
+    {
         $json = $this->tabulaService->generateJsonFromPdf(
             TipoProcesoEnum::PLAZA,
             $convocatoria,
-            $pdfPath,
+            $pdfPath
         );
 
-
-        $resultados = [];
-
+        $plazasProcesadas = [];
         foreach ($json as $numero => $contenido) {
-            $resultadosPagina = $this->scrapperService->extractPlazasFromPageContent(
+            $plazasPagina = $this->scrapperService->extractPlazasFromPageContent(
                 $numero,
                 $contenido,
                 $convocatoria
             );
-            $resultados = array_merge($resultados, $resultadosPagina);
+            $plazasProcesadas = array_merge($plazasProcesadas, $plazasPagina);
         }
 
-        $ocurrencia = 1;
-        $nuevas = 0;
+        return $plazasProcesadas;
+    }
 
-        $progressBar = new ProgressBar($io, sizeof($resultados));
+    /**
+     * @throws Exception
+     */
+    private function persistirPlazas(
+        array $plazas,
+        DateTimeImmutable $fechaConvocatoria,
+        int $convocatoria,
+        SymfonyStyle $io,
+        bool $info
+    ): array {
+        $progressBar = new ProgressBar($io, count($plazas));
 
         if (!$info) {
             $progressBar->start();
         }
 
-        foreach ($resultados as $plaza_array) {
-            $plazaDto = new PlazaDto(
-                id: null,
-                convocatoria: ConvocatoriaDto::fromId($convocatoria, $fechaConvocatoria),
-                centro: CentroDto::fromString(
-                    $plaza_array['centro'],
-                    $plaza_array['localidad'],
-                    $plaza_array['provincia']
-                ),
-                especialidad: EspecialidadDto::fromString($plaza_array['puesto']),
-                tipoPlaza: TipoPlazaEnum::fromString($plaza_array['tipo']),
-                obligatoriedadPlaza: ObligatoriedadPlazaEnum::fromString($plaza_array['voluntaria']),
-                fechaPrevistaCese: $plaza_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
-                    'd/m/y',
-                    $plaza_array['fecha_prevista_cese']
-                ),
-                numero: intval($plaza_array['num_plazas'])
-            );
+        $ocurrencia = 1;
+        $insertar = [];
+        $omitidas = [];
 
-            $plaza = $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
-            $texto = $plaza->getId() !== null ? '<comment>Plaza ya existe:</comment> ' : '<info>Plaza añadida:</info> ';
+        foreach ($plazas as $plazaArray) {
+            $plazaDto = $this->getDto($plazaArray, $convocatoria, $fechaConvocatoria);
 
-            if ($plaza->getId() == null) {
-                $this->plazaRepository->save($plaza, clear: true);
-                $nuevas++;
-            }
+            $plaza =
+                $this->plazaRepository->findByHash($plazaDto, $ocurrencia) ??
+                $this->plazaDtoToEntity->get($plazaDto, $ocurrencia);
 
-            if ($info) {
-                $io->writeln($texto . ' ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
+            if ($plaza->getId() === null) {
+                $insertar[] = $plaza;
             } else {
-                $progressBar->advance();
+                $omitidas[] = $plaza;
             }
 
+            $this->mostrarProgreso($io, $info, $plaza, $plazaDto, $progressBar);
             $ocurrencia++;
         }
+
+        $this->plazaRepository->save($insertar);
 
         if (!$info) {
             $progressBar->clear();
         }
 
-        file_put_contents($outputPath, json_encode($resultados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        return [
+            'total' => $ocurrencia - 1,
+            'nuevas' => count($insertar),
+            'omitidas' => count($omitidas),
+        ];
+    }
 
+    /**
+     * @throws Exception
+     */
+    private function getDto(
+        array $plazaArray,
+        int $convocatoria,
+        DateTimeImmutable $fechaConvocatoria
+    ): PlazaDto {
+        return new PlazaDto(
+            id: null,
+            convocatoria: ConvocatoriaDto::fromId($convocatoria, $fechaConvocatoria),
+            centro: CentroDto::fromString(
+                $plazaArray['centro'],
+                $plazaArray['localidad'],
+                $plazaArray['provincia']
+            ),
+            especialidad: EspecialidadDto::fromString($plazaArray['puesto']),
+            tipoPlaza: TipoPlazaEnum::fromString($plazaArray['tipo']),
+            obligatoriedadPlaza: ObligatoriedadPlazaEnum::fromString($plazaArray['voluntaria']),
+            fechaPrevistaCese: $plazaArray['fecha_prevista_cese'] ?
+                DateTimeImmutable::createFromFormat(self::DATE_FORMAT, $plazaArray['fecha_prevista_cese']) :
+                null,
+            numero: intval($plazaArray['num_plazas']),
+            pagina: $plazaArray['pagina'],
+            fila: $plazaArray['fila'],
+        );
+    }
+
+    private function mostrarProgreso(
+        SymfonyStyle $io,
+        bool $info,
+        $plaza,
+        PlazaDto $plazaDto,
+        ProgressBar $progressBar
+    ): void {
+        if ($info) {
+            $estado = $plaza->getId(
+            ) !== null ? '<comment>Plaza ya existe:</comment> ' : '<info>Plaza añadida:</info> ';
+            $io->writeln(
+                implode(' ', [
+                    $estado,
+                    "(P:$plazaDto->pagina L:$plazaDto->fila)",
+                    $plazaDto->centro->nombre,
+                    "-",
+                    $plazaDto->especialidad->nombre
+                ]),
+                OutputInterface::OUTPUT_PLAIN
+            );
+        } else {
+            $progressBar->advance();
+        }
+    }
+
+    private function guardarResultadosJson(array $resultados, string $outputPath): void
+    {
+        file_put_contents($outputPath, json_encode($resultados, self::JSON_FLAGS));
+    }
+
+    private function mostrarResumen(
+        SymfonyStyle $io,
+        int $convocatoria,
+        DateTimeImmutable $fechaConvocatoria,
+        array $resultadoProcesamiento
+    ): void {
         $io->table(['Resultado', 'Valor'], [
             ['Número de convocatoria', $convocatoria],
             ['Fecha de convocatoria', $fechaConvocatoria->format('d/m/Y')],
-            ['Plazas extraídas', count($resultados)],
-            ['Plazas persistidas en DB', $nuevas],
-            ['Plazas omitidas', $ocurrencia - 1 - $nuevas],
-            ['Total plazas', $ocurrencia - 1],
+            ['Plazas persistidas en DB', $resultadoProcesamiento['nuevas']],
+            ['Plazas omitidas', $resultadoProcesamiento['omitidas']],
+            ['Total plazas', $resultadoProcesamiento['total']],
         ]);
-
-
-        return Command::SUCCESS;
     }
-
-
 }
