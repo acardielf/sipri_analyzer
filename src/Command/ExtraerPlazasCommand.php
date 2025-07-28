@@ -154,7 +154,7 @@ readonly class ExtraerPlazasCommand
 
             if ($plaza->getId() === null) {
                 $toInsert[] = $plaza;
-                $this->plazaRepository->save($plaza);
+                $this->plazaRepository->save($plaza, clear: true);
             } else {
                 $omitidas[] = $plaza;
             }

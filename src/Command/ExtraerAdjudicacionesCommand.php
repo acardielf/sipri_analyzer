@@ -142,9 +142,9 @@ readonly class ExtraerAdjudicacionesCommand
 
         if (!empty($noEncontradas)) {
             $io->writeln('<error>Algunas adjudicaciones no se han podido asociar a plazas.</error>');
-        }
-        foreach ($noEncontradas as $noEncontrada) {
-            $io->writeln(json_encode($noEncontrada));
+            foreach ($noEncontradas as $noEncontrada) {
+                $io->writeln(json_encode($noEncontrada));
+            }
         }
 
         $io->table(['Resultado', 'Valor'], [
@@ -173,10 +173,7 @@ readonly class ExtraerAdjudicacionesCommand
             especialidadId: $adjudicaciones_array['puesto'],
             tipo: TipoPlazaEnum::fromString($adjudicaciones_array['tipo']),
             //obligatoriedad: ObligatoriedadPlazaEnum::fromString($adjudicaciones_array['voluntaria']),
-            fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'] == "" ? null : DateTimeImmutable::createFromFormat(
-                '!d/m/y',
-                $adjudicaciones_array['fecha_prevista_cese']
-            )
+            fechaPrevistaCese: $adjudicaciones_array['fecha_prevista_cese'],
         );
     }
 

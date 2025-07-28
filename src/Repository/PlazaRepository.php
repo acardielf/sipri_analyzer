@@ -33,7 +33,7 @@ class PlazaRepository extends ServiceEntityRepository
      * @param string|null $especialidadId
      * @param TipoPlazaEnum|null $tipo
      * @param ObligatoriedadPlazaEnum|null $obligatoriedad
-     * @param DateTimeImmutable|null $fechaPrevistaCese
+     * @param string|null $fechaPrevistaCese
      * @param int|null $numero
      * @return array<Plaza>|null
      */
@@ -43,7 +43,7 @@ class PlazaRepository extends ServiceEntityRepository
         ?string $especialidadId = null,
         ?TipoPlazaEnum $tipo = null,
         ?ObligatoriedadPlazaEnum $obligatoriedad = null,
-        ?DateTimeImmutable $fechaPrevistaCese = null,
+        ?string $fechaPrevistaCese = null,
         ?int $numero = null
     ): ?array {
         $qb = $this->createQueryBuilder('p');
@@ -73,9 +73,26 @@ class PlazaRepository extends ServiceEntityRepository
                 ->setParameter('obligatoriedad', $obligatoriedad);
         }
 
-        if ($fechaPrevistaCese) {
-            $qb->andWhere('p.fechaPrevistaCese = :fechaPrevistaCese')
-                ->setParameter('fechaPrevistaCese', $fechaPrevistaCese->format('Y-m-d'));
+        if (!is_null($fechaPrevistaCese)) {
+
+            /*
+             * Parece que las primeras convocatorias, las vacantes que salen
+             * con fecha prevista de cese el último día de curso, luego en la adjudicación
+             * aparecen como sin fecha prevista de cese, al tratarse de una vacante de curso entero.
+             *
+             * Por eso hay que hacer una excepción para las vacantes:
+             */
+
+            if ($fechaPrevistaCese === '' && $tipo !== TipoPlazaEnum::VACANTE) {
+                $qb->andWhere('p.fechaPrevistaCese IS NULL');
+            }
+
+            if ($fechaPrevistaCese !== '') {
+                $fechaPrevistaCeseParseada = DateTimeImmutable::createFromFormat('!d/m/y', $fechaPrevistaCese);
+                $qb->andWhere('p.fechaPrevistaCese = :fechaPrevistaCese')
+                    ->setParameter('fechaPrevistaCese', $fechaPrevistaCeseParseada->format('Y-m-d'));
+            }
+
         }
 
         if ($numero !== null) {
