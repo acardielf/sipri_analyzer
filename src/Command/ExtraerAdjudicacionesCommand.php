@@ -33,7 +33,6 @@ readonly class ExtraerAdjudicacionesCommand
         private ScrapperService $scrapperService,
         private PlazaRepository $plazaRepository,
         private TabulaPythonService $tabulaService,
-        private ConvocatoriaRepository $convocatoriaRepository,
         private AdjudicacionRepository $adjudicacionRepository,
     ) {
     }
