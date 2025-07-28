@@ -141,13 +141,20 @@ readonly class ExtraerAdjudicacionesCommand
             $progressBar->clear();
         }
 
+        if (!empty($noEncontradas)) {
+            $io->writeln('<error>Algunas adjudicaciones no se han podido asociar a plazas.</error>');
+        }
+        foreach ($noEncontradas as $noEncontrada) {
+            $io->writeln(json_encode($noEncontrada));
+        }
+
         $io->table(['Resultado', 'Valor'], [
             ['Convocatoria', $convocatoria],
             ['Adjudicaciones procesadas', count($adjudicaciones)],
             ['Adjudicaciones OCEP', $ocep],
-            ['Adjudicaciones no asociadas a plazas', count($noEncontradas)],
+            ['Adjudicaciones persistidas en DB', $nuevas],
             ['Adjudicaciones omitidas', $omitidas],
-            ['Adjudicaciones asociadas a plazas', $nuevas],
+            ['Adjudicaciones no asociadas a plazas', count($noEncontradas)],
         ]);
 
         return Command::SUCCESS;
@@ -211,18 +218,6 @@ readonly class ExtraerAdjudicacionesCommand
         return in_array($adjudicaciones_array['centro'], Centro::OCEP_OTROS_CENTROS);
     }
 
-    private function muestraPlazaNoEncontrada(
-        SymfonyStyle $io,
-        mixed $adjudicaciones_array,
-        bool $info
-    ): void {
-        if (!$this->isPlazaOCEP($adjudicaciones_array) && $info) {
-            $io->writeln(
-                '<error>No se ha encontrado ninguna plaza para los criterios especificados.</error>'
-            );
-            $io->writeln('<info>Criterios: ' . json_encode($adjudicaciones_array));
-        }
-    }
 
     private function decidirPlazaObjetivo(array $plazasObjetivo): ?Plaza
     {
