@@ -17,58 +17,51 @@ use App\Service\TabulaPythonService;
 use DateTimeImmutable;
 use Exception;
 use Smalot\PdfParser\Parser;
+use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'sipri:extraer-plazas',
     description: 'Extrae plazas desde un PDF y las guarda en formato JSON'
 )]
-class ExtraerPlazasCommand extends Command
+readonly class ExtraerPlazasCommand
 {
     public function __construct(
-        private readonly FileUtilitiesService $fileUtilitiesService,
-        private readonly ScrapperService $scrapperService,
-        private readonly PlazaDtoToEntity $plazaDtoToEntity,
-        private readonly PlazaRepository $plazaRepository,
-        private readonly TabulaPythonService $tabulaService,
+        private FileUtilitiesService $fileUtilitiesService,
+        private ScrapperService $scrapperService,
+        private PlazaDtoToEntity $plazaDtoToEntity,
+        private PlazaRepository $plazaRepository,
+        private TabulaPythonService $tabulaService,
     ) {
-        parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this->setHelp('Este comando extrae plazas desde un PDF y las guarda en formato JSON');
-        $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria a procesar');
-        $this->addOption(
-            'info',
-            'info',
-            InputOption::VALUE_NONE,
-            'Muestra información adicional sobre la convocatoria'
-        );
     }
 
     /**
      * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $convocatoria = $input->getArgument('convocatoria');
-        $convocatoria = intval($convocatoria);
-
-        $output->writeln('Procesando convocatoria: ' . $convocatoria);
+    public function __invoke(
+        SymfonyStyle $io,
+        #[Argument(
+            description: 'Convocatoria a procesar',
+            name: 'convocatoria',
+        )] int $convocatoria,
+        #[Option(
+            description: 'Muestra información adicional sobre la convocatoria',
+            name: 'info',
+            shortcut: 'i',
+        )] bool $info = false,
+    ): int {
+        $io->title('CONVOCATORIA: ' . $convocatoria);
 
         $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
         $pdfPath = $path . $convocatoria . '_plazas.pdf';
         $outputPath = $path . $convocatoria . '_plazas.json';
 
         if (!$this->fileUtilitiesService->fileExists($pdfPath)) {
-            $output->writeln('<error>Archivo PDF no encontrado.</error>');
+            $io->writeln('<error>Archivo PDF no encontrado.</error>');
             return Command::FAILURE;
         }
 
@@ -100,8 +93,9 @@ class ExtraerPlazasCommand extends Command
         $ocurrencia = 1;
         $nuevas = 0;
 
-        $progressBar = new ProgressBar($output, sizeof($resultados));
-        if (!$input->getOption('info')) {
+        $progressBar = new ProgressBar($io, sizeof($resultados));
+
+        if (!$info) {
             $progressBar->start();
         }
 
@@ -132,8 +126,8 @@ class ExtraerPlazasCommand extends Command
                 $nuevas++;
             }
 
-            if ($input->getOption('info')) {
-                $output->writeln($texto . ' ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
+            if ($info) {
+                $io->writeln($texto . ' ' . $plazaDto->centro->nombre . ' - ' . $plazaDto->especialidad->nombre);
             } else {
                 $progressBar->advance();
             }
@@ -141,18 +135,25 @@ class ExtraerPlazasCommand extends Command
             $ocurrencia++;
         }
 
-        if (!$input->getOption('info')) {
+        if (!$info) {
             $progressBar->finish();
-            $output->writeln('');
+            $io->writeln('');
         }
 
-
         file_put_contents($outputPath, json_encode($resultados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $output->writeln('<info>Nuevas plazas:</info> ' . $nuevas);
-        $output->writeln('<info>Plazas omitidas:</info> ' . ($ocurrencia - 1 - $nuevas));
-        $output->writeln('<info>Total plazas:</info> ' . $ocurrencia - 1);
+
+        $io->table(['Resultado', 'Valor'], [
+            ['Número de convocatoria', $convocatoria],
+            ['Fecha de convocatoria', $fechaConvocatoria->format('d/m/Y')],
+            ['Plazas extraídas', count($resultados)],
+            ['Plazas persistidas en DB', $nuevas],
+            ['Plazas omitidas', $ocurrencia - 1 - $nuevas],
+            ['Total plazas', $ocurrencia - 1],
+        ]);
+
 
         return Command::SUCCESS;
     }
+
 
 }
