@@ -74,7 +74,6 @@ class PlazaRepository extends ServiceEntityRepository
         }
 
         if (!is_null($fechaPrevistaCese)) {
-
             /*
              * Parece que las primeras convocatorias, las vacantes que salen
              * con fecha prevista de cese el último día de curso, luego en la adjudicación
@@ -92,7 +91,6 @@ class PlazaRepository extends ServiceEntityRepository
                 $qb->andWhere('p.fechaPrevistaCese = :fechaPrevistaCese')
                     ->setParameter('fechaPrevistaCese', $fechaPrevistaCeseParseada->format('Y-m-d'));
             }
-
         }
 
         if ($numero !== null) {
@@ -217,6 +215,28 @@ class PlazaRepository extends ServiceEntityRepository
         $query->setParameter('plazas', $plazas);
 
         return $query->getResult();
+    }
+
+    public function findVacantesByCursoEspecialidadAndProvincia(
+        Curso $curso,
+        Especialidad $especialidad,
+        Provincia $provincia
+    ): iterable {
+        $qb = $this->createQueryBuilder('p')
+            ->join('p.convocatoria', 'c')
+            ->join('p.centro', 'cc')
+            ->join('cc.localidad', 'l')
+            ->join('l.provincia', 'prov')
+            ->where('c.curso = :curso')
+            ->andWhere('p.especialidad = :especialidad')
+            ->andWhere('prov.id = :provincia')
+            ->andWhere('p.tipo = :tipo')
+            ->setParameter('curso', $curso)
+            ->setParameter('especialidad', $especialidad)
+            ->setParameter('provincia', $provincia)
+            ->setParameter('tipo', TipoPlazaEnum::VACANTE);
+
+        return $qb->getQuery()->getResult();
     }
 
 

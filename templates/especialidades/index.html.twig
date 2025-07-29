@@ -4,15 +4,15 @@
 {% block title %}Especialidades{% endblock %}
 
 {% block body %}
-    <h2>Especialidades</h2>
+    <h2><strong>{{ cuerpo.id }}</strong> - {{ cuerpo.nombre }}</h2>
 
     <div class="row">
 
     {% for especialidad in especialidades %}
-        <div class="col-12 col-md-6 p-2">
+        <div class="col-12 col-md-6 col-xl-4 p-2">
         <table>
             <tr>
-                <td class="font-monospace">
+                <td class="font-monospace align-top">
                     <a class="badge text-bg-primary text-decoration-none"
                        href="{{ path('app_especialidad_index', { especialidad: especialidad.id } ) }}">{{ especialidad.id }}</a>
                 </td>

@@ -23,7 +23,7 @@ readonly class ProvinciaDtoToEntity
 
         if (!$provincia) {
             $provincia = new Provincia(
-                id: intval($dto->id),
+                id: $dto->id,
                 nombre: $dto->nombre,
             );
             if ($persist) {

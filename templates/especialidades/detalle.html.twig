@@ -16,16 +16,20 @@
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>{{ plazas|length }}</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">{{ plazas|length }}</td>
+            <th scope="col">Vacantes:</th>
+            <td>{{ vacantes|length }}</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>{{ minOrden }}</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>{{ maxOrden }}</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>{{ desiertas|length }}</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>{{ maxOrden }}</td>
         </tr>
         </thead>
     </table>

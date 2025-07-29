@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Especialidades{% endblock %}
+
+{% block body %}
+    <h2>Especialidades</h2>
+
+
+    <div class="row">
+
+        {% for cuerpo in cuerpos %}
+            <div class="col-12 col-md-6 col-xl-4 p-2">
+                <table>
+                    <tr>
+                        <td class="font-monospace align-top">
+                            <a class="badge text-bg-primary text-decoration-none"
+                               href="{{ path('app_lista_especialidades', { cuerpo: cuerpo.id } ) }}">{{ cuerpo.id }}</a>
+                        </td>
+                        <td>
+                            <a class="text-decoration-none text-black"
+                               href="{{ path('app_lista_especialidades', { cuerpo: cuerpo.id } ) }}">{{ cuerpo.nombre }}</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

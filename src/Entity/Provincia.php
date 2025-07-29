@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Provincia
 {
     #[ORM\Id, ORM\Column]
-    private ?int $id;
+    private ?string $id;
 
     #[ORM\Column(length: 7)]
     private ?string $nombre;
@@ -23,32 +23,20 @@ class Provincia
     private Collection $localidades;
 
     public function __construct(
-        int    $id = 0,
+        string $id,
         string $nombre = ''
-    )
-    {
+    ) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->localidades = new ArrayCollection();
     }
 
-    public static function fromString(string $name): Provincia
-    {
-        $provincia = new Provincia();
-        $values = explode(' - ', $name, 2);
-        $provincia->setId($values[0]);
-        $provincia->setNombre($values[1]);
-
-        return $provincia;
-    }
-
-
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function setId(string $id): static
     {
         $this->id = $id;
 

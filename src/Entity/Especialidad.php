@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EspecialidadRepository::class)]
 class Especialidad
 {
-    #[ORM\Id, ORM\Column]
+    #[ORM\Id, ORM\Column, ORM\GeneratedValue(strategy: 'NONE')]
     private ?string $id;
 
     #[ORM\Column(length: 255)]
@@ -22,13 +22,20 @@ class Especialidad
     #[ORM\OneToMany(targetEntity: Plaza::class, mappedBy: 'especialidad')]
     private Collection $plazas;
 
+    #[ORM\ManyToOne(targetEntity: Cuerpo::class, inversedBy: 'especialidades')]
+    private ?Cuerpo $cuerpo = null;
+
+
+
     public function __construct(
         string $id,
-        string $nombre
+        string $nombre,
+        ?Cuerpo $cuerpo = null
     )
     {
         $this->id = $id;
         $this->nombre = $nombre;
+        $this->cuerpo = $cuerpo;
         $this->plazas = new ArrayCollection();
     }
 
@@ -84,5 +91,10 @@ class Especialidad
         }
 
         return $this;
+    }
+
+    public function getCuerpo(): ?Cuerpo
+    {
+        return $this->cuerpo;
     }
 }

@@ -11,13 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Curso
 {
     #[ORM\Id, ORM\Column]
-    private ?int $id = null;
+    private ?string $id;
 
     #[ORM\Column(length: 9)]
-    private ?string $nombre = null;
+    private ?string $nombre;
 
     #[ORM\Column(length: 4)]
-    private ?string $simple = null;
+    private ?string $simple;
 
     /**
      * @var Collection<int, Convocatoria>
@@ -26,23 +26,22 @@ class Curso
     private Collection $convocatorias;
 
     public function __construct(
-        int    $id,
+        string $id,
         string $nombre,
         string $simple,
-    )
-    {
+    ) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->simple = $simple;
         $this->convocatorias = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function setId(string $id): static
     {
         $this->id = $id;
 

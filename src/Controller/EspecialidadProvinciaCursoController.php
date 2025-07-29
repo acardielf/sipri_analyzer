@@ -12,7 +12,7 @@ use App\Repository\PlazaRepository;
 use App\Repository\ProvinciaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class EspecialidadProvinciaCursoController extends AbstractController
 {
@@ -48,6 +48,12 @@ class EspecialidadProvinciaCursoController extends AbstractController
 
         $desiertas = $this->plazaRepository->findPlazasDesiertas($plazas);
 
+        $vacantes = $this->plazaRepository->findVacantesByCursoEspecialidadAndProvincia(
+            $curso,
+            $especialidad,
+            $provincia
+        );
+
         $desiertasId = array_map(
             fn(Plaza $plaza) => $plaza->getId(),
             $desiertas
@@ -60,6 +66,7 @@ class EspecialidadProvinciaCursoController extends AbstractController
             'provincia' => $provincia,
             'plazas' => $plazas,
             'desiertas' => $desiertasId,
+            'vacantes' => $vacantes,
             'minOrden' => $this->encontrarOrdenMinimo($plazas) ?? 0,
             'maxOrden' => $this->encontrarOrdenMaximo($plazas) ?? 0,
         ]);

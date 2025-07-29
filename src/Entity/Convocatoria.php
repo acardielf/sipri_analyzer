@@ -13,17 +13,17 @@ class Convocatoria
     use ConvocatoriaConfigurationTrait;
 
     #[ORM\Id, ORM\Column]
-    private ?int $id = null;
+    private ?string $id;
 
     #[ORM\Column(length: 12)]
-    private ?string $nombre = null;
+    private ?string $nombre;
 
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private ?\DateTimeImmutable $fecha = null;
+    private ?\DateTimeImmutable $fecha;
 
-    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'convocatorias')]
-    private ?Curso $curso = null;
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'convocatorias',)]
+    private ?Curso $curso;
 
     /**
      * @var Collection<int, Plaza>
@@ -32,7 +32,7 @@ class Convocatoria
     private Collection $plazas;
 
     public function __construct(
-        int $id,
+        string $id,
         string $nombre,
         ?\DateTimeImmutable $fecha,
         Curso $curso,
@@ -44,12 +44,12 @@ class Convocatoria
         $this->plazas = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function setId(string $id): static
     {
         $this->id = $id;
 

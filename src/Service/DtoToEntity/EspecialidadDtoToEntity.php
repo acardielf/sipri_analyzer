@@ -14,8 +14,8 @@ readonly class EspecialidadDtoToEntity
     public function __construct(
         public EntityManagerInterface $em,
         public EspecialidadRepository $especialidadRepository,
-    )
-    {
+        public CuerpoDtoToEntity $cuerpoDtoToEntity,
+    ) {
     }
 
     public function get(EspecialidadDto $dto, bool $persist = true): Especialidad
@@ -26,6 +26,7 @@ readonly class EspecialidadDtoToEntity
             $especialidad = new Especialidad(
                 id: $dto->id,
                 nombre: $dto->nombre,
+                cuerpo: $this->cuerpoDtoToEntity->get($dto->cuerpo),
             );
             if ($persist) {
                 $this->em->persist($especialidad);
