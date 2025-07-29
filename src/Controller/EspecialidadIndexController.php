@@ -87,6 +87,8 @@ class EspecialidadIndexController extends AbstractController
         ]);
 
         $chart->setOptions([
+            'responsive' => true,
+            'maintainAspectRatio' => false,
             'plugins' => [
                 'autocolors' => [
                     'enabled' => true,
@@ -138,7 +140,7 @@ class EspecialidadIndexController extends AbstractController
             $data[] = [
                 'label' => $provincia->getNombre(),
                 'data' => array_values($transpose[$provincia->getId()] ?? []),
-                'borderWidth' => 5,
+                'borderWidth' => 3,
                 'backgroundColor' => $colors[$i],
                 'borderColor' => $colors[$i],
             ];
