@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2018/2019 - 00597060
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>43</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
-            <td>0</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>1325</td>
-            <th scope="col">Desiertas:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">43</td>
+            <th scope="col">Vacantes:</th>
             <td>2</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
+            <td>0</td>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>2</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>1325</td>
         </tr>
         </thead>
     </table>
@@ -100,6 +126,176 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Posición adjudicada</th>
             </tr>
                             <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Estepa</span></td>
+                    <td class="text-nowrap"><span class="small">41002013 - I.E.S. Ostippo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1266</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">San José de la Rinconada</span></td>
+                    <td class="text-nowrap"><span class="small">41003741 - I.E.S. Miguel de Mañara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1264</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">San Juan de Aznalfarache</span></td>
+                    <td class="text-nowrap"><span class="small">41009019 - I.E.S. Mateo Alemán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1059</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Carrión de los Céspedes</span></td>
+                    <td class="text-nowrap"><span class="small">41001148 - C.E.I.P. Pío XII</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">524</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
+                            class="badge text-bg-light">05/03/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">San José de la Rinconada</span></td>
+                    <td class="text-nowrap"><span class="small">41701766 - I.E.S. Carmen Laffón</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1087</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
+                            class="badge text-bg-light">05/03/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
+                    <td class="text-nowrap"><span class="small">41701869 - I.E.S. Ibn Jaldún</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">730</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Alcalá de Guadaíra</span></td>
+                    <td class="text-nowrap"><span class="small">41701547 - I.E.S. Doña Leonor de Guzmán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">11/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">729</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
+                            class="badge text-bg-light">18/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
+                    <td class="text-nowrap"><span class="small">41701811 - I.E.S. Olivar de la Motilla</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1249</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
+                            class="badge text-bg-light">18/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41701420 - I.E.S. Inmaculada Vieira</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1247</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
+                            class="badge text-bg-light">18/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Gilena</span></td>
+                    <td class="text-nowrap"><span class="small">41701602 - I.E.S. Silena</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1238</span>
+                    </td>
+                </tr>
+                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">30</span><span
                             class="badge text-bg-light">06/06/2019</span></td>
                     <td><span class="small">Sevilla</span></td>
@@ -117,11 +313,62 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                 </tr>
                             <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Pilas</span></td>
+                    <td class="text-nowrap"><span class="small">41701651 - I.E.S. Virgen de la Soledad</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">26</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Benacazón</span></td>
+                    <td class="text-nowrap"><span class="small">41701201 - I.E.S. Virgen del Rosario</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">23</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41006948 - I.E.S. Martínez Montañés</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">21</span>
+                    </td>
+                </tr>
+                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">29</span><span
                             class="badge text-bg-light">04/06/2019</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Camas</span></td>
-                    <td class="text-nowrap"><span class="small">41009573 - I.E.S. Camas-Antonio Brisquet</span>
+                    <td class="text-nowrap"><span class="small">41009573 - I.E.S. Camas</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -172,7 +419,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">21/05/2019</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">San Juan de Aznalfarache</span></td>
-                    <td class="text-nowrap"><span class="small">41701390 - I.E.S. Sotero Hernández</span>
+                    <td class="text-nowrap"><span class="small">41701390 - I.E.S. San Juan</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -301,6 +548,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">663</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
+                            class="badge text-bg-light">04/02/2019</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Burguillos</span></td>
+                    <td class="text-nowrap"><span class="small">41700971 - I.E.S. Burguillos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">589</span>
                     </td>
                 </tr>
                             <tr>
@@ -504,245 +768,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Estepa</span></td>
-                    <td class="text-nowrap"><span class="small">41002013 - I.E.S. Ostippo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1266</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">San José de la Rinconada</span></td>
-                    <td class="text-nowrap"><span class="small">41003741 - I.E.S. Miguel de Mañara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1264</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">San Juan de Aznalfarache</span></td>
-                    <td class="text-nowrap"><span class="small">41009019 - I.E.S. Mateo Alemán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1059</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Carrión de los Céspedes</span></td>
-                    <td class="text-nowrap"><span class="small">41001148 - C.E.I.P. Pío XII</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">524</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
-                            class="badge text-bg-light">05/03/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">San José de la Rinconada</span></td>
-                    <td class="text-nowrap"><span class="small">41701766 - I.E.S. Carmen Laffón</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1087</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
-                            class="badge text-bg-light">05/03/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
-                    <td class="text-nowrap"><span class="small">41701869 - I.E.S. Ibn Jaldún</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">730</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Alcalá de Guadaíra</span></td>
-                    <td class="text-nowrap"><span class="small">41701547 - I.E.S. Doña Leonor de Guzmán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">11/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">729</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
-                            class="badge text-bg-light">18/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
-                    <td class="text-nowrap"><span class="small">41701811 - I.E.S. Olivar de la Motilla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1249</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
-                            class="badge text-bg-light">18/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41701420 - I.E.S. Inmaculada Vieira</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1247</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
-                            class="badge text-bg-light">18/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Gilena</span></td>
-                    <td class="text-nowrap"><span class="small">41701602 - I.E.S. Silena</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1238</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Pilas</span></td>
-                    <td class="text-nowrap"><span class="small">41701651 - I.E.S. Virgen de la Soledad</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">26</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Benacazón</span></td>
-                    <td class="text-nowrap"><span class="small">41701201 - I.E.S. Virgen del Rosario</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">23</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41006948 - I.E.S. Martínez Montañés</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">21</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
-                            class="badge text-bg-light">04/02/2019</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Burguillos</span></td>
-                    <td class="text-nowrap"><span class="small">41700971 - I.E.S. Burguillos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">589</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -827,16 +853,18 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -845,7 +873,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -853,5 +881,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

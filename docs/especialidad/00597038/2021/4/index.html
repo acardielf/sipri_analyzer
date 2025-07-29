@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2021/2022 - 00597038
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>467</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">466</td>
+            <th scope="col">Vacantes:</th>
+            <td>70</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>250</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>6</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>4484</td>
-            <th scope="col">Desiertas:</th>
-            <td>9</td>
         </tr>
         </thead>
     </table>
@@ -335,23 +361,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">3402</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">196</span><span
-                            class="badge text-bg-light">02/06/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Santa María del Águila</span></td>
-                    <td class="text-nowrap"><span class="small">04700685 - I.E.S. Santa María del Águila</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
                     </td>
                 </tr>
                             <tr>
@@ -1667,6 +1676,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
                             class="badge text-bg-light">10/03/2022</span></td>
                     <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">San Isidro de Níjar</span></td>
+                    <td class="text-nowrap"><span class="small">04003354 - C.E.PR. Andalucía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4223</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
+                            class="badge text-bg-light">10/03/2022</span></td>
+                    <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">04000997 - C.E.I.P. Francisco de Goya</span>
                     </td>
@@ -1677,24 +1703,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
-                            class="badge text-bg-light">10/03/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Carboneras</span></td>
-                    <td class="text-nowrap"><span class="small">04001965 - C.E.I.P. Simón Fuentes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">4210</span>
                     </td>
                 </tr>
                             <tr>
@@ -1711,58 +1720,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
-                            class="badge text-bg-light">10/03/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">San Isidro de Níjar</span></td>
-                    <td class="text-nowrap"><span class="small">04003354 - C.E.PR. Andalucía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
-                            class="badge text-bg-light">10/03/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Viator</span></td>
-                    <td class="text-nowrap"><span class="small">04004449 - C.E.I.P. Joaquín Visiedo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
-                            class="badge text-bg-light">10/03/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
-                    <td class="text-nowrap"><span class="small">04004681 - C.E.I.P. Juan de Orea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">4201</span>
                     </td>
                 </tr>
                             <tr>
@@ -1779,7 +1737,58 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">4183</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
+                            class="badge text-bg-light">10/03/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Carboneras</span></td>
+                    <td class="text-nowrap"><span class="small">04001965 - C.E.I.P. Simón Fuentes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4178</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
+                            class="badge text-bg-light">10/03/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
+                    <td class="text-nowrap"><span class="small">04004681 - C.E.I.P. Juan de Orea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3964</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">177</span><span
+                            class="badge text-bg-light">10/03/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Viator</span></td>
+                    <td class="text-nowrap"><span class="small">04004449 - C.E.I.P. Joaquín Visiedo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3378</span>
                     </td>
                 </tr>
                             <tr>
@@ -1796,7 +1805,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2022</span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2939</span>
                     </td>
                 </tr>
                             <tr>
@@ -2245,57 +2254,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
                             class="badge text-bg-light">17/02/2022</span></td>
                     <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000808 - C.E.I.P. Inés Relaño</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
-                            class="badge text-bg-light">17/02/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">San Isidro de Níjar</span></td>
-                    <td class="text-nowrap"><span class="small">04003354 - C.E.PR. Andalucía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
-                            class="badge text-bg-light">17/02/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">San Isidro de Níjar</span></td>
-                    <td class="text-nowrap"><span class="small">04003354 - C.E.PR. Andalucía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
-                            class="badge text-bg-light">17/02/2022</span></td>
-                    <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Olula del Río</span></td>
                     <td class="text-nowrap"><span class="small">04003421 - C.E.I.P. Antonio Relaño</span>
                     </td>
@@ -2306,41 +2264,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
-                            class="badge text-bg-light">17/02/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">La Gangosa</span></td>
-                    <td class="text-nowrap"><span class="small">04005223 - C.E.I.P. Ntra. Sra. de la Merced</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
-                            class="badge text-bg-light">17/02/2022</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
-                    <td class="text-nowrap"><span class="small">04006410 - C.E.I.P. Virgilio Valdivia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">4210</span>
                     </td>
                 </tr>
                             <tr>
@@ -2357,7 +2281,75 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">4099</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
+                            class="badge text-bg-light">17/02/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">San Isidro de Níjar</span></td>
+                    <td class="text-nowrap"><span class="small">04003354 - C.E.PR. Andalucía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4080</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
+                            class="badge text-bg-light">17/02/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
+                    <td class="text-nowrap"><span class="small">04006410 - C.E.I.P. Virgilio Valdivia</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3987</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
+                            class="badge text-bg-light">17/02/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">San Isidro de Níjar</span></td>
+                    <td class="text-nowrap"><span class="small">04003354 - C.E.PR. Andalucía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3949</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
+                            class="badge text-bg-light">17/02/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">La Gangosa</span></td>
+                    <td class="text-nowrap"><span class="small">04005223 - C.E.I.P. Ntra. Sra. de la Merced</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3881</span>
                     </td>
                 </tr>
                             <tr>
@@ -2374,7 +2366,24 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">20/03/2022</span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">3782</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">173</span><span
+                            class="badge text-bg-light">17/02/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000808 - C.E.I.P. Inés Relaño</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2500</span>
                     </td>
                 </tr>
                             <tr>
@@ -2527,7 +2536,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3028,7 +3037,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">27/01/2022</span></td>
                     <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000857 - C.E.I.P. Europa José Ramos Santander</span>
+                    <td class="text-nowrap"><span class="small">04000857 - C.E.I.P. Europa</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3513,7 +3522,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3826,23 +3835,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">163</span><span
                             class="badge text-bg-light">13/01/2022</span></td>
                     <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Huércal de Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04006173 - C.E.I.P. La Jarilla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3966</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">163</span><span
-                            class="badge text-bg-light">13/01/2022</span></td>
-                    <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
                     <td class="text-nowrap"><span class="small">04003810 - C.E.I.P. Las Lomas</span>
                     </td>
@@ -4092,6 +4084,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">2521</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">163</span><span
+                            class="badge text-bg-light">13/01/2022</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Huércal de Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04006173 - C.E.I.P. La Jarilla</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -4584,7 +4593,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -4602,6 +4611,74 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">3772</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
+                            class="badge text-bg-light">01/12/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Las Marinas</span></td>
+                    <td class="text-nowrap"><span class="small">04003721 - C.E.I.P. Las Marinas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3749</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
+                            class="badge text-bg-light">01/12/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Oria</span></td>
+                    <td class="text-nowrap"><span class="small">04003470 - C.E.I.P. San Gregorio</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3504</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
+                            class="badge text-bg-light">01/12/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Pampanico</span></td>
+                    <td class="text-nowrap"><span class="small">04005119 - C.E.I.P. Punta Entinas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2729</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
+                            class="badge text-bg-light">01/12/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Ejido</span></td>
+                    <td class="text-nowrap"><span class="small">04002283 - C.E.I.P. José Salazar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2022</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2698</span>
                     </td>
                 </tr>
                             <tr>
@@ -4642,17 +4719,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
                             class="badge text-bg-light">01/12/2021</span></td>
                     <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Puebloblanco</span></td>
-                    <td class="text-nowrap"><span class="small">04003691 - C.P.R. Campo de Níjar Norte</span>
+                    <td class="text-nowrap"><span class="small">Retamar</span></td>
+                    <td class="text-nowrap"><span class="small">04004462 - C.E.I.P. Torremar</span>
                     </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
-                            class="small"></span>
+                            class="small">30/06/2022</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2466</span>
+                            class="small font-monospace">2264</span>
                     </td>
                 </tr>
                             <tr>
@@ -4660,24 +4737,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">01/12/2021</span></td>
                     <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000699 - I.E.S. Alhamilla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">17/12/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">311</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
-                            class="badge text-bg-light">01/12/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Cuevas del Almanzora</span></td>
-                    <td class="text-nowrap"><span class="small">04002052 - I.E.S. Jaroso</span>
+                    <td class="text-nowrap"><span class="small">04000924 - C.E.I.P. Ave María del Quemadero</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -4686,58 +4746,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
-                            class="badge text-bg-light">01/12/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Macael</span></td>
-                    <td class="text-nowrap"><span class="small">04003135 - I.E.S. Juan Rubio Ortiz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">19/12/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
-                            class="badge text-bg-light">01/12/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Tabernas</span></td>
-                    <td class="text-nowrap"><span class="small">04004085 - C.E.I.P. Virgen de las Angustias</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">19/12/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">159</span><span
-                            class="badge text-bg-light">01/12/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04005053 - C.E.PR. Padre Méndez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5162,7 +5171,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7992,7 +8001,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">03/09/2021</span></td>
                     <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000857 - C.E.I.P. Europa José Ramos Santander</span>
+                    <td class="text-nowrap"><span class="small">04000857 - C.E.I.P. Europa</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -8041,10 +8050,12 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -8053,7 +8064,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -8061,5 +8072,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

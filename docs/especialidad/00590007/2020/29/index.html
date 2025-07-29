@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - 00590007
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>80</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
-            <td>47</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">80</td>
+            <th scope="col">Vacantes:</th>
+            <td>18</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
+            <td>617</td>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>5</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>3858</td>
-            <th scope="col">Desiertas:</th>
-            <td>6</td>
         </tr>
         </thead>
     </table>
@@ -99,6 +125,873 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
+                            class="badge text-bg-light">26/11/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29701349 - I.E.S. Playamar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1518</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700096 - I.E.S. Litoral</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3605</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
+                    <td class="text-nowrap"><span class="small">29701210 - I.E.S. Huerta Alta</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">09/04/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3485</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29009892 - I.E.S. Al-Baytar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2500</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Ronda</span></td>
+                    <td class="text-nowrap"><span class="small">29007998 - I.E.S. Pérez de Guzmán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3005</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
+                            class="badge text-bg-light">04/11/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Rincón de la Victoria</span></td>
+                    <td class="text-nowrap"><span class="small">29700059 - I.E.S. Bezmiliana</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3456</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arriate</span></td>
+                    <td class="text-nowrap"><span class="small">29700606 - I.E.S. Escultor Marín Higuero</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3385</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva del Rosario</span></td>
+                    <td class="text-nowrap"><span class="small">29701180 - I.E.S. Pintor José Hernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3381</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006854 - I.E.S. Sierra Blanca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3353</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3178</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29701064 - I.E.S. Torre Atalaya</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3239</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29701064 - I.E.S. Torre Atalaya</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3234</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Ronda</span></td>
+                    <td class="text-nowrap"><span class="small">29007998 - I.E.S. Pérez de Guzmán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3121</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700096 - I.E.S. Litoral</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3005</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700424 - I.E.S. Almenara</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2130</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29701246 - I.E.S. Manuel Alcántara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3383</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Rincón de la Victoria</span></td>
+                    <td class="text-nowrap"><span class="small">29700059 - I.E.S. Bezmiliana</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2982</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2781</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cártama</span></td>
+                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2662</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2599</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
+                    <td class="text-nowrap"><span class="small">29700011 - I.E.S. Campanillas</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2248</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29701246 - I.E.S. Manuel Alcántara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
+                    <td class="text-nowrap"><span class="small">29000062 - I.E.S. Capellanía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2504</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005965 - I.E.S. Sierra Bermeja</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2490</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cártama</span></td>
+                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2428</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cómpeta</span></td>
+                    <td class="text-nowrap"><span class="small">29700941 - I.E.S. El Almijar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2404</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Archidona</span></td>
+                    <td class="text-nowrap"><span class="small">29001421 - I.E.S. Luis Barahona de Soto</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2385</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Estepona</span></td>
+                    <td class="text-nowrap"><span class="small">29009909 - I.E.S. Mar de Alborán</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2378</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
+                    <td class="text-nowrap"><span class="small">29010444 - I.E.S. Vega de Mar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2375</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">21/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2213</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
+                    <td class="text-nowrap"><span class="small">29700709 - I.E.S. Las Lagunas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2130</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700424 - I.E.S. Almenara</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2051</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cártama</span></td>
+                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">12/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1978</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
+                    <td class="text-nowrap"><span class="small">29000062 - I.E.S. Capellanía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1967</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">La Cala del Moral</span></td>
+                    <td class="text-nowrap"><span class="small">29700369 - I.E.S. Ben Al Jatib</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1911</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">21/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1869</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29700621 - I.E.S. Cerro del Viento</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1445</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29009892 - I.E.S. Al-Baytar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cártama</span></td>
+                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">12/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cártama</span></td>
+                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">12/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1218</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">21/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">932</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005953 - I.E.S. Vicente Espinel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">691</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005965 - I.E.S. Sierra Bermeja</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">671</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29000335 - I.E.S. Bahía de Marbella</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">667</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">658</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cortes de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">29011734 - I.E.S. Andrés Pérez Serrano</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">649</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29008671 - I.E.S. Reyes Católicos</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">645</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">632</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Humilladero</span></td>
+                    <td class="text-nowrap"><span class="small">29701039 - I.E.S. José Saramago</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">623</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Almogía</span></td>
+                    <td class="text-nowrap"><span class="small">29700989 - I.E.S. Diego Gaitán</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">617</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29009892 - I.E.S. Al-Baytar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
                             class="badge text-bg-light">27/05/2021</span></td>
@@ -589,883 +1482,18 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
-                            class="badge text-bg-light">26/11/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29701349 - I.E.S. Playamar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1518</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700096 - I.E.S. Litoral</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3605</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
-                    <td class="text-nowrap"><span class="small">29701210 - I.E.S. Huerta Alta</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">09/04/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3485</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009892 - I.E.S. Al-Baytar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2500</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Ronda</span></td>
-                    <td class="text-nowrap"><span class="small">29007998 - I.E.S. Pérez de Guzmán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3005</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
-                            class="badge text-bg-light">04/11/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Rincón de la Victoria</span></td>
-                    <td class="text-nowrap"><span class="small">29700059 - I.E.S. Bezmiliana</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3456</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva del Rosario</span></td>
-                    <td class="text-nowrap"><span class="small">29701180 - I.E.S. Pintor José Hernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3381</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3178</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29006830 - I.E.S. Guadalpín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">47</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torre del Mar</span></td>
-                    <td class="text-nowrap"><span class="small">29700345 - I.E.S. Miraya del Mar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29701064 - I.E.S. Torre Atalaya</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3239</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29701064 - I.E.S. Torre Atalaya</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3234</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Ronda</span></td>
-                    <td class="text-nowrap"><span class="small">29007998 - I.E.S. Pérez de Guzmán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3121</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700096 - I.E.S. Litoral</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3005</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700424 - I.E.S. Almenara</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2130</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29701246 - I.E.S. Manuel Alcántara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3383</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Rincón de la Victoria</span></td>
-                    <td class="text-nowrap"><span class="small">29700059 - I.E.S. Bezmiliana</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2982</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2781</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cártama</span></td>
-                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2662</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2599</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
-                    <td class="text-nowrap"><span class="small">29700011 - I.E.S. Campanillas</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2248</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29701246 - I.E.S. Manuel Alcántara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
-                    <td class="text-nowrap"><span class="small">29000062 - I.E.S. Capellanía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2504</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005965 - I.E.S. Sierra Bermeja</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2490</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cártama</span></td>
-                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2428</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cómpeta</span></td>
-                    <td class="text-nowrap"><span class="small">29700941 - I.E.S. El Almijar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2404</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Archidona</span></td>
-                    <td class="text-nowrap"><span class="small">29001421 - I.E.S. Luis Barahona de Soto</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2385</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estepona</span></td>
-                    <td class="text-nowrap"><span class="small">29009909 - I.E.S. Mar de Alborán</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2378</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
-                    <td class="text-nowrap"><span class="small">29010444 - I.E.S. Vega de Mar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2375</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">21/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2213</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
-                    <td class="text-nowrap"><span class="small">29700709 - I.E.S. Las Lagunas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2130</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700424 - I.E.S. Almenara</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2051</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cártama</span></td>
-                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">12/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1978</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
-                    <td class="text-nowrap"><span class="small">29000062 - I.E.S. Capellanía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1967</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">La Cala del Moral</span></td>
-                    <td class="text-nowrap"><span class="small">29700369 - I.E.S. Ben Al Jatib</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1911</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">21/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1869</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29700621 - I.E.S. Cerro del Viento</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1445</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009892 - I.E.S. Al-Baytar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cártama</span></td>
-                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">12/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cártama</span></td>
-                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">12/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1218</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">21/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">932</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005953 - I.E.S. Vicente Espinel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">691</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005965 - I.E.S. Sierra Bermeja</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">671</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29000335 - I.E.S. Bahía de Marbella</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">667</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">658</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cortes de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">29011734 - I.E.S. Andrés Pérez Serrano</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">649</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29008671 - I.E.S. Reyes Católicos</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">645</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005977 - I.E.S. Cánovas del Castillo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">632</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Humilladero</span></td>
-                    <td class="text-nowrap"><span class="small">29701039 - I.E.S. José Saramago</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">623</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Almogía</span></td>
-                    <td class="text-nowrap"><span class="small">29700989 - I.E.S. Diego Gaitán</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">617</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009892 - I.E.S. Al-Baytar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -1474,7 +1502,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -1482,5 +1510,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

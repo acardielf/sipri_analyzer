@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - 00590019
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>154</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">154</td>
+            <th scope="col">Vacantes:</th>
+            <td>28</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>525</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>5429</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>83</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>5429</td>
         </tr>
         </thead>
     </table>
@@ -99,6 +125,941 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
+                            class="badge text-bg-light">26/11/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11701115 - I.E.S. San Telmo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
+                            class="badge text-bg-light">17/11/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11701139 - I.E.S. Fernando Quiñones</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/02/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4476</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
+                            class="badge text-bg-light">17/11/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
+                    <td class="text-nowrap"><span class="small">11003886 - I.E.S. Virgen de la Esperanza</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2786</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11004416 - I.E.S. Pedro Muñoz Seca</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4424</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
+                    <td class="text-nowrap"><span class="small">11003886 - I.E.S. Virgen de la Esperanza</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
+                            class="badge text-bg-light">04/11/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11004416 - I.E.S. Pedro Muñoz Seca</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4318</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">11700299 - I.E.S. Drago</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2523</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Roque</span></td>
+                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4175</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
+                    <td class="text-nowrap"><span class="small">11700871 - I.E.S. Botánico</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">22/02/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3770</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Roque</span></td>
+                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
+                    <td class="text-nowrap"><span class="small">11700871 - I.E.S. Botánico</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">22/02/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11700147 - I.E.S. La Bahía</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3900</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3693</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11004428 - I.E.S. Mar de Cádiz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">21/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3630</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Rota</span></td>
+                    <td class="text-nowrap"><span class="small">11007533 - I.E.S. Arroyo Hondo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3615</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
+                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3563</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
+                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4265</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Paterna de Rivera</span></td>
+                    <td class="text-nowrap"><span class="small">11700780 - I.E.S. Paterna</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3770</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3527</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Roque</span></td>
+                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3511</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
+                    <td class="text-nowrap"><span class="small">11005551 - I.E.S. Francisco Pacheco</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3396</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
+                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11700883 - I.E.S. La Pedrera Blanca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3753</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11701127 - I.E.S. Dra. Josefa de los Reyes</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2223</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11002213 - I.E.S. Poeta García Gutiérrez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">03/02/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1933</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Roque</span></td>
+                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
+                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Paterna de Rivera</span></td>
+                    <td class="text-nowrap"><span class="small">11700780 - I.E.S. Paterna</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Espera</span></td>
+                    <td class="text-nowrap"><span class="small">11700986 - I.E.S. Castillo de Fatetar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4071</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
+                    <td class="text-nowrap"><span class="small">11008495 - I.E.S. Torre Almirante</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">08/01/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4069</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
+                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2869</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11700147 - I.E.S. La Bahía</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2860</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2699</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Río San Pedro</span></td>
+                    <td class="text-nowrap"><span class="small">11701231 - I.E.S. La Algaida</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2599</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11002213 - I.E.S. Poeta García Gutiérrez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">03/02/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11700883 - I.E.S. La Pedrera Blanca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Barbate</span></td>
+                    <td class="text-nowrap"><span class="small">11700949 - I.E.S. Vicente Aleixandre</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2721</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
+                    <td class="text-nowrap"><span class="small">11008495 - I.E.S. Torre Almirante</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">08/01/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Espera</span></td>
+                    <td class="text-nowrap"><span class="small">11700986 - I.E.S. Castillo de Fatetar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Río San Pedro</span></td>
+                    <td class="text-nowrap"><span class="small">11701231 - I.E.S. La Algaida</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Barbate</span></td>
+                    <td class="text-nowrap"><span class="small">11000605 - I.E.S. Torre del Tajo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2215, 2624</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Roque</span></td>
+                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1997</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11700147 - I.E.S. La Bahía</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1719</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">11008501 - I.E.S. Fernando Aguilar Quignon</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">650</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11008513 - I.E.S. Andrés Benítez</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">591</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11700883 - I.E.S. La Pedrera Blanca</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">589</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11700160 - I.E.S. Almunia</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">567</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Vejer de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11700597 - I.E.S. La Janda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">565</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Setenil de las Bodegas</span></td>
+                    <td class="text-nowrap"><span class="small">11701051 - I.E.S. Villa de Setenil</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">561</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Rota</span></td>
+                    <td class="text-nowrap"><span class="small">11004866 - I.E.S. Castillo de Luna</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">559</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">La Barca de la Florida</span></td>
+                    <td class="text-nowrap"><span class="small">11700482 - I.E.S. Vega de Guadalete</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">556</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
+                    <td class="text-nowrap"><span class="small">11003886 - I.E.S. Virgen de la Esperanza</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">552</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11008239 - I.E.S. Sancti Petri</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">547</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Barbate</span></td>
+                    <td class="text-nowrap"><span class="small">11700949 - I.E.S. Vicente Aleixandre</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">136</span><span
                             class="badge text-bg-light">08/06/2021</span></td>
@@ -555,7 +1516,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -572,7 +1533,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -589,7 +1550,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -606,7 +1567,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -623,7 +1584,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -640,7 +1601,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -657,7 +1618,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -674,7 +1635,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -691,7 +1652,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -708,7 +1669,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -725,7 +1686,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -742,7 +1703,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -759,7 +1720,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -776,7 +1737,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -793,7 +1754,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -810,7 +1771,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -844,7 +1805,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -861,7 +1822,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -878,7 +1839,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -886,7 +1847,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">04/02/2021</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11012267 - I.E.S. Elena García Armada</span>
+                    <td class="text-nowrap"><span class="small">11012267 - IES NUEVO (ZONA LA GRANJA)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -895,7 +1856,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -912,7 +1873,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -929,7 +1890,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -946,7 +1907,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -963,7 +1924,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -997,7 +1958,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1014,7 +1975,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1031,7 +1992,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1048,7 +2009,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1065,7 +2026,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1082,7 +2043,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1099,7 +2060,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1116,7 +2077,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1133,7 +2094,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1150,7 +2111,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1167,7 +2128,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">20/05/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1184,7 +2145,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1201,7 +2162,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1218,7 +2179,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1235,7 +2196,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1252,7 +2213,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1269,7 +2230,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1286,7 +2247,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">20/05/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1303,7 +2264,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1311,7 +2272,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">26/01/2021</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11012267 - I.E.S. Elena García Armada</span>
+                    <td class="text-nowrap"><span class="small">11012267 - IES NUEVO (ZONA LA GRANJA)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1320,7 +2281,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1328,7 +2289,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">26/01/2021</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11012267 - I.E.S. Elena García Armada</span>
+                    <td class="text-nowrap"><span class="small">11012267 - IES NUEVO (ZONA LA GRANJA)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1337,7 +2298,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1354,7 +2315,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1371,7 +2332,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1388,7 +2349,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1405,7 +2366,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1422,7 +2383,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">20/05/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1439,24 +2400,24 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
                             class="badge text-bg-light">21/01/2021</span></td>
                     <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Tarifa</span></td>
-                    <td class="text-nowrap"><span class="small">11700731 - I.E.S. Baelo Claudia</span>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class=" small">SÍ/NO</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1473,7 +2434,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1490,7 +2451,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1507,7 +2468,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1524,7 +2485,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1541,7 +2502,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">20/05/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1558,7 +2519,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">11/06/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1575,7 +2536,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1592,7 +2553,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1609,7 +2570,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1626,7 +2587,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1643,7 +2604,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1660,7 +2621,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1677,7 +2638,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1745,7 +2706,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1762,7 +2723,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">10/03/2021</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1779,951 +2740,18 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
-                            class="badge text-bg-light">26/11/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11701115 - I.E.S. San Telmo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
-                            class="badge text-bg-light">17/11/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11701139 - I.E.S. Lola Flores</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">26/02/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4476</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
-                            class="badge text-bg-light">17/11/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
-                    <td class="text-nowrap"><span class="small">11003886 - I.E.S. Virgen de la Esperanza</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2786</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11004416 - I.E.S. Pedro Muñoz Seca</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4424</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
-                    <td class="text-nowrap"><span class="small">11003886 - I.E.S. Virgen de la Esperanza</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
-                            class="badge text-bg-light">04/11/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11004416 - I.E.S. Pedro Muñoz Seca</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4318</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11700299 - I.E.S. Drago</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2523</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Roque</span></td>
-                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4175</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
-                    <td class="text-nowrap"><span class="small">11700871 - I.E.S. Botánico</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">22/02/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3770</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Roque</span></td>
-                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
-                    <td class="text-nowrap"><span class="small">11700871 - I.E.S. Botánico</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">22/02/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11700147 - I.E.S. La Bahía</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3900</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3693</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11004428 - I.E.S. Mar de Cádiz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">21/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3630</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Rota</span></td>
-                    <td class="text-nowrap"><span class="small">11007533 - I.E.S. Arroyo Hondo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3615</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
-                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3563</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
-                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4265</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Paterna de Rivera</span></td>
-                    <td class="text-nowrap"><span class="small">11700780 - I.E.S. Paterna</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3770</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3527</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Roque</span></td>
-                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3511</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
-                    <td class="text-nowrap"><span class="small">11005551 - I.E.S. Francisco Pacheco</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3396</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
-                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11700883 - I.E.S. La Pedrera Blanca</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3753</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11701127 - I.E.S. Dra. Josefa de los Reyes</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2223</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11002213 - I.E.S. Poeta García Gutiérrez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">03/02/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1933</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Roque</span></td>
-                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
-                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Paterna de Rivera</span></td>
-                    <td class="text-nowrap"><span class="small">11700780 - I.E.S. Paterna</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Espera</span></td>
-                    <td class="text-nowrap"><span class="small">11700986 - I.E.S. Castillo de Fatetar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4071</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11008495 - I.E.S. Torre Almirante</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">08/01/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4069</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
-                    <td class="text-nowrap"><span class="small">11700421 - I.E.S. Casas Viejas</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2869</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11700147 - I.E.S. La Bahía</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2860</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11700810 - I.E.S. La Arboleda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2699</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Río San Pedro</span></td>
-                    <td class="text-nowrap"><span class="small">11701231 - I.E.S. La Algaida</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2599</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11002213 - I.E.S. Poeta García Gutiérrez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">03/02/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11700883 - I.E.S. La Pedrera Blanca</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Barbate</span></td>
-                    <td class="text-nowrap"><span class="small">11700949 - I.E.S. Vicente Aleixandre</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2721</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11008495 - I.E.S. Torre Almirante</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">08/01/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Espera</span></td>
-                    <td class="text-nowrap"><span class="small">11700986 - I.E.S. Castillo de Fatetar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Río San Pedro</span></td>
-                    <td class="text-nowrap"><span class="small">11701231 - I.E.S. La Algaida</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Barbate</span></td>
-                    <td class="text-nowrap"><span class="small">11000605 - I.E.S. Torre del Tajo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2215, 2624</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Roque</span></td>
-                    <td class="text-nowrap"><span class="small">11007791 - I.E.S. Carlos Castilla del Pino</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1997</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11700147 - I.E.S. La Bahía</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1719</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11008501 - I.E.S. Fernando Aguilar Quignon</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">650</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11008513 - I.E.S. Andrés Benítez</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">591</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11700883 - I.E.S. La Pedrera Blanca</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">589</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11700160 - I.E.S. Almunia</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">567</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Vejer de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11700597 - I.E.S. La Janda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">565</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Setenil de las Bodegas</span></td>
-                    <td class="text-nowrap"><span class="small">11701051 - I.E.S. Villa de Setenil</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">561</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Rota</span></td>
-                    <td class="text-nowrap"><span class="small">11004866 - I.E.S. Castillo de Luna</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">559</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">La Barca de la Florida</span></td>
-                    <td class="text-nowrap"><span class="small">11700482 - I.E.S. Vega de Guadalete</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">556</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
-                    <td class="text-nowrap"><span class="small">11003886 - I.E.S. Virgen de la Esperanza</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">552</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11008239 - I.E.S. Sancti Petri</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">547</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Barbate</span></td>
-                    <td class="text-nowrap"><span class="small">11700949 - I.E.S. Vicente Aleixandre</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -2732,7 +2760,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -2740,5 +2768,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

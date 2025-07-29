@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2018/2019 - 00590006
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>30</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">30</td>
+            <th scope="col">Vacantes:</th>
+            <td>4</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>0</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>2628</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>1</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>2628</td>
         </tr>
         </thead>
     </table>
@@ -99,278 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">30</span><span
-                            class="badge text-bg-light">06/06/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva de Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">14700316 - I.E.S. La Jara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2628</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">30</span><span
-                            class="badge text-bg-light">06/06/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">14700559 - I.E.S. Santa Catalina de Siena</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2615</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">29</span><span
-                            class="badge text-bg-light">04/06/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Belmez</span></td>
-                    <td class="text-nowrap"><span class="small">14700493 - I.E.S. José Alcántara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">925</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">28</span><span
-                            class="badge text-bg-light">30/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">14002972 - I.E.S. Séneca</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2344</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">27</span><span
-                            class="badge text-bg-light">28/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Fuente Obejuna</span></td>
-                    <td class="text-nowrap"><span class="small">14003708 - I.E.S. Lope de Vega</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1913</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">25</span><span
-                            class="badge text-bg-light">23/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Pozoblanco</span></td>
-                    <td class="text-nowrap"><span class="small">14007684 - I.E.S. Antonio María Calero</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2540</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
-                            class="badge text-bg-light">21/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">14002984 - I.E.S. Averroes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">950</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
-                            class="badge text-bg-light">21/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">La Carlota</span></td>
-                    <td class="text-nowrap"><span class="small">14700298 - I.E.S. Nuevas Poblaciones</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">724</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
-                            class="badge text-bg-light">21/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Lucena</span></td>
-                    <td class="text-nowrap"><span class="small">14700420 - I.E.S. Miguel de Cervantes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">22</span><span
-                            class="badge text-bg-light">14/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Fuente Palmera</span></td>
-                    <td class="text-nowrap"><span class="small">14700304 - I.E.S. Colonial</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1040</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
-                            class="badge text-bg-light">09/05/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Villafranca de Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">14700432 - I.E.S. La Soledad</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">24/05/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2510</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">16</span><span
-                            class="badge text-bg-light">23/04/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">La Carlota</span></td>
-                    <td class="text-nowrap"><span class="small">14000321 - I.E.S. El Sauce</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2171</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">15</span><span
-                            class="badge text-bg-light">04/04/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">La Carlota</span></td>
-                    <td class="text-nowrap"><span class="small">14700298 - I.E.S. Nuevas Poblaciones</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1998</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">15</span><span
-                            class="badge text-bg-light">04/04/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Lucena</span></td>
-                    <td class="text-nowrap"><span class="small">14700420 - I.E.S. Miguel de Cervantes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">724</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">13</span><span
-                            class="badge text-bg-light">28/03/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Villarrubia</span></td>
-                    <td class="text-nowrap"><span class="small">14000343 - I.E.S. Villarrubia</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1898</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">11</span><span
-                            class="badge text-bg-light">21/03/2019</span></td>
-                    <td><span class="small">Córdoba</span></td>
-                    <td class="text-nowrap"><span class="small">Adamuz</span></td>
-                    <td class="text-nowrap"><span class="small">14700471 - I.E.S. Luna de la Sierra</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2372</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">9</span><span
                             class="badge text-bg-light">14/03/2019</span></td>
@@ -508,6 +262,40 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                 </tr>
                             <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">30</span><span
+                            class="badge text-bg-light">06/06/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva de Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">14700316 - I.E.S. La Jara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2628</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">30</span><span
+                            class="badge text-bg-light">06/06/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">14700559 - I.E.S. Santa Catalina de Siena</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2615</span>
+                    </td>
+                </tr>
+                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
                             class="badge text-bg-light">11/02/2019</span></td>
                     <td><span class="small">Córdoba</span></td>
@@ -542,6 +330,159 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                 </tr>
                             <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">29</span><span
+                            class="badge text-bg-light">04/06/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Belmez</span></td>
+                    <td class="text-nowrap"><span class="small">14700493 - I.E.S. José Alcántara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">925</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">28</span><span
+                            class="badge text-bg-light">30/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">14002972 - I.E.S. Séneca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2344</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">27</span><span
+                            class="badge text-bg-light">28/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Fuente Obejuna</span></td>
+                    <td class="text-nowrap"><span class="small">14003708 - I.E.S. Lope de Vega</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1913</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">25</span><span
+                            class="badge text-bg-light">23/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Pozoblanco</span></td>
+                    <td class="text-nowrap"><span class="small">14007684 - I.E.S. Antonio María Calero</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2540</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
+                            class="badge text-bg-light">21/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">14002984 - I.E.S. Averroes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">950</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
+                            class="badge text-bg-light">21/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">La Carlota</span></td>
+                    <td class="text-nowrap"><span class="small">14700298 - I.E.S. Nuevas Poblaciones</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">724</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
+                            class="badge text-bg-light">21/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Lucena</span></td>
+                    <td class="text-nowrap"><span class="small">14700420 - I.E.S. Miguel de Cervantes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">22</span><span
+                            class="badge text-bg-light">14/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Fuente Palmera</span></td>
+                    <td class="text-nowrap"><span class="small">14700304 - I.E.S. Colonial</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1040</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
+                            class="badge text-bg-light">09/05/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Villafranca de Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">14700432 - I.E.S. La Soledad</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">24/05/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2510</span>
+                    </td>
+                </tr>
+                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
                             class="badge text-bg-light">04/02/2019</span></td>
                     <td><span class="small">Córdoba</span></td>
@@ -556,6 +497,91 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">2312</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">16</span><span
+                            class="badge text-bg-light">23/04/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">La Carlota</span></td>
+                    <td class="text-nowrap"><span class="small">14000321 - I.E.S. El Sauce</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2171</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">15</span><span
+                            class="badge text-bg-light">04/04/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">La Carlota</span></td>
+                    <td class="text-nowrap"><span class="small">14700298 - I.E.S. Nuevas Poblaciones</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1998</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">15</span><span
+                            class="badge text-bg-light">04/04/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Lucena</span></td>
+                    <td class="text-nowrap"><span class="small">14700420 - I.E.S. Miguel de Cervantes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">724</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">13</span><span
+                            class="badge text-bg-light">28/03/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Villarrubia</span></td>
+                    <td class="text-nowrap"><span class="small">14000343 - I.E.S. Villarrubia</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1898</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">11</span><span
+                            class="badge text-bg-light">21/03/2019</span></td>
+                    <td><span class="small">Córdoba</span></td>
+                    <td class="text-nowrap"><span class="small">Adamuz</span></td>
+                    <td class="text-nowrap"><span class="small">14700471 - I.E.S. Luna de la Sierra</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2372</span>
                     </td>
                 </tr>
                             <tr>
@@ -612,10 +638,12 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -624,7 +652,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -632,5 +660,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

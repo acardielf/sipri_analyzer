@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2024/2025 - 00597038
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>870</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">870</td>
+            <th scope="col">Vacantes:</th>
+            <td>78</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>216</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>30</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>3504</td>
-            <th scope="col">Desiertas:</th>
-            <td>31</td>
         </tr>
         </thead>
     </table>
@@ -487,7 +513,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -844,7 +870,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1565,8 +1591,8 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">380</span><span
                             class="badge text-bg-light">08/05/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">La Algaba</span></td>
-                    <td class="text-nowrap"><span class="small">41000417 - C.E.I.P. Purísima Concepción</span>
+                    <td class="text-nowrap"><span class="small">La Puebla del Río</span></td>
+                    <td class="text-nowrap"><span class="small">41602156 - C.E.I.P. Antonio Machado</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1575,24 +1601,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">380</span><span
-                            class="badge text-bg-light">08/05/2025</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Pilas</span></td>
-                    <td class="text-nowrap"><span class="small">41003352 - C.E.I.P. Beatriz de Cabrera</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2877</span>
                     </td>
                 </tr>
                             <tr>
@@ -1609,15 +1618,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2826</span>
                     </td>
                 </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">380</span><span
                             class="badge text-bg-light">08/05/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">La Puebla del Río</span></td>
-                    <td class="text-nowrap"><span class="small">41602156 - C.E.I.P. Antonio Machado</span>
+                    <td class="text-nowrap"><span class="small">Pilas</span></td>
+                    <td class="text-nowrap"><span class="small">41003352 - C.E.I.P. Beatriz de Cabrera</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1626,7 +1635,24 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2629</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">380</span><span
+                            class="badge text-bg-light">08/05/2025</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">La Algaba</span></td>
+                    <td class="text-nowrap"><span class="small">41000417 - C.E.I.P. Purísima Concepción</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2609</span>
                     </td>
                 </tr>
                             <tr>
@@ -1923,7 +1949,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">05/05/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41004745 - C.E.I.P. Concepción de Estevarena</span>
+                    <td class="text-nowrap"><span class="small">41004745 - C.E.I.P. Joaquín Benjumea Burín</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2391,7 +2417,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2620,7 +2646,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/04/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Burguillos</span></td>
-                    <td class="text-nowrap"><span class="small">41016000 - C.E.I.P. Ágora</span>
+                    <td class="text-nowrap"><span class="small">41016000 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2697,7 +2723,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2714,7 +2740,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2731,7 +2757,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2748,7 +2774,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3011,7 +3037,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">27/03/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Almensilla</span></td>
-                    <td class="text-nowrap"><span class="small">41000481 - C.E.I.P. Juan Mendoza Mendoza</span>
+                    <td class="text-nowrap"><span class="small">41000481 - C.E.I.P. Ntra. Sra. de la Antigua</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3190,7 +3216,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3266,7 +3292,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/03/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Castilleja de Guzmán</span></td>
-                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. Montelirio</span>
+                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3428,7 +3454,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3436,7 +3462,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/03/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Burguillos</span></td>
-                    <td class="text-nowrap"><span class="small">41016000 - C.E.I.P. Ágora</span>
+                    <td class="text-nowrap"><span class="small">41016000 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3445,7 +3471,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3725,7 +3751,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">13/03/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41004745 - C.E.I.P. Concepción de Estevarena</span>
+                    <td class="text-nowrap"><span class="small">41004745 - C.E.I.P. Joaquín Benjumea Burín</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3904,7 +3930,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -4099,7 +4125,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">06/03/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Las Navas de la Concepción</span></td>
-                    <td class="text-nowrap"><span class="small">41002980 - C.E.I.P. Ribera de Ciudadeja</span>
+                    <td class="text-nowrap"><span class="small">41002980 - C.E.I.P. San José de Calasanz</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -4346,7 +4372,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -4422,7 +4448,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">26/02/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Alanís</span></td>
-                    <td class="text-nowrap"><span class="small">41000028 - C.E.I.P. Alanís</span>
+                    <td class="text-nowrap"><span class="small">41000028 - C.E.I.P. Cecilio Fuentes de la Fuente</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -4788,7 +4814,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5119,7 +5145,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">13/02/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41004745 - C.E.I.P. Concepción de Estevarena</span>
+                    <td class="text-nowrap"><span class="small">41004745 - C.E.I.P. Joaquín Benjumea Burín</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -5179,7 +5205,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">19/02/2025</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5316,6 +5342,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">3290</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">359</span><span
+                            class="badge text-bg-light">06/02/2025</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Esquivel</span></td>
+                    <td class="text-nowrap"><span class="small">41000375 - C.E.I.P. Ntra. Sra. del Carmen</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3287</span>
                     </td>
                 </tr>
                             <tr>
@@ -5526,23 +5569,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">359</span><span
                             class="badge text-bg-light">06/02/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Alcalá de Guadaíra</span></td>
-                    <td class="text-nowrap"><span class="small">41000272 - I.E.S. Cristóbal de Monroy</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">359</span><span
-                            class="badge text-bg-light">06/02/2025</span></td>
-                    <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
                     <td class="text-nowrap"><span class="small">41002025 - C.E.I.P. Luis Cernuda</span>
                     </td>
@@ -5553,7 +5579,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5570,7 +5596,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5740,7 +5766,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2025</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5978,7 +6004,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -6352,7 +6378,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -6598,7 +6624,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">23/01/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Castilleja de Guzmán</span></td>
-                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. Montelirio</span>
+                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -6726,7 +6752,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -6887,7 +6913,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">21/01/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">San Juan de Aznalfarache</span></td>
-                    <td class="text-nowrap"><span class="small">41003844 - C.E.I.P. David Peña Dorantes</span>
+                    <td class="text-nowrap"><span class="small">41003844 - C.E.I.P. Esperanza Aponte</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -7151,7 +7177,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7176,7 +7202,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">16/01/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Écija</span></td>
-                    <td class="text-nowrap"><span class="small">41001801 - C.E.I.P. Ciudad del Sol</span>
+                    <td class="text-nowrap"><span class="small">41001801 - C.E.I.P. Calvo Sotelo</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -7372,7 +7398,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7532,6 +7558,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">351</span><span
                             class="badge text-bg-light">09/01/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Alcalá de Guadaíra</span></td>
+                    <td class="text-nowrap"><span class="small">41500232 - C.E.PER. El Perejil</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">10/04/2025</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2671</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">351</span><span
+                            class="badge text-bg-light">09/01/2025</span></td>
+                    <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Gelves</span></td>
                     <td class="text-nowrap"><span class="small">41002098 - C.E.I.P. Duques de Alba</span>
                     </td>
@@ -7556,23 +7599,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td><span class=" small">OBLIGATORIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
-                            class="small">10/04/2025</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2648</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">351</span><span
-                            class="badge text-bg-light">09/01/2025</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Alcalá de Guadaíra</span></td>
-                    <td class="text-nowrap"><span class="small">41500232 - C.E.PER. El Perejil</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
                             class="small"></span>
                     </td>
                     <td><span
@@ -7584,7 +7610,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/01/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Alanís</span></td>
-                    <td class="text-nowrap"><span class="small">41000028 - C.E.I.P. Alanís</span>
+                    <td class="text-nowrap"><span class="small">41000028 - C.E.I.P. Cecilio Fuentes de la Fuente</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -7686,7 +7712,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/01/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Espartinas</span></td>
-                    <td class="text-nowrap"><span class="small">41001951 - C.E.PR. Espartinas</span>
+                    <td class="text-nowrap"><span class="small">41001951 - C.E.PR. Joaquín Benjumea Burín</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -7957,6 +7983,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">351</span><span
                             class="badge text-bg-light">09/01/2025</span></td>
                     <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">El Cuervo de Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41002281 - C.E.I.P. El Pinar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/05/2025</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1978</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">351</span><span
+                            class="badge text-bg-light">09/01/2025</span></td>
+                    <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">El Viso del Alcor</span></td>
                     <td class="text-nowrap"><span class="small">41602247 - C.E.I.P. La Alunada</span>
                     </td>
@@ -8049,23 +8092,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td><span class=" small">VOLUNTARIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
-                            class="small">26/05/2025</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1777</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">351</span><span
-                            class="badge text-bg-light">09/01/2025</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">El Cuervo de Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41002281 - C.E.I.P. El Pinar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
                             class="small"></span>
                     </td>
                     <td><span
@@ -8120,7 +8146,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -8400,7 +8426,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">04/12/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41004873 - C.E.I.P. Francisca Romero</span>
+                    <td class="text-nowrap"><span class="small">41004873 - C.E.I.P. Manuel Siurot</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -8477,7 +8503,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2025</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -8494,7 +8520,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -9097,7 +9123,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">19/11/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Peñaflor</span></td>
-                    <td class="text-nowrap"><span class="small">41003285 - C.E.I.P. Vega del Guadalquivir</span>
+                    <td class="text-nowrap"><span class="small">41003285 - C.E.I.P. Pedro Parias</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -9131,7 +9157,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">19/11/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Castilleja de Guzmán</span></td>
-                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. Montelirio</span>
+                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -9259,7 +9285,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -9488,7 +9514,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">07/11/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Espartinas</span></td>
-                    <td class="text-nowrap"><span class="small">41001951 - C.E.PR. Espartinas</span>
+                    <td class="text-nowrap"><span class="small">41001951 - C.E.PR. Joaquín Benjumea Burín</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -9990,7 +10016,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -10007,7 +10033,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -10449,7 +10475,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2025</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -11001,7 +11027,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">08/10/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Burguillos</span></td>
-                    <td class="text-nowrap"><span class="small">41016000 - C.E.I.P. Ágora</span>
+                    <td class="text-nowrap"><span class="small">41016000 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -11239,7 +11265,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">01/10/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Almensilla</span></td>
-                    <td class="text-nowrap"><span class="small">41000481 - C.E.I.P. Juan Mendoza Mendoza</span>
+                    <td class="text-nowrap"><span class="small">41000481 - C.E.I.P. Ntra. Sra. de la Antigua</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -11443,7 +11469,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">26/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Las Navas de la Concepción</span></td>
-                    <td class="text-nowrap"><span class="small">41002980 - C.E.I.P. Ribera de Ciudadeja</span>
+                    <td class="text-nowrap"><span class="small">41002980 - C.E.I.P. San José de Calasanz</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -12115,7 +12141,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -12276,7 +12302,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">17/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Burguillos</span></td>
-                    <td class="text-nowrap"><span class="small">41016000 - C.E.I.P. Ágora</span>
+                    <td class="text-nowrap"><span class="small">41016000 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -12650,7 +12676,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">12/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Guillena</span></td>
-                    <td class="text-nowrap"><span class="small">41017156 - C.E.I.P. Guliena</span>
+                    <td class="text-nowrap"><span class="small">41017156 - C.E.I.P. del Salvador, s/n</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -13585,7 +13611,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Castilleja de Guzmán</span></td>
-                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. Montelirio</span>
+                    <td class="text-nowrap"><span class="small">41023314 - C.E.I.P. NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -13602,7 +13628,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Peñaflor</span></td>
-                    <td class="text-nowrap"><span class="small">41003285 - C.E.I.P. Vega del Guadalquivir</span>
+                    <td class="text-nowrap"><span class="small">41003285 - C.E.I.P. Pedro Parias</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -13687,7 +13713,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Mairena del Aljarafe</span></td>
-                    <td class="text-nowrap"><span class="small">41018151 - C.E.I.P. Malala</span>
+                    <td class="text-nowrap"><span class="small">41018151 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -14146,7 +14172,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Burguillos</span></td>
-                    <td class="text-nowrap"><span class="small">41016000 - C.E.I.P. Ágora</span>
+                    <td class="text-nowrap"><span class="small">41016000 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -14401,7 +14427,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/09/2024</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Mairena del Aljarafe</span></td>
-                    <td class="text-nowrap"><span class="small">41018151 - C.E.I.P. Malala</span>
+                    <td class="text-nowrap"><span class="small">41018151 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -14580,7 +14606,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2025</span>
                     </td>
                     <td><span
-                            class="small font-monospace">868, 873, 924, 933</span>
+                            class="small font-monospace">873, 933, 868, 924</span>
                     </td>
                 </tr>
                             <tr>
@@ -14614,7 +14640,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2025</span>
                     </td>
                     <td><span
-                            class="small font-monospace">857, 894</span>
+                            class="small font-monospace">894, 857</span>
                     </td>
                 </tr>
                             <tr>
@@ -14892,10 +14918,12 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -14904,7 +14932,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -14912,5 +14940,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

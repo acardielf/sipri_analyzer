@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - 00590001
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>71</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">71</td>
+            <th scope="col">Vacantes:</th>
+            <td>13</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>163</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>5</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>1003</td>
-            <th scope="col">Desiertas:</th>
-            <td>6</td>
         </tr>
         </thead>
     </table>
@@ -99,448 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">135</span><span
-                            class="badge text-bg-light">01/06/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41009044 - I.E.S. Ramón Carande</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">832</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Gines</span></td>
-                    <td class="text-nowrap"><span class="small">41701286 - I.E.S. El Majuelo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1003</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
-                            class="badge text-bg-light">11/05/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Alcalá de Guadaíra</span></td>
-                    <td class="text-nowrap"><span class="small">41000284 - I.E.S. Al-Guadaira</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1002</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
-                            class="badge text-bg-light">11/05/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sanlúcar la Mayor</span></td>
-                    <td class="text-nowrap"><span class="small">41701778 - I.E.S. Lucus Solis</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Constantina</span></td>
-                    <td class="text-nowrap"><span class="small">41702072 - I.E.S. San Fernando</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">960</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Espartinas</span></td>
-                    <td class="text-nowrap"><span class="small">41008398 - I.E.S. Lauretum</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">923</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
-                    <td class="text-nowrap"><span class="small">41001707 - I.E.S. Virgen de Valme</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">782</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
-                            class="badge text-bg-light">23/04/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41010769 - I.E.S. Nervión</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">989</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
-                            class="badge text-bg-light">15/04/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41000089 - I.E.S. Miguel Servet</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">960</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Los Palacios y Villafranca</span></td>
-                    <td class="text-nowrap"><span class="small">41008994 - I.E.S. Maestro Diego Llorente</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">916</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Castilleja de la Cuesta</span></td>
-                    <td class="text-nowrap"><span class="small">41011026 - I.E.S. Alixar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">762</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
-                            class="badge text-bg-light">06/04/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41700415 - I.E.S. Ciudad Jardín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">360</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41007357 - I.E.S. Vicente Aleixandre</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">698</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41010757 - I.E.S. San Jerónimo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">921</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">111</span><span
-                            class="badge text-bg-light">16/02/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva del Ariscal</span></td>
-                    <td class="text-nowrap"><span class="small">41701638 - I.E.S. Al-Iscar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva del Ariscal</span></td>
-                    <td class="text-nowrap"><span class="small">41701638 - I.E.S. Al-Iscar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">985</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41700403 - I.E.S. Isbilya</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">981</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
-                    <td class="text-nowrap"><span class="small">41001513 - I.E.S. María Galiana</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">770</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">La Rinconada</span></td>
-                    <td class="text-nowrap"><span class="small">41701377 - I.E.S. Antonio de Ulloa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">707</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Lora del Río</span></td>
-                    <td class="text-nowrap"><span class="small">41002451 - I.E.S. Axati</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">669</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
-                            class="badge text-bg-light">21/01/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41009071 - I.E.S. Antonio Machado</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">914</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41006951 - I.E.S. Luca de Tena</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">818</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Écija</span></td>
-                    <td class="text-nowrap"><span class="small">41001938 - I.E.S. San Fulgencio</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">707</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
-                            class="badge text-bg-light">14/01/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41007357 - I.E.S. Vicente Aleixandre</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">707</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41009883 - I.E.S. Torreblanca</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">669</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41009871 - I.E.S. Beatriz de Suabia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">609</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
                             class="badge text-bg-light">24/11/2020</span></td>
@@ -580,6 +164,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">17/11/2020</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41700427 - I.E.S. Azahar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">856</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
+                            class="badge text-bg-light">17/11/2020</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">41000089 - I.E.S. Miguel Servet</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
@@ -607,23 +208,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">770</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
-                            class="badge text-bg-light">17/11/2020</span></td>
-                    <td><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
-                    <td class="text-nowrap"><span class="small">41700415 - I.E.S. Ciudad Jardín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
                     </td>
                 </tr>
                             <tr>
@@ -742,7 +326,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -844,7 +428,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -861,7 +445,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1192,7 +776,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Sevilla</span></td>
                     <td class="text-nowrap"><span class="small">Las Cabezas de San Juan</span></td>
-                    <td class="text-nowrap"><span class="small">41700889 - I.E.S. Delgado Brackenbury</span>
+                    <td class="text-nowrap"><span class="small">41700889 - I.E.S. Delgado Brackembury</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1306,13 +890,457 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">163</span>
                     </td>
                 </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">135</span><span
+                            class="badge text-bg-light">01/06/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41009044 - I.E.S. Ramón Carande</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">832</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Gines</span></td>
+                    <td class="text-nowrap"><span class="small">41701286 - I.E.S. El Majuelo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1003</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
+                            class="badge text-bg-light">11/05/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Alcalá de Guadaíra</span></td>
+                    <td class="text-nowrap"><span class="small">41000284 - I.E.S. Al-Guadaira</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1002</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
+                            class="badge text-bg-light">11/05/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sanlúcar la Mayor</span></td>
+                    <td class="text-nowrap"><span class="small">41701778 - I.E.S. Lucus Solis</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Constantina</span></td>
+                    <td class="text-nowrap"><span class="small">41702072 - I.E.S. San Fernando</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">960</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Espartinas</span></td>
+                    <td class="text-nowrap"><span class="small">41008398 - I.E.S. Lauretum</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">923</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
+                    <td class="text-nowrap"><span class="small">41001707 - I.E.S. Virgen de Valme</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">782</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
+                            class="badge text-bg-light">23/04/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41010769 - I.E.S. Nervión</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">989</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
+                            class="badge text-bg-light">15/04/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41000089 - I.E.S. Miguel Servet</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">960</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Los Palacios y Villafranca</span></td>
+                    <td class="text-nowrap"><span class="small">41008994 - I.E.S. Maestro Diego Llorente</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">916</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Castilleja de la Cuesta</span></td>
+                    <td class="text-nowrap"><span class="small">41011026 - I.E.S. Alixar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">762</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
+                            class="badge text-bg-light">06/04/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41700415 - I.E.S. Ciudad Jardín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">360</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41007357 - I.E.S. Vicente Aleixandre</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">698</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41010757 - I.E.S. San Jerónimo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">921</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">111</span><span
+                            class="badge text-bg-light">16/02/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva del Ariscal</span></td>
+                    <td class="text-nowrap"><span class="small">41701638 - I.E.S. Al-Iscar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva del Ariscal</span></td>
+                    <td class="text-nowrap"><span class="small">41701638 - I.E.S. Al-Iscar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">985</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41700403 - I.E.S. Isbilya</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">981</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Dos Hermanas</span></td>
+                    <td class="text-nowrap"><span class="small">41001513 - I.E.S. María Galiana</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">770</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">La Rinconada</span></td>
+                    <td class="text-nowrap"><span class="small">41701377 - I.E.S. Antonio de Ulloa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">707</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Lora del Río</span></td>
+                    <td class="text-nowrap"><span class="small">41002451 - I.E.S. Axati</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">669</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
+                            class="badge text-bg-light">21/01/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41009071 - I.E.S. Antonio Machado</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">914</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41006951 - I.E.S. Luca de Tena</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">818</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Écija</span></td>
+                    <td class="text-nowrap"><span class="small">41001938 - I.E.S. San Fulgencio</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">707</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
+                            class="badge text-bg-light">14/01/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41007357 - I.E.S. Vicente Aleixandre</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">707</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41009883 - I.E.S. Torreblanca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">669</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">Sevilla</span></td>
+                    <td class="text-nowrap"><span class="small">41009871 - I.E.S. Beatriz de Suabia</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">609</span>
+                    </td>
+                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -1321,7 +1349,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -1329,5 +1357,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

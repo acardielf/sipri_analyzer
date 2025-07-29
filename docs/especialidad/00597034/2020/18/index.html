@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - 00597034
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -65,23 +87,27 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     <div class="container-fluid">
             <h2>Especialidad: <strong><a class="text-decoration-none"
                                  href="/sipri_analyzer/especialidad/00597034/">00597034
-                - EDUCACIÓN FÍSICA</a></strong></h2>
+                - EDUCACIÓN FÍSICA (PRIMARIA)</a></strong></h2>
     <h3><span class="badge text-bg-primary">Curso 2020/2021</span> / <span
             class="badge text-bg-secondary">Granada</span></h3>
 
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>100</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">100</td>
+            <th scope="col">Vacantes:</th>
+            <td>12</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>375</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>2</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>1108</td>
-            <th scope="col">Desiertas:</th>
-            <td>3</td>
         </tr>
         </thead>
     </table>
@@ -99,924 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">136</span><span
-                            class="badge text-bg-light">08/06/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Quéntar</span></td>
-                    <td class="text-nowrap"><span class="small">18602106 - C.P.R. Ribera de Aguas Blancas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1093</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">135</span><span
-                            class="badge text-bg-light">01/06/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18009717 - C.E.I.P. Los Álamos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">978</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
-                            class="badge text-bg-light">27/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Jayena</span></td>
-                    <td class="text-nowrap"><span class="small">18005505 - C.E.I.P. Virgen del Rosario</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">953</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
-                            class="badge text-bg-light">27/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Sierra Nevada</span></td>
-                    <td class="text-nowrap"><span class="small">18009675 - C.E.I.P. Esquí-Escuela</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">940</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Purullena</span></td>
-                    <td class="text-nowrap"><span class="small">18007940 - C.E.I.P. Reina Isabel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">11/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">699</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18007034 - C.E.I.P. Príncipe Felipe</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">671</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">132</span><span
-                            class="badge text-bg-light">20/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Maracena</span></td>
-                    <td class="text-nowrap"><span class="small">18006236 - C.E.I.P. Giner de los Ríos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1025</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Ventas de Zafarraya</span></td>
-                    <td class="text-nowrap"><span class="small">18601709 - C.P.R. Los Castaños</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">963</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Mamola</span></td>
-                    <td class="text-nowrap"><span class="small">18601382 - C.P.R. Sánchez Mariscal</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">605</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Dúrcal</span></td>
-                    <td class="text-nowrap"><span class="small">18601461 - C.E.I.P. La Cruz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">577</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Barrio de la Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18006509 - C.E.I.P. Los Llanos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1078</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Santa Fe</span></td>
-                    <td class="text-nowrap"><span class="small">18008853 - C.E.I.P. Capitulaciones</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1037</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Iznalloz</span></td>
-                    <td class="text-nowrap"><span class="small">18601096 - C.E.I.P. Sierra Arana</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1036</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">127</span><span
-                            class="badge text-bg-light">04/05/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alfacar</span></td>
-                    <td class="text-nowrap"><span class="small">18601795 - C.E.I.P. Alfaguarilla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">125</span><span
-                            class="badge text-bg-light">27/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Maracena</span></td>
-                    <td class="text-nowrap"><span class="small">18009663 - C.E.I.P. Emilio Carmona</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1108</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">125</span><span
-                            class="badge text-bg-light">27/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18009523 - C.E.I.P. Miguel Hernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">986</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
-                            class="badge text-bg-light">23/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alomartes</span></td>
-                    <td class="text-nowrap"><span class="small">18005271 - C.E.I.P. Ntra. Sra. de los Dolores</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1078</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
-                            class="badge text-bg-light">23/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alhendín</span></td>
-                    <td class="text-nowrap"><span class="small">18000842 - I.E.S. Alhendín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">123</span><span
-                            class="badge text-bg-light">19/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18004495 - C.E.I.P. Virgen de las Nieves</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">672</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cájar</span></td>
-                    <td class="text-nowrap"><span class="small">18001381 - C.E.I.P. San Francisco</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">593</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
-                            class="badge text-bg-light">08/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">El Chaparral</span></td>
-                    <td class="text-nowrap"><span class="small">18000076 - C.E.I.P. San Isidro Labrador</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">926</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
-                            class="badge text-bg-light">08/04/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cijuela</span></td>
-                    <td class="text-nowrap"><span class="small">18001809 - C.E.I.P. Rogelio Arasil</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">02/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">598</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Jun</span></td>
-                    <td class="text-nowrap"><span class="small">18005542 - C.E.I.P. La Purísima</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">640</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cájar</span></td>
-                    <td class="text-nowrap"><span class="small">18001381 - C.E.I.P. San Francisco</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">582</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
-                            class="badge text-bg-light">11/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Capileira</span></td>
-                    <td class="text-nowrap"><span class="small">18601904 - C.P.R. Barranco de Poqueira</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1059</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
-                            class="badge text-bg-light">11/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Ugíjar</span></td>
-                    <td class="text-nowrap"><span class="small">18602076 - C.P.R. Sánchez Velayos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">998</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Mamola</span></td>
-                    <td class="text-nowrap"><span class="small">18601382 - C.P.R. Sánchez Mariscal</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1073</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18601217 - C.E.I.P. Andalucía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1069</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Huétor Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18601451 - C.E.I.P. Mariana Pineda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1029</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cúllar Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18002103 - C.E.PR. Francisco Ayala</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1009</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Ugíjar</span></td>
-                    <td class="text-nowrap"><span class="small">18602076 - C.P.R. Sánchez Velayos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1082</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Iznalloz</span></td>
-                    <td class="text-nowrap"><span class="small">18601096 - C.E.I.P. Sierra Arana</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1008</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Peligros</span></td>
-                    <td class="text-nowrap"><span class="small">18007484 - C.E.I.P. Manuel de Falla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">916</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18003545 - C.E.I.P. Reyes Católicos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">679</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18007034 - C.E.I.P. Príncipe Felipe</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">610</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">112</span><span
-                            class="badge text-bg-light">18/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alomartes</span></td>
-                    <td class="text-nowrap"><span class="small">18005271 - C.E.I.P. Ntra. Sra. de los Dolores</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1060</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">111</span><span
-                            class="badge text-bg-light">16/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Monachil</span></td>
-                    <td class="text-nowrap"><span class="small">18006510 - C.E.I.P. Miraflores</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">978</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">110</span><span
-                            class="badge text-bg-light">11/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Carchuna</span></td>
-                    <td class="text-nowrap"><span class="small">18006820 - C.E.I.P. Sacratif</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1022</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Huéscar</span></td>
-                    <td class="text-nowrap"><span class="small">18005104 - C.E.I.P. Princesa Sofía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">26/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1077</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Ugíjar</span></td>
-                    <td class="text-nowrap"><span class="small">18602076 - C.P.R. Sánchez Velayos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1085</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alhendín</span></td>
-                    <td class="text-nowrap"><span class="small">18000453 - C.E.I.P. Sagrado Corazón de Jesús</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">608</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cádiar</span></td>
-                    <td class="text-nowrap"><span class="small">18601400 - C.E.I.P. Río Chico</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">06/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1011</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
-                    <td class="text-nowrap"><span class="small">18601011 - C.E.I.P. Río Verde</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1008</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
-                            class="badge text-bg-light">26/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Castell de Ferro</span></td>
-                    <td class="text-nowrap"><span class="small">18004941 - C.E.I.P. Virgen del Carmen</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
-                            class="badge text-bg-light">21/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Moreda</span></td>
-                    <td class="text-nowrap"><span class="small">18602040 - C.E.I.P. La Santa Cruz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1064</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
-                            class="badge text-bg-light">14/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Palma</span></td>
-                    <td class="text-nowrap"><span class="small">18601412 - C.P.R. Monte Hacho</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1001</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
-                            class="badge text-bg-light">14/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Albolote</span></td>
-                    <td class="text-nowrap"><span class="small">18000052 - C.E.I.P. Tínar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">669</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18006972 - C.E.I.P. Antonio Garvayo Dinelli</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">660</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Atarfe</span></td>
-                    <td class="text-nowrap"><span class="small">18601990 - C.E.I.P. Medina Elvira</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">606</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alomartes</span></td>
-                    <td class="text-nowrap"><span class="small">18005271 - C.E.I.P. Ntra. Sra. de los Dolores</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">01/04/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">582</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Pulianas</span></td>
-                    <td class="text-nowrap"><span class="small">18007897 - C.E.I.P. Profesor Tierno Galván</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">581</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
-                            class="badge text-bg-light">02/12/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Guadahortuna</span></td>
-                    <td class="text-nowrap"><span class="small">18004586 - C.E.I.P. Virgen de Loreto</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1064</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
-                            class="badge text-bg-light">02/12/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Los Tablones</span></td>
-                    <td class="text-nowrap"><span class="small">18602121 - C.P.R. El Alféizar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1056</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
-                            class="badge text-bg-light">02/12/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Herradura</span></td>
-                    <td class="text-nowrap"><span class="small">18000635 - C.E.I.P. Las Gaviotas</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">983</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
                             class="badge text-bg-light">24/11/2020</span></td>
@@ -1799,13 +907,933 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">375</span>
                     </td>
                 </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">136</span><span
+                            class="badge text-bg-light">08/06/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Quéntar</span></td>
+                    <td class="text-nowrap"><span class="small">18602106 - C.P.R. Ribera de Aguas Blancas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1093</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">135</span><span
+                            class="badge text-bg-light">01/06/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18009717 - C.E.I.P. Los Álamos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">978</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
+                            class="badge text-bg-light">27/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Jayena</span></td>
+                    <td class="text-nowrap"><span class="small">18005505 - C.E.I.P. Virgen del Rosario</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">953</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
+                            class="badge text-bg-light">27/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Sierra Nevada</span></td>
+                    <td class="text-nowrap"><span class="small">18009675 - C.E.I.P. Esquí-Escuela</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">940</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Purullena</span></td>
+                    <td class="text-nowrap"><span class="small">18007940 - C.E.I.P. Reina Isabel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">11/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">699</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18007034 - C.E.I.P. Príncipe Felipe</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">671</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">132</span><span
+                            class="badge text-bg-light">20/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Maracena</span></td>
+                    <td class="text-nowrap"><span class="small">18006236 - C.E.I.P. Giner de los Ríos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1025</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Ventas de Zafarraya</span></td>
+                    <td class="text-nowrap"><span class="small">18601709 - C.P.R. Los Castaños</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">963</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Mamola</span></td>
+                    <td class="text-nowrap"><span class="small">18601382 - C.P.R. Sánchez Mariscal</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">605</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Dúrcal</span></td>
+                    <td class="text-nowrap"><span class="small">18601461 - C.E.I.P. La Cruz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">577</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Barrio de la Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18006509 - C.E.I.P. Los Llanos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1078</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Santa Fe</span></td>
+                    <td class="text-nowrap"><span class="small">18008853 - C.E.I.P. Capitulaciones</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1037</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Iznalloz</span></td>
+                    <td class="text-nowrap"><span class="small">18601096 - C.E.I.P. Sierra Arana</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1036</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">127</span><span
+                            class="badge text-bg-light">04/05/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alfacar</span></td>
+                    <td class="text-nowrap"><span class="small">18601795 - C.E.I.P. Alfaguarilla</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">125</span><span
+                            class="badge text-bg-light">27/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Maracena</span></td>
+                    <td class="text-nowrap"><span class="small">18009663 - C.E.I.P. Emilio Carmona</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1108</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">125</span><span
+                            class="badge text-bg-light">27/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18009523 - C.E.I.P. Miguel Hernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">986</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
+                            class="badge text-bg-light">23/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Atarfe</span></td>
+                    <td class="text-nowrap"><span class="small">18000881 - C.E.I.P. Doctor Jiménez Rueda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1096</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
+                            class="badge text-bg-light">23/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alomartes</span></td>
+                    <td class="text-nowrap"><span class="small">18005271 - C.E.I.P. Ntra. Sra. de los Dolores</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1078</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">123</span><span
+                            class="badge text-bg-light">19/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18004495 - C.E.I.P. Virgen de las Nieves</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">672</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cájar</span></td>
+                    <td class="text-nowrap"><span class="small">18001381 - C.E.I.P. San Francisco</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">593</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
+                            class="badge text-bg-light">08/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">El Chaparral</span></td>
+                    <td class="text-nowrap"><span class="small">18000076 - C.E.I.P. San Isidro Labrador</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">926</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
+                            class="badge text-bg-light">08/04/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cijuela</span></td>
+                    <td class="text-nowrap"><span class="small">18001809 - C.E.I.P. Rogelio Arasil</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">02/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">598</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Jun</span></td>
+                    <td class="text-nowrap"><span class="small">18005542 - C.E.I.P. La Purísima</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">640</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cájar</span></td>
+                    <td class="text-nowrap"><span class="small">18001381 - C.E.I.P. San Francisco</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">582</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
+                            class="badge text-bg-light">11/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Capileira</span></td>
+                    <td class="text-nowrap"><span class="small">18601904 - C.P.R. Barranco de Poqueira</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1059</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
+                            class="badge text-bg-light">11/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Ugíjar</span></td>
+                    <td class="text-nowrap"><span class="small">18602076 - C.P.R. Sánchez Velayos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">998</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Mamola</span></td>
+                    <td class="text-nowrap"><span class="small">18601382 - C.P.R. Sánchez Mariscal</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1073</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18601217 - C.E.I.P. Andalucía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1069</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Huétor Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18601451 - C.E.I.P. Mariana Pineda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1029</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cúllar Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18002103 - C.E.PR. Francisco Ayala</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1009</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Ugíjar</span></td>
+                    <td class="text-nowrap"><span class="small">18602076 - C.P.R. Sánchez Velayos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1082</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Iznalloz</span></td>
+                    <td class="text-nowrap"><span class="small">18601096 - C.E.I.P. Sierra Arana</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1008</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Peligros</span></td>
+                    <td class="text-nowrap"><span class="small">18007484 - C.E.I.P. Manuel de Falla</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">916</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18003545 - C.E.I.P. Reyes Católicos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">679</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18007034 - C.E.I.P. Príncipe Felipe</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">610</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">112</span><span
+                            class="badge text-bg-light">18/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alomartes</span></td>
+                    <td class="text-nowrap"><span class="small">18005271 - C.E.I.P. Ntra. Sra. de los Dolores</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1060</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">111</span><span
+                            class="badge text-bg-light">16/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Monachil</span></td>
+                    <td class="text-nowrap"><span class="small">18006510 - C.E.I.P. Miraflores</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">978</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">110</span><span
+                            class="badge text-bg-light">11/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Carchuna</span></td>
+                    <td class="text-nowrap"><span class="small">18006820 - C.E.I.P. Sacratif</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1022</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Huéscar</span></td>
+                    <td class="text-nowrap"><span class="small">18005104 - C.E.I.P. Princesa Sofía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1077</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Ugíjar</span></td>
+                    <td class="text-nowrap"><span class="small">18602076 - C.P.R. Sánchez Velayos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1085</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alhendín</span></td>
+                    <td class="text-nowrap"><span class="small">18000453 - C.E.I.P. Sagrado Corazón de Jesús</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">608</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cádiar</span></td>
+                    <td class="text-nowrap"><span class="small">18601400 - C.E.I.P. Río Chico</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">06/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1011</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
+                    <td class="text-nowrap"><span class="small">18601011 - C.E.I.P. Río Verde</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1008</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
+                            class="badge text-bg-light">26/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Castell de Ferro</span></td>
+                    <td class="text-nowrap"><span class="small">18004941 - C.E.I.P. Virgen del Carmen</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
+                            class="badge text-bg-light">21/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Moreda</span></td>
+                    <td class="text-nowrap"><span class="small">18602040 - C.E.I.P. La Santa Cruz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1064</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
+                            class="badge text-bg-light">14/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Palma</span></td>
+                    <td class="text-nowrap"><span class="small">18601412 - C.P.R. Monte Hacho</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1001</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
+                            class="badge text-bg-light">14/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Albolote</span></td>
+                    <td class="text-nowrap"><span class="small">18000052 - C.E.I.P. Tínar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">669</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18006972 - C.E.I.P. Antonio Garvayo Dinelli</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">660</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Atarfe</span></td>
+                    <td class="text-nowrap"><span class="small">18601990 - C.E.I.P. Medina Elvira</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">606</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alomartes</span></td>
+                    <td class="text-nowrap"><span class="small">18005271 - C.E.I.P. Ntra. Sra. de los Dolores</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">01/04/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">582</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Pulianas</span></td>
+                    <td class="text-nowrap"><span class="small">18007897 - C.E.I.P. Profesor Tierno Galván</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">581</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
+                            class="badge text-bg-light">02/12/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Guadahortuna</span></td>
+                    <td class="text-nowrap"><span class="small">18004586 - C.E.I.P. Virgen de Loreto</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1064</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
+                            class="badge text-bg-light">02/12/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Los Tablones</span></td>
+                    <td class="text-nowrap"><span class="small">18602121 - C.P.R. El Alféizar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1056</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
+                            class="badge text-bg-light">02/12/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Herradura</span></td>
+                    <td class="text-nowrap"><span class="small">18000635 - C.E.I.P. Las Gaviotas</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">983</span>
+                    </td>
+                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -1814,7 +1842,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -1822,5 +1850,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

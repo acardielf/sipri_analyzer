@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - CV597038
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>242</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">242</td>
+            <th scope="col">Vacantes:</th>
+            <td>205</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>917</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>5681</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>1</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>5681</td>
         </tr>
         </thead>
     </table>
@@ -99,414 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11006981 - C.E.I.P. Torresoto</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">09/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5681</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Los Barrios</span></td>
-                    <td class="text-nowrap"><span class="small">11602976 - C.E.I.P. Don Luis Lamadrid</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">15/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5321</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11603476 - C.E.I.P. Las Albinas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5103</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">123</span><span
-                            class="badge text-bg-light">19/04/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11005317 - C.E.I.P. Juan Díaz de Solís</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3776</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
-                            class="badge text-bg-light">15/04/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
-                    <td class="text-nowrap"><span class="small">11005548 - C.E.I.P. Princesa Sofía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5601</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
-                            class="badge text-bg-light">15/04/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11000186 - C.E.I.P. Sancti Petri</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3689</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
-                            class="badge text-bg-light">06/04/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11007442 - C.E.I.P. El Juncal</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3491</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
-                            class="badge text-bg-light">06/04/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11008100 - C.E.I.P. Blas Infante</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Rota</span></td>
-                    <td class="text-nowrap"><span class="small">11004854 - C.E.I.P. Luis Ponce de León</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4598</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11006565 - C.E.I.P. El Membrillar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4585</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
-                    <td class="text-nowrap"><span class="small">11603351 - C.E.I.P. Pablo Picasso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5370</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">115</span><span
-                            class="badge text-bg-light">03/03/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Roque</span></td>
-                    <td class="text-nowrap"><span class="small">11005718 - C.E.I.P. Santa María Coronada</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5064</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">112</span><span
-                            class="badge text-bg-light">18/02/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11005160 - C.E.I.P. Quintanilla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5296</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">112</span><span
-                            class="badge text-bg-light">18/02/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11603282 - C.E.I.P. Caetaria</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4844</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
-                            class="badge text-bg-light">04/02/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
-                    <td class="text-nowrap"><span class="small">11007259 - C.E.I.P. El Picacho</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5476</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11006528 - C.E.I.P. La Barrosa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">16/04/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5335</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Vejer de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11006474 - C.E.I.P. Los Molinos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5039</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
-                            class="badge text-bg-light">26/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Ubrique</span></td>
-                    <td class="text-nowrap"><span class="small">11008033 - C.E.I.P. Fernando Gavilán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5371</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
-                            class="badge text-bg-light">21/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11603282 - C.E.I.P. Caetaria</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5335</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
-                            class="badge text-bg-light">21/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Los Barrios</span></td>
-                    <td class="text-nowrap"><span class="small">11602976 - C.E.I.P. Don Luis Lamadrid</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5299</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11000435 - C.E.I.P. Puerta del Mar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5190</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Tarifa</span></td>
-                    <td class="text-nowrap"><span class="small">11007120 - C.E.I.P. Ntra. Sra. de la Luz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5185</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
-                            class="badge text-bg-light">14/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
-                    <td class="text-nowrap"><span class="small">11003953 - C.E.I.P. Padre Muriel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/03/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4847</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
-                            class="badge text-bg-light">14/01/2021</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11007016 - C.E.I.P. Antonio Machado</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4783</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
                             class="badge text-bg-light">26/11/2020</span></td>
@@ -1269,7 +887,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3350, 3351, 3354</span>
+                            class="small font-monospace">3351, 3354, 3350</span>
                     </td>
                 </tr>
                             <tr>
@@ -1337,7 +955,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3231, 3342</span>
+                            class="small font-monospace">3342, 3231</span>
                     </td>
                 </tr>
                             <tr>
@@ -1354,7 +972,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2168, 2577, 3336, 3340</span>
+                            class="small font-monospace">2577, 2168, 3340, 3336</span>
                     </td>
                 </tr>
                             <tr>
@@ -1371,7 +989,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3332, 3338</span>
+                            class="small font-monospace">3338, 3332</span>
                     </td>
                 </tr>
                             <tr>
@@ -1405,7 +1023,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3307, 3310, 3316</span>
+                            class="small font-monospace">3316, 3307, 3310</span>
                     </td>
                 </tr>
                             <tr>
@@ -1430,7 +1048,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">03/09/2020</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo Don Luis Unciti Esparza</span>
+                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -1439,7 +1057,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1655, 2237, 3298</span>
+                            class="small font-monospace">1655, 3298, 2237</span>
                     </td>
                 </tr>
                             <tr>
@@ -1507,7 +1125,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3276, 3281</span>
+                            class="small font-monospace">3281, 3276</span>
                     </td>
                 </tr>
                             <tr>
@@ -1541,7 +1159,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3271, 3272</span>
+                            class="small font-monospace">3272, 3271</span>
                     </td>
                 </tr>
                             <tr>
@@ -1558,7 +1176,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3246, 3267, 3268</span>
+                            class="small font-monospace">3267, 3268, 3246</span>
                     </td>
                 </tr>
                             <tr>
@@ -1643,7 +1261,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1677, 3250</span>
+                            class="small font-monospace">3250, 1677</span>
                     </td>
                 </tr>
                             <tr>
@@ -1660,7 +1278,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3244, 3249</span>
+                            class="small font-monospace">3249, 3244</span>
                     </td>
                 </tr>
                             <tr>
@@ -1677,7 +1295,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3247, 3248</span>
+                            class="small font-monospace">3248, 3247</span>
                     </td>
                 </tr>
                             <tr>
@@ -1711,7 +1329,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3225, 3226, 3233</span>
+                            class="small font-monospace">3225, 3233, 3226</span>
                     </td>
                 </tr>
                             <tr>
@@ -1762,7 +1380,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3212, 3219</span>
+                            class="small font-monospace">3219, 3212</span>
                     </td>
                 </tr>
                             <tr>
@@ -1779,7 +1397,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3074, 3211</span>
+                            class="small font-monospace">3211, 3074</span>
                     </td>
                 </tr>
                             <tr>
@@ -1932,7 +1550,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3156, 3188</span>
+                            class="small font-monospace">3188, 3156</span>
                     </td>
                 </tr>
                             <tr>
@@ -1949,7 +1567,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2222, 2878, 3185</span>
+                            class="small font-monospace">3185, 2878, 2222</span>
                     </td>
                 </tr>
                             <tr>
@@ -2085,7 +1703,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3114, 3161</span>
+                            class="small font-monospace">3161, 3114</span>
                     </td>
                 </tr>
                             <tr>
@@ -2102,7 +1720,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2498, 3160</span>
+                            class="small font-monospace">3160, 2498</span>
                     </td>
                 </tr>
                             <tr>
@@ -2119,7 +1737,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2809, 3132, 3157</span>
+                            class="small font-monospace">3157, 2809, 3132</span>
                     </td>
                 </tr>
                             <tr>
@@ -2153,7 +1771,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3137, 3149</span>
+                            class="small font-monospace">3149, 3137</span>
                     </td>
                 </tr>
                             <tr>
@@ -2170,7 +1788,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2069, 3144</span>
+                            class="small font-monospace">3144, 2069</span>
                     </td>
                 </tr>
                             <tr>
@@ -2204,7 +1822,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2895, 3133, 3135</span>
+                            class="small font-monospace">3133, 3135, 2895</span>
                     </td>
                 </tr>
                             <tr>
@@ -2272,7 +1890,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3110, 3113, 3121</span>
+                            class="small font-monospace">3110, 3121, 3113</span>
                     </td>
                 </tr>
                             <tr>
@@ -2306,7 +1924,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2879, 3057, 3107</span>
+                            class="small font-monospace">3057, 2879, 3107</span>
                     </td>
                 </tr>
                             <tr>
@@ -2391,7 +2009,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3054, 3082</span>
+                            class="small font-monospace">3082, 3054</span>
                     </td>
                 </tr>
                             <tr>
@@ -2425,7 +2043,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1921, 3066</span>
+                            class="small font-monospace">3066, 1921</span>
                     </td>
                 </tr>
                             <tr>
@@ -2442,7 +2060,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2549, 3053</span>
+                            class="small font-monospace">3053, 2549</span>
                     </td>
                 </tr>
                             <tr>
@@ -2476,7 +2094,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2526, 3045</span>
+                            class="small font-monospace">3045, 2526</span>
                     </td>
                 </tr>
                             <tr>
@@ -2544,7 +2162,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1887, 2621, 2675, 3017</span>
+                            class="small font-monospace">3017, 1887, 2621, 2675</span>
                     </td>
                 </tr>
                             <tr>
@@ -2578,7 +2196,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2164, 2542, 3005</span>
+                            class="small font-monospace">3005, 2542, 2164</span>
                     </td>
                 </tr>
                             <tr>
@@ -2629,7 +2247,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1691, 2981</span>
+                            class="small font-monospace">2981, 1691</span>
                     </td>
                 </tr>
                             <tr>
@@ -2646,7 +2264,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2947, 2979, 2980</span>
+                            class="small font-monospace">2980, 2979, 2947</span>
                     </td>
                 </tr>
                             <tr>
@@ -2765,7 +2383,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2429, 2865</span>
+                            class="small font-monospace">2865, 2429</span>
                     </td>
                 </tr>
                             <tr>
@@ -2799,7 +2417,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1172, 2432, 2855</span>
+                            class="small font-monospace">2432, 2855, 1172</span>
                     </td>
                 </tr>
                             <tr>
@@ -2833,7 +2451,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1821, 2803, 2842</span>
+                            class="small font-monospace">2842, 1821, 2803</span>
                     </td>
                 </tr>
                             <tr>
@@ -2884,7 +2502,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2481, 2808</span>
+                            class="small font-monospace">2808, 2481</span>
                     </td>
                 </tr>
                             <tr>
@@ -2969,7 +2587,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1616, 2642, 2664</span>
+                            class="small font-monospace">2664, 2642, 1616</span>
                     </td>
                 </tr>
                             <tr>
@@ -3003,7 +2621,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2480, 2640</span>
+                            class="small font-monospace">2640, 2480</span>
                     </td>
                 </tr>
                             <tr>
@@ -3020,7 +2638,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2363, 2628</span>
+                            class="small font-monospace">2628, 2363</span>
                     </td>
                 </tr>
                             <tr>
@@ -3037,7 +2655,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1830, 2625</span>
+                            class="small font-monospace">2625, 1830</span>
                     </td>
                 </tr>
                             <tr>
@@ -3122,7 +2740,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2334, 2466, 2579</span>
+                            class="small font-monospace">2579, 2334, 2466</span>
                     </td>
                 </tr>
                             <tr>
@@ -3207,7 +2825,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1768, 2539</span>
+                            class="small font-monospace">2539, 1768</span>
                     </td>
                 </tr>
                             <tr>
@@ -3224,7 +2842,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2510, 2535</span>
+                            class="small font-monospace">2535, 2510</span>
                     </td>
                 </tr>
                             <tr>
@@ -3241,7 +2859,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2106, 2186, 2488</span>
+                            class="small font-monospace">2488, 2186, 2106</span>
                     </td>
                 </tr>
                             <tr>
@@ -3377,7 +2995,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2308, 2405</span>
+                            class="small font-monospace">2405, 2308</span>
                     </td>
                 </tr>
                             <tr>
@@ -3428,7 +3046,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2234, 2358</span>
+                            class="small font-monospace">2358, 2234</span>
                     </td>
                 </tr>
                             <tr>
@@ -3496,7 +3114,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2125, 2262</span>
+                            class="small font-monospace">2262, 2125</span>
                     </td>
                 </tr>
                             <tr>
@@ -3513,7 +3131,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1023, 1516, 2258</span>
+                            class="small font-monospace">2258, 1516, 1023</span>
                     </td>
                 </tr>
                             <tr>
@@ -3657,7 +3275,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">03/09/2020</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11001166 - C.E.I.P. María Valle</span>
+                    <td class="text-nowrap"><span class="small">11001166 - C.E.I.P. Carola Ribed</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -3700,7 +3318,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1933, 2066</span>
+                            class="small font-monospace">2066, 1933</span>
                     </td>
                 </tr>
                             <tr>
@@ -3717,7 +3335,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1422, 2063</span>
+                            class="small font-monospace">2063, 1422</span>
                     </td>
                 </tr>
                             <tr>
@@ -3887,7 +3505,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1525, 1779, 1861</span>
+                            class="small font-monospace">1861, 1779, 1525</span>
                     </td>
                 </tr>
                             <tr>
@@ -3921,7 +3539,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1169, 1799</span>
+                            class="small font-monospace">1799, 1169</span>
                     </td>
                 </tr>
                             <tr>
@@ -4213,13 +3831,423 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">917</span>
                     </td>
                 </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11006981 - C.E.I.P. Torresoto</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">09/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5681</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Los Barrios</span></td>
+                    <td class="text-nowrap"><span class="small">11602976 - C.E.I.P. Don Luis Lamadrid</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">15/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5321</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11603476 - C.E.I.P. Las Albinas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5103</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">123</span><span
+                            class="badge text-bg-light">19/04/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11005317 - C.E.I.P. Juan Díaz de Solís</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3776</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
+                            class="badge text-bg-light">15/04/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
+                    <td class="text-nowrap"><span class="small">11005548 - C.E.I.P. Princesa Sofía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5601</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
+                            class="badge text-bg-light">15/04/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11000186 - C.E.I.P. Sancti Petri</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3689</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
+                            class="badge text-bg-light">06/04/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11007442 - C.E.I.P. El Juncal</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3491</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
+                            class="badge text-bg-light">06/04/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11008100 - C.E.I.P. Blas Infante</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Rota</span></td>
+                    <td class="text-nowrap"><span class="small">11004854 - C.E.I.P. Luis Ponce de León</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4598</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11006565 - C.E.I.P. El Membrillar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4585</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">La Línea de la Concepción</span></td>
+                    <td class="text-nowrap"><span class="small">11603351 - C.E.I.P. Pablo Picasso</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5370</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">115</span><span
+                            class="badge text-bg-light">03/03/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Roque</span></td>
+                    <td class="text-nowrap"><span class="small">11005718 - C.E.I.P. Santa María Coronada</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5064</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">112</span><span
+                            class="badge text-bg-light">18/02/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11005160 - C.E.I.P. Quintanilla</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5296</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">112</span><span
+                            class="badge text-bg-light">18/02/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
+                    <td class="text-nowrap"><span class="small">11603282 - C.E.I.P. Caetaria</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4844</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
+                            class="badge text-bg-light">04/02/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Sanlúcar de Barrameda</span></td>
+                    <td class="text-nowrap"><span class="small">11007259 - C.E.I.P. El Picacho</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5476</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11006528 - C.E.I.P. La Barrosa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">16/04/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5335</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Vejer de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11006474 - C.E.I.P. Los Molinos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5039</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
+                            class="badge text-bg-light">26/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Ubrique</span></td>
+                    <td class="text-nowrap"><span class="small">11008033 - C.E.I.P. Fernando Gavilán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5371</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
+                            class="badge text-bg-light">21/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
+                    <td class="text-nowrap"><span class="small">11603282 - C.E.I.P. Caetaria</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5335</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
+                            class="badge text-bg-light">21/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Los Barrios</span></td>
+                    <td class="text-nowrap"><span class="small">11602976 - C.E.I.P. Don Luis Lamadrid</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5299</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
+                    <td class="text-nowrap"><span class="small">11000435 - C.E.I.P. Puerta del Mar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5190</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Tarifa</span></td>
+                    <td class="text-nowrap"><span class="small">11007120 - C.E.I.P. Ntra. Sra. de la Luz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5185</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
+                            class="badge text-bg-light">14/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
+                    <td class="text-nowrap"><span class="small">11003953 - C.E.I.P. Padre Muriel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/03/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4847</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
+                            class="badge text-bg-light">14/01/2021</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11007016 - C.E.I.P. Antonio Machado</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4783</span>
+                    </td>
+                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -4228,7 +4256,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -4236,5 +4264,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

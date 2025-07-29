@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2018/2019 - 00597038
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>135</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">135</td>
+            <th scope="col">Vacantes:</th>
+            <td>11</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>0</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>6</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>4181</td>
-            <th scope="col">Desiertas:</th>
-            <td>5</td>
         </tr>
         </thead>
     </table>
@@ -100,6 +126,448 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Posición adjudicada</th>
             </tr>
                             <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">9</span><span
+                            class="badge text-bg-light">14/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Beas</span></td>
+                    <td class="text-nowrap"><span class="small">21000607 - C.E.I.P. Juan Ramón Jiménez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3810</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">9</span><span
+                            class="badge text-bg-light">14/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21001399 - C.E.I.P. Doce de Octubre</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3440</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
+                            class="badge text-bg-light">12/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21500631 - S.E.P. La Hispanidad</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3575</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
+                            class="badge text-bg-light">12/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Lepe</span></td>
+                    <td class="text-nowrap"><span class="small">21002239 - C.E.I.P. Alonso Barba</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3468</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
+                            class="badge text-bg-light">12/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
+                    <td class="text-nowrap"><span class="small">21003530 - C.E.I.P. Sebastián Urbano Vázquez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3314</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
+                            class="badge text-bg-light">12/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Mazagón</span></td>
+                    <td class="text-nowrap"><span class="small">21003931 - C.E.I.P. El Faro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2439</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Almonaster la Real</span></td>
+                    <td class="text-nowrap"><span class="small">21500239 - S.E.P. Mezquita</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3778</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Higuera de la Sierra</span></td>
+                    <td class="text-nowrap"><span class="small">21001223 - C.E.I.P. Maestro Rafael Carballar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3739</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Aracena</span></td>
+                    <td class="text-nowrap"><span class="small">21000334 - C.E.PR. José Nogales</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3674</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21003608 - C.E.I.P. José Oliva</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3494</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
+                            class="badge text-bg-light">07/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Lepe</span></td>
+                    <td class="text-nowrap"><span class="small">21600787 - C.E.I.P. La Noria</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1523</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
+                            class="badge text-bg-light">05/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Niebla</span></td>
+                    <td class="text-nowrap"><span class="small">21500033 - S.E.P. Lebla</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2993</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
+                            class="badge text-bg-light">05/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Escacena del Campo</span></td>
+                    <td class="text-nowrap"><span class="small">21001132 - C.E.I.P. Virgen de Luna</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1811</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
+                            class="badge text-bg-light">05/03/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Lepe</span></td>
+                    <td class="text-nowrap"><span class="small">21003542 - C.E.I.P. Oria Castañeda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Aljaraque</span></td>
+                    <td class="text-nowrap"><span class="small">21000024 - C.E.I.P. Antonio Guerrero</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3719</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Palos de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">21002598 - C.E.I.P. Hermanos Pinzón</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3679</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">San Juan del Puerto</span></td>
+                    <td class="text-nowrap"><span class="small">21002781 - C.E.I.P. Alcalde J.J.Rebollo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3627</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Cartaya</span></td>
+                    <td class="text-nowrap"><span class="small">21600672 - C.E.I.P. Maestro Juan Díaz Hachero</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3616</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Corrales</span></td>
+                    <td class="text-nowrap"><span class="small">21000048 - C.E.I.P. Profesor Tierno Galván</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3348</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21003529 - C.E.I.P. Virgen del Pilar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3319</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21003141 - Delegación territorial de Educación</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1512</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
+                            class="badge text-bg-light">25/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Lepe</span></td>
+                    <td class="text-nowrap"><span class="small">21003542 - C.E.I.P. Oria Castañeda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
+                            class="badge text-bg-light">18/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Santa Bárbara de Casa</span></td>
+                    <td class="text-nowrap"><span class="small">21002859 - C.E.I.P. San Sebastián</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3545</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
+                            class="badge text-bg-light">18/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
+                    <td class="text-nowrap"><span class="small">21002045 - C.E.I.P. Ntra. Sra. del Carmen</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3313</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
+                            class="badge text-bg-light">18/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21003529 - C.E.I.P. Virgen del Pilar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3007</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
+                            class="badge text-bg-light">18/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21003281 - C.E.I.P. Reyes Católicos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2137</span>
+                    </td>
+                </tr>
+                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">30</span><span
                             class="badge text-bg-light">06/06/2019</span></td>
                     <td><span class="small">Huelva</span></td>
@@ -114,6 +582,176 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">4105</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
+                    <td class="text-nowrap"><span class="small">21500446 - S.E.P. Marismas del Guadiana(Ayamonte-Punta del Moral)</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3777</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyomolinos de León</span></td>
+                    <td class="text-nowrap"><span class="small">21000462 - C.E.I.P. Virgen de los Remedios</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3765</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Cala</span></td>
+                    <td class="text-nowrap"><span class="small">21000759 - C.E.I.P. San Roque</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3756</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
+                    <td class="text-nowrap"><span class="small">21000516 - C.E.I.P. Galdames</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3753</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Minas de Riotinto</span></td>
+                    <td class="text-nowrap"><span class="small">21002355 - C.E.I.P. Virgen del Rosario</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3739</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21001338 - C.E.I.P. Juvenal de Vega y Relea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3721</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Lucena del Puerto</span></td>
+                    <td class="text-nowrap"><span class="small">21002288 - C.E.I.P. Miguel de Cervantes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3714</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
+                    <td class="text-nowrap"><span class="small">21003943 - C.E.I.P. Moreno y Chacón</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3697</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
+                    <td class="text-nowrap"><span class="small">21002069 - C.E.I.P. Reina María Cristina</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3416</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
+                            class="badge text-bg-light">11/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
+                    <td class="text-nowrap"><span class="small">21002069 - C.E.I.P. Reina María Cristina</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -521,7 +1159,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -708,7 +1346,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -879,6 +1517,108 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">3982</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
+                            class="badge text-bg-light">04/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Cartaya</span></td>
+                    <td class="text-nowrap"><span class="small">21000875 - C.E.I.P. Concepción Arenal</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3646</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
+                            class="badge text-bg-light">04/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Puebla de Guzmán</span></td>
+                    <td class="text-nowrap"><span class="small">21002690 - C.E.I.P. Sebastián García Vázquez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3555</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
+                            class="badge text-bg-light">04/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">21001326 - C.E.I.P. Manuel Siurot</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3440</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
+                            class="badge text-bg-light">04/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
+                    <td class="text-nowrap"><span class="small">21002069 - C.E.I.P. Reina María Cristina</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3388</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
+                            class="badge text-bg-light">04/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
+                    <td class="text-nowrap"><span class="small">21000474 - C.E.I.P. Padre Jesús</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2399</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
+                            class="badge text-bg-light">04/02/2019</span></td>
+                    <td><span class="small">Huelva</span></td>
+                    <td class="text-nowrap"><span class="small">Corrales</span></td>
+                    <td class="text-nowrap"><span class="small">21000048 - C.E.I.P. Profesor Tierno Galván</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1608</span>
                     </td>
                 </tr>
                             <tr>
@@ -1167,7 +1907,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1596,720 +2336,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                 </tr>
                             <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">9</span><span
-                            class="badge text-bg-light">14/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Beas</span></td>
-                    <td class="text-nowrap"><span class="small">21000607 - C.E.I.P. Juan Ramón Jiménez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3810</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">9</span><span
-                            class="badge text-bg-light">14/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21001399 - C.E.I.P. Doce de Octubre</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3440</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
-                            class="badge text-bg-light">12/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21500631 - S.E.P. La Hispanidad</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3575</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
-                            class="badge text-bg-light">12/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Lepe</span></td>
-                    <td class="text-nowrap"><span class="small">21002239 - C.E.I.P. Alonso Barba</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3468</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
-                            class="badge text-bg-light">12/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
-                    <td class="text-nowrap"><span class="small">21003530 - C.E.I.P. Sebastián Urbano Vázquez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3314</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">8</span><span
-                            class="badge text-bg-light">12/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Mazagón</span></td>
-                    <td class="text-nowrap"><span class="small">21003931 - C.E.I.P. El Faro</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2439</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Almonaster la Real</span></td>
-                    <td class="text-nowrap"><span class="small">21500239 - S.E.P. Mezquita</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3778</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Higuera de la Sierra</span></td>
-                    <td class="text-nowrap"><span class="small">21001223 - C.E.I.P. Maestro Rafael Carballar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3739</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Aracena</span></td>
-                    <td class="text-nowrap"><span class="small">21000334 - C.E.PR. José Nogales</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3674</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21003608 - C.E.I.P. José Oliva</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3494</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">7</span><span
-                            class="badge text-bg-light">07/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Lepe</span></td>
-                    <td class="text-nowrap"><span class="small">21600787 - C.E.I.P. La Noria</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1523</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
-                            class="badge text-bg-light">05/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Niebla</span></td>
-                    <td class="text-nowrap"><span class="small">21500033 - S.E.P. Lebla</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2993</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
-                            class="badge text-bg-light">05/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Escacena del Campo</span></td>
-                    <td class="text-nowrap"><span class="small">21001132 - C.E.I.P. Virgen de Luna</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1811</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">6</span><span
-                            class="badge text-bg-light">05/03/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Lepe</span></td>
-                    <td class="text-nowrap"><span class="small">21003542 - C.E.I.P. Oria Castañeda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Aljaraque</span></td>
-                    <td class="text-nowrap"><span class="small">21000024 - C.E.I.P. Antonio Guerrero</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3719</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Palos de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">21002598 - C.E.I.P. Hermanos Pinzón</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3679</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">San Juan del Puerto</span></td>
-                    <td class="text-nowrap"><span class="small">21002781 - C.E.I.P. Alcalde J.J.Rebollo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3627</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Cartaya</span></td>
-                    <td class="text-nowrap"><span class="small">21600672 - C.E.I.P. Maestro Juan Díaz Hachero</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3616</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Corrales</span></td>
-                    <td class="text-nowrap"><span class="small">21000048 - C.E.I.P. Profesor Tierno Galván</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3348</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21003529 - C.E.I.P. Virgen del Pilar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3319</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21003141 - C.D.D.T. Delegación Territorial de Desarrollo Educativo, Formación Profesional, Universidad, Investigación e Innovación</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1512</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">5</span><span
-                            class="badge text-bg-light">25/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Lepe</span></td>
-                    <td class="text-nowrap"><span class="small">21003542 - C.E.I.P. Oria Castañeda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
-                            class="badge text-bg-light">18/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Santa Bárbara de Casa</span></td>
-                    <td class="text-nowrap"><span class="small">21002859 - C.E.I.P. San Sebastián</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3545</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
-                            class="badge text-bg-light">18/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
-                    <td class="text-nowrap"><span class="small">21002045 - C.E.I.P. Ntra. Sra. del Carmen</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3313</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
-                            class="badge text-bg-light">18/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21003529 - C.E.I.P. Virgen del Pilar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3007</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">4</span><span
-                            class="badge text-bg-light">18/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21003281 - C.E.I.P. Reyes Católicos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2137</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
-                    <td class="text-nowrap"><span class="small">21500446 - S.E.P. Marismas del Guadiana(Ayamonte-Punta del Moral)</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3777</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyomolinos de León</span></td>
-                    <td class="text-nowrap"><span class="small">21000462 - C.E.I.P. Virgen de los Remedios</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3765</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Cala</span></td>
-                    <td class="text-nowrap"><span class="small">21000759 - C.E.I.P. San Roque</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3756</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
-                    <td class="text-nowrap"><span class="small">21000516 - C.E.I.P. Galdames</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3753</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Minas de Riotinto</span></td>
-                    <td class="text-nowrap"><span class="small">21002355 - C.E.I.P. Virgen del Rosario</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3739</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21001338 - C.E.I.P. Juvenal de Vega y Relea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3721</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Lucena del Puerto</span></td>
-                    <td class="text-nowrap"><span class="small">21002288 - C.E.I.P. Miguel de Cervantes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3714</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
-                    <td class="text-nowrap"><span class="small">21003943 - C.E.I.P. Moreno y Chacón</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3697</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
-                    <td class="text-nowrap"><span class="small">21002069 - C.E.I.P. Reina María Cristina</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3416</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">3</span><span
-                            class="badge text-bg-light">11/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
-                    <td class="text-nowrap"><span class="small">21002069 - C.E.I.P. Reina María Cristina</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3416</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
-                            class="badge text-bg-light">04/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Cartaya</span></td>
-                    <td class="text-nowrap"><span class="small">21000875 - C.E.I.P. Concepción Arenal</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3646</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
-                            class="badge text-bg-light">04/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Puebla de Guzmán</span></td>
-                    <td class="text-nowrap"><span class="small">21002690 - C.E.I.P. Sebastián García Vázquez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3555</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
-                            class="badge text-bg-light">04/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">21001326 - C.E.I.P. Manuel Siurot</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3440</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
-                            class="badge text-bg-light">04/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Isla Cristina</span></td>
-                    <td class="text-nowrap"><span class="small">21002069 - C.E.I.P. Reina María Cristina</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3388</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
-                            class="badge text-bg-light">04/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Ayamonte</span></td>
-                    <td class="text-nowrap"><span class="small">21000474 - C.E.I.P. Padre Jesús</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2399</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
-                            class="badge text-bg-light">04/02/2019</span></td>
-                    <td><span class="small">Huelva</span></td>
-                    <td class="text-nowrap"><span class="small">Corrales</span></td>
-                    <td class="text-nowrap"><span class="small">21000048 - C.E.I.P. Profesor Tierno Galván</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1608</span>
-                    </td>
-                </tr>
-                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">1</span><span
                             class="badge text-bg-light">28/01/2019</span></td>
                     <td><span class="small">Huelva</span></td>
@@ -2397,10 +2423,12 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -2409,7 +2437,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -2417,5 +2445,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

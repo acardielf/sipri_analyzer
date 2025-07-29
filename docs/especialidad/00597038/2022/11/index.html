@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2022/2023 - 00597038
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>497</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
-            <td>488</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">497</td>
+            <th scope="col">Vacantes:</th>
+            <td>79</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
+            <td>1288</td>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>5</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>3390</td>
-            <th scope="col">Desiertas:</th>
-            <td>11</td>
         </tr>
         </thead>
     </table>
@@ -155,7 +181,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/06/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11007363 - C.E.I.P. Profesor Juan Carlos Aragón</span>
+                    <td class="text-nowrap"><span class="small">11007363 - C.E.I.P. Andalucía</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -164,7 +190,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -580,7 +606,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/05/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11001166 - C.E.I.P. María Valle</span>
+                    <td class="text-nowrap"><span class="small">11001166 - C.E.I.P. Carola Ribed</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -681,57 +707,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
                             class="badge text-bg-light">09/05/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Guadalcacín</span></td>
-                    <td class="text-nowrap"><span class="small">11002493 - C.E.I.P. Tomasa Pinilla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
-                    <td class="text-nowrap"><span class="small">11004234 - C.E.I.P. Sericícola</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11008094 - C.E.I.P. Arana Beato</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">26/05/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Ubrique</span></td>
                     <td class="text-nowrap"><span class="small">11500161 - C.E.PER. Siete Villas</span>
                     </td>
@@ -742,58 +717,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">26/05/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo Don Luis Unciti Esparza</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11602991 - C.E.I.P. Montealegre</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">01/06/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11603038 - C.E.I.P. Los Esteros</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">26/05/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">3297</span>
                     </td>
                 </tr>
                             <tr>
@@ -810,7 +734,109 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">26/05/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">3285</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">El Puerto de Santa María</span></td>
+                    <td class="text-nowrap"><span class="small">11004234 - C.E.I.P. Sericícola</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3278</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11008094 - C.E.I.P. Arana Beato</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/05/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2975</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
+                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2887</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11602991 - C.E.I.P. Montealegre</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">01/06/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2691</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11603038 - C.E.I.P. Los Esteros</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/05/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2671</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Guadalcacín</span></td>
+                    <td class="text-nowrap"><span class="small">11002493 - C.E.I.P. Tomasa Pinilla</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2668</span>
                     </td>
                 </tr>
                             <tr>
@@ -1174,6 +1200,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">248</span><span
                             class="badge text-bg-light">24/04/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Arcos de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11007995 - C.E.I.P. Maestro Juan Apresa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3179</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">248</span><span
+                            class="badge text-bg-light">24/04/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Castellar de la Frontera</span></td>
                     <td class="text-nowrap"><span class="small">11006723 - C.E.I.P. Tierno Galván</span>
                     </td>
@@ -1225,23 +1268,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">248</span><span
                             class="badge text-bg-light">24/04/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11007582 - I.E.S. Pablo Ruiz Picasso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">488</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">248</span><span
-                            class="badge text-bg-light">24/04/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Jimena de la Frontera</span></td>
                     <td class="text-nowrap"><span class="small">11003621 - C.E.I.P. Ntra. Sra. Reina de los Ángeles</span>
                     </td>
@@ -1252,7 +1278,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1277,7 +1303,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/04/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo Don Luis Unciti Esparza</span>
+                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1515,7 +1541,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">13/04/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo Don Luis Unciti Esparza</span>
+                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2756,7 +2782,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/02/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11007363 - C.E.I.P. Profesor Juan Carlos Aragón</span>
+                    <td class="text-nowrap"><span class="small">11007363 - C.E.I.P. Andalucía</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3309,7 +3335,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3469,85 +3495,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
                             class="badge text-bg-light">12/01/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11000332 - C.E.I.P. Virgen del Pilar</span>
+                    <td class="text-nowrap"><span class="small">La Muela</span></td>
+                    <td class="text-nowrap"><span class="small">11603385 - C.P.R. Salado-Breña</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Arcos de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11000721 - C.E.I.P. Ntra. Sra. de las Nieves</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">03/04/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11001099 - C.E.I.P. Reyes Católicos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11002134 - C.E.I.P. Ntra. Sra. de los Remedios</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
-                    <td class="text-nowrap"><span class="small">11002663 - C.E.I.P. Gloria Fuertes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2823</span>
                     </td>
                 </tr>
                             <tr>
@@ -3564,41 +3522,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">28/01/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Olvera</span></td>
-                    <td class="text-nowrap"><span class="small">11500018 - C.E.PER. Pueblos Blancos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
-                    <td class="text-nowrap"><span class="small">11602629 - C.E.I.P. La Constitución</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2819</span>
                     </td>
                 </tr>
                             <tr>
@@ -3606,7 +3530,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">12/01/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Algeciras</span></td>
-                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo Don Luis Unciti Esparza</span>
+                    <td class="text-nowrap"><span class="small">11000332 - C.E.I.P. Virgen del Pilar</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3615,7 +3539,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2813</span>
                     </td>
                 </tr>
                             <tr>
@@ -3632,15 +3556,49 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2731</span>
                     </td>
                 </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
                             class="badge text-bg-light">12/01/2023</span></td>
                     <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">La Muela</span></td>
-                    <td class="text-nowrap"><span class="small">11603385 - C.P.R. Salado-Breña</span>
+                    <td class="text-nowrap"><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">11001099 - C.E.I.P. Reyes Católicos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2704</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Algeciras</span></td>
+                    <td class="text-nowrap"><span class="small">11602964 - C.E.I.P. Mediterráneo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2677</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Olvera</span></td>
+                    <td class="text-nowrap"><span class="small">11500018 - C.E.PER. Pueblos Blancos</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -3649,7 +3607,58 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2676</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Jerez de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11002663 - C.E.I.P. Gloria Fuertes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2667</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Chiclana de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11002134 - C.E.I.P. Ntra. Sra. de los Remedios</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2653</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Arcos de la Frontera</span></td>
+                    <td class="text-nowrap"><span class="small">11000721 - C.E.I.P. Ntra. Sra. de las Nieves</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">03/04/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2643</span>
                     </td>
                 </tr>
                             <tr>
@@ -3666,7 +3675,24 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">25/04/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2543</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">San Fernando</span></td>
+                    <td class="text-nowrap"><span class="small">11602629 - C.E.I.P. La Constitución</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5510,7 +5536,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/10/2022</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">11007363 - C.E.I.P. Profesor Juan Carlos Aragón</span>
+                    <td class="text-nowrap"><span class="small">11007363 - C.E.I.P. Andalucía</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -5850,7 +5876,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">06/10/2022</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Zahara</span></td>
-                    <td class="text-nowrap"><span class="small">11006358 - C.E.I.P. Maestro Juan María Marín</span>
+                    <td class="text-nowrap"><span class="small">11006358 - C.E.I.P. Fernando Hue y Gutiérrez</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -5867,7 +5893,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">06/10/2022</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Zahara</span></td>
-                    <td class="text-nowrap"><span class="small">11006358 - C.E.I.P. Maestro Juan María Marín</span>
+                    <td class="text-nowrap"><span class="small">11006358 - C.E.I.P. Fernando Hue y Gutiérrez</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -6343,7 +6369,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/09/2022</span></td>
                     <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">El Pelayo</span></td>
-                    <td class="text-nowrap"><span class="small">11000496 - C.E.I.P. Pelayo</span>
+                    <td class="text-nowrap"><span class="small">11000496 - C.E.I.P. El Pelayo</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -7770,23 +7796,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Cádiz</span></td>
-                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
-                    <td class="text-nowrap"><span class="small">11003953 - C.E.I.P. Padre Muriel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1866</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
-                            class="badge text-bg-light">05/09/2022</span></td>
-                    <td><span class="small">Cádiz</span></td>
                     <td class="text-nowrap"><span class="small">Los Barrios</span></td>
                     <td class="text-nowrap"><span class="small">11007636 - C.E.I.P. Maestro Don Juan González</span>
                     </td>
@@ -8548,13 +8557,32 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">1288</span>
                     </td>
                 </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
+                            class="badge text-bg-light">05/09/2022</span></td>
+                    <td><span class="small">Cádiz</span></td>
+                    <td class="text-nowrap"><span class="small">Benalup-Casas Viejas</span></td>
+                    <td class="text-nowrap"><span class="small">11003953 - C.E.I.P. Padre Muriel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -8563,7 +8591,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -8571,5 +8599,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

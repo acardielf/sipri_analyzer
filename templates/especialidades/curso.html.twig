@@ -6,7 +6,6 @@
 {% block body %}
     <h2>Especialidad: <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
 
-
     <table class="table table-striped mt-5">
         <tr>
             <th>Provincia</th>
@@ -19,12 +18,12 @@
                 <td>
                     {{ provincia.nombre }}
                 </td>
-                {% for curso_codigo, curso in plazasFiltradas %}
+                {% for cursoId, provinciasByCurso in plazasFiltradas %}
                     <td>
-                        {% if curso[provincia.id]|length > 0 %}
-                            <a href="{{ path('app_especialidad_detail', { especialidad: especialidad.id, curso: curso_codigo, provincia: provincia.id } ) }}">
+                        {% if provinciasByCurso[provincia.id] > 0 %}
+                            <a href="{{ path('app_especialidad_detail', { especialidad: especialidad.id, curso: cursoId, provincia: provincia.id } ) }}">
                                 <span class="badge rounded-pill text-bg-primary">
-                                    {{ curso[provincia.id]|length }}
+                                    {{ provinciasByCurso[provincia.id] }}
                                 </span>
                             </a>
                         {% else %}
@@ -32,11 +31,14 @@
                                 -
                             </span>
                         {% endif %}
-
                     </td>
                 {% endfor %}
             </tr>
         {% endfor %}
     </table>
+    <h3 class="mt-5">Gráfico de evolución de plazas</h3>
+    <div class="w-50 h-50 mx-auto">
+        {{ render_chart(chart) }}
+    </div>
 
 {% endblock %}

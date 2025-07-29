@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2023/2024 - 00590011
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>254</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">254</td>
+            <th scope="col">Vacantes:</th>
+            <td>44</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>57</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>8</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>1422</td>
-            <th scope="col">Desiertas:</th>
-            <td>10</td>
         </tr>
         </thead>
     </table>
@@ -359,7 +385,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">21/05/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Cartima</span>
+                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Van Gogh, s/n</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -648,7 +674,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">25/04/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016264 - I.E.S. Teatinos</span>
+                    <td class="text-nowrap"><span class="small">29016264 - S.E.S.O.</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -681,8 +707,8 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">314</span><span
                             class="badge text-bg-light">25/04/2024</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cártama</span></td>
-                    <td class="text-nowrap"><span class="small">29700631 - I.E.S. Valle del Azahar</span>
+                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
+                    <td class="text-nowrap"><span class="small">29700692 - I.E.S. Fuente Lucena</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -691,7 +717,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">1040</span>
                     </td>
                 </tr>
                             <tr>
@@ -716,7 +742,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">18/04/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín de Aldehuela</span>
+                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín Aldehuela</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -742,7 +768,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -759,7 +785,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1107,7 +1133,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/03/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
-                    <td class="text-nowrap"><span class="small">29019320 - I.E.S. Ana Carmona &quot;Veleta&quot;</span>
+                    <td class="text-nowrap"><span class="small">29019320 - S.E.S.O. (del IES Las Lagunas)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1124,7 +1150,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/03/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Cartima</span>
+                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Van Gogh, s/n</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1141,7 +1167,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/03/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1311,7 +1337,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">29/02/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín de Aldehuela</span>
+                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín Aldehuela</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1345,7 +1371,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">26/02/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1362,7 +1388,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">26/02/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Coín</span></td>
-                    <td class="text-nowrap"><span class="small">29002332 - I.E.S. Ciudad de Coín</span>
+                    <td class="text-nowrap"><span class="small">29002332 - I.E.S. Licinio de la Fuente</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1548,17 +1574,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">296</span><span
                             class="badge text-bg-light">06/02/2024</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700679 - E.O.I. Axarquía</span>
+                    <td class="text-nowrap"><span class="small">Periana</span></td>
+                    <td class="text-nowrap"><span class="small">29700761 - I.E.S. Alta Axarquía</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
-                            class="small"></span>
+                            class="small">30/06/2024</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">647</span>
                     </td>
                 </tr>
                             <tr>
@@ -1677,7 +1703,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1736,7 +1762,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">16/01/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1821,7 +1847,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/01/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1855,7 +1881,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/01/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1889,7 +1915,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/01/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2093,7 +2119,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/01/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016264 - I.E.S. Teatinos</span>
+                    <td class="text-nowrap"><span class="small">29016264 - S.E.S.O.</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2178,7 +2204,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/01/2024</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín de Aldehuela</span>
+                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín Aldehuela</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2459,7 +2485,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2501,7 +2527,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">21/11/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torre de Benagalbón</span></td>
-                    <td class="text-nowrap"><span class="small">29017839 - I.E.S. Margarita Salas</span>
+                    <td class="text-nowrap"><span class="small">29017839 - S.E.S.O. (Zona Añoreta Golf)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2518,7 +2544,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">21/11/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2756,7 +2782,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">07/11/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Cartima</span>
+                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Van Gogh, s/n</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -2799,7 +2825,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2024</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3164,7 +3190,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">03/10/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29017785 - I.E.S. Cilniana</span>
+                    <td class="text-nowrap"><span class="small">29017785 - S.E.S.O. (del IES Dunas de las Chapas)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3232,7 +3258,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">26/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016264 - I.E.S. Teatinos</span>
+                    <td class="text-nowrap"><span class="small">29016264 - S.E.S.O.</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3299,57 +3325,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
                             class="badge text-bg-light">21/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Antequera</span></td>
-                    <td class="text-nowrap"><span class="small">29001145 - I.E.S. Pedro Espinosa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
-                            class="badge text-bg-light">21/09/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Campillos</span></td>
-                    <td class="text-nowrap"><span class="small">29001868 - I.E.S. Camilo José Cela</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">19/12/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
-                            class="badge text-bg-light">21/09/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29006830 - I.E.S. Guadalpín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
-                            class="badge text-bg-light">21/09/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torre del Mar</span></td>
                     <td class="text-nowrap"><span class="small">29008012 - I.E.S. Joaquín Lobato</span>
                     </td>
@@ -3360,15 +3335,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">952</span>
                     </td>
                 </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
                             class="badge text-bg-light">21/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009922 - I.E.S. El Palo</span>
+                    <td class="text-nowrap"><span class="small">Antequera</span></td>
+                    <td class="text-nowrap"><span class="small">29001145 - I.E.S. Pedro Espinosa</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3377,41 +3352,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
-                            class="badge text-bg-light">21/09/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Álora</span></td>
-                    <td class="text-nowrap"><span class="small">29011229 - I.E.S. Valle del Sol</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">18/01/2024</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
-                            class="badge text-bg-light">21/09/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700060 - I.E.S. Mayorazgo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">03/01/2024</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">947</span>
                     </td>
                 </tr>
                             <tr>
@@ -3428,7 +3369,75 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">937</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
+                            class="badge text-bg-light">21/09/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Campillos</span></td>
+                    <td class="text-nowrap"><span class="small">29001868 - I.E.S. Camilo José Cela</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">19/12/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">913</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
+                            class="badge text-bg-light">21/09/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006830 - I.E.S. Guadalpín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">911</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
+                            class="badge text-bg-light">21/09/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Álora</span></td>
+                    <td class="text-nowrap"><span class="small">29011229 - I.E.S. Valle del Sol</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">18/01/2024</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">909</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
+                            class="badge text-bg-light">21/09/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009922 - I.E.S. El Palo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">872</span>
                     </td>
                 </tr>
                             <tr>
@@ -3445,7 +3454,24 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">855</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">268</span><span
+                            class="badge text-bg-light">21/09/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700060 - I.E.S. Mayorazgo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">03/01/2024</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">309</span>
                     </td>
                 </tr>
                             <tr>
@@ -3547,7 +3573,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">03/01/2024</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3776,7 +3802,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
-                    <td class="text-nowrap"><span class="small">29019320 - I.E.S. Ana Carmona &quot;Veleta&quot;</span>
+                    <td class="text-nowrap"><span class="small">29019320 - S.E.S.O. (del IES Las Lagunas)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3803,6 +3829,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">640</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">264</span><span
+                            class="badge text-bg-light">11/09/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29008061 - I.E.S. Concha Méndez Cuesta</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/11/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">639</span>
                     </td>
                 </tr>
                             <tr>
@@ -3837,23 +3880,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">582</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">264</span><span
-                            class="badge text-bg-light">11/09/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29008061 - I.E.S. Concha Méndez Cuesta</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/11/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">571</span>
                     </td>
                 </tr>
                             <tr>
@@ -3912,7 +3938,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Cartima</span>
+                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Van Gogh, s/n</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3963,7 +3989,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torre de Benagalbón</span></td>
-                    <td class="text-nowrap"><span class="small">29017839 - I.E.S. Margarita Salas</span>
+                    <td class="text-nowrap"><span class="small">29017839 - S.E.S.O. (Zona Añoreta Golf)</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -4286,7 +4312,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -4320,7 +4346,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín de Aldehuela</span>
+                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín Aldehuela</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -4397,7 +4423,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -4414,16 +4440,18 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -4432,7 +4460,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -4440,5 +4468,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

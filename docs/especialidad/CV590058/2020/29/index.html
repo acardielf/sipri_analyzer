@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - CV590058
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>165</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">165</td>
+            <th scope="col">Vacantes:</th>
+            <td>138</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>3832</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>10570</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>1</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>10570</td>
         </tr>
         </thead>
     </table>
@@ -99,380 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">136</span><span
-                            class="badge text-bg-light">08/06/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estepona</span></td>
-                    <td class="text-nowrap"><span class="small">29002885 - I.E.S. Monterroso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7097</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
-                            class="badge text-bg-light">27/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29012064 - I.E.S. Arroyo de la Miel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8644</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Cartima</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5977</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
-                            class="badge text-bg-light">11/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700448 - R.E. La Rosaleda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8290</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009260 - I.E.S. Emilio Prados</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9585</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016264 - I.E.S. Teatinos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8732</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">125</span><span
-                            class="badge text-bg-light">27/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
-                    <td class="text-nowrap"><span class="small">29011540 - I.E.S. Salduba</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8605</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
-                            class="badge text-bg-light">15/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
-                    <td class="text-nowrap"><span class="small">29000062 - I.E.S. Capellanía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8527</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
-                            class="badge text-bg-light">08/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29700126 - I.E.S. Río Verde</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8168</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29006568 - I.E.S. Los Manantiales</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5088</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
-                            class="badge text-bg-light">11/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Churriana</span></td>
-                    <td class="text-nowrap"><span class="small">29007147 - I.E.S. Carlos Álvarez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7929</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Ronda</span></td>
-                    <td class="text-nowrap"><span class="small">29007962 - I.E.S. Martín Rivero</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">15/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6843</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700242 - I.E.S. Núm. 1. Universidad Laboral</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8197</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8194</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
-                            class="badge text-bg-light">04/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700102 - I.E.S. Miraflores de los Ángeles</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9172</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700102 - I.E.S. Miraflores de los Ángeles</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9737</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
-                    <td class="text-nowrap"><span class="small">29011540 - I.E.S. Salduba</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9645</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016264 - I.E.S. Teatinos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9644</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín de Aldehuela</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9305</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
-                            class="badge text-bg-light">26/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Churriana</span></td>
-                    <td class="text-nowrap"><span class="small">29007147 - I.E.S. Carlos Álvarez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8224</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
-                            class="badge text-bg-light">14/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009260 - I.E.S. Emilio Prados</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8212</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700242 - I.E.S. Núm. 1. Universidad Laboral</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4380</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
                             class="badge text-bg-light">12/11/2020</span></td>
@@ -504,7 +156,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -614,7 +266,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">27/10/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín de Aldehuela</span>
+                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín Aldehuela</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -878,7 +530,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">10318, 10494</span>
+                            class="small font-monospace">10494, 10318</span>
                     </td>
                 </tr>
                             <tr>
@@ -895,7 +547,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">10227, 10464</span>
+                            class="small font-monospace">10464, 10227</span>
                     </td>
                 </tr>
                             <tr>
@@ -946,7 +598,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6242, 10291</span>
+                            class="small font-monospace">10291, 6242</span>
                     </td>
                 </tr>
                             <tr>
@@ -980,7 +632,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">9850, 10244</span>
+                            class="small font-monospace">10244, 9850</span>
                     </td>
                 </tr>
                             <tr>
@@ -1048,7 +700,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5051, 9926</span>
+                            class="small font-monospace">9926, 5051</span>
                     </td>
                 </tr>
                             <tr>
@@ -1073,7 +725,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Coín</span></td>
-                    <td class="text-nowrap"><span class="small">29002332 - I.E.S. Ciudad de Coín</span>
+                    <td class="text-nowrap"><span class="small">29002332 - I.E.S. Licinio de la Fuente</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -1082,7 +734,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">9733, 9891</span>
+                            class="small font-monospace">9891, 9733</span>
                     </td>
                 </tr>
                             <tr>
@@ -1099,7 +751,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">9825, 9877</span>
+                            class="small font-monospace">9877, 9825</span>
                     </td>
                 </tr>
                             <tr>
@@ -1150,7 +802,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5646, 9763</span>
+                            class="small font-monospace">9763, 5646</span>
                     </td>
                 </tr>
                             <tr>
@@ -1167,7 +819,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">7326, 9701</span>
+                            class="small font-monospace">9701, 7326</span>
                     </td>
                 </tr>
                             <tr>
@@ -1184,7 +836,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5651, 9691</span>
+                            class="small font-monospace">9691, 5651</span>
                     </td>
                 </tr>
                             <tr>
@@ -1218,7 +870,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">9520, 9628</span>
+                            class="small font-monospace">9628, 9520</span>
                     </td>
                 </tr>
                             <tr>
@@ -1235,7 +887,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5547, 9611</span>
+                            class="small font-monospace">9611, 5547</span>
                     </td>
                 </tr>
                             <tr>
@@ -1252,7 +904,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8814, 9526</span>
+                            class="small font-monospace">9526, 8814</span>
                     </td>
                 </tr>
                             <tr>
@@ -1269,7 +921,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8746, 9511</span>
+                            class="small font-monospace">9511, 8746</span>
                     </td>
                 </tr>
                             <tr>
@@ -1354,7 +1006,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">9264, 9362</span>
+                            class="small font-monospace">9362, 9264</span>
                     </td>
                 </tr>
                             <tr>
@@ -1371,7 +1023,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4811, 9294</span>
+                            class="small font-monospace">9294, 4811</span>
                     </td>
                 </tr>
                             <tr>
@@ -1388,7 +1040,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6892, 8909</span>
+                            class="small font-monospace">8909, 6892</span>
                     </td>
                 </tr>
                             <tr>
@@ -1422,7 +1074,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4963, 8864</span>
+                            class="small font-monospace">8864, 4963</span>
                     </td>
                 </tr>
                             <tr>
@@ -1439,7 +1091,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8213, 8856</span>
+                            class="small font-monospace">8856, 8213</span>
                     </td>
                 </tr>
                             <tr>
@@ -1456,7 +1108,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4812, 8828</span>
+                            class="small font-monospace">8828, 4812</span>
                     </td>
                 </tr>
                             <tr>
@@ -1464,7 +1116,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola Nº 1</span>
+                    <td class="text-nowrap"><span class="small">29003041 - I.E.S. Fuengirola No 1</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -1490,7 +1142,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5931, 8719</span>
+                            class="small font-monospace">8719, 5931</span>
                     </td>
                 </tr>
                             <tr>
@@ -1507,7 +1159,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5574, 8567</span>
+                            class="small font-monospace">8567, 5574</span>
                     </td>
                 </tr>
                             <tr>
@@ -1541,7 +1193,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4485, 8546</span>
+                            class="small font-monospace">8546, 4485</span>
                     </td>
                 </tr>
                             <tr>
@@ -1592,7 +1244,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4948, 8368</span>
+                            class="small font-monospace">8368, 4948</span>
                     </td>
                 </tr>
                             <tr>
@@ -1626,7 +1278,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4671, 8311</span>
+                            class="small font-monospace">8311, 4671</span>
                     </td>
                 </tr>
                             <tr>
@@ -1643,7 +1295,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6776, 8294</span>
+                            class="small font-monospace">8294, 6776</span>
                     </td>
                 </tr>
                             <tr>
@@ -1668,7 +1320,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29017785 - I.E.S. Cilniana</span>
+                    <td class="text-nowrap"><span class="small">29017785 - S.E.S.O. (del IES Dunas de las Chapas)</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -1728,7 +1380,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6674, 8203</span>
+                            class="small font-monospace">8203, 6674</span>
                     </td>
                 </tr>
                             <tr>
@@ -1796,7 +1448,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8009, 8055</span>
+                            class="small font-monospace">8055, 8009</span>
                     </td>
                 </tr>
                             <tr>
@@ -1855,7 +1507,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016264 - I.E.S. Teatinos</span>
+                    <td class="text-nowrap"><span class="small">29016264 - S.E.S.O.</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -1881,7 +1533,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4659, 7701</span>
+                            class="small font-monospace">7701, 4659</span>
                     </td>
                 </tr>
                             <tr>
@@ -1898,7 +1550,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5177, 7631</span>
+                            class="small font-monospace">7631, 5177</span>
                     </td>
                 </tr>
                             <tr>
@@ -1932,7 +1584,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5995, 7052</span>
+                            class="small font-monospace">7052, 5995</span>
                     </td>
                 </tr>
                             <tr>
@@ -2017,7 +1669,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6474, 6485</span>
+                            class="small font-monospace">6485, 6474</span>
                     </td>
                 </tr>
                             <tr>
@@ -2085,7 +1737,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6380, 6392</span>
+                            class="small font-monospace">6392, 6380</span>
                     </td>
                 </tr>
                             <tr>
@@ -2136,7 +1788,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6313, 6313</span>
+                            class="small font-monospace">6313</span>
                     </td>
                 </tr>
                             <tr>
@@ -2153,7 +1805,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6302, 6306</span>
+                            class="small font-monospace">6306, 6302</span>
                     </td>
                 </tr>
                             <tr>
@@ -2204,7 +1856,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5208, 6295</span>
+                            class="small font-monospace">6295, 5208</span>
                     </td>
                 </tr>
                             <tr>
@@ -2263,7 +1915,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Cartima</span>
+                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Van Gogh, s/n</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -2272,7 +1924,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5088, 6066</span>
+                            class="small font-monospace">6066, 5088</span>
                     </td>
                 </tr>
                             <tr>
@@ -2340,7 +1992,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5475, 5928</span>
+                            class="small font-monospace">5928, 5475</span>
                     </td>
                 </tr>
                             <tr>
@@ -2408,7 +2060,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5655, 5721</span>
+                            class="small font-monospace">5721, 5655</span>
                     </td>
                 </tr>
                             <tr>
@@ -2527,7 +2179,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4965, 5173</span>
+                            class="small font-monospace">5173, 4965</span>
                     </td>
                 </tr>
                             <tr>
@@ -2578,7 +2230,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5013, 5076</span>
+                            class="small font-monospace">5076, 5013</span>
                     </td>
                 </tr>
                             <tr>
@@ -2595,7 +2247,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4931, 4980</span>
+                            class="small font-monospace">4980, 4931</span>
                     </td>
                 </tr>
                             <tr>
@@ -2603,7 +2255,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín de Aldehuela</span>
+                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín Aldehuela</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -2654,7 +2306,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
-                    <td class="text-nowrap"><span class="small">29019320 - I.E.S. Ana Carmona &quot;Veleta&quot;</span>
+                    <td class="text-nowrap"><span class="small">29019320 - S.E.S.O. (del IES Las Lagunas)</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -2671,7 +2323,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torre de Benagalbón</span></td>
-                    <td class="text-nowrap"><span class="small">29017839 - I.E.S. Margarita Salas</span>
+                    <td class="text-nowrap"><span class="small">29017839 - S.E.S.O. (Zona Añoreta Golf)</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -2680,7 +2332,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4175, 4802</span>
+                            class="small font-monospace">4802, 4175</span>
                     </td>
                 </tr>
                             <tr>
@@ -2748,7 +2400,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4606, 4767</span>
+                            class="small font-monospace">4767, 4606</span>
                     </td>
                 </tr>
                             <tr>
@@ -2904,13 +2556,389 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">4235</span>
                     </td>
                 </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">136</span><span
+                            class="badge text-bg-light">08/06/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Estepona</span></td>
+                    <td class="text-nowrap"><span class="small">29002885 - I.E.S. Monterroso</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7097</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
+                            class="badge text-bg-light">27/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29012064 - I.E.S. Arroyo de la Miel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8644</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
+                    <td class="text-nowrap"><span class="small">29009107 - I.E.S. Van Gogh, s/n</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5977</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
+                            class="badge text-bg-light">11/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700448 - R.E. La Rosaleda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8290</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009260 - I.E.S. Emilio Prados</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9585</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29016264 - S.E.S.O.</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8732</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">125</span><span
+                            class="badge text-bg-light">27/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
+                    <td class="text-nowrap"><span class="small">29011540 - I.E.S. Salduba</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8605</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
+                            class="badge text-bg-light">15/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
+                    <td class="text-nowrap"><span class="small">29000062 - I.E.S. Capellanía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8527</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
+                            class="badge text-bg-light">08/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29700126 - I.E.S. Río Verde</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8168</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29006568 - I.E.S. Los Manantiales</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5088</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
+                            class="badge text-bg-light">11/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Churriana</span></td>
+                    <td class="text-nowrap"><span class="small">29007147 - I.E.S. Carlos Álvarez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7929</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Ronda</span></td>
+                    <td class="text-nowrap"><span class="small">29007962 - I.E.S. Martín Rivero</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">15/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6843</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700242 - I.E.S. Núm. 1. Universidad Laboral</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8197</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29700916 - I.E.S. Costa del Sol</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8194</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
+                            class="badge text-bg-light">04/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700102 - I.E.S. Miraflores de los Ángeles</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9172</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700102 - I.E.S. Miraflores de los Ángeles</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9737</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
+                    <td class="text-nowrap"><span class="small">29011540 - I.E.S. Salduba</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9645</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29016264 - S.E.S.O.</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9644</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700047 - I.E.S. Martín Aldehuela</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9305</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
+                            class="badge text-bg-light">26/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Churriana</span></td>
+                    <td class="text-nowrap"><span class="small">29007147 - I.E.S. Carlos Álvarez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8224</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
+                            class="badge text-bg-light">14/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009260 - I.E.S. Emilio Prados</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8212</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29700242 - I.E.S. Núm. 1. Universidad Laboral</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4380</span>
+                    </td>
+                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -2919,7 +2947,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -2927,5 +2955,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

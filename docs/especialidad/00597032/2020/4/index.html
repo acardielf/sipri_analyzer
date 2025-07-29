@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - 00597032
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -65,23 +87,27 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     <div class="container-fluid">
             <h2>Especialidad: <strong><a class="text-decoration-none"
                                  href="/sipri_analyzer/especialidad/00597032/">00597032
-                - LENGUA EXTRANJERA-INGLÉS</a></strong></h2>
+                - LENGUA EXTRANJERA-INGLÉS (PRIMARIA)</a></strong></h2>
     <h3><span class="badge text-bg-primary">Curso 2020/2021</span> / <span
             class="badge text-bg-secondary">Almería</span></h3>
 
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>145</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">145</td>
+            <th scope="col">Vacantes:</th>
+            <td>14</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>852</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>1783</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>0</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>1783</td>
         </tr>
         </thead>
     </table>
@@ -99,6 +125,1247 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
+                            class="badge text-bg-light">26/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Dalías</span></td>
+                    <td class="text-nowrap"><span class="small">04002234 - C.E.I.P. Luis Vives</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1553</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
+                            class="badge text-bg-light">26/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
+                    <td class="text-nowrap"><span class="small">04002684 - C.E.I.P. San José de Calasanz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1279</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Villaricos</span></td>
+                    <td class="text-nowrap"><span class="small">04602006 - C.P.R. Sierra Almagrera</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1630</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Mojácar</span></td>
+                    <td class="text-nowrap"><span class="small">04500490 - S.E.P. Murgis Akra</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1603</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
+                            class="badge text-bg-light">17/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Cortijada de Marín</span></td>
+                    <td class="text-nowrap"><span class="small">04003718 - C.E.I.P. Llanos de Marín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">03/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1554</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Puebla de Vícar</span></td>
+                    <td class="text-nowrap"><span class="small">04008388 - C.E.I.P. José Saramago</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1643</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04004671 - C.E.I.P. San Luis</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1584</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Convoy</span></td>
+                    <td class="text-nowrap"><span class="small">04602018 - C.P.R. San Miguel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1647</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Puebloblanco</span></td>
+                    <td class="text-nowrap"><span class="small">04003691 - C.P.R. Campo de Níjar Norte</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1630</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
+                            class="badge text-bg-light">04/11/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000857 - C.E.I.P. Europa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1554</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Campohermoso</span></td>
+                    <td class="text-nowrap"><span class="small">04601798 - C.E.I.P. La Libertad</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1603</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Las Norias</span></td>
+                    <td class="text-nowrap"><span class="small">04006185 - C.E.I.P. Mirasierra</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1535</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Rubio</span></td>
+                    <td class="text-nowrap"><span class="small">04004310 - C.E.PR. Doctor Severo Ochoa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1584</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Adra</span></td>
+                    <td class="text-nowrap"><span class="small">04000079 - C.E.I.P. San Nicolás</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1570</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Balanegra</span></td>
+                    <td class="text-nowrap"><span class="small">04001771 - C.E.I.P. Buenavista</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1554</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Níjar</span></td>
+                    <td class="text-nowrap"><span class="small">04003275 - C.E.I.P. La Atalaya</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">10/02/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1414</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000821 - C.E.I.P. San Valentín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1505</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Balerma</span></td>
+                    <td class="text-nowrap"><span class="small">04002192 - C.E.I.P. Miguel Servet</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1292</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
+                    <td class="text-nowrap"><span class="small">04002684 - C.E.I.P. San José de Calasanz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1452</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Gérgal</span></td>
+                    <td class="text-nowrap"><span class="small">04002635 - C.E.I.P. Antonia Artigas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1447</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
+                    <td class="text-nowrap"><span class="small">04004681 - C.E.I.P. Juan de Orea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1414</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000870 - C.E.I.P. Lope de Vega</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1373</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
+                            class="badge text-bg-light">06/10/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
+                    <td class="text-nowrap"><span class="small">04005594 - C.E.I.P. Arco Iris</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1359</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Ejido</span></td>
+                    <td class="text-nowrap"><span class="small">04500520 - C.E.PER. Pablo Freire</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1320</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04001266 - C.E.I.P. Luis Siret</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1317</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
+                    <td class="text-nowrap"><span class="small">04007700 - C.E.I.P. La Molina</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1315</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Alcolea</span></td>
+                    <td class="text-nowrap"><span class="small">04602092 - C.P.R. Alcolea-Fondón</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1299</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Turre</span></td>
+                    <td class="text-nowrap"><span class="small">04004206 - C.E.I.P. María Cacho Castrillo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1295</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04006446 - C.E.I.P. Ginés Morata</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1292</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000791 - C.E.I.P. Giner de los Ríos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1291</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000717 - C.E.I.P. Virgen del Mar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1283</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Alquián</span></td>
+                    <td class="text-nowrap"><span class="small">04001321 - C.E.I.P. San Bernardo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">16/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1267</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Berja</span></td>
+                    <td class="text-nowrap"><span class="small">04501081 - S.E.P. Engarpe</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1287</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Los Gallardos</span></td>
+                    <td class="text-nowrap"><span class="small">04500519 - S.E.P. Clara Campoamor</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1284</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Vera</span></td>
+                    <td class="text-nowrap"><span class="small">04500477 - C.E.PER. Barea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1274</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">La Mojonera</span></td>
+                    <td class="text-nowrap"><span class="small">04005442 - C.E.I.P. Ángel Frigola</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1263</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Parador de las Hortichuelas</span></td>
+                    <td class="text-nowrap"><span class="small">04003755 - C.E.I.P. Francisco Villaespesa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1261</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
+                    <td class="text-nowrap"><span class="small">04003810 - C.E.I.P. Las Lomas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1257</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
+                    <td class="text-nowrap"><span class="small">04601646 - C.E.I.P. Blas Infante</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">18/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1255</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Instinción</span></td>
+                    <td class="text-nowrap"><span class="small">04602043 - C.P.R. Valle de Andarax</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1228</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Congo-Canal</span></td>
+                    <td class="text-nowrap"><span class="small">04005211 - C.E.I.P. La Canal</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1214</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Albox</span></td>
+                    <td class="text-nowrap"><span class="small">04000213 - C.E.I.P. Velázquez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">20/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1210</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Carboneras</span></td>
+                    <td class="text-nowrap"><span class="small">04001965 - C.E.I.P. Simón Fuentes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">01/03/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1176</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04004747 - C.E.I.P. Santa Isabel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1173</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Huércal de Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04002660 - C.E.I.P. Buenavista</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">28/01/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1172</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
+                    <td class="text-nowrap"><span class="small">04601971 - C.P.R. Estancias</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1143</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Saltador</span></td>
+                    <td class="text-nowrap"><span class="small">04601555 - C.E.I.P. Profesor Tierno Galván</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1141</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
+                    <td class="text-nowrap"><span class="small">04007700 - C.E.I.P. La Molina</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1120</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Pampanico</span></td>
+                    <td class="text-nowrap"><span class="small">04005119 - C.E.I.P. Punta Entinas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/11/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1111</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Vera</span></td>
+                    <td class="text-nowrap"><span class="small">04005193 - C.E.I.P. Ángel de Haro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1072</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">La Gangosa</span></td>
+                    <td class="text-nowrap"><span class="small">04005223 - C.E.I.P. Ntra. Sra. de la Merced</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">13/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1068</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Instinción</span></td>
+                    <td class="text-nowrap"><span class="small">04602043 - C.P.R. Valle de Andarax</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1056</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Alhama de Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000377 - C.E.I.P. Inmaculada Concepción</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1036</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
+                    <td class="text-nowrap"><span class="small">04601971 - C.P.R. Estancias</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">18/11/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1029</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Cortijada de Marín</span></td>
+                    <td class="text-nowrap"><span class="small">04003718 - C.E.I.P. Llanos de Marín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">09/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1024</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Turre</span></td>
+                    <td class="text-nowrap"><span class="small">04004206 - C.E.I.P. María Cacho Castrillo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1022</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Las Marinas</span></td>
+                    <td class="text-nowrap"><span class="small">04003721 - C.E.I.P. Las Marinas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1021</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">La Cueva de los Medinas</span></td>
+                    <td class="text-nowrap"><span class="small">04001382 - C.E.I.P. Maestro Rodríguez Espinosa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">995</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
+                    <td class="text-nowrap"><span class="small">04500374 - C.E.PER. Mare Nostrum</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">972</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04000870 - C.E.I.P. Lope de Vega</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">16/11/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">961</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
+                    <td class="text-nowrap"><span class="small">04004383 - C.E.I.P. Torrequebrada</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">954</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04006100 - C.E.I.P. Nueva Almería</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">14/01/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">944</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Pulpí</span></td>
+                    <td class="text-nowrap"><span class="small">04003551 - C.E.I.P. Emilio Zurano Muñoz</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">939</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
+                    <td class="text-nowrap"><span class="small">04005120 - C.E.I.P. Príncipe Felipe</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">930</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">La Cañada de San Urbano</span></td>
+                    <td class="text-nowrap"><span class="small">04001357 - C.E.I.P. San Indalecio</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">918</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Olula del Río</span></td>
+                    <td class="text-nowrap"><span class="small">04500866 - S.E.P. Ángeles López</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">917</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Vera</span></td>
+                    <td class="text-nowrap"><span class="small">04500477 - C.E.PER. Barea</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">916</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Berja</span></td>
+                    <td class="text-nowrap"><span class="small">04001783 - C.E.PR. Andrés Manjón</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">898</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04001229 - C.E.I.P. Ave María del Diezmo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">887</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Balanegra</span></td>
+                    <td class="text-nowrap"><span class="small">04001771 - C.E.I.P. Buenavista</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">882</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Ejido</span></td>
+                    <td class="text-nowrap"><span class="small">04002271 - C.E.I.P. Loma de Santo Domingo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">879</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04004671 - C.E.I.P. San Luis</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">869</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
+                    <td class="text-nowrap"><span class="small">04003706 - C.E.I.P. Trinidad Martínez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">852</span>
+                    </td>
+                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">136</span><span
                             class="badge text-bg-light">08/06/2021</span></td>
@@ -1323,1254 +2590,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">972</span>
                     </td>
                 </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
-                            class="badge text-bg-light">26/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Dalías</span></td>
-                    <td class="text-nowrap"><span class="small">04002234 - C.E.I.P. Luis Vives</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1553</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
-                            class="badge text-bg-light">26/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
-                    <td class="text-nowrap"><span class="small">04002684 - C.E.I.P. San José de Calasanz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1279</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Villaricos</span></td>
-                    <td class="text-nowrap"><span class="small">04602006 - C.P.R. Sierra Almagrera</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1630</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Mojácar</span></td>
-                    <td class="text-nowrap"><span class="small">04500490 - S.E.P. Murgis Akra</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1603</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
-                            class="badge text-bg-light">17/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Cortijada de Marín</span></td>
-                    <td class="text-nowrap"><span class="small">04003718 - C.E.I.P. Llanos de Marín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">03/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1554</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Puebla de Vícar</span></td>
-                    <td class="text-nowrap"><span class="small">04008388 - C.E.I.P. José Saramago</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1643</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04004671 - C.E.I.P. San Luis</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1584</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">El Convoy</span></td>
-                    <td class="text-nowrap"><span class="small">04602018 - C.P.R. San Miguel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1647</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Puebloblanco</span></td>
-                    <td class="text-nowrap"><span class="small">04003691 - C.P.R. Campo de Níjar Norte</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1630</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
-                            class="badge text-bg-light">04/11/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000857 - C.E.I.P. Europa José Ramos Santander</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1554</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Campohermoso</span></td>
-                    <td class="text-nowrap"><span class="small">04601798 - C.E.I.P. La Libertad</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1603</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Las Norias</span></td>
-                    <td class="text-nowrap"><span class="small">04006185 - C.E.I.P. Mirasierra</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1535</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Rubio</span></td>
-                    <td class="text-nowrap"><span class="small">04004310 - C.E.PR. Doctor Severo Ochoa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1584</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Adra</span></td>
-                    <td class="text-nowrap"><span class="small">04000079 - C.E.I.P. San Nicolás</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1570</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Balanegra</span></td>
-                    <td class="text-nowrap"><span class="small">04001771 - C.E.I.P. Buenavista</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1554</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Níjar</span></td>
-                    <td class="text-nowrap"><span class="small">04003275 - C.E.I.P. La Atalaya</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">10/02/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1414</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000821 - C.E.I.P. San Valentín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1505</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Balerma</span></td>
-                    <td class="text-nowrap"><span class="small">04002192 - C.E.I.P. Miguel Servet</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1292</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
-                    <td class="text-nowrap"><span class="small">04002684 - C.E.I.P. San José de Calasanz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1452</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Gérgal</span></td>
-                    <td class="text-nowrap"><span class="small">04002635 - C.E.I.P. Antonia Artigas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1447</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
-                    <td class="text-nowrap"><span class="small">04004681 - C.E.I.P. Juan de Orea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1414</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000870 - C.E.I.P. Lope de Vega</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1373</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">88</span><span
-                            class="badge text-bg-light">06/10/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
-                    <td class="text-nowrap"><span class="small">04005594 - C.E.I.P. Arco Iris</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1359</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">El Ejido</span></td>
-                    <td class="text-nowrap"><span class="small">04500520 - C.E.PER. Pablo Freire</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1320</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04001266 - C.E.I.P. Luis Siret</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1317</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
-                    <td class="text-nowrap"><span class="small">04007700 - C.E.I.P. La Molina</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1315</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Alcolea</span></td>
-                    <td class="text-nowrap"><span class="small">04602092 - C.P.R. Alcolea-Fondón</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1299</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Turre</span></td>
-                    <td class="text-nowrap"><span class="small">04004206 - C.E.I.P. María Cacho Castrillo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1295</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04006446 - C.E.I.P. Ginés Morata</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1292</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000791 - C.E.I.P. Giner de los Ríos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1291</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000717 - C.E.I.P. Virgen del Mar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1283</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">El Alquián</span></td>
-                    <td class="text-nowrap"><span class="small">04001321 - C.E.I.P. San Bernardo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">16/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1267</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Berja</span></td>
-                    <td class="text-nowrap"><span class="small">04501081 - S.E.P. Engarpe</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1287</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Los Gallardos</span></td>
-                    <td class="text-nowrap"><span class="small">04500519 - S.E.P. Clara Campoamor</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1284</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Vera</span></td>
-                    <td class="text-nowrap"><span class="small">04500477 - C.E.PER. Barea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1274</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">La Mojonera</span></td>
-                    <td class="text-nowrap"><span class="small">04005442 - C.E.I.P. Ángel Frigola</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1263</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">El Parador de las Hortichuelas</span></td>
-                    <td class="text-nowrap"><span class="small">04003755 - C.E.I.P. Francisco Villaespesa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1261</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
-                    <td class="text-nowrap"><span class="small">04003810 - C.E.I.P. Las Lomas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1257</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
-                    <td class="text-nowrap"><span class="small">04601646 - C.E.I.P. Blas Infante</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">18/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1255</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Instinción</span></td>
-                    <td class="text-nowrap"><span class="small">04602043 - C.P.R. Valle de Andarax</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1228</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Congo-Canal</span></td>
-                    <td class="text-nowrap"><span class="small">04005211 - C.E.I.P. La Canal</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1214</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Albox</span></td>
-                    <td class="text-nowrap"><span class="small">04000213 - C.E.I.P. Velázquez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">20/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1210</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Carboneras</span></td>
-                    <td class="text-nowrap"><span class="small">04001965 - C.E.I.P. Simón Fuentes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">01/03/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1176</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04004747 - C.E.I.P. Santa Isabel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1173</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Huércal de Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04002660 - C.E.I.P. Buenavista</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">28/01/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1172</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
-                    <td class="text-nowrap"><span class="small">04601971 - C.P.R. Estancias</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1143</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">El Saltador</span></td>
-                    <td class="text-nowrap"><span class="small">04601555 - C.E.I.P. Profesor Tierno Galván</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1141</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
-                    <td class="text-nowrap"><span class="small">04007700 - C.E.I.P. La Molina</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1120</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Pampanico</span></td>
-                    <td class="text-nowrap"><span class="small">04005119 - C.E.I.P. Punta Entinas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">26/11/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1111</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Vera</span></td>
-                    <td class="text-nowrap"><span class="small">04005193 - C.E.I.P. Ángel de Haro</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1072</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">La Gangosa</span></td>
-                    <td class="text-nowrap"><span class="small">04005223 - C.E.I.P. Ntra. Sra. de la Merced</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">13/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1068</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Instinción</span></td>
-                    <td class="text-nowrap"><span class="small">04602043 - C.P.R. Valle de Andarax</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1056</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Alhama de Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000377 - C.E.I.P. Inmaculada Concepción</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1036</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
-                    <td class="text-nowrap"><span class="small">04601971 - C.P.R. Estancias</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">18/11/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1029</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Cortijada de Marín</span></td>
-                    <td class="text-nowrap"><span class="small">04003718 - C.E.I.P. Llanos de Marín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">09/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1024</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Turre</span></td>
-                    <td class="text-nowrap"><span class="small">04004206 - C.E.I.P. María Cacho Castrillo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1022</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Las Marinas</span></td>
-                    <td class="text-nowrap"><span class="small">04003721 - C.E.I.P. Las Marinas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1021</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">La Cueva de los Medinas</span></td>
-                    <td class="text-nowrap"><span class="small">04001382 - C.E.I.P. Maestro Rodríguez Espinosa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">995</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Roquetas de Mar</span></td>
-                    <td class="text-nowrap"><span class="small">04500374 - C.E.PER. Mare Nostrum</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">972</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04000870 - C.E.I.P. Lope de Vega</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">16/11/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">961</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
-                    <td class="text-nowrap"><span class="small">04004383 - C.E.I.P. Torrequebrada</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">954</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04006100 - C.E.I.P. Nueva Almería</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">14/01/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">944</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Pulpí</span></td>
-                    <td class="text-nowrap"><span class="small">04003551 - C.E.I.P. Emilio Zurano Muñoz</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">939</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Huércal-Overa</span></td>
-                    <td class="text-nowrap"><span class="small">04005120 - C.E.I.P. Príncipe Felipe</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">930</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">La Cañada de San Urbano</span></td>
-                    <td class="text-nowrap"><span class="small">04001357 - C.E.I.P. San Indalecio</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">918</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Olula del Río</span></td>
-                    <td class="text-nowrap"><span class="small">04500866 - S.E.P. Ángeles López</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">917</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Vera</span></td>
-                    <td class="text-nowrap"><span class="small">04500477 - C.E.PER. Barea</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">916</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Berja</span></td>
-                    <td class="text-nowrap"><span class="small">04001783 - C.E.PR. Andrés Manjón</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">898</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04001229 - C.E.I.P. Ave María del Diezmo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">887</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Balanegra</span></td>
-                    <td class="text-nowrap"><span class="small">04001771 - C.E.I.P. Buenavista</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">882</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">El Ejido</span></td>
-                    <td class="text-nowrap"><span class="small">04002271 - C.E.I.P. Loma de Santo Domingo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">879</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04004671 - C.E.I.P. San Luis</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">869</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Aguadulce</span></td>
-                    <td class="text-nowrap"><span class="small">04003706 - C.E.I.P. Trinidad Martínez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">852</span>
-                    </td>
-                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -2579,7 +2607,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -2587,5 +2615,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

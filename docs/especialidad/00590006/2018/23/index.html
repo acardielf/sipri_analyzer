@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2018/2019 - 00590006
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>27</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">27</td>
+            <th scope="col">Vacantes:</th>
+            <td>1</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>0</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>0</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>2542</td>
-            <th scope="col">Desiertas:</th>
-            <td>0</td>
         </tr>
         </thead>
     </table>
@@ -99,244 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">28</span><span
-                            class="badge text-bg-light">30/05/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Sabiote</span></td>
-                    <td class="text-nowrap"><span class="small">23700797 - I.E.S. Iulia Salaria</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2419</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
-                            class="badge text-bg-light">21/05/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23700839 - I.E.S. Santa Teresa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2510</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">22</span><span
-                            class="badge text-bg-light">14/05/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
-                    <td class="text-nowrap"><span class="small">23700335 - I.E.S. Acebuche</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">883</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
-                            class="badge text-bg-light">09/05/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Begíjar</span></td>
-                    <td class="text-nowrap"><span class="small">23700633 - I.E.S. Vera Cruz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">24/05/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2542</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
-                            class="badge text-bg-light">09/05/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Guarromán</span></td>
-                    <td class="text-nowrap"><span class="small">23700670 - I.E.S. Río de los Granados</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">24/05/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2540</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
-                            class="badge text-bg-light">09/05/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Cazorla</span></td>
-                    <td class="text-nowrap"><span class="small">23001111 - I.E.S. Castillo de la Yedra</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2443</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">19</span><span
-                            class="badge text-bg-light">02/05/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Arjona</span></td>
-                    <td class="text-nowrap"><span class="small">23000261 - I.E.S. Ciudad de Arjona</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1965</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">18</span><span
-                            class="badge text-bg-light">29/04/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
-                    <td class="text-nowrap"><span class="small">23700301 - I.E.S. María Cabeza Arellano Martínez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2395</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">17</span><span
-                            class="badge text-bg-light">25/04/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
-                    <td class="text-nowrap"><span class="small">23006029 - I.E.S. Francisco de los Cobos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2384</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">16</span><span
-                            class="badge text-bg-light">23/04/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Castellar</span></td>
-                    <td class="text-nowrap"><span class="small">23700645 - I.E.S. Colegiata de Santiago</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2373</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">16</span><span
-                            class="badge text-bg-light">23/04/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
-                    <td class="text-nowrap"><span class="small">23700335 - I.E.S. Acebuche</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1983</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">15</span><span
-                            class="badge text-bg-light">04/04/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Martos</span></td>
-                    <td class="text-nowrap"><span class="small">23003132 - I.E.S. San Felipe Neri</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2019</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1075</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">13</span><span
-                            class="badge text-bg-light">28/03/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23700281 - I.E.S. Oretania</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1965</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">12</span><span
-                            class="badge text-bg-light">26/03/2019</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">La Carolina</span></td>
-                    <td class="text-nowrap"><span class="small">23001287 - I.E.S. Martín Halaja</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1856</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">9</span><span
                             class="badge text-bg-light">14/03/2019</span></td>
@@ -457,6 +245,108 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                 </tr>
                             <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">28</span><span
+                            class="badge text-bg-light">30/05/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Sabiote</span></td>
+                    <td class="text-nowrap"><span class="small">23700797 - I.E.S. Iulia Salaria</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2419</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">24</span><span
+                            class="badge text-bg-light">21/05/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23700839 - I.E.S. Santa Teresa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2510</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">22</span><span
+                            class="badge text-bg-light">14/05/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
+                    <td class="text-nowrap"><span class="small">23700335 - I.E.S. Acebuche</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">883</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
+                            class="badge text-bg-light">09/05/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Begíjar</span></td>
+                    <td class="text-nowrap"><span class="small">23700633 - I.E.S. Vera Cruz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">24/05/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2542</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
+                            class="badge text-bg-light">09/05/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Guarromán</span></td>
+                    <td class="text-nowrap"><span class="small">23700670 - I.E.S. Río de los Granados</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">24/05/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2540</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">21</span><span
+                            class="badge text-bg-light">09/05/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Cazorla</span></td>
+                    <td class="text-nowrap"><span class="small">23001111 - I.E.S. Castillo de la Yedra</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2443</span>
+                    </td>
+                </tr>
+                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">2</span><span
                             class="badge text-bg-light">04/02/2019</span></td>
                     <td><span class="small">Jaén</span></td>
@@ -525,6 +415,142 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                 </tr>
                             <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">19</span><span
+                            class="badge text-bg-light">02/05/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Arjona</span></td>
+                    <td class="text-nowrap"><span class="small">23000261 - I.E.S. Ciudad de Arjona</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1965</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">18</span><span
+                            class="badge text-bg-light">29/04/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
+                    <td class="text-nowrap"><span class="small">23700301 - I.E.S. Albariza</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2395</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">17</span><span
+                            class="badge text-bg-light">25/04/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
+                    <td class="text-nowrap"><span class="small">23006029 - I.E.S. Francisco de los Cobos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2384</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">16</span><span
+                            class="badge text-bg-light">23/04/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Castellar</span></td>
+                    <td class="text-nowrap"><span class="small">23700645 - I.E.S. Colegiata de Santiago</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2373</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">16</span><span
+                            class="badge text-bg-light">23/04/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
+                    <td class="text-nowrap"><span class="small">23700335 - I.E.S. Acebuche</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1983</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">15</span><span
+                            class="badge text-bg-light">04/04/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Martos</span></td>
+                    <td class="text-nowrap"><span class="small">23003132 - I.E.S. San Felipe Neri</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2019</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1075</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">13</span><span
+                            class="badge text-bg-light">28/03/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23700281 - I.E.S. Oretania</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1965</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">12</span><span
+                            class="badge text-bg-light">26/03/2019</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">La Carolina</span></td>
+                    <td class="text-nowrap"><span class="small">23001287 - I.E.S. Martín Halaja</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1856</span>
+                    </td>
+                </tr>
+                            <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">1</span><span
                             class="badge text-bg-light">28/01/2019</span></td>
                     <td><span class="small">Jaén</span></td>
@@ -561,10 +587,12 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -573,7 +601,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -581,5 +609,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

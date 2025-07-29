@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - 00597036
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>164</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">164</td>
+            <th scope="col">Vacantes:</th>
+            <td>15</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>130</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>1434</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>5</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>1434</td>
         </tr>
         </thead>
     </table>
@@ -99,1451 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estepona</span></td>
-                    <td class="text-nowrap"><span class="small">29016173 - C.E.I.P. Valeriano López</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1434</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
-                            class="badge text-bg-light">25/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Manilva</span></td>
-                    <td class="text-nowrap"><span class="small">29006581 - C.E.I.P. Pablo Picasso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">787</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">131</span><span
-                            class="badge text-bg-light">18/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003002 - C.E.I.P. Pablo Ruiz Picasso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1428</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">131</span><span
-                            class="badge text-bg-light">18/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29010018 - C.E.I.P. Los Ángeles</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">981</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Teba</span></td>
-                    <td class="text-nowrap"><span class="small">29008152 - C.E.I.P. Ntra. Sra. del Rosario</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1423</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Atajate</span></td>
-                    <td class="text-nowrap"><span class="small">29601999 - C.P.R. Serranía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1418</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29008590 - C.E.I.P. José Luis Villar Palasí</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1353</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29601653 - C.E.I.P. La Leala</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1339</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
-                            class="badge text-bg-light">13/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
-                    <td class="text-nowrap"><span class="small">29009326 - C.E.I.P. Pablo Ruiz Picasso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1262</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
-                            class="badge text-bg-light">11/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Benalmádena</span></td>
-                    <td class="text-nowrap"><span class="small">29001674 - C.E.I.P. Jacaranda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1049</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torrox-Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29008231 - C.E.I.P. El Faro</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1212</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cártama</span></td>
-                    <td class="text-nowrap"><span class="small">29002046 - C.E.I.P. Ntra. Sra. de los Remedios</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">787</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009673 - C.E.I.P. Los Morales</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1390</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29003646 - C.E.E.E. Santa Rosa de Lima</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1378</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Colmenar</span></td>
-                    <td class="text-nowrap"><span class="small">29002401 - C.E.I.P. Virgen de la Candelaria</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1008</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
-                    <td class="text-nowrap"><span class="small">29009533 - C.E.I.P. Miguel Hernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">981</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
-                            class="badge text-bg-light">29/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29602098 - C.E.I.P. Santa Amalia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">418</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
-                            class="badge text-bg-light">23/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29001637 - C.E.I.P. El Tomillar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1283</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">123</span><span
-                            class="badge text-bg-light">19/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29602232 - C.E.I.P. La Paloma</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
-                            class="badge text-bg-light">15/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29008590 - C.E.I.P. José Luis Villar Palasí</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">802</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Coín</span></td>
-                    <td class="text-nowrap"><span class="small">29070064 - E.O.E. Coín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1353</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva de la Concepción</span></td>
-                    <td class="text-nowrap"><span class="small">29001297 - C.E.I.P. Ciudad de Oscua</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1332</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Coín</span></td>
-                    <td class="text-nowrap"><span class="small">29002356 - C.E.I.P. Lope de Vega</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1327</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Nerja</span></td>
-                    <td class="text-nowrap"><span class="small">29009961 - C.E.I.P. Fuente del Badén</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1317</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
-                    <td class="text-nowrap"><span class="small">29010006 - C.E.I.P. Cayetano Bolívar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1305</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
-                            class="badge text-bg-light">13/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
-                    <td class="text-nowrap"><span class="small">29000293 - C.E.I.P. Los Manantiales</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1241</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
-                            class="badge text-bg-light">08/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016185 - C.E.I.P. Almudena Grandes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">511</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
-                            class="badge text-bg-light">06/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Manilva</span></td>
-                    <td class="text-nowrap"><span class="small">29006581 - C.E.I.P. Pablo Picasso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">27/05/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">877</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
-                            class="badge text-bg-light">06/04/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29008243 - C.E.I.P. Mar Argentea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">787</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29011606 - C.E.I.P. Salvador Allende</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">833</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29010353 - C.E.I.P. Neill</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">745</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Mijas</span></td>
-                    <td class="text-nowrap"><span class="small">29005931 - C.E.I.P. Jardín Botánico</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">699</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
-                            class="badge text-bg-light">24/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">La Cala del Moral</span></td>
-                    <td class="text-nowrap"><span class="small">29007573 - C.E.I.P. Gregorio Marañón</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
-                            class="badge text-bg-light">11/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
-                    <td class="text-nowrap"><span class="small">29010006 - C.E.I.P. Cayetano Bolívar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1352</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
-                            class="badge text-bg-light">11/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva de Algaidas</span></td>
-                    <td class="text-nowrap"><span class="small">29008841 - C.E.I.P. Miguel Berrocal</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1351</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
-                            class="badge text-bg-light">11/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29011813 - C.E.I.P. Benito Pérez Galdós</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1348</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
-                            class="badge text-bg-light">11/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Periana</span></td>
-                    <td class="text-nowrap"><span class="small">29007354 - C.E.I.P. San Isidro</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1333</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29003580 - C.E.I.P. La Biznaga</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1241</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Mijas</span></td>
-                    <td class="text-nowrap"><span class="small">29005931 - C.E.I.P. Jardín Botánico</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1092</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005175 - C.E.I.P. Ricardo León</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">833</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29006696 - C.E.I.P. Santa Teresa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">740</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29006143 - C.E.I.P. Clara Campoamor</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">528</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
-                            class="badge text-bg-light">09/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29011813 - C.E.I.P. Benito Pérez Galdós</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">392</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">115</span><span
-                            class="badge text-bg-light">03/03/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
-                    <td class="text-nowrap"><span class="small">29601628 - C.E.I.P. Isaac Peral</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">354</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
-                            class="badge text-bg-light">24/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29010298 - C.E.I.P. Tartessos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">673</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">110</span><span
-                            class="badge text-bg-light">11/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
-                    <td class="text-nowrap"><span class="small">29007901 - C.E.I.P. María Teresa León</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">954</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">110</span><span
-                            class="badge text-bg-light">11/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29601860 - C.E.I.P. Victoria Kent</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">833</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Mollina</span></td>
-                    <td class="text-nowrap"><span class="small">29007093 - C.E.I.P. Gerardo Fernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1392</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29016240 - C.E.I.P. Las Naciones</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1387</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estepona</span></td>
-                    <td class="text-nowrap"><span class="small">29002848 - C.E.PR. Víctor de la Serna</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1359</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29003646 - C.E.E.E. Santa Rosa de Lima</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1293</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
-                            class="badge text-bg-light">09/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29006659 - C.E.PR. Platero</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">894</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
-                            class="badge text-bg-light">04/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva del Rosario</span></td>
-                    <td class="text-nowrap"><span class="small">29008887 - C.E.I.P. Velasco y Merino</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1392</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
-                            class="badge text-bg-light">04/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009703 - C.E.I.P. Blas Infante</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1387</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
-                            class="badge text-bg-light">04/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
-                    <td class="text-nowrap"><span class="small">29000402 - C.E.I.P. Emilia Olivares</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1364</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
-                            class="badge text-bg-light">04/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29006349 - C.E.I.P. Atenea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">354</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torre del Mar</span></td>
-                    <td class="text-nowrap"><span class="small">29008462 - C.E.I.P. Custodio Puga</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1391</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torrox-Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29008231 - C.E.I.P. El Faro</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1388</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29011692 - C.E.I.P. Simón Bolívar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1258</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
-                            class="badge text-bg-light">02/02/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009715 - C.E.I.P. Antonio Machado</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1206</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torre del Mar</span></td>
-                    <td class="text-nowrap"><span class="small">29009387 - C.E.I.P. Vicente Aleixandre</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1353</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
-                            class="badge text-bg-light">28/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29006349 - C.E.I.P. Atenea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1206</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
-                            class="badge text-bg-light">26/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
-                    <td class="text-nowrap"><span class="small">29004614 - C.E.I.P. Tamixa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1340</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
-                            class="badge text-bg-light">21/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009752 - C.E.PR. San José de Calasanz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1341</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
-                            class="badge text-bg-light">21/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Campillos</span></td>
-                    <td class="text-nowrap"><span class="small">29001820 - C.E.I.P. Manzano Jiménez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1331</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
-                            class="badge text-bg-light">21/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1290</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Jubrique</span></td>
-                    <td class="text-nowrap"><span class="small">29602013 - C.P.R. Almazara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">11/04/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1315</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Algarrobo</span></td>
-                    <td class="text-nowrap"><span class="small">29000165 - C.E.I.P. José Gil López</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1314</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Mollina</span></td>
-                    <td class="text-nowrap"><span class="small">29007093 - C.E.I.P. Gerardo Fernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1304</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
-                    <td class="text-nowrap"><span class="small">29011795 - C.E.I.P. Luis Cernuda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1293</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
-                            class="badge text-bg-light">19/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
-                    <td class="text-nowrap"><span class="small">29009533 - C.E.I.P. Miguel Hernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">740</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
-                            class="badge text-bg-light">14/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29006775 - C.E.I.P. Rafael Fernández- Mayoralas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">894</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29003002 - C.E.I.P. Pablo Ruiz Picasso</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1278</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Almayate Alto</span></td>
-                    <td class="text-nowrap"><span class="small">29008346 - C.E.I.P. Juan Paniagua</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1232</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29601574 - C.E.I.P. Miguel de Cervantes</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1212</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Ronda</span></td>
-                    <td class="text-nowrap"><span class="small">29007755 - C.E.I.P. Vicente Espinel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1198</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29011187 - C.E.I.P. Juan Ramón Jiménez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1187</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29602098 - C.E.I.P. Santa Amalia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1179</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29003890 - C.E.I.P. Luis Buñuel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1145</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005345 - C.E.I.P. Domingo Lozano</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1092</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29006842 - C.E.I.P. Los Olivos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">970</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
-                    <td class="text-nowrap"><span class="small">29009569 - C.E.I.P. Andalucía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">894</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009703 - C.E.I.P. Blas Infante</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">823</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva de Algaidas</span></td>
-                    <td class="text-nowrap"><span class="small">29008841 - C.E.I.P. Miguel Berrocal</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">544</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
-                            class="badge text-bg-light">02/12/2020</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29010353 - C.E.I.P. Neill</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">894</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
                             class="badge text-bg-light">26/11/2020</span></td>
@@ -1589,7 +170,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td><span class=" small">VOLUNTARIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
-                            class="small">04/12/2020</span>
+                            class="small"></span>
                     </td>
                     <td><span
                             class="small font-monospace">1291</span>
@@ -1830,7 +411,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1983,7 +564,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2204,7 +785,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2887,13 +1468,1460 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">130</span>
                     </td>
                 </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Estepona</span></td>
+                    <td class="text-nowrap"><span class="small">29016173 - C.E.I.P. Valeriano López</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1434</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">133</span><span
+                            class="badge text-bg-light">25/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Manilva</span></td>
+                    <td class="text-nowrap"><span class="small">29006581 - C.E.I.P. Pablo Picasso</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">787</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">131</span><span
+                            class="badge text-bg-light">18/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
+                    <td class="text-nowrap"><span class="small">29003002 - C.E.I.P. Pablo Ruiz Picasso</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1428</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">131</span><span
+                            class="badge text-bg-light">18/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29010018 - C.E.I.P. Los Ángeles</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">981</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Teba</span></td>
+                    <td class="text-nowrap"><span class="small">29008152 - C.E.I.P. Ntra. Sra. del Rosario</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1423</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Atajate</span></td>
+                    <td class="text-nowrap"><span class="small">29601999 - C.P.R. Serranía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1418</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29008590 - C.E.I.P. José Luis Villar Palasí</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1353</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29601653 - C.E.I.P. La Leala</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1339</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">130</span><span
+                            class="badge text-bg-light">13/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
+                    <td class="text-nowrap"><span class="small">29009326 - C.E.I.P. Pablo Ruiz Picasso</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1262</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">129</span><span
+                            class="badge text-bg-light">11/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Benalmádena</span></td>
+                    <td class="text-nowrap"><span class="small">29001674 - C.E.I.P. Jacaranda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1049</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torrox-Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29008231 - C.E.I.P. El Faro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1212</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cártama</span></td>
+                    <td class="text-nowrap"><span class="small">29002046 - C.E.I.P. Ntra. Sra. de los Remedios</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">787</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009673 - C.E.I.P. Los Morales</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1390</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29003646 - C.E.E.E. Santa Rosa de Lima</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1378</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Colmenar</span></td>
+                    <td class="text-nowrap"><span class="small">29002401 - C.E.I.P. Virgen de la Candelaria</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1008</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
+                    <td class="text-nowrap"><span class="small">29009533 - C.E.I.P. Miguel Hernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">981</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">126</span><span
+                            class="badge text-bg-light">29/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
+                    <td class="text-nowrap"><span class="small">29602098 - C.E.I.P. Santa Amalia</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">418</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">124</span><span
+                            class="badge text-bg-light">23/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29001637 - C.E.I.P. El Tomillar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1283</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">123</span><span
+                            class="badge text-bg-light">19/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29602232 - C.E.I.P. La Paloma</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">122</span><span
+                            class="badge text-bg-light">15/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29008590 - C.E.I.P. José Luis Villar Palasí</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">802</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Coín</span></td>
+                    <td class="text-nowrap"><span class="small">29070064 - E.O.E. Coín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1353</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva de la Concepción</span></td>
+                    <td class="text-nowrap"><span class="small">29001297 - C.E.I.P. Ciudad de Oscua</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1332</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Coín</span></td>
+                    <td class="text-nowrap"><span class="small">29002356 - C.E.I.P. Lope de Vega</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1327</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Nerja</span></td>
+                    <td class="text-nowrap"><span class="small">29009961 - C.E.I.P. Fuente del Badén</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1317</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
+                    <td class="text-nowrap"><span class="small">29010006 - C.E.I.P. Cayetano Bolívar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1305</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">121</span><span
+                            class="badge text-bg-light">13/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
+                    <td class="text-nowrap"><span class="small">29000293 - C.E.I.P. Los Manantiales</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1241</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">120</span><span
+                            class="badge text-bg-light">08/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29016185 - C.E.I.P. Almudena Grandes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">511</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
+                            class="badge text-bg-light">06/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Manilva</span></td>
+                    <td class="text-nowrap"><span class="small">29006581 - C.E.I.P. Pablo Picasso</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">27/05/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">877</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">119</span><span
+                            class="badge text-bg-light">06/04/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29008243 - C.E.I.P. Mar Argentea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">787</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29011606 - C.E.I.P. Salvador Allende</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">833</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29010353 - C.E.I.P. Neill</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">745</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Mijas</span></td>
+                    <td class="text-nowrap"><span class="small">29005931 - C.E.I.P. Jardín Botánico</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">699</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">118</span><span
+                            class="badge text-bg-light">24/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">La Cala del Moral</span></td>
+                    <td class="text-nowrap"><span class="small">29007573 - C.E.I.P. Gregorio Marañón</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
+                            class="badge text-bg-light">11/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
+                    <td class="text-nowrap"><span class="small">29010006 - C.E.I.P. Cayetano Bolívar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1352</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
+                            class="badge text-bg-light">11/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva de Algaidas</span></td>
+                    <td class="text-nowrap"><span class="small">29008841 - C.E.I.P. Miguel Berrocal</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1351</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
+                            class="badge text-bg-light">11/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29011813 - C.E.I.P. Benito Pérez Galdós</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1348</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">117</span><span
+                            class="badge text-bg-light">11/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Periana</span></td>
+                    <td class="text-nowrap"><span class="small">29007354 - C.E.I.P. San Isidro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1333</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29003580 - C.E.I.P. La Biznaga</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1241</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Mijas</span></td>
+                    <td class="text-nowrap"><span class="small">29005931 - C.E.I.P. Jardín Botánico</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1092</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005175 - C.E.I.P. Ricardo León</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">833</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006696 - C.E.I.P. Santa Teresa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">740</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29006143 - C.E.I.P. Clara Campoamor</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">528</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">116</span><span
+                            class="badge text-bg-light">09/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29011813 - C.E.I.P. Benito Pérez Galdós</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">392</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">115</span><span
+                            class="badge text-bg-light">03/03/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín de la Torre</span></td>
+                    <td class="text-nowrap"><span class="small">29601628 - C.E.I.P. Isaac Peral</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">354</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">113</span><span
+                            class="badge text-bg-light">24/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29010298 - C.E.I.P. Tartessos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">673</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">110</span><span
+                            class="badge text-bg-light">11/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
+                    <td class="text-nowrap"><span class="small">29007901 - C.E.I.P. María Teresa León</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">954</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">110</span><span
+                            class="badge text-bg-light">11/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29601860 - C.E.I.P. Victoria Kent</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">833</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Mollina</span></td>
+                    <td class="text-nowrap"><span class="small">29007093 - C.E.I.P. Gerardo Fernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1392</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29016240 - C.E.I.P. Las Naciones</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1387</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Estepona</span></td>
+                    <td class="text-nowrap"><span class="small">29002848 - C.E.PR. Víctor de la Serna</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1359</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29003646 - C.E.E.E. Santa Rosa de Lima</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1293</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">109</span><span
+                            class="badge text-bg-light">09/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006659 - C.E.PR. Platero</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">894</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
+                            class="badge text-bg-light">04/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva del Rosario</span></td>
+                    <td class="text-nowrap"><span class="small">29008887 - C.E.I.P. Velasco y Merino</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1392</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
+                            class="badge text-bg-light">04/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009703 - C.E.I.P. Blas Infante</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1387</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
+                            class="badge text-bg-light">04/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
+                    <td class="text-nowrap"><span class="small">29000402 - C.E.I.P. Emilia Olivares</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1364</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
+                            class="badge text-bg-light">04/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29006349 - C.E.I.P. Atenea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">354</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torre del Mar</span></td>
+                    <td class="text-nowrap"><span class="small">29008462 - C.E.I.P. Custodio Puga</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1391</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torrox-Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29008231 - C.E.I.P. El Faro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1388</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29011692 - C.E.I.P. Simón Bolívar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1258</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">107</span><span
+                            class="badge text-bg-light">02/02/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009715 - C.E.I.P. Antonio Machado</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1206</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torre del Mar</span></td>
+                    <td class="text-nowrap"><span class="small">29009387 - C.E.I.P. Vicente Aleixandre</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1353</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">106</span><span
+                            class="badge text-bg-light">28/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29006349 - C.E.I.P. Atenea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1206</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">105</span><span
+                            class="badge text-bg-light">26/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
+                    <td class="text-nowrap"><span class="small">29004614 - C.E.I.P. Tamixa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1340</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
+                            class="badge text-bg-light">21/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009752 - C.E.PR. San José de Calasanz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1341</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
+                            class="badge text-bg-light">21/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Campillos</span></td>
+                    <td class="text-nowrap"><span class="small">29001820 - C.E.I.P. Manzano Jiménez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1331</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
+                            class="badge text-bg-light">21/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1290</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Jubrique</span></td>
+                    <td class="text-nowrap"><span class="small">29602013 - C.P.R. Almazara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">11/04/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1315</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Algarrobo</span></td>
+                    <td class="text-nowrap"><span class="small">29000165 - C.E.I.P. José Gil López</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1314</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Mollina</span></td>
+                    <td class="text-nowrap"><span class="small">29007093 - C.E.I.P. Gerardo Fernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1304</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Campanillas</span></td>
+                    <td class="text-nowrap"><span class="small">29011795 - C.E.I.P. Luis Cernuda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1293</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">103</span><span
+                            class="badge text-bg-light">19/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
+                    <td class="text-nowrap"><span class="small">29009533 - C.E.I.P. Miguel Hernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">740</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">102</span><span
+                            class="badge text-bg-light">14/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006775 - C.E.I.P. Rafael Fernández- Mayoralas</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">894</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
+                    <td class="text-nowrap"><span class="small">29003002 - C.E.I.P. Pablo Ruiz Picasso</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1278</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Almayate Alto</span></td>
+                    <td class="text-nowrap"><span class="small">29008346 - C.E.I.P. Juan Paniagua</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1232</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
+                    <td class="text-nowrap"><span class="small">29601574 - C.E.I.P. Miguel de Cervantes</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1212</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Ronda</span></td>
+                    <td class="text-nowrap"><span class="small">29007755 - C.E.I.P. Vicente Espinel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1198</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29011187 - C.E.I.P. Juan Ramón Jiménez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1187</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
+                    <td class="text-nowrap"><span class="small">29602098 - C.E.I.P. Santa Amalia</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1179</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29003890 - C.E.I.P. Luis Buñuel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1145</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29005345 - C.E.I.P. Domingo Lozano</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1092</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006842 - C.E.I.P. Los Olivos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">970</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Fuengirola</span></td>
+                    <td class="text-nowrap"><span class="small">29009569 - C.E.I.P. Andalucía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">894</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009703 - C.E.I.P. Blas Infante</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">823</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva de Algaidas</span></td>
+                    <td class="text-nowrap"><span class="small">29008841 - C.E.I.P. Miguel Berrocal</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">544</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">100</span><span
+                            class="badge text-bg-light">02/12/2020</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29010353 - C.E.I.P. Neill</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">894</span>
+                    </td>
+                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -2902,7 +2930,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -2910,5 +2938,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

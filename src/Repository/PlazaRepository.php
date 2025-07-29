@@ -168,6 +168,29 @@ class PlazaRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @param Especialidad $especialidad
+     * @return iterable<Plaza>
+     */
+    public function getEspecialidadAsArray(Especialidad $especialidad): iterable
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('curso.id as cursoId, prov.id as provId, COUNT(p.id) AS totalPlazas')
+            ->join('p.convocatoria', 'c')
+            ->join('c.curso', 'curso')
+            ->join('p.centro', 'cc')
+            ->join('cc.localidad', 'l')
+            ->join('l.provincia', 'prov')
+            ->where('p.especialidad = :especialidad')
+            ->groupBy('c.curso')
+            ->addGroupBy('l.provincia')
+            ->orderBy('c.curso', 'ASC')
+            ->addOrderBy('l.provincia', 'ASC')
+            ->setParameter('especialidad', $especialidad);
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
     public function remove(Plaza $entity, bool $flush = true): void
     {
         $this->getEntityManager()->remove($entity);

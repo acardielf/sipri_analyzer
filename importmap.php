@@ -33,4 +33,19 @@ return [
         'version' => '1.13.1',
         'type' => 'css',
     ],
+    '@hotwired/stimulus' => [
+        'version' => '3.2.2',
+    ],
+    '@symfony/stimulus-bundle' => [
+        'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
+    ],
+    'chart.js' => [
+        'version' => '3.9.1',
+    ],
+    'chartjs-plugin-autocolors' => [
+        'version' => '0.3.1',
+    ],
+    '@kurkle/color' => [
+        'version' => '0.3.2',
+    ],
 ];

@@ -32,68 +32,75 @@ bin/console doctrine:migrations:migrate --no-interaction
 
 ### Basic commands
 
-#### To get required PDFs from the SIPRI website
+#### GET: To get required PDFs from the SIPRI website
 
 ```bash
-bin/console sipri:get 1
+bin/console sipri:get 2
 
 #use --force to force download even if the file already exists
-bin/console sipri:get --force 1
+bin/console sipri:get --force 2
 ```
 
-#### To extract positions from the PDFs
+#### EXT: To extract positions from the PDFs
 
 ```bash
-bin/console sipri:ext 1
+bin/console sipri:ext 2
 
-# use --pagina to specify the page number to extract from
-bin/console sipri:ext --pagina 8 1
+# use --info to get information about the extracted data 
+bin/console sipri:ext --info
 ```
 
-#### To extract adjudications from the PDFs and attach to the offered positions
+![img_1.png](img_1.png)
+
+#### ADJ: To link adjudications to the extracted positions
 
 ```bash
-bin/console sipri:adj 1
+bin/console sipri:adj 2
 
-# use --pagina to specify the page number to extract from
-bin/console sipri:adj --pagina 8 1
+# use --info to get information about the extracted data 
+bin/console sipri:adj --info
 ```
 
-#### Remove convocatorias and all related adjudications
+![img_2.png](img_2.png)
+
+#### DEL: Remove convocatorias and all related adjudications
 
 ```bash
-bin/console sipri:del 1
+bin/console sipri:del 2
 ```
 
 #### Remove only adjudications
 
 ```bash
-bin/console sipri:del --adj 1
+bin/console sipri:del --adjudicaciones 2
+bin/console sipri:del --adj 2
 ```
 
 
 #### Remove convocatorias and all related adjudications and files
 
 ```bash
-bin/console sipri:del --full 1
+bin/console sipri:del --files 2
 ```
-
 
 #### Get, extract and process adjudications, in a loop
 
 ```bash
 # use desired range {1..10} to get the affected convocatorias
 for i in {1..10}; do 
-    php bin/console:get "$i"; 
+    php bin/console sipri:get "$i"; 
     php bin/console sipri:ex "$i"; 
     php bin/console sipri:adj "$i";
+    sleep 5; # to avoid overloading the server
 done
 ```
 
 #### Generar static website
 
 ```bash
-bin/console stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+cp var/data_dev.db var/data_prod.db # copy dev database to prod
+bin/console -e prod cache:clear
+bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
 ```   
 
 ### Debugging

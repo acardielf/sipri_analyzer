@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - 00597031
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>166</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">166</td>
+            <th scope="col">Vacantes:</th>
             <td>17</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
+            <td>17</td>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>4</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>2868</td>
-            <th scope="col">Desiertas:</th>
-            <td>5</td>
         </tr>
         </thead>
     </table>
@@ -99,6 +125,1536 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
+                            class="badge text-bg-light">26/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Santisteban del Puerto</span></td>
+                    <td class="text-nowrap"><span class="small">23003612 - C.E.I.P. Bachiller Pérez de Moya</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2618</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
+                            class="badge text-bg-light">26/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002206 - C.E.I.P. Jesús-María</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2598</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
+                            class="badge text-bg-light">26/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torres</span></td>
+                    <td class="text-nowrap"><span class="small">23004057 - C.E.I.P. Aznaitín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1330</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Pozo Alcón</span></td>
+                    <td class="text-nowrap"><span class="small">23003387 - C.E.I.P. Ntra. Sra. de los Dolores</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2646</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Bedmar</span></td>
+                    <td class="text-nowrap"><span class="small">23001056 - C.E.I.P. Virgen de Cuadros</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">16/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2638</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Martos</span></td>
+                    <td class="text-nowrap"><span class="small">23005463 - C.E.I.P. Tucci</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2608</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Siles</span></td>
+                    <td class="text-nowrap"><span class="small">23003843 - C.E.I.P. Santa Teresa de Jesús</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2586</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Quesada</span></td>
+                    <td class="text-nowrap"><span class="small">23003429 - C.E.I.P. Virgen del Tíscar</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">22/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2488</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Marmolejo</span></td>
+                    <td class="text-nowrap"><span class="small">23005013 - E.I. Ntra. Sra. de la Paz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1535</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
+                            class="badge text-bg-light">17/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
+                    <td class="text-nowrap"><span class="small">23004197 - C.E.I.P. Santísima Trinidad</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2484</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
+                            class="badge text-bg-light">17/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
+                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1094</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
+                    <td class="text-nowrap"><span class="small">23003971 - C.E.I.P. Puerta de Martos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2598</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Beas de Segura</span></td>
+                    <td class="text-nowrap"><span class="small">23000970 - E.I. San Fernando</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2586</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva de la Reina</span></td>
+                    <td class="text-nowrap"><span class="small">23004562 - C.E.I.P. Santa Potenciana</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2516</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002486 - C.E.I.P. Cándido Nogales</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2553</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002486 - C.E.I.P. Cándido Nogales</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2552</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jabalquinto</span></td>
+                    <td class="text-nowrap"><span class="small">23001810 - C.E.I.P. Ntro. Padre Jesús</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2546</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002498 - C.E.I.P. Navas de Tolosa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1206</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Bailén</span></td>
+                    <td class="text-nowrap"><span class="small">23005748 - C.E.I.P. Ntra. Sra. de Zocueca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">977</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
+                            class="badge text-bg-light">10/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Puente de Génave</span></td>
+                    <td class="text-nowrap"><span class="small">23003399 - C.E.I.P. San Isidro Labrador</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
+                            class="badge text-bg-light">04/11/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Santisteban del Puerto</span></td>
+                    <td class="text-nowrap"><span class="small">23003612 - C.E.I.P. Bachiller Pérez de Moya</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2532</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Campillo de Arenas</span></td>
+                    <td class="text-nowrap"><span class="small">23001160 - C.E.I.P. Virgen de la Cabeza</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2513</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
+                    <td class="text-nowrap"><span class="small">23005207 - C.E.I.P. Manuel de la Chica</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2511</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23002796 - C.E.I.P. Colón</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2509</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jódar</span></td>
+                    <td class="text-nowrap"><span class="small">23005451 - C.E.I.P. Doctor Fléming</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2507</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Andújar</span></td>
+                    <td class="text-nowrap"><span class="small">23000507 - C.E.I.P. San Eufrasio</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2506</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Andújar</span></td>
+                    <td class="text-nowrap"><span class="small">23000490 - C.E.I.P. Cristo Rey</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2505</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torreperogil</span></td>
+                    <td class="text-nowrap"><span class="small">23004011 - C.E.I.P. Ntra. Sra. de la Misericordia</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2499</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Baeza</span></td>
+                    <td class="text-nowrap"><span class="small">23000787 - C.E.I.P. San Juan de la Cruz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2486</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torredelcampo</span></td>
+                    <td class="text-nowrap"><span class="small">23005487 - C.E.I.P. San Miguel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2484</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23009432 - C.E.I.P. Coruña, 5</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2466</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
+                            class="badge text-bg-light">29/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23002701 - C.E.I.P. Andalucía</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2408</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Puente de Génave</span></td>
+                    <td class="text-nowrap"><span class="small">23003399 - C.E.I.P. San Isidro Labrador</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1831</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23004793 - C.E.I.P. María Zambrano</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1535</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
+                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1299</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23002760 - C.E.I.P. Jaén</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2422</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Bailén</span></td>
+                    <td class="text-nowrap"><span class="small">23000891 - E.I. El Castillo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2419</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23002796 - C.E.I.P. Colón</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2409</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Andújar</span></td>
+                    <td class="text-nowrap"><span class="small">23000465 - C.E.I.P. San Bartolomé</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2408</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23004768 - Delegación Territorial de Educación, Deporte, Igualdad, Polí</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1306</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
+                    <td class="text-nowrap"><span class="small">23005827 - C.E.I.P. Martingordo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1811</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torredelcampo</span></td>
+                    <td class="text-nowrap"><span class="small">23005499 - C.E.I.P. Príncipe Felipe</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1795</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
+                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1519</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Andújar</span></td>
+                    <td class="text-nowrap"><span class="small">23000453 - C.E.I.P. Capitán Cortés</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1510</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Pegalajar</span></td>
+                    <td class="text-nowrap"><span class="small">23003302 - C.E.I.P. Ntra. Sra. de las Nieves</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1327</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Vilches</span></td>
+                    <td class="text-nowrap"><span class="small">23004379 - C.E.I.P. Ntra. Sra. del Castillo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1463</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
+                    <td class="text-nowrap"><span class="small">23005131 - C.E.I.P. Santa María Magdalena</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1421</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torreperogil</span></td>
+                    <td class="text-nowrap"><span class="small">23005591 - C.E.I.P. Pero Xil</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">777</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Marmolejo</span></td>
+                    <td class="text-nowrap"><span class="small">23005013 - E.I. Ntra. Sra. de la Paz</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">770</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
+                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1317</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Los Villares</span></td>
+                    <td class="text-nowrap"><span class="small">23004641 - C.E.I.P. Ntra. Sra. del Rosario</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1208</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torredelcampo</span></td>
+                    <td class="text-nowrap"><span class="small">23005505 - C.E.I.P. Juan Carlos I</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1101</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002097 - C.E.I.P. Santo Domingo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1011</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
+                            class="badge text-bg-light">22/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Villacarrillo</span></td>
+                    <td class="text-nowrap"><span class="small">23005611 - C.E.I.P. Pintor Cristóbal Ruiz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1002</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">La Carolina</span></td>
+                    <td class="text-nowrap"><span class="small">23001275 - C.E.I.P. Palacios Rubio</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">827</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva de la Reina</span></td>
+                    <td class="text-nowrap"><span class="small">23004562 - C.E.I.P. Santa Potenciana</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">794</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23002735 - C.E.I.P. Padre Poveda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">777</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Porcuna</span></td>
+                    <td class="text-nowrap"><span class="small">23005475 - C.E.I.P. Juan Carlos I</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">770</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23004768 - Delegación Territorial de Educación, Deporte, Igualdad, Polí</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">764</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23002784 - C.E.I.P. Tetuán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">748</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Bailén</span></td>
+                    <td class="text-nowrap"><span class="small">23005748 - C.E.I.P. Ntra. Sra. de Zocueca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">745</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Cazorla</span></td>
+                    <td class="text-nowrap"><span class="small">23001378 - C.E.I.P. Virgen de la Cabeza</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">709</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Mancha Real</span></td>
+                    <td class="text-nowrap"><span class="small">23601311 - C.E.I.P. San José de Calasanz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">702</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Marmolejo</span></td>
+                    <td class="text-nowrap"><span class="small">23005013 - E.I. Ntra. Sra. de la Paz</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">645</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Bailén</span></td>
+                    <td class="text-nowrap"><span class="small">23002668 - E.I. Historiador Jesús de Haro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">502</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Hornos</span></td>
+                    <td class="text-nowrap"><span class="small">23601333 - C.E.I.P. Ntra. Sra. de la Asunción</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">306</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002267 - C.E.I.P. Ntra. Sra. de la Capilla</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Pozo Alcón</span></td>
+                    <td class="text-nowrap"><span class="small">23003387 - C.E.I.P. Ntra. Sra. de los Dolores</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">502</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Pozo Alcón</span></td>
+                    <td class="text-nowrap"><span class="small">23003387 - C.E.I.P. Ntra. Sra. de los Dolores</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">497</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Huesa</span></td>
+                    <td class="text-nowrap"><span class="small">23001767 - C.E.I.P. Alférez Segura</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">487</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Huelma</span></td>
+                    <td class="text-nowrap"><span class="small">23001743 - C.E.I.P. Virgen de la Fuensanta</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">21/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">479</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jimena</span></td>
+                    <td class="text-nowrap"><span class="small">23002516 - C.E.I.P. Ntra. Sra. de los Remedios</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">16/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">439</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
+                    <td class="text-nowrap"><span class="small">23004239 - C.E.I.P. Sebastián de Córdoba</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">403</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Linares</span></td>
+                    <td class="text-nowrap"><span class="small">23002784 - C.E.I.P. Tetuán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">14/10/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">398</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Santa Ana</span></td>
+                    <td class="text-nowrap"><span class="small">23601102 - C.P.R. Sierra Sur</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">10/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">388</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torreblascopedro</span></td>
+                    <td class="text-nowrap"><span class="small">23003910 - C.E.I.P. San José Artesano</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">08/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">382</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Castellar</span></td>
+                    <td class="text-nowrap"><span class="small">23001329 - C.E.I.P. Román Crespo Hoyo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">362</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">La Puerta de Segura</span></td>
+                    <td class="text-nowrap"><span class="small">23003405 - C.E.I.P. San Blas</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">354</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Sabiote</span></td>
+                    <td class="text-nowrap"><span class="small">23003454 - C.E.I.P. San Ginés de la Jara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">324</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Puente de Génave</span></td>
+                    <td class="text-nowrap"><span class="small">23003399 - C.E.I.P. San Isidro Labrador</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">306</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
+                    <td class="text-nowrap"><span class="small">23005131 - C.E.I.P. Santa María Magdalena</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">296</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Martos</span></td>
+                    <td class="text-nowrap"><span class="small">23000611 - E.I. San Fernando</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">290</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002164 - C.E.I.P. Ruiz Jiménez</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">03/01/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">275</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Cazorla</span></td>
+                    <td class="text-nowrap"><span class="small">23001408 - C.E.I.P. San Isicio</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">268</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002176 - C.E.I.P. Alfredo Cazabán</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">229</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Torreperogil</span></td>
+                    <td class="text-nowrap"><span class="small">23004011 - C.E.I.P. Ntra. Sra. de la Misericordia</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">185</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23002267 - C.E.I.P. Ntra. Sra. de la Capilla</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">136</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
+                    <td class="text-nowrap"><span class="small">23004197 - C.E.I.P. Santísima Trinidad</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">124</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23004793 - C.E.I.P. María Zambrano</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">40</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
+                            class="badge text-bg-light">03/09/2020</span></td>
+                    <td><span class="small">Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">La Guardia de Jaén</span></td>
+                    <td class="text-nowrap"><span class="small">23001603 - C.E.I.P. Real Mentesa</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2021</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">17</span>
+                    </td>
+                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">135</span><span
                             class="badge text-bg-light">01/06/2021</span></td>
@@ -232,7 +1788,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -852,7 +2408,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/02/2021</span></td>
                     <td><span class="small">Jaén</span></td>
                     <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23009432 - C.E.I.P. Antonio Prieto</span>
+                    <td class="text-nowrap"><span class="small">23009432 - C.E.I.P. Coruña, 5</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1089,8 +2645,8 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">104</span><span
                             class="badge text-bg-light">21/01/2021</span></td>
                     <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002474 - I.E.S. Jabalcuz</span>
+                    <td class="text-nowrap"><span class="small">Bailén</span></td>
+                    <td class="text-nowrap"><span class="small">23002668 - E.I. Historiador Jesús de Haro</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1099,7 +2655,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">1313</span>
                     </td>
                 </tr>
                             <tr>
@@ -1150,7 +2706,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1327,7 +2883,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
                             class="badge text-bg-light">12/01/2021</span></td>
                     <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Carchelejo</span></td>
+                    <td class="text-nowrap"><span class="small">Carchel</span></td>
                     <td class="text-nowrap"><span class="small">23001214 - C.E.I.P. Maestro Carlos Soler</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
@@ -1391,1543 +2947,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">382</span>
                     </td>
                 </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
-                            class="badge text-bg-light">26/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Santisteban del Puerto</span></td>
-                    <td class="text-nowrap"><span class="small">23003612 - C.E.I.P. Bachiller Pérez de Moya</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2618</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
-                            class="badge text-bg-light">26/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002206 - C.E.I.P. Jesús-María</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2598</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
-                            class="badge text-bg-light">26/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torres</span></td>
-                    <td class="text-nowrap"><span class="small">23004057 - C.E.I.P. Aznaitín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1330</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Pozo Alcón</span></td>
-                    <td class="text-nowrap"><span class="small">23003387 - C.E.I.P. Ntra. Sra. de los Dolores</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2646</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Bedmar</span></td>
-                    <td class="text-nowrap"><span class="small">23001056 - C.E.I.P. Virgen de Cuadros</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">16/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2638</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Martos</span></td>
-                    <td class="text-nowrap"><span class="small">23005463 - C.E.I.P. Tucci</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2608</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Siles</span></td>
-                    <td class="text-nowrap"><span class="small">23003843 - C.E.I.P. Santa Teresa de Jesús</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2586</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Quesada</span></td>
-                    <td class="text-nowrap"><span class="small">23003429 - C.E.I.P. Virgen del Tíscar</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">22/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2488</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Marmolejo</span></td>
-                    <td class="text-nowrap"><span class="small">23005013 - E.I. Ntra. Sra. de la Paz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1535</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
-                            class="badge text-bg-light">17/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
-                    <td class="text-nowrap"><span class="small">23004197 - C.E.I.P. Santísima Trinidad</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2484</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">97</span><span
-                            class="badge text-bg-light">17/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
-                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1094</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
-                    <td class="text-nowrap"><span class="small">23003971 - C.E.I.P. Puerta de Martos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2598</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Beas de Segura</span></td>
-                    <td class="text-nowrap"><span class="small">23000970 - E.I. San Fernando</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2586</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva de la Reina</span></td>
-                    <td class="text-nowrap"><span class="small">23004562 - C.E.I.P. Santa Potenciana</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2516</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002486 - C.E.I.P. Cándido Nogales</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2553</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002486 - C.E.I.P. Cándido Nogales</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2552</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jabalquinto</span></td>
-                    <td class="text-nowrap"><span class="small">23001810 - C.E.I.P. Ntro. Padre Jesús</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2546</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002498 - C.E.I.P. Navas de Tolosa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1206</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Bailén</span></td>
-                    <td class="text-nowrap"><span class="small">23005748 - C.E.I.P. Ntra. Sra. de Zocueca</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">977</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">95</span><span
-                            class="badge text-bg-light">10/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Puente de Génave</span></td>
-                    <td class="text-nowrap"><span class="small">23003399 - C.E.I.P. San Isidro Labrador</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">94</span><span
-                            class="badge text-bg-light">04/11/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Santisteban del Puerto</span></td>
-                    <td class="text-nowrap"><span class="small">23003612 - C.E.I.P. Bachiller Pérez de Moya</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2532</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Campillo de Arenas</span></td>
-                    <td class="text-nowrap"><span class="small">23001160 - C.E.I.P. Virgen de la Cabeza</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2513</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
-                    <td class="text-nowrap"><span class="small">23005207 - C.E.I.P. Manuel de la Chica</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2511</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23002796 - C.E.I.P. Colón</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2509</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jódar</span></td>
-                    <td class="text-nowrap"><span class="small">23005451 - C.E.I.P. Doctor Fléming</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2507</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Andújar</span></td>
-                    <td class="text-nowrap"><span class="small">23000507 - C.E.I.P. San Eufrasio</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2506</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Andújar</span></td>
-                    <td class="text-nowrap"><span class="small">23000490 - C.E.I.P. Cristo Rey</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2505</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torreperogil</span></td>
-                    <td class="text-nowrap"><span class="small">23004011 - C.E.I.P. Ntra. Sra. de la Misericordia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2499</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Baeza</span></td>
-                    <td class="text-nowrap"><span class="small">23000787 - C.E.I.P. San Juan de la Cruz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2486</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torredelcampo</span></td>
-                    <td class="text-nowrap"><span class="small">23005487 - C.E.I.P. San Miguel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2484</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23009432 - C.E.I.P. Antonio Prieto</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2466</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">93</span><span
-                            class="badge text-bg-light">29/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23002701 - C.E.I.P. Andalucía</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2408</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Puente de Génave</span></td>
-                    <td class="text-nowrap"><span class="small">23003399 - C.E.I.P. San Isidro Labrador</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1831</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23004793 - C.E.I.P. María Zambrano</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1535</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
-                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1299</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23002760 - C.E.I.P. Jaén</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2422</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Bailén</span></td>
-                    <td class="text-nowrap"><span class="small">23000891 - E.I. El Castillo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2419</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23002796 - C.E.I.P. Colón</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2409</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Andújar</span></td>
-                    <td class="text-nowrap"><span class="small">23000465 - C.E.I.P. San Bartolomé</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2408</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23004768 - C.D.D.T. Delegación Territorial de Desarrollo Educativo, Formación Profesional, Universidad, Investigación e Innovación</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1306</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torredonjimeno</span></td>
-                    <td class="text-nowrap"><span class="small">23005827 - C.E.I.P. Martingordo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1811</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torredelcampo</span></td>
-                    <td class="text-nowrap"><span class="small">23005499 - C.E.I.P. Príncipe Felipe</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1795</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
-                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1519</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Andújar</span></td>
-                    <td class="text-nowrap"><span class="small">23000453 - C.E.I.P. Capitán Cortés</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1510</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Pegalajar</span></td>
-                    <td class="text-nowrap"><span class="small">23003302 - C.E.I.P. Ntra. Sra. de las Nieves</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1327</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Vilches</span></td>
-                    <td class="text-nowrap"><span class="small">23004379 - C.E.I.P. Ntra. Sra. del Castillo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1463</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
-                    <td class="text-nowrap"><span class="small">23005131 - C.E.I.P. Santa María Magdalena</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1421</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torreperogil</span></td>
-                    <td class="text-nowrap"><span class="small">23005591 - C.E.I.P. Pero Xil</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">777</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Marmolejo</span></td>
-                    <td class="text-nowrap"><span class="small">23005013 - E.I. Ntra. Sra. de la Paz</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">770</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Alcaudete</span></td>
-                    <td class="text-nowrap"><span class="small">23005220 - E.I. Virgen de la Fuensanta</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1317</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Los Villares</span></td>
-                    <td class="text-nowrap"><span class="small">23004641 - C.E.I.P. Ntra. Sra. del Rosario</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1208</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torredelcampo</span></td>
-                    <td class="text-nowrap"><span class="small">23005505 - C.E.I.P. Juan Carlos I</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1101</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002097 - C.E.I.P. Santo Domingo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1011</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">85</span><span
-                            class="badge text-bg-light">22/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Villacarrillo</span></td>
-                    <td class="text-nowrap"><span class="small">23005611 - C.E.I.P. Pintor Cristóbal Ruiz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1002</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">La Carolina</span></td>
-                    <td class="text-nowrap"><span class="small">23001275 - C.E.I.P. Palacios Rubio</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">827</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Villanueva de la Reina</span></td>
-                    <td class="text-nowrap"><span class="small">23004562 - C.E.I.P. Santa Potenciana</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">794</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23002735 - C.E.I.P. Padre Poveda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">777</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Porcuna</span></td>
-                    <td class="text-nowrap"><span class="small">23005475 - C.E.I.P. Juan Carlos I</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">770</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23004768 - C.D.D.T. Delegación Territorial de Desarrollo Educativo, Formación Profesional, Universidad, Investigación e Innovación</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">764</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23002784 - C.E.I.P. Tetuán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">748</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Bailén</span></td>
-                    <td class="text-nowrap"><span class="small">23005748 - C.E.I.P. Ntra. Sra. de Zocueca</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">745</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Cazorla</span></td>
-                    <td class="text-nowrap"><span class="small">23001378 - C.E.I.P. Virgen de la Cabeza</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">709</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Mancha Real</span></td>
-                    <td class="text-nowrap"><span class="small">23601311 - C.E.I.P. San José de Calasanz</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">702</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Marmolejo</span></td>
-                    <td class="text-nowrap"><span class="small">23005013 - E.I. Ntra. Sra. de la Paz</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">645</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Bailén</span></td>
-                    <td class="text-nowrap"><span class="small">23002668 - E.I. Historiador Jesús de Haro</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">502</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Hornos</span></td>
-                    <td class="text-nowrap"><span class="small">23601333 - C.E.I.P. Ntra. Sra. de la Asunción</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">306</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002267 - C.E.I.P. Ntra. Sra. de la Capilla</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Pozo Alcón</span></td>
-                    <td class="text-nowrap"><span class="small">23003387 - C.E.I.P. Ntra. Sra. de los Dolores</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">502</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Pozo Alcón</span></td>
-                    <td class="text-nowrap"><span class="small">23003387 - C.E.I.P. Ntra. Sra. de los Dolores</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">497</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Huesa</span></td>
-                    <td class="text-nowrap"><span class="small">23001767 - C.E.I.P. Alférez Segura</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">487</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Huelma</span></td>
-                    <td class="text-nowrap"><span class="small">23001743 - C.E.I.P. Virgen de la Fuensanta</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">21/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">479</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jimena</span></td>
-                    <td class="text-nowrap"><span class="small">23002516 - C.E.I.P. Ntra. Sra. de los Remedios</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">16/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">439</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
-                    <td class="text-nowrap"><span class="small">23004239 - C.E.I.P. Sebastián de Córdoba</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">403</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Linares</span></td>
-                    <td class="text-nowrap"><span class="small">23002784 - C.E.I.P. Tetuán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">14/10/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">398</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Santa Ana</span></td>
-                    <td class="text-nowrap"><span class="small">23601102 - C.P.R. Sierra Sur</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">10/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">388</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torreblascopedro</span></td>
-                    <td class="text-nowrap"><span class="small">23003910 - C.E.I.P. San José Artesano</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">08/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">382</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Castellar</span></td>
-                    <td class="text-nowrap"><span class="small">23001329 - C.E.I.P. Román Crespo Hoyo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">362</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">La Puerta de Segura</span></td>
-                    <td class="text-nowrap"><span class="small">23003405 - C.E.I.P. San Blas</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">354</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Sabiote</span></td>
-                    <td class="text-nowrap"><span class="small">23003454 - C.E.I.P. San Ginés de la Jara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">324</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Puente de Génave</span></td>
-                    <td class="text-nowrap"><span class="small">23003399 - C.E.I.P. San Isidro Labrador</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">306</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Mengíbar</span></td>
-                    <td class="text-nowrap"><span class="small">23005131 - C.E.I.P. Santa María Magdalena</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">296</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Martos</span></td>
-                    <td class="text-nowrap"><span class="small">23000611 - E.I. San Fernando</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">290</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002164 - C.E.I.P. Ruiz Jiménez</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">03/01/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">275</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Cazorla</span></td>
-                    <td class="text-nowrap"><span class="small">23001408 - C.E.I.P. San Isicio</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">268</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002176 - C.E.I.P. Alfredo Cazabán</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">229</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Torreperogil</span></td>
-                    <td class="text-nowrap"><span class="small">23004011 - C.E.I.P. Ntra. Sra. de la Misericordia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">185</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23002267 - C.E.I.P. Ntra. Sra. de la Capilla</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">136</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Úbeda</span></td>
-                    <td class="text-nowrap"><span class="small">23004197 - C.E.I.P. Santísima Trinidad</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">124</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23004793 - C.E.I.P. María Zambrano</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">40</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">82</span><span
-                            class="badge text-bg-light">03/09/2020</span></td>
-                    <td><span class="small">Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">La Guardia de Jaén</span></td>
-                    <td class="text-nowrap"><span class="small">23001603 - C.E.I.P. Real Mentesa</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2021</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">17</span>
-                    </td>
-                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -2936,7 +2964,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -2944,5 +2972,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2022/2023 - 00597038
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>738</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">738</td>
+            <th scope="col">Vacantes:</th>
+            <td>87</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>10</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
+            <td>25</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
             <td>3431</td>
-            <th scope="col">Desiertas:</th>
-            <td>39</td>
         </tr>
         </thead>
     </table>
@@ -273,7 +299,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">262</span><span
                             class="badge text-bg-light">09/06/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estación de Gaucín- El Colmenar</span></td>
+                    <td class="text-nowrap"><span class="small">El Colmenar</span></td>
                     <td class="text-nowrap"><span class="small">29002575 - C.E.I.P. Santiago Apóstol</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
@@ -308,7 +334,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">06/06/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -334,7 +360,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -563,7 +589,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">30/05/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -640,7 +666,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -750,7 +776,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">25/05/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29016161 - C.E.I.P. Flor de Azahar</span>
+                    <td class="text-nowrap"><span class="small">29016161 - CEIP NUEVO</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -912,7 +938,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1548,8 +1574,8 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
                             class="badge text-bg-light">09/05/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alfarnate</span></td>
-                    <td class="text-nowrap"><span class="small">29000131 - C.E.I.P. Ntra. Sra. de Monsalud</span>
+                    <td class="text-nowrap"><span class="small">Álora</span></td>
+                    <td class="text-nowrap"><span class="small">29010250 - C.E.PR. Miguel de Cervantes</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1558,92 +1584,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
-                    <td class="text-nowrap"><span class="small">29000402 - C.E.I.P. Emilia Olivares</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
-                    <td class="text-nowrap"><span class="small">29000505 - C.E.I.P. El Chorro</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29005801 - C.E.I.P. Mariana Pineda</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29006842 - C.E.I.P. Los Olivos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">26/05/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29009338 - C.E.I.P. Carmen de Burgos</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">3296</span>
                     </td>
                 </tr>
                             <tr>
@@ -1660,15 +1601,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">26/05/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">3287</span>
                     </td>
                 </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
                             class="badge text-bg-light">09/05/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Álora</span></td>
-                    <td class="text-nowrap"><span class="small">29010250 - C.E.PR. Miguel de Cervantes</span>
+                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
+                    <td class="text-nowrap"><span class="small">29000402 - C.E.I.P. Emilia Olivares</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -1677,24 +1618,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
-                            class="badge text-bg-light">09/05/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Antequera</span></td>
-                    <td class="text-nowrap"><span class="small">29011886 - C.E.I.P. Reina Sofía</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">3242</span>
                     </td>
                 </tr>
                             <tr>
@@ -1711,7 +1635,109 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">3230</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
+                    <td class="text-nowrap"><span class="small">29000505 - C.E.I.P. El Chorro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3207</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006842 - C.E.I.P. Los Olivos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/05/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3190</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Antequera</span></td>
+                    <td class="text-nowrap"><span class="small">29011886 - C.E.I.P. Reina Sofía</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3167</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29009338 - C.E.I.P. Carmen de Burgos</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2848</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
+                    <td class="text-nowrap"><span class="small">29005801 - C.E.I.P. Mariana Pineda</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1896</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">252</span><span
+                            class="badge text-bg-light">09/05/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alfarnate</span></td>
+                    <td class="text-nowrap"><span class="small">29000131 - C.E.I.P. Ntra. Sra. de Monsalud</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1382</span>
                     </td>
                 </tr>
                             <tr>
@@ -1881,7 +1907,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1898,7 +1924,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -1915,7 +1941,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">25/05/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2500,23 +2526,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">246</span><span
                             class="badge text-bg-light">18/04/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29003890 - C.E.I.P. Luis Buñuel</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3138</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">246</span><span
-                            class="badge text-bg-light">18/04/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torre del Mar</span></td>
                     <td class="text-nowrap"><span class="small">29009570 - C.E.I.P. Antonio Checa Martínez</span>
                     </td>
@@ -2647,6 +2656,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">878</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">246</span><span
+                            class="badge text-bg-light">18/04/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29003890 - C.E.I.P. Luis Buñuel</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -2824,7 +2850,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">13/04/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -3377,7 +3403,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3469,7 +3495,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">242</span><span
                             class="badge text-bg-light">17/03/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estación de Gaucín- El Colmenar</span></td>
+                    <td class="text-nowrap"><span class="small">El Colmenar</span></td>
                     <td class="text-nowrap"><span class="small">29002575 - C.E.I.P. Santiago Apóstol</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
@@ -3564,7 +3590,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3581,7 +3607,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3666,7 +3692,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -3683,7 +3709,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -4346,7 +4372,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -4635,7 +4661,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -5510,7 +5536,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">17/01/2023</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. Maestra Virginia Gaitán</span>
+                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. El Pinillo</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -5543,8 +5569,8 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
                             class="badge text-bg-light">12/01/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
-                    <td class="text-nowrap"><span class="small">29000505 - C.E.I.P. El Chorro</span>
+                    <td class="text-nowrap"><span class="small">Yunquera</span></td>
+                    <td class="text-nowrap"><span class="small">29008991 - C.E.I.P. Sierra de las Nieves</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -5553,15 +5579,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2797</span>
                     </td>
                 </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
                             class="badge text-bg-light">12/01/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Arriate</span></td>
-                    <td class="text-nowrap"><span class="small">29001546 - C.E.I.P. Virgen de la Aurora</span>
+                    <td class="text-nowrap"><span class="small">Riogordo</span></td>
+                    <td class="text-nowrap"><span class="small">29007639 - C.E.I.P. Ntra. Sra. de Gracia</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -5570,75 +5596,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
-                    <td class="text-nowrap"><span class="small">29002125 - C.E.I.P. La Campiña</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Casabermeja</span></td>
-                    <td class="text-nowrap"><span class="small">29002186 - C.E.I.P. San Sebastián</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cómpeta</span></td>
-                    <td class="text-nowrap"><span class="small">29002541 - C.E.I.P. Cándido Lara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Cuevas Bajas</span></td>
-                    <td class="text-nowrap"><span class="small">29002630 - C.E.I.P. San Juan Bautista</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2787</span>
                     </td>
                 </tr>
                             <tr>
@@ -5655,75 +5613,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Humilladero</span></td>
-                    <td class="text-nowrap"><span class="small">29003130 - C.E.I.P. Ntra. Sra. del Rosario</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Churriana</span></td>
-                    <td class="text-nowrap"><span class="small">29003397 - C.E.I.P. Ciudad de Jaén</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">30/06/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Churriana</span></td>
-                    <td class="text-nowrap"><span class="small">29003403 - C.E.I.P. Manuel Fernández</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29003622 - C.E.I.P. Prácticas N-1</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2780</span>
                     </td>
                 </tr>
                             <tr>
@@ -5740,194 +5630,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Riogordo</span></td>
-                    <td class="text-nowrap"><span class="small">29007639 - C.E.I.P. Ntra. Sra. de Gracia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Riogordo</span></td>
-                    <td class="text-nowrap"><span class="small">29007639 - C.E.I.P. Ntra. Sra. de Gracia</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29008243 - C.E.I.P. Mar Argentea</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29008589 - C.E.I.P. Augusto Santiago Bellido</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Yunquera</span></td>
-                    <td class="text-nowrap"><span class="small">29008991 - C.E.I.P. Sierra de las Nieves</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torre de Benagalbón</span></td>
-                    <td class="text-nowrap"><span class="small">29009417 - C.E.I.P. Josefina Aldecoa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">23/01/2023</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29010018 - C.E.I.P. Los Ángeles</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29011928 - C.E.I.P. Manolo Garvayo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29601707 - C.E.I.P. Benyamina</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Marbella</span></td>
-                    <td class="text-nowrap"><span class="small">29601719 - C.E.I.P. Federico García Lorca</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
-                            class="badge text-bg-light">12/01/2023</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29602049 - C.E.I.P. Gandhi</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2772</span>
                     </td>
                 </tr>
                             <tr>
@@ -5944,7 +5647,160 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2771</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29601719 - C.E.I.P. Federico García Lorca</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2767</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Estación (Cártama)</span></td>
+                    <td class="text-nowrap"><span class="small">29002125 - C.E.I.P. La Campiña</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2758</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cómpeta</span></td>
+                    <td class="text-nowrap"><span class="small">29002541 - C.E.I.P. Cándido Lara</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2755</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Riogordo</span></td>
+                    <td class="text-nowrap"><span class="small">29007639 - C.E.I.P. Ntra. Sra. de Gracia</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2742</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Casabermeja</span></td>
+                    <td class="text-nowrap"><span class="small">29002186 - C.E.I.P. San Sebastián</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2740</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torre de Benagalbón</span></td>
+                    <td class="text-nowrap"><span class="small">29009417 - C.E.I.P. Josefina Aldecoa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">23/01/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2738</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29010018 - C.E.I.P. Los Ángeles</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2709</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29003622 - C.E.I.P. Prácticas N-1</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2703</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29008243 - C.E.I.P. Mar Argentea</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2700</span>
                     </td>
                 </tr>
                             <tr>
@@ -5961,15 +5817,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2689</span>
                     </td>
                 </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
                             class="badge text-bg-light">12/01/2023</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. Maestra Virginia Gaitán</span>
+                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29008589 - C.E.I.P. Augusto Santiago Bellido</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -5978,7 +5834,177 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace"></span>
+                            class="small font-monospace">2687</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29011928 - C.E.I.P. Manolo Garvayo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2685</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29601707 - C.E.I.P. Benyamina</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2684</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29602049 - C.E.I.P. Gandhi</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2683</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Churriana</span></td>
+                    <td class="text-nowrap"><span class="small">29003403 - C.E.I.P. Manuel Fernández</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2678</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Torremolinos</span></td>
+                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. El Pinillo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2672</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Humilladero</span></td>
+                    <td class="text-nowrap"><span class="small">29003130 - C.E.I.P. Ntra. Sra. del Rosario</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2656</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Cuevas Bajas</span></td>
+                    <td class="text-nowrap"><span class="small">29002630 - C.E.I.P. San Juan Bautista</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2638</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Alhaurín el Grande</span></td>
+                    <td class="text-nowrap"><span class="small">29000505 - C.E.I.P. El Chorro</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2615</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Arriate</span></td>
+                    <td class="text-nowrap"><span class="small">29001546 - C.E.I.P. Virgen de la Aurora</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1923</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">226</span><span
+                            class="badge text-bg-light">12/01/2023</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Churriana</span></td>
+                    <td class="text-nowrap"><span class="small">29003397 - C.E.I.P. Ciudad de Jaén</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/06/2023</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1148</span>
                     </td>
                 </tr>
                             <tr>
@@ -6284,7 +6310,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace">1852, 1972</span>
+                            class="small font-monospace">1972, 1852</span>
                     </td>
                 </tr>
                             <tr>
@@ -6777,7 +6803,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -6794,7 +6820,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7168,7 +7194,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7287,7 +7313,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7304,7 +7330,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7312,7 +7338,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">17/11/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -7668,6 +7694,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
                             class="badge text-bg-light">10/11/2022</span></td>
                     <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
+                    <td class="text-nowrap"><span class="small">29007901 - C.E.I.P. María Teresa León</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">19/12/2022</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2761</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
+                            class="badge text-bg-light">10/11/2022</span></td>
+                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
                     <td class="text-nowrap"><span class="small">29001637 - C.E.I.P. El Tomillar</span>
                     </td>
@@ -7679,6 +7722,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">2757</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
+                            class="badge text-bg-light">10/11/2022</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">29006155 - C.E.I.P. María Zambrano</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/11/2022</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2754</span>
                     </td>
                 </tr>
                             <tr>
@@ -7770,6 +7830,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
                             class="badge text-bg-light">10/11/2022</span></td>
                     <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006714 - C.E.I.P. Hermanos Gil Muñiz</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">30/11/2022</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2521</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
+                            class="badge text-bg-light">10/11/2022</span></td>
+                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Benalmádena</span></td>
                     <td class="text-nowrap"><span class="small">29001674 - C.E.I.P. Jacaranda</span>
                     </td>
@@ -7838,57 +7915,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
                             class="badge text-bg-light">10/11/2022</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005989 - I.E.S. Politécnico Jesús Marín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
-                            class="badge text-bg-light">10/11/2022</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Manilva</span></td>
-                    <td class="text-nowrap"><span class="small">29006601 - C.E.I.P. San Luis de Sabinillas</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
-                            class="badge text-bg-light">10/11/2022</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">San Pedro de Alcántara</span></td>
-                    <td class="text-nowrap"><span class="small">29007901 - C.E.I.P. María Teresa León</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">218</span><span
-                            class="badge text-bg-light">10/11/2022</span></td>
-                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Campanillas</span></td>
                     <td class="text-nowrap"><span class="small">29602293 - C.E.I.P. Francisco Quevedo</span>
                     </td>
@@ -7899,7 +7925,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -7916,7 +7942,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -8025,6 +8051,23 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">217</span><span
                             class="badge text-bg-light">08/11/2022</span></td>
                     <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Villanueva de Tapia</span></td>
+                    <td class="text-nowrap"><span class="small">29008942 - C.E.I.P. Rafael Alberti</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2554</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">217</span><span
+                            class="badge text-bg-light">08/11/2022</span></td>
+                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Coín</span></td>
                     <td class="text-nowrap"><span class="small">29010560 - C.E.I.P. Ximénez de Guzmán</span>
                     </td>
@@ -8056,11 +8099,11 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                 </tr>
                             <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">217</span><span
-                            class="badge text-bg-light">08/11/2022</span></td>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">216</span><span
+                            class="badge text-bg-light">03/11/2022</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29008681 - I.E.S. Juan de la Cierva</span>
+                    <td class="text-nowrap"><span class="small">Marbella</span></td>
+                    <td class="text-nowrap"><span class="small">29006696 - C.E.I.P. Santa Teresa</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -8069,7 +8112,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">2688</span>
                     </td>
                 </tr>
                             <tr>
@@ -8138,23 +8181,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </td>
                     <td><span
                             class="small font-monospace">1083</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">216</span><span
-                            class="badge text-bg-light">03/11/2022</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">29005989 - I.E.S. Politécnico Jesús Marín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">SÍ/NO</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">Desierta</span>
                     </td>
                 </tr>
                             <tr>
@@ -8273,7 +8299,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -8569,7 +8595,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">213</span><span
                             class="badge text-bg-light">25/10/2022</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estación de Gaucín- El Colmenar</span></td>
+                    <td class="text-nowrap"><span class="small">El Colmenar</span></td>
                     <td class="text-nowrap"><span class="small">29002575 - C.E.I.P. Santiago Apóstol</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
@@ -8638,7 +8664,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">25/10/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. Maestra Virginia Gaitán</span>
+                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. El Pinillo</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -8689,7 +8715,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">20/10/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -9029,7 +9055,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/10/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -9429,7 +9455,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -9607,7 +9633,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">04/10/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -9854,7 +9880,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -10660,7 +10686,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">201</span><span
                             class="badge text-bg-light">09/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Estación de Gaucín- El Colmenar</span></td>
+                    <td class="text-nowrap"><span class="small">El Colmenar</span></td>
                     <td class="text-nowrap"><span class="small">29002575 - C.E.I.P. Santiago Apóstol</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
@@ -10899,7 +10925,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">09/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. Maestra Virginia Gaitán</span>
+                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. El Pinillo</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -10942,7 +10968,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small"></span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
                     </td>
                 </tr>
                             <tr>
@@ -11188,7 +11214,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Archidona</span></td>
-                    <td class="text-nowrap"><span class="small">29019563 - C.E.PER. Nelson Mandela</span>
+                    <td class="text-nowrap"><span class="small">29019563 - C.E.PER.</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -11493,6 +11519,40 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Colmenar</span></td>
+                    <td class="text-nowrap"><span class="small">29002401 - C.E.I.P. Virgen de la Candelaria</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">26/10/2022</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1087</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
+                            class="badge text-bg-light">05/09/2022</span></td>
+                    <td><span class="small">Málaga</span></td>
+                    <td class="text-nowrap"><span class="small">Rincón de la Victoria</span></td>
+                    <td class="text-nowrap"><span class="small">29007585 - C.E.I.P. Profesor Tierno Galván</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">VOLUNTARIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">04/10/2022</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">1083</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
+                            class="badge text-bg-light">05/09/2022</span></td>
+                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
                     <td class="text-nowrap"><span class="small">29602220 - C.E.I.P. Los Campanales</span>
                     </td>
@@ -11766,7 +11826,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -11800,7 +11860,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Mijas</span></td>
-                    <td class="text-nowrap"><span class="small">29006970 - C.E.I.P. El Olmo</span>
+                    <td class="text-nowrap"><span class="small">29006970 - C.E.I.P. García del Olmo</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -11885,7 +11945,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Arroyo de la Miel- Benalmádena Costa</span></td>
-                    <td class="text-nowrap"><span class="small">29009636 - C.E.PR. Miguel Hernández</span>
+                    <td class="text-nowrap"><span class="small">29009636 - C.E.I.P. Miguel Hernández</span>
                     </td>
                     <td><span class="small">SUSTITUCION</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -12081,7 +12141,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">30/06/2023</span>
                     </td>
                     <td><span
-                            class="small font-monospace">248, 751</span>
+                            class="small font-monospace">751, 248</span>
                     </td>
                 </tr>
                             <tr>
@@ -12197,23 +12257,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td><span class=" small">VOLUNTARIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
-                            class="small">26/10/2022</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">707</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
-                            class="badge text-bg-light">05/09/2022</span></td>
-                    <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Colmenar</span></td>
-                    <td class="text-nowrap"><span class="small">29002401 - C.E.I.P. Virgen de la Candelaria</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
                             class="small"></span>
                     </td>
                     <td><span
@@ -12248,7 +12291,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td><span class=" small">VOLUNTARIA</span></td>
                     <td><span class="small">1</span></td>
                     <td><span
-                            class="small">04/10/2022</span>
+                            class="small"></span>
                     </td>
                     <td><span
                             class="small font-monospace">673</span>
@@ -12462,23 +12505,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
-                    <td class="text-nowrap"><span class="small">Rincón de la Victoria</span></td>
-                    <td class="text-nowrap"><span class="small">29007585 - C.E.I.P. Profesor Tierno Galván</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">506</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">200</span><span
-                            class="badge text-bg-light">05/09/2022</span></td>
-                    <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Las Lagunas</span></td>
                     <td class="text-nowrap"><span class="small">29011394 - C.E.I.P. Indira Gandhi</span>
                     </td>
@@ -12565,7 +12591,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">05/09/2022</span></td>
                     <td><span class="small">Málaga</span></td>
                     <td class="text-nowrap"><span class="small">Torremolinos</span></td>
-                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. Maestra Virginia Gaitán</span>
+                    <td class="text-nowrap"><span class="small">29602608 - C.E.I.P. El Pinillo</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">VOLUNTARIA</span></td>
@@ -12648,10 +12674,12 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -12660,7 +12688,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -12668,5 +12696,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

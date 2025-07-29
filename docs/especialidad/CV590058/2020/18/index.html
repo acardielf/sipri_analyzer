@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - CV590058
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>111</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
-            <td>1281</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>10367</td>
-            <th scope="col">Desiertas:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">111</td>
+            <th scope="col">Vacantes:</th>
+            <td>90</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
+            <td>2286</td>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>0</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>10367</td>
         </tr>
         </thead>
     </table>
@@ -99,6 +125,1570 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
+                            class="badge text-bg-light">24/11/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Ogíjares</span></td>
+                    <td class="text-nowrap"><span class="small">18700803 - I.E.S. Blas Infante</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8944</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
+                            class="badge text-bg-light">12/11/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Otura</span></td>
+                    <td class="text-nowrap"><span class="small">18004148 - I.E.S. Escultor Sánchez Mesa</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8339</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
+                            class="badge text-bg-light">27/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700116 - R.E. EE.MM. Virgen de las Nieves</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4159</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Loja</span></td>
+                    <td class="text-nowrap"><span class="small">18008919 - R.E. Medina Lauxa</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8774</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Montefrío</span></td>
+                    <td class="text-nowrap"><span class="small">18006571 - R.E. Virgen de los Remedios</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8723</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cogollos Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18700128 - R.E. Atalaya</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8512</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
+                            class="badge text-bg-light">21/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18006984 - R.E. Federico García Lorca</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8260</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Caniles</span></td>
+                    <td class="text-nowrap"><span class="small">18700517 - I.E.S. El Fuerte</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8564, 8538</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Baza</span></td>
+                    <td class="text-nowrap"><span class="small">18001044 - R.E. Maestro Sánchez Chanes</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8454</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700116 - R.E. EE.MM. Virgen de las Nieves</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8412</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cádiar</span></td>
+                    <td class="text-nowrap"><span class="small">18700670 - I.E.S. Al-Cadí</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8366</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cúllar</span></td>
+                    <td class="text-nowrap"><span class="small">18700529 - I.E.S. Gregorio Salvador</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8325</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Malahá</span></td>
+                    <td class="text-nowrap"><span class="small">18700645 - I.E.S. El Temple</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8293</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700098 - I.E.S. Zaidín-Vergeles</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8284</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
+                            class="badge text-bg-light">14/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Fuente Vaqueros</span></td>
+                    <td class="text-nowrap"><span class="small">18700611 - I.E.S. Fernando de los Ríos</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8262</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
+                            class="badge text-bg-light">01/10/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Montefrío</span></td>
+                    <td class="text-nowrap"><span class="small">18700487 - I.E.S. Hiponova</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8256</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alhama de Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700451 - I.E.S. Alhama</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8303</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Guadix</span></td>
+                    <td class="text-nowrap"><span class="small">18009213 - I.E.S. Acci</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7521</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
+                            class="badge text-bg-light">29/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Zubia</span></td>
+                    <td class="text-nowrap"><span class="small">18700244 - I.E.S. Trevenque</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6804</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
+                            class="badge text-bg-light">16/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alhama de Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700451 - I.E.S. Alhama</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5960</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Salobreña</span></td>
+                    <td class="text-nowrap"><span class="small">18009961 - I.E.S. Mediterráneo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5693, 10367</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Montefrío</span></td>
+                    <td class="text-nowrap"><span class="small">18700487 - I.E.S. Hiponova</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">10366</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18007022 - I.E.S. La Zafra</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6092, 10360</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18007046 - I.E.S. Francisco Javier de Burgos</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4960, 10351</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Purullena</span></td>
+                    <td class="text-nowrap"><span class="small">18700700 - I.E.S. Ribera del Fardes</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">10312</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18007058 - I.E.S. Julio Rodríguez</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">10145, 10164</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18700049 - I.E.S. José Martín Recuerda</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">10022, 9947</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Albuñol</span></td>
+                    <td class="text-nowrap"><span class="small">18700347 - I.E.S. La Contraviesa</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9942, 8289</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Padul</span></td>
+                    <td class="text-nowrap"><span class="small">18700724 - I.E.S. La Laguna</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9886, 9630</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
+                    <td class="text-nowrap"><span class="small">18000601 - I.E.S. Antigua Sexi</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9880</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Zubia</span></td>
+                    <td class="text-nowrap"><span class="small">18700244 - I.E.S. Trevenque</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9795, 9708</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Huétor Tájar</span></td>
+                    <td class="text-nowrap"><span class="small">18700301 - I.E.S. Américo Castro</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9575, 9784</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18700426 - I.E.S. Francisco Giner de los Ríos</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9716, 9602</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
+                    <td class="text-nowrap"><span class="small">18700463 - I.E.S. Al-Ándalus</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9596, 9676</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
+                    <td class="text-nowrap"><span class="small">18700499 - I.E.S. Puerta del Mar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8849, 9593</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Atarfe</span></td>
+                    <td class="text-nowrap"><span class="small">18000908 - I.E.S. Iliberis</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9589, 3505</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Atarfe</span></td>
+                    <td class="text-nowrap"><span class="small">18009407 - I.E.S. Vega de Atarfe</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9570, 8377</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Loja</span></td>
+                    <td class="text-nowrap"><span class="small">18005980 - I.E.S. Virgen de la Caridad</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4971, 9567</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Dúrcal</span></td>
+                    <td class="text-nowrap"><span class="small">18009778 - I.E.S. Alonso Cano</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5546, 9532</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alhendín</span></td>
+                    <td class="text-nowrap"><span class="small">18000842 - I.E.S. Alhendín</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9494, 8261</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cúllar Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18003004 - I.E.S. Arabuleila</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4810, 9465</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Chauchina</span></td>
+                    <td class="text-nowrap"><span class="small">18700360 - I.E.S. Arjé</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8296, 9447</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Santa Fe</span></td>
+                    <td class="text-nowrap"><span class="small">18009444 - I.E.S. Hispanidad</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8924</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Guadix</span></td>
+                    <td class="text-nowrap"><span class="small">18004801 - I.E.S. Padre Poveda</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8862, 8871</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Guadix</span></td>
+                    <td class="text-nowrap"><span class="small">18009213 - I.E.S. Acci</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8552, 8728</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">La Zubia</span></td>
+                    <td class="text-nowrap"><span class="small">18001081 - I.E.S. Laurel de la Reina</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8356, 8406</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Íllora</span></td>
+                    <td class="text-nowrap"><span class="small">18700773 - I.E.S. Diego de Siloé</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8388, 4420</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Guadix</span></td>
+                    <td class="text-nowrap"><span class="small">18004793 - I.E.S. Pedro Antonio de Alarcón</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8373</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Santa Fe</span></td>
+                    <td class="text-nowrap"><span class="small">18008257 - I.E.S. Jiménez de Quesada</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8360</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Peligros</span></td>
+                    <td class="text-nowrap"><span class="small">18000891 - I.E.S. Clara Campoamor</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8306, 6253</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Pinos Puente</span></td>
+                    <td class="text-nowrap"><span class="small">18009432 - I.E.S. Cerro de los Infantes</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4979, 8268</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Loja</span></td>
+                    <td class="text-nowrap"><span class="small">18700414 - I.E.S. Alfaguara</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8256</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Iznalloz</span></td>
+                    <td class="text-nowrap"><span class="small">18700475 - I.E.S. Montes Orientales</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8168, 5560</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Otura</span></td>
+                    <td class="text-nowrap"><span class="small">18004148 - I.E.S. Escultor Sánchez Mesa</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7870, 7737</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Ogíjares</span></td>
+                    <td class="text-nowrap"><span class="small">18700803 - I.E.S. Blas Infante</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6602, 7852</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Castell de Ferro</span></td>
+                    <td class="text-nowrap"><span class="small">18700581 - I.E.S. Sayena</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7174</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Gabia Grande</span></td>
+                    <td class="text-nowrap"><span class="small">18700372 - I.E.S. Montevives</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4297, 7082</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Pulianas</span></td>
+                    <td class="text-nowrap"><span class="small">18700694 - I.E.S. Bulyana</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7024</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Churriana de la Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18002243 - I.E.S. Federico García Lorca</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6686, 4959</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Huétor Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18009201 - I.E.S. Los Neveros</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5740, 6587</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alhama de Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700451 - I.E.S. Alhama</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6375</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Maracena</span></td>
+                    <td class="text-nowrap"><span class="small">18700657 - I.E.S. Manuel de Falla</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6327, 6338</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Armilla</span></td>
+                    <td class="text-nowrap"><span class="small">18000787 - I.E.S. Luis Bueno Crespo</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4561, 6321</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Baza</span></td>
+                    <td class="text-nowrap"><span class="small">18001123 - I.E.S. Pedro Jiménez Montoya</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6305</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Baza</span></td>
+                    <td class="text-nowrap"><span class="small">18001147 - I.E.S. José de Mora</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6293</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Baza</span></td>
+                    <td class="text-nowrap"><span class="small">18700359 - I.E.S. Alcrebite</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6223</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Órgiva</span></td>
+                    <td class="text-nowrap"><span class="small">18700761 - I.E.S. Alpujarra</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5772</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Huéscar</span></td>
+                    <td class="text-nowrap"><span class="small">18005153 - I.E.S. Alquivira</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5717</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Armilla</span></td>
+                    <td class="text-nowrap"><span class="small">18700232 - I.E.S. Alba Longa</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5692, 5235</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Cogollos Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18001834 - I.E.S. Emilio Muñoz</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5638</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Salobreña</span></td>
+                    <td class="text-nowrap"><span class="small">18000519 - I.E.S. Nazarí</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3847, 5611</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18009195 - I.E.S. Mariana Pineda</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4994, 5505</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18010185 - I.E.S. Alhambra</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5204, 5210</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700037 - I.E.S. Pedro Soto de Rojas</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4674, 5178</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700013 - I.E.S. Fray Luis de Granada</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5127, 4989</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Huéscar</span></td>
+                    <td class="text-nowrap"><span class="small">18005141 - I.E.S. La Sagra</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">5033</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18010446 - I.E.S. Generalife</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3991, 5016</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Barrio de la Vega</span></td>
+                    <td class="text-nowrap"><span class="small">18000854 - I.E.S. Los Cahorros</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4968</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700293 - I.E.S. Francisco Ayala</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4957</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Loja</span></td>
+                    <td class="text-nowrap"><span class="small">18005992 - I.E.S. Moraima</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4888, 4813</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18009249 - I.E.S. Severo Ochoa</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4881</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18004264 - I.E.S. Padre Suárez</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4872</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18004291 - I.E.S. Padre Manjón</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">3796, 4785</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Albolote</span></td>
+                    <td class="text-nowrap"><span class="small">18000039 - I.E.S. Aricel</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4279, 4746</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18004458 - I.E.S. Virgen de las Nieves</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4738</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700441 - I.E.S. Miguel de Cervantes</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4697, 4733</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Motril</span></td>
+                    <td class="text-nowrap"><span class="small">18700323 - I.E.S. Beatriz Galindo La Latina</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4728</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18004276 - I.E.S. Ángel Ganivet</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4667</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700311 - I.E.S. La Madraza</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">2</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4666, 4390</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Alfacar</span></td>
+                    <td class="text-nowrap"><span class="small">18000738 - I.E.S. Al-Fakar</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4423</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18700098 - I.E.S. Zaidín-Vergeles</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">4026</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
+                            class="badge text-bg-light">11/09/2020</span></td>
+                    <td><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">Granada</span></td>
+                    <td class="text-nowrap"><span class="small">18009389 - I.E.S. Albayzín</span>
+                    </td>
+                    <td><span class="small">VACANTE</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small">31/12/2020</span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">2286</span>
+                    </td>
+                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">134</span><span
                             class="badge text-bg-light">27/05/2021</span></td>
@@ -422,1577 +2012,15 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small font-monospace">6713</span>
                     </td>
                 </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">98</span><span
-                            class="badge text-bg-light">24/11/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Ogíjares</span></td>
-                    <td class="text-nowrap"><span class="small">18700803 - I.E.S. Blas Infante</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8944</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">96</span><span
-                            class="badge text-bg-light">12/11/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Villa de Otura</span></td>
-                    <td class="text-nowrap"><span class="small">18004148 - I.E.S. Escultor Sánchez Mesa</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8339</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">92</span><span
-                            class="badge text-bg-light">27/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700116 - R.E. EE.MM. Virgen de las Nieves</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4159</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Loja</span></td>
-                    <td class="text-nowrap"><span class="small">18008919 - R.E. Medina Lauxa</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8774</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Montefrío</span></td>
-                    <td class="text-nowrap"><span class="small">18006571 - R.E. Virgen de los Remedios</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8723</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cogollos Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18700128 - R.E. Atalaya</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8512</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">90</span><span
-                            class="badge text-bg-light">21/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18006984 - R.E. Federico García Lorca</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8260</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Caniles</span></td>
-                    <td class="text-nowrap"><span class="small">18700517 - I.E.S. El Fuerte</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8538, 8564</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Baza</span></td>
-                    <td class="text-nowrap"><span class="small">18001044 - R.E. Maestro Sánchez Chanes</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8454</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700116 - R.E. EE.MM. Virgen de las Nieves</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8412</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cádiar</span></td>
-                    <td class="text-nowrap"><span class="small">18700670 - I.E.S. Al-Cadí</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8366</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cúllar</span></td>
-                    <td class="text-nowrap"><span class="small">18700529 - I.E.S. Gregorio Salvador</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8325</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Malahá</span></td>
-                    <td class="text-nowrap"><span class="small">18700645 - I.E.S. El Temple</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8293</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700098 - I.E.S. Zaidín-Vergeles</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8284</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">89</span><span
-                            class="badge text-bg-light">14/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Fuente Vaqueros</span></td>
-                    <td class="text-nowrap"><span class="small">18700611 - I.E.S. Fernando de los Ríos</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8262</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">87</span><span
-                            class="badge text-bg-light">01/10/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Montefrío</span></td>
-                    <td class="text-nowrap"><span class="small">18700487 - I.E.S. Hiponova</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8256</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alhama de Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700451 - I.E.S. Alhama</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8303</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Guadix</span></td>
-                    <td class="text-nowrap"><span class="small">18009213 - I.E.S. Acci</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7521</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">86</span><span
-                            class="badge text-bg-light">29/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Zubia</span></td>
-                    <td class="text-nowrap"><span class="small">18700244 - I.E.S. Trevenque</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6804</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">84</span><span
-                            class="badge text-bg-light">16/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alhama de Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700451 - I.E.S. Alhama</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5960</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Salobreña</span></td>
-                    <td class="text-nowrap"><span class="small">18009961 - I.E.S. Mediterráneo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5693, 10367</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Montefrío</span></td>
-                    <td class="text-nowrap"><span class="small">18700487 - I.E.S. Hiponova</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">10366</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18007022 - I.E.S. La Zafra</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6092, 10360</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18007046 - I.E.S. Francisco Javier de Burgos</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4960, 10351</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Purullena</span></td>
-                    <td class="text-nowrap"><span class="small">18700700 - I.E.S. Ribera del Fardes</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">10312</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18007058 - I.E.S. Julio Rodríguez</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">10145, 10164</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18700049 - I.E.S. José Martín Recuerda</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9947, 10022</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Albuñol</span></td>
-                    <td class="text-nowrap"><span class="small">18700347 - I.E.S. La Contraviesa</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8289, 9942</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Padul</span></td>
-                    <td class="text-nowrap"><span class="small">18700724 - I.E.S. La Laguna</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9630, 9886</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
-                    <td class="text-nowrap"><span class="small">18000601 - I.E.S. Antigua Sexi</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9880</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Zubia</span></td>
-                    <td class="text-nowrap"><span class="small">18700244 - I.E.S. Trevenque</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9708, 9795</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Huétor Tájar</span></td>
-                    <td class="text-nowrap"><span class="small">18700301 - I.E.S. Américo Castro</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9575, 9784</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
-                    <td class="text-nowrap"><span class="small">18700463 - I.E.S. Al-Ándalus</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9596, 9676</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Almuñécar</span></td>
-                    <td class="text-nowrap"><span class="small">18700499 - I.E.S. Puerta del Mar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8849, 9593</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Atarfe</span></td>
-                    <td class="text-nowrap"><span class="small">18000908 - I.E.S. Iliberis</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3505, 9589</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Atarfe</span></td>
-                    <td class="text-nowrap"><span class="small">18009407 - I.E.S. Vega de Atarfe</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8377, 9570</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Loja</span></td>
-                    <td class="text-nowrap"><span class="small">18005980 - I.E.S. Virgen de la Caridad</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4971, 9567</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Dúrcal</span></td>
-                    <td class="text-nowrap"><span class="small">18009778 - I.E.S. Alonso Cano</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5546, 9532</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alhendín</span></td>
-                    <td class="text-nowrap"><span class="small">18000842 - I.E.S. Alhendín</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8261, 9494</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cúllar Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18003004 - I.E.S. Arabuleila</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4810, 9465</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Chauchina</span></td>
-                    <td class="text-nowrap"><span class="small">18700360 - I.E.S. Arjé</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8296, 9447</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Santa Fe</span></td>
-                    <td class="text-nowrap"><span class="small">18009444 - I.E.S. Hispanidad</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8924</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Guadix</span></td>
-                    <td class="text-nowrap"><span class="small">18004801 - I.E.S. Padre Poveda</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8862, 8871</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Guadix</span></td>
-                    <td class="text-nowrap"><span class="small">18009213 - I.E.S. Acci</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8552, 8728</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">La Zubia</span></td>
-                    <td class="text-nowrap"><span class="small">18001081 - I.E.S. Laurel de la Reina</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8356, 8406</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Íllora</span></td>
-                    <td class="text-nowrap"><span class="small">18700773 - I.E.S. Diego de Siloé</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4420, 8388</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Guadix</span></td>
-                    <td class="text-nowrap"><span class="small">18004793 - I.E.S. Pedro Antonio de Alarcón</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8373</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Santa Fe</span></td>
-                    <td class="text-nowrap"><span class="small">18008257 - I.E.S. Jiménez de Quesada</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8360</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Peligros</span></td>
-                    <td class="text-nowrap"><span class="small">18000891 - I.E.S. Clara Campoamor</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6253, 8306</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Pinos Puente</span></td>
-                    <td class="text-nowrap"><span class="small">18009432 - I.E.S. Cerro de los Infantes</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4979, 8268</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Loja</span></td>
-                    <td class="text-nowrap"><span class="small">18700414 - I.E.S. Alfaguara</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8256</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Iznalloz</span></td>
-                    <td class="text-nowrap"><span class="small">18700475 - I.E.S. Montes Orientales</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5560, 8168</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Villa de Otura</span></td>
-                    <td class="text-nowrap"><span class="small">18004148 - I.E.S. Escultor Sánchez Mesa</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7737, 7870</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Ogíjares</span></td>
-                    <td class="text-nowrap"><span class="small">18700803 - I.E.S. Blas Infante</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6602, 7852</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Castell de Ferro</span></td>
-                    <td class="text-nowrap"><span class="small">18700581 - I.E.S. Sayena</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7174</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Gabia Grande</span></td>
-                    <td class="text-nowrap"><span class="small">18700372 - I.E.S. Montevives</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4297, 7082</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Pulianas</span></td>
-                    <td class="text-nowrap"><span class="small">18700694 - I.E.S. Bulyana</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7024</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Churriana de la Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18002243 - I.E.S. Federico García Lorca</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4959, 6686</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Huétor Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18009201 - I.E.S. Los Neveros</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5740, 6587</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alhama de Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700451 - I.E.S. Alhama</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6375, 6375</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Maracena</span></td>
-                    <td class="text-nowrap"><span class="small">18700657 - I.E.S. Manuel de Falla</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6327, 6338</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Armilla</span></td>
-                    <td class="text-nowrap"><span class="small">18000787 - I.E.S. Luis Bueno Crespo</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4561, 6321</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Baza</span></td>
-                    <td class="text-nowrap"><span class="small">18001123 - I.E.S. Pedro Jiménez Montoya</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6305</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Baza</span></td>
-                    <td class="text-nowrap"><span class="small">18001147 - I.E.S. José de Mora</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6293</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Baza</span></td>
-                    <td class="text-nowrap"><span class="small">18700359 - I.E.S. Alcrebite</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6223</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Órgiva</span></td>
-                    <td class="text-nowrap"><span class="small">18700761 - I.E.S. Alpujarra</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5772</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Huéscar</span></td>
-                    <td class="text-nowrap"><span class="small">18005153 - I.E.S. Alquivira</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5717</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Armilla</span></td>
-                    <td class="text-nowrap"><span class="small">18700232 - I.E.S. Alba Longa</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5235, 5692</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Cogollos Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18001834 - I.E.S. Emilio Muñoz</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5638</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Salobreña</span></td>
-                    <td class="text-nowrap"><span class="small">18000519 - I.E.S. Nazarí</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3847, 5611</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18009195 - I.E.S. Mariana Pineda</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4994, 5505</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18010185 - I.E.S. Alhambra</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5204, 5210</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700037 - I.E.S. Pedro Soto de Rojas</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4674, 5178</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700013 - I.E.S. Fray Luis de Granada</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4989, 5127</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Huéscar</span></td>
-                    <td class="text-nowrap"><span class="small">18005141 - I.E.S. La Sagra</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">5033</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18010446 - I.E.S. Generalife</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3991, 5016</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Barrio de la Vega</span></td>
-                    <td class="text-nowrap"><span class="small">18000854 - I.E.S. Los Cahorros</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4968</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700293 - I.E.S. Francisco Ayala</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4957</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Loja</span></td>
-                    <td class="text-nowrap"><span class="small">18005992 - I.E.S. Moraima</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4813, 4888</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18009249 - I.E.S. Severo Ochoa</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4881</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18004264 - I.E.S. Padre Suárez</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4872</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18004291 - I.E.S. Padre Manjón</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">3796, 4785</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Albolote</span></td>
-                    <td class="text-nowrap"><span class="small">18000039 - I.E.S. Aricel</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4279, 4746</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18004458 - I.E.S. Virgen de las Nieves</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4738</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700441 - I.E.S. Miguel de Cervantes</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4697, 4733</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Motril</span></td>
-                    <td class="text-nowrap"><span class="small">18700323 - I.E.S. Beatriz Galindo La Latina</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4728</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18004276 - I.E.S. Ángel Ganivet</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4667</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700311 - I.E.S. La Madraza</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">2</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4390, 4666</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Alfacar</span></td>
-                    <td class="text-nowrap"><span class="small">18000738 - I.E.S. Al-Fakar</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4423</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18700098 - I.E.S. Zaidín-Vergeles</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">4026</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">18009389 - I.E.S. Albayzín</span>
-                    </td>
-                    <td><span class="small">VACANTE</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small">31/12/2020</span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">2286</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">83</span><span
-                            class="badge text-bg-light">11/09/2020</span></td>
-                    <td><span class="small">Granada</span></td>
-                    <td class="text-nowrap"><span class="small">Loja</span></td>
-                    <td class="text-nowrap"><span class="small">18700414 - I.E.S. Alfaguara</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">VOLUNTARIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">1281</span>
-                    </td>
-                </tr>
                     </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
 
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -2001,7 +2029,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -2009,5 +2037,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

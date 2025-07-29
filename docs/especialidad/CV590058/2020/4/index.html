@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>    2020/2021 - CV590058
 </title>
         
@@ -12,13 +13,23 @@
 <script type="importmap">
 {
     "imports": {
-        "app": "/sipri_analyzer/assets/app-8igGnaE.js",
+        "app": "/sipri_analyzer/assets/app-aWigAj0.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
         "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
         "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
         "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
         "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
-        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js"
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js"
     }
 }
 </script><script>
@@ -30,9 +41,17 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     document.head.appendChild(script);
 })();
 </script>
-<link rel="modulepreload" href="/sipri_analyzer/assets/app-8igGnaE.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-aWigAj0.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-06TNMkm.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-RDwKLUe.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
 <script type="module">import 'app';</script>
             </head>
 
@@ -53,6 +72,9 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"><i class="bi bi-collection-fill"></i> Cuerpos docentes</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes"><i class="bi-question-circle-fill"></i> Preguntas
                         frecuentes</a>
                 </li>
@@ -72,16 +94,20 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 
 
     <table class="table table-bordered table-striped  mt-5">
-        <thead class="table-light">
+        <thead class="table-light align-middle">
         <tr>
-            <th scope="col">Plazas convocadas</th>
-            <td>96</td>
-            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición en la bolsa adjudicada:</th>
+            <th scope="col" rowspan="2">Plazas convocadas:</th>
+            <td rowspan="2">96</td>
+            <th scope="col">Vacantes:</th>
+            <td>87</td>
+            <th scope="col"><i class="bi-align-top text-success"></i> Primera posición:</th>
             <td>1888</td>
-            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición en la bolsa adjudicada:</th>
-            <td>10287</td>
-            <th scope="col">Desiertas:</th>
+        </tr>
+        <tr>
+            <th scope="col">Desiertas / No adjudicadas:</th>
             <td>1</td>
+            <th scope="col"><i class="bi-align-bottom text-danger"></i> Última posición:</th>
+            <td>10287</td>
         </tr>
         </thead>
     </table>
@@ -99,91 +125,6 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                 <th>Fecha prev. cese</th>
                 <th>Posición adjudicada</th>
             </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">131</span><span
-                            class="badge text-bg-light">18/05/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Las Norias</span></td>
-                    <td class="text-nowrap"><span class="small">04700478 - I.E.S. Francisco Montoya</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">9659</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
-                            class="badge text-bg-light">06/05/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04005958 - I.E.S. Albaida</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">8949</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
-                            class="badge text-bg-light">04/02/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">El Parador de las Hortichuelas</span></td>
-                    <td class="text-nowrap"><span class="small">04000331 - I.E.S. El Parador</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">6536</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Vélez-Rubio</span></td>
-                    <td class="text-nowrap"><span class="small">04700508 - I.E.S. José Marín</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7928</span>
-                    </td>
-                </tr>
-                            <tr>
-                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
-                            class="badge text-bg-light">12/01/2021</span></td>
-                    <td><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">Carboneras</span></td>
-                    <td class="text-nowrap"><span class="small">04700053 - I.E.S. Juan Goytisolo</span>
-                    </td>
-                    <td><span class="small">SUSTITUCION</span></td>
-                    <td><span class=" small">OBLIGATORIA</span></td>
-                    <td><span class="small">1</span></td>
-                    <td><span
-                            class="small"></span>
-                    </td>
-                    <td><span
-                            class="small font-monospace">7188</span>
-                    </td>
-                </tr>
                             <tr>
                     <td class="text-nowrap"><span class="badge text-bg-dark">99</span><span
                             class="badge text-bg-light">26/11/2020</span></td>
@@ -725,7 +666,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">9530, 10144</span>
+                            class="small font-monospace">10144, 9530</span>
                     </td>
                 </tr>
                             <tr>
@@ -759,7 +700,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5162, 10098</span>
+                            class="small font-monospace">10098, 5162</span>
                     </td>
                 </tr>
                             <tr>
@@ -793,7 +734,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5004, 9915</span>
+                            class="small font-monospace">9915, 5004</span>
                     </td>
                 </tr>
                             <tr>
@@ -844,7 +785,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">9704, 9720</span>
+                            class="small font-monospace">9720, 9704</span>
                     </td>
                 </tr>
                             <tr>
@@ -878,7 +819,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6078, 9582</span>
+                            class="small font-monospace">9582, 6078</span>
                     </td>
                 </tr>
                             <tr>
@@ -946,7 +887,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6126, 9394</span>
+                            class="small font-monospace">9394, 6126</span>
                     </td>
                 </tr>
                             <tr>
@@ -963,7 +904,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6157, 9272</span>
+                            class="small font-monospace">9272, 6157</span>
                     </td>
                 </tr>
                             <tr>
@@ -980,7 +921,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4889, 8946</span>
+                            class="small font-monospace">8946, 4889</span>
                     </td>
                 </tr>
                             <tr>
@@ -997,7 +938,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8286, 8914</span>
+                            class="small font-monospace">8914, 8286</span>
                     </td>
                 </tr>
                             <tr>
@@ -1014,7 +955,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8911, 8911</span>
+                            class="small font-monospace">8911</span>
                     </td>
                 </tr>
                             <tr>
@@ -1031,7 +972,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5734, 8891</span>
+                            class="small font-monospace">8891, 5734</span>
                     </td>
                 </tr>
                             <tr>
@@ -1048,7 +989,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8661, 8842</span>
+                            class="small font-monospace">8842, 8661</span>
                     </td>
                 </tr>
                             <tr>
@@ -1099,7 +1040,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8419, 8564</span>
+                            class="small font-monospace">8564, 8419</span>
                     </td>
                 </tr>
                             <tr>
@@ -1133,7 +1074,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8521, 8525</span>
+                            class="small font-monospace">8525, 8521</span>
                     </td>
                 </tr>
                             <tr>
@@ -1167,7 +1108,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4944, 8484</span>
+                            class="small font-monospace">8484, 4944</span>
                     </td>
                 </tr>
                             <tr>
@@ -1184,7 +1125,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">3376, 8434</span>
+                            class="small font-monospace">8434, 3376</span>
                     </td>
                 </tr>
                             <tr>
@@ -1269,7 +1210,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4615, 8364</span>
+                            class="small font-monospace">8364, 4615</span>
                     </td>
                 </tr>
                             <tr>
@@ -1286,7 +1227,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">8287, 8309</span>
+                            class="small font-monospace">8309, 8287</span>
                     </td>
                 </tr>
                             <tr>
@@ -1320,7 +1261,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4735, 8162</span>
+                            class="small font-monospace">8162, 4735</span>
                     </td>
                 </tr>
                             <tr>
@@ -1354,7 +1295,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4496, 8050</span>
+                            class="small font-monospace">8050, 4496</span>
                     </td>
                 </tr>
                             <tr>
@@ -1405,7 +1346,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5203, 6378</span>
+                            class="small font-monospace">6378, 5203</span>
                     </td>
                 </tr>
                             <tr>
@@ -1422,7 +1363,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">6026, 6366</span>
+                            class="small font-monospace">6366, 6026</span>
                     </td>
                 </tr>
                             <tr>
@@ -1439,7 +1380,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5150, 5750</span>
+                            class="small font-monospace">5750, 5150</span>
                     </td>
                 </tr>
                             <tr>
@@ -1473,7 +1414,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4195, 5678</span>
+                            class="small font-monospace">5678, 4195</span>
                     </td>
                 </tr>
                             <tr>
@@ -1524,7 +1465,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4893, 5230</span>
+                            class="small font-monospace">5230, 4893</span>
                     </td>
                 </tr>
                             <tr>
@@ -1592,7 +1533,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">5104, 5104</span>
+                            class="small font-monospace">5104</span>
                     </td>
                 </tr>
                             <tr>
@@ -1617,7 +1558,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Retamar</span></td>
-                    <td class="text-nowrap"><span class="small">04009393 - I.E.S. Retamar</span>
+                    <td class="text-nowrap"><span class="small">04009393 - S.E.S.O. Zona El Toyo-Retamar</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -1626,7 +1567,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">2093, 4976</span>
+                            class="small font-monospace">4976, 2093</span>
                     </td>
                 </tr>
                             <tr>
@@ -1634,7 +1575,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="badge text-bg-light">11/09/2020</span></td>
                     <td><span class="small">Almería</span></td>
                     <td class="text-nowrap"><span class="small">Almería</span></td>
-                    <td class="text-nowrap"><span class="small">04004802 - I.E.S. Alborán - Manuel Cáliz</span>
+                    <td class="text-nowrap"><span class="small">04004802 - I.E.S. Alborán</span>
                     </td>
                     <td><span class="small">VACANTE</span></td>
                     <td><span class=" small">OBLIGATORIA</span></td>
@@ -1694,7 +1635,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">4372, 4372</span>
+                            class="small font-monospace">4372</span>
                     </td>
                 </tr>
                             <tr>
@@ -1728,16 +1669,103 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
                             class="small">31/12/2020</span>
                     </td>
                     <td><span
-                            class="small font-monospace">Desierta</span>
+                            class="small font-monospace">Desierta*</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">131</span><span
+                            class="badge text-bg-light">18/05/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Las Norias</span></td>
+                    <td class="text-nowrap"><span class="small">04700478 - I.E.S. Francisco Montoya</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">9659</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">128</span><span
+                            class="badge text-bg-light">06/05/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">04005958 - I.E.S. Albaida</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">8949</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">108</span><span
+                            class="badge text-bg-light">04/02/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">El Parador de las Hortichuelas</span></td>
+                    <td class="text-nowrap"><span class="small">04000331 - I.E.S. El Parador</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">6536</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Vélez-Rubio</span></td>
+                    <td class="text-nowrap"><span class="small">04700508 - I.E.S. José Marín</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7928</span>
+                    </td>
+                </tr>
+                            <tr>
+                    <td class="text-nowrap"><span class="badge text-bg-dark">101</span><span
+                            class="badge text-bg-light">12/01/2021</span></td>
+                    <td><span class="small">Almería</span></td>
+                    <td class="text-nowrap"><span class="small">Carboneras</span></td>
+                    <td class="text-nowrap"><span class="small">04700053 - I.E.S. Juan Goytisolo</span>
+                    </td>
+                    <td><span class="small">SUSTITUCION</span></td>
+                    <td><span class=" small">OBLIGATORIA</span></td>
+                    <td><span class="small">1</span></td>
+                    <td><span
+                            class="small"></span>
+                    </td>
+                    <td><span
+                            class="small font-monospace">7188</span>
                     </td>
                 </tr>
                     </table>
     </div>
 
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a></small></span>
+
     </div>
 </main>
 
-<footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3 mt-auto">
     <div class="container">
         <small>
             <i class="bi bi-exclamation-triangle-fill"></i> Los datos aquí reflejados son el resultado de un
@@ -1746,7 +1774,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 14/07/2025
+            Datos actualizados a: 29/07/2025
 
         </small>
     </div>
@@ -1754,5 +1782,4 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 </body>
 
 
-</body>
 </html>

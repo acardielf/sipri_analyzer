@@ -62,11 +62,13 @@
                             class="small">{{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '' }}</span>
                     </td>
                     <td><span
-                            class="small font-monospace">{% if plaza.id in desiertas %}Desierta{% else %}{{ plaza.adjudicaciones ? plaza.adjudicacionesAsString }}{% endif %}</span>
+                            class="small font-monospace">{% if plaza.id in desiertas %}Desierta*{% else %}{{ plaza.adjudicaciones ? plaza.adjudicacionesAsString }}{% endif %}</span>
                     </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
+
+    <span><small>* Desierta, no adjudicada o no vinculada a ninguna adjudicación conocida. Lea las <a href="{{ path('app_faq') }}">preguntas frecuentes</a></small></span>
 
 {% endblock %}
