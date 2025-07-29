@@ -99,8 +99,10 @@ done
 
 ```bash
 cp var/data_dev.db var/data_prod.db # copy dev database to prod
+bin/console asset-map:compile
 bin/console -e prod cache:clear
 bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+rm public/assets/ -rf 
 ```   
 
 ### Debugging
