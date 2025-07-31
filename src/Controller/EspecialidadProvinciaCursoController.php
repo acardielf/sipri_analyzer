@@ -11,7 +11,6 @@ use App\Repository\ProvinciaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class EspecialidadProvinciaCursoController extends AbstractController
 {

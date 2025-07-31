@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\TipoPlazaEnum;
 use App\Repository\ConvocatoriaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -86,6 +87,16 @@ class Convocatoria
     public function getPlazas(): Collection
     {
         return $this->plazas;
+    }
+
+    /**
+     * @return Collection<int, Plaza>
+     */
+    public function getPlazasVacantes(): Collection
+    {
+        return $this->plazas->filter(function (Plaza $plaza) {
+            return $plaza->getTipo() === TipoPlazaEnum::VACANTE;
+        });
     }
 
     public function addPlaza(Plaza $plaza): static

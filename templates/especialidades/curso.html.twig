@@ -21,7 +21,11 @@
                 {% for cursoId, provinciasByCurso in plazasFiltradas %}
                     <td>
                         {% if provinciasByCurso[provincia.id] > 0 %}
-                            <a href="{{ path('app_especialidad_detail', { especialidad: especialidad.id, curso: cursoId, provincia: provincia.id } ) }}">
+                            <a href="{{ path('app_especialidad_detail', {
+                                especialidad: especialidad.id,
+                                curso: cursoId,
+                                provincia: provincia.id
+                            }) }}">
                                 <span class="badge rounded-pill text-bg-primary">
                                     {{ provinciasByCurso[provincia.id] }}
                                 </span>

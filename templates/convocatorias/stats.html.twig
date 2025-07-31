@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Convocatorias > Estadísticas{% endblock %}
+
+{% block body %}
+    <h2>Convocatorias > Estadísticas</h2>
+
+    <hr>
+    <h3>Lista de vacantes por semana del año y su evolución por cursos</h3>
+    <p class="lead">
+        Esta gráfica muestra la evolución de las plazas publicadas por semana del año, agrupadas por curso escolar.
+        Se muestran las semanas del 1 de septiembre (semanas 35-36) al 30 de junio del siguiente año (semanas 25-26).
+    </p>
+
+    <div class="col-12 mx-auto" style="min-height: 400px">
+        {{ render_chart(chart) }}
+    </div>
+
+{% endblock %}
+

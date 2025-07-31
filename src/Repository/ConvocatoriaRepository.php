@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Convocatoria;
+use App\Enum\TipoPlazaEnum;
+use App\Enum\TipoProcesoEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,5 +41,25 @@ class ConvocatoriaRepository extends ServiceEntityRepository
                         WHERE p.convocatoria = c
                     )'
         )->getResult();
+    }
+
+    public function findWithBasicDataInArray(): array
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.id AS id')
+            ->addSelect('cu.id AS curso')
+            ->addSelect('cu.nombre AS cursoNombre')
+            ->addSelect('c.fecha AS fecha')
+            ->addSelect('c.id AS convocatoria')
+            ->addSelect('COUNT(p.id) AS plazas')
+            ->addSelect('SUM(CASE WHEN p.tipo = :tipoPlaza THEN 1 ELSE 0 END) AS vacantes')
+            ->join('c.curso', 'cu')
+            ->leftJoin('c.plazas', 'p')
+            ->groupBy('c.id')
+            ->addGroupBy('cu.id')
+            ->setParameter('tipoPlaza', TipoPlazaEnum::VACANTE);
+
+        $query = $qb->getQuery();
+        return $query->getArrayResult();
     }
 }

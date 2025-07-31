@@ -73,6 +73,7 @@ readonly class ExtraerPlazasCommand
         $resultadoProcesamiento = $this->persistirPlazas($plazas, $fechaConvocatoria, $convocatoria, $io, $info);
 
         $this->mostrarResumen($io, $convocatoria, $fechaConvocatoria, $resultadoProcesamiento);
+        
 
         return Command::SUCCESS;
     }

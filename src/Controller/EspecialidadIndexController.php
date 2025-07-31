@@ -9,6 +9,7 @@ use App\Repository\CursoRepository;
 use App\Repository\EspecialidadRepository;
 use App\Repository\PlazaRepository;
 use App\Repository\ProvinciaRepository;
+use App\Service\ChartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,6 +24,7 @@ class EspecialidadIndexController extends AbstractController
         private readonly ProvinciaRepository $provinciaRepository,
         private readonly PlazaRepository $plazaRepository,
         private readonly EspecialidadRepository $especialidadRepository,
+        private readonly ChartService $chartService,
     ) {
     }
 
@@ -52,7 +54,7 @@ class EspecialidadIndexController extends AbstractController
             $result[$cursoId][$provId] = $r['totalPlazas'];
         }
 
-        $chart = $this->createChart($chartBuilder, $cursos, $provincias, $result);
+        $chart = $this->chartService->createChartByEspecialidadPorProvincia($chartBuilder, $cursos, $provincias, $result);
 
         return $this->render('especialidades/curso.html.twig', [
             'provincias' => $provincias,
@@ -62,93 +64,5 @@ class EspecialidadIndexController extends AbstractController
             'chart' => $chart,
         ]);
     }
-
-    /**
-     * @param ChartBuilderInterface $chartBuilder
-     * @param array<Curso> $cursos
-     * @param array<Provincia> $provincias
-     * @param array $result
-     * @return Chart
-     */
-    private function createChart(
-        ChartBuilderInterface $chartBuilder,
-        array $cursos,
-        array $provincias,
-        array $result
-    ): Chart {
-        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-
-
-        $buildDataSet = $this->buildDataSet($provincias, $result);
-
-        $chart->setData([
-            'labels' => $this->getLabels($cursos),
-            'datasets' => $buildDataSet,
-        ]);
-
-        $chart->setOptions([
-            'responsive' => true,
-            'maintainAspectRatio' => false,
-            'plugins' => [
-                'autocolors' => [
-                    'enabled' => true,
-                    'mode' => 'dataset',
-                ],
-            ],
-        ]);
-
-        return $chart;
-    }
-
-    private function getLabels(array $cursos): array
-    {
-        $labels = [];
-        foreach ($cursos as $curso) {
-            $labels[] = sprintf('%s', $curso->getNombre());
-        }
-        return $labels;
-    }
-
-    /**
-     * @param array<Provincia> $provincias
-     * @param array $result
-     * @return array
-     */
-    private function buildDataSet(array $provincias, array $result): array
-    {
-        $data = [];
-        $colors = [
-            '#CB4335',
-            '#1F618D',
-            '#F1C40F',
-            '#27AE60',
-            '#884EA0',
-            '#D35400',
-            '#F39C12',
-            '#16A085',
-        ];
-
-        $transpose = [];
-        foreach ($result as $cursoId => $curso) {
-            foreach ($curso as $provId => $totalPlazas) {
-                $transpose[$provId][$cursoId] = $totalPlazas;
-            }
-        }
-
-        $i = 0;
-        foreach ($provincias as $provincia) {
-            $data[] = [
-                'label' => $provincia->getNombre(),
-                'data' => array_values($transpose[$provincia->getId()] ?? []),
-                'borderWidth' => 3,
-                'backgroundColor' => $colors[$i],
-                'borderColor' => $colors[$i],
-            ];
-            $i++;
-        }
-
-        return $data;
-    }
-
 
 }
