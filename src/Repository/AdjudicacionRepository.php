@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Adjudicacion;
+use App\Entity\Curso;
+use App\Entity\Especialidad;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,4 +41,20 @@ class AdjudicacionRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
         $this->getEntityManager()->clear();
     }
+
+
+    public function findByEspecialidadAndCurso(Especialidad $especialidad, Curso $curso)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->join('a.plaza', 'p')
+            ->join('p.convocatoria', 'c')
+            ->where('p.especialidad = :especialidad')
+            ->andWhere('c.curso = :curso')
+            ->setParameter('especialidad', $especialidad)
+            ->setParameter('curso', $curso)
+            ->orderBy('c.fecha', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

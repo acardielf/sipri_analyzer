@@ -1,0 +1,47 @@
+<span>
+    Es imposible saber cuántas plazas se van a ofertar en cada curso, pero sí se puede ver el número de plazas que se han ido adjudicando en los cursos anteriores y en qué momento se han adjudicado.
+    Por eso aquí se muestran de forma ordenada las posiciones en la bolsa que se han ido adjudicando y cuándo se han producido esas adjudicaciones.
+    Se basa en los datos del <strong>curso {{ cursoLast.nombre }}</strong>.
+</span>
+<div class="mt-4">
+    <span class="bg-warning p-2">Vacante (V)</span>
+    <span class="bg-success text-white p-2">Sustitución (S)</span>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped mt-5">
+        <tr>
+            <th class="header">
+                <span class="d-none d-md-inline">Orden en la bolsa</span>
+                <span class="d-xs d-md-none">Orden</span>
+            </th>
+            {% for provincia in provincias %}
+                <th class="header">
+                    <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
+                    <span class="d-xs d-md-none">{{ provincia.twoLetterCode }}</span>
+                </th>
+            {% endfor %}
+        </tr>
+
+        {% for orden, adjudicacion in adjudicaciones %}
+            <tr>
+                <td>{{ orden }}</td>
+                {% for provincia in provincias %}
+                    {% set provId = provincia.id + 0 %}
+                    {% if provId in adjudicacion|keys %}
+                        <td class="small plaza{{ adjudicacion[provId]['tipo'] }}
+                            {% if adjudicacion[provId]['tipo'] == 'V' %} bg-warning {% endif %}
+                            {% if adjudicacion[provId]['tipo'] == 'S' %} bg-success text-white {% endif %}
+                            ">
+                            <span class="d-none d-md-inline">{{ adjudicacion[provId]['fecha'] }}</span>
+                            <span class="d-inline d-md-none">{{ adjudicacion[provId]['fechaMin'] }}</span>
+                        </td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                {% endfor %}
+
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>

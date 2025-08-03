@@ -86,7 +86,7 @@ class ChartService
         $transpose = [];
         foreach ($result as $cursoId => $curso) {
             foreach ($curso as $provId => $totalPlazas) {
-                $transpose[$provId][$cursoId] = $totalPlazas;
+                $transpose[$provId][$cursoId] = $totalPlazas['plazas'] ?? 0;
             }
         }
 

@@ -120,23 +120,6 @@ class PlazaRepository extends ServiceEntityRepository
         return $this->findOneBy(['hash' => $dto->getHash($ocurrencia)]);
     }
 
-    public function findByEspecialidadAndCurso(Especialidad $especialidad, Curso $curso)
-    {
-        $qb = $this->createQueryBuilder('p')
-            ->join('p.convocatoria', 'c')
-            ->join('p.centro', 'cc')
-            ->join('cc.localidad', 'l')
-            ->join('l.provincia', 'prov')
-            ->where('p.especialidad = :especialidad')
-            ->andWhere('c.curso = :curso')
-            ->orderBy('prov.nombre', 'ASC')
-            ->addOrderBy('l.nombre', 'ASC')
-            ->setParameter('especialidad', $especialidad)
-            ->setParameter('curso', $curso);
-
-        return $qb->getQuery()->getResult();
-    }
-
 
     /**
      * @param Curso $curso
@@ -175,12 +158,17 @@ class PlazaRepository extends ServiceEntityRepository
     public function getEspecialidadAsArray(Especialidad $especialidad): iterable
     {
         $qb = $this->createQueryBuilder('p')
-            ->select('curso.id as cursoId, prov.id as provId, COUNT(p.id) AS totalPlazas')
+            ->select('curso.id as cursoId')
+            ->addSelect('prov.id as provId')
+            ->addSelect('COUNT(p.id) AS totalPlazas')
+            ->addSelect('MIN(CASE WHEN a.orden > 0 THEN a.orden ELSE 0 END) AS minOrden')
+            ->addSelect('MAX(CASE WHEN a.orden > 0 THEN a.orden ELSE 0 END) AS maxOrden')
             ->join('p.convocatoria', 'c')
             ->join('c.curso', 'curso')
             ->join('p.centro', 'cc')
             ->join('cc.localidad', 'l')
             ->join('l.provincia', 'prov')
+            ->join('p.adjudicaciones', 'a')
             ->where('p.especialidad = :especialidad')
             ->groupBy('c.curso')
             ->addGroupBy('l.provincia')

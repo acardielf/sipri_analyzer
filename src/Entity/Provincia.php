@@ -84,4 +84,19 @@ class Provincia
 
         return $this;
     }
+
+    public function getTwoLetterCode(): string
+    {
+        return match ($this->id) {
+            '04', '4' => 'AL',
+            '11' => 'CA',
+            '14' => 'CO',
+            '18' => 'GR',
+            '21' => 'HU',
+            '23' => 'JA',
+            '29' => 'MA',
+            '41' => 'SE',
+            default => $this->id,
+        };
+    }
 }

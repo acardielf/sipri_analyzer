@@ -16,4 +16,32 @@ class CursoRepository extends ServiceEntityRepository
         parent::__construct($registry, Curso::class);
     }
 
+    public function findLast(): Curso
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(1);
+
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+
+        if (empty($result)) {
+            throw new \RuntimeException('No se ha encontrado ningún curso.');
+        }
+
+        return $result[0];
+    }
+
+    /**
+     * @return iterable<Curso>
+     */
+    public function findAllDescent(): iterable
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'DESC');
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
 }

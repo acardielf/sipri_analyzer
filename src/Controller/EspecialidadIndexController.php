@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Adjudicacion;
 use App\Entity\Curso;
-use App\Entity\Plaza;
-use App\Entity\Provincia;
+use App\Entity\Especialidad;
+use App\Repository\AdjudicacionRepository;
 use App\Repository\CursoRepository;
 use App\Repository\EspecialidadRepository;
 use App\Repository\PlazaRepository;
@@ -14,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
 
 class EspecialidadIndexController extends AbstractController
 {
@@ -25,6 +25,7 @@ class EspecialidadIndexController extends AbstractController
         private readonly PlazaRepository $plazaRepository,
         private readonly EspecialidadRepository $especialidadRepository,
         private readonly ChartService $chartService,
+        private readonly AdjudicacionRepository $adjudicacionRepository,
     ) {
     }
 
@@ -38,23 +39,48 @@ class EspecialidadIndexController extends AbstractController
         }
 
         $provincias = $this->provinciaRepository->findAll();
-        $cursos = $this->cursoRepository->findAll();
+        $cursos = $this->cursoRepository->findAllDescent();
 
         $result = [];
+
         foreach ($cursos as $curso) {
             foreach ($provincias as $provincia) {
-                $result[$curso->getId()][$provincia->getId()] = 0;
+                $result[$curso->getId()][$provincia->getId()]['plazas'] = 0;
+                $result[$curso->getId()][$provincia->getId()]['minOrden'] = 0;
+                $result[$curso->getId()][$provincia->getId()]['maxOrden'] = 0;
+                $result[$curso->getId()]['ALL']['plazas'] = 0;
+                $result[$curso->getId()]['ALL']['minOrden'] = 99999999999;
+                $result[$curso->getId()]['ALL']['maxOrden'] = 0;
             }
         }
 
         $plazas = $this->plazaRepository->getEspecialidadAsArray($especialidad);
+
         foreach ($plazas as $r) {
             $cursoId = $r['cursoId'];
             $provId = $r['provId'];
-            $result[$cursoId][$provId] = $r['totalPlazas'];
+            $result[$cursoId][$provId]['plazas'] = $r['totalPlazas'];
+            $result[$cursoId][$provId]['minOrden'] = $r['minOrden'];
+            $result[$cursoId][$provId]['maxOrden'] = $r['maxOrden'];
+
+            $result[$cursoId]['ALL']['plazas'] += $r['totalPlazas'];
+            if ($r['minOrden'] < $result[$cursoId]['ALL']['minOrden']) {
+                $result[$cursoId]['ALL']['minOrden'] = $r['minOrden'];
+            }
+            if ($r['maxOrden'] > $result[$cursoId]['ALL']['maxOrden']) {
+                $result[$cursoId]['ALL']['maxOrden'] = $r['maxOrden'];
+            }
         }
 
-        $chart = $this->chartService->createChartByEspecialidadPorProvincia($chartBuilder, $cursos, $provincias, $result);
+        $cursoLast = $this->cursoRepository->findLast();
+        $adjudicaciones = $this->getAdjudicaciones($especialidad, $cursoLast);
+
+        $chart = $this->chartService->createChartByEspecialidadPorProvincia(
+            $chartBuilder,
+            $cursos,
+            $provincias,
+            $result
+        );
 
         return $this->render('especialidades/curso.html.twig', [
             'provincias' => $provincias,
@@ -62,7 +88,41 @@ class EspecialidadIndexController extends AbstractController
             'especialidad' => $especialidad,
             'plazasFiltradas' => $result,
             'chart' => $chart,
+            'cursoLast' => $cursoLast,
+            'adjudicaciones' => $adjudicaciones,
         ]);
+    }
+
+    private function getAdjudicaciones(Especialidad $especialidad, Curso $cursoLast): array
+    {
+
+
+        if (!$cursoLast) {
+            throw $this->createNotFoundException('Curso not found');
+        }
+
+        $adjudicacionesLastCourse = $this->adjudicacionRepository->findByEspecialidadAndCurso(
+            $especialidad,
+            $cursoLast,
+        );
+
+        $adjudicaciones = [];
+        /** @var Adjudicacion $adjudicacion */
+        foreach ($adjudicacionesLastCourse as $adjudicacion) {
+            $provincia = $adjudicacion->getPlaza()->getCentro()->getLocalidad()->getProvincia()->getId();
+            $f = $adjudicacion->getPlaza()->getConvocatoria()->getFecha();
+            $fecha = $f->format('d/M/Y');
+            $fechaMin = $f->format('d/m/y');
+            $tipo = $adjudicacion->getPlaza()->getTipo()->getShortLabel();
+            $orden = $adjudicacion->getOrden();
+
+            $adjudicaciones[$orden][$provincia]['fecha'] = $fecha;
+            $adjudicaciones[$orden][$provincia]['fechaMin'] = $fechaMin;
+            $adjudicaciones[$orden][$provincia]['tipo'] = $tipo;
+        }
+        ksort($adjudicaciones);
+
+        return $adjudicaciones;
     }
 
 }

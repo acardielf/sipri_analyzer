@@ -1,0 +1,83 @@
+<div>
+    Se muestra tabla de plazas por provincia y curso. Se incluyen las plazas de todas las provincias, así como el número de orden mínimo y máximo de la bolsa para cada provincia.
+</div>
+<table class="table table-striped table-bordered mt-5">
+    <tr>
+        <th>Provincia</th>
+        {% for curso in cursos %}
+            <th>
+                <span class="d-none d-xl-inline">Curso {{ curso.nombre }}</span>
+                <span class="d-inline d-xl-none">{{ curso.simpleLabel }}</span>
+            </th>
+        {% endfor %}
+    </tr>
+
+    <tr>
+        <td>
+            <strong>Todas</strong>
+        </td>
+        {% for cursoId, provinciasByCurso in plazasFiltradas %}
+            <td>
+                {% if provinciasByCurso['ALL']['plazas'] > 0 %}
+
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            {{ provinciasByCurso['ALL']['plazas'] }}
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [{{ provinciasByCurso['ALL']['minOrden'] }} - {{ provinciasByCurso['ALL']['maxOrden'] }}]
+                        </span>
+                    </div>
+
+                {% else %}
+                    <span>-</span>
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
+
+    <tr>
+        <td colspan="{{ cursos|length  + 1 }}"></td>
+    </tr>
+
+
+    {% for provincia in provincias %}
+        <tr>
+            <td>
+                <strong>{{ provincia.nombre }}</strong>
+            </td>
+            {% for cursoId, provinciasByCurso in plazasFiltradas %}
+                <td>
+                    {% if provinciasByCurso[provincia.id]['plazas'] > 0 %}
+
+                        <div>
+                            <a href="{{ path('app_especialidad_detail', {
+                                especialidad: especialidad.id,
+                                curso: cursoId,
+                                provincia: provincia.id
+                            }) }}">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            {{ provinciasByCurso[provincia.id]['plazas'] }}
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [{{ provinciasByCurso[provincia.id]['minOrden'] }} - {{ provinciasByCurso[provincia.id]['maxOrden'] }}]
+                                    </span></div>
+
+
+
+                    {% else %}
+                        <span>-</span>
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+
+
+</table>

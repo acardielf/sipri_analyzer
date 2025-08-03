@@ -24,4 +24,12 @@ enum TipoPlazaEnum: string
         };
     }
 
+    public function getShortLabel(): string
+    {
+        return match ($this) {
+            self::SUSTITUCION => 'S',
+            self::VACANTE => 'V',
+        };
+    }
+
 }

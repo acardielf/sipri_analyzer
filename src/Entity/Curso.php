@@ -65,6 +65,13 @@ class Curso
         return $this->simple;
     }
 
+    public function getSimpleLabel(): string
+    {
+        $current = $this->id - 2000;
+        $next = $current + 1;
+        return sprintf('%s/%s', $current, $next);
+    }
+
     public function setSimple(string $simple): static
     {
         $this->simple = $simple;

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ especialidad.id }} - {{ especialidad.nombre }}{% endblock %}
+
+{% block body %}
+    <h2>Especialidad: <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
+
+    <div data-controller="selector-provincias">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped mt-5">
+            <tr>
+                <th>
+                    <span class="d-none d-md-inline">Orden en la bolsa</span>
+                    <span class="d-xs d-md-none">Orden</span>
+                </th>
+                {% for provincia in provincias %}
+                    <th>
+                        <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
+                        <span class="d-xs d-md-none">{{ provincia.twoLetterCode }}</span>
+                    </th>
+                {% endfor %}
+            </tr>
+
+            {% for orden, adjudicacion in adjudicaciones %}
+                <tr>
+                    <td>{{ orden }}</td>
+                    {% for provincia in provincias %}
+                        {% set provId = provincia.id + 0 %}
+                        {% if provId in adjudicacion|keys %}
+                            <td class="small plaza{{ adjudicacion[provId]['tipo'] }}">
+                                {{ adjudicacion[provId]['fecha'] }}
+                            </td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+                    {% endfor %}
+
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+{% endblock %}

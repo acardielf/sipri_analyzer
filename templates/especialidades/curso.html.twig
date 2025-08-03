@@ -6,43 +6,38 @@
 {% block body %}
     <h2>Especialidad: <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
 
-    <table class="table table-striped mt-5">
-        <tr>
-            <th>Provincia</th>
-            {% for curso in cursos %}
-                <th>Curso {{ curso.nombre }}</th>
-            {% endfor %}
-        </tr>
-        {% for provincia in provincias %}
-            <tr>
-                <td>
-                    {{ provincia.nombre }}
-                </td>
-                {% for cursoId, provinciasByCurso in plazasFiltradas %}
-                    <td>
-                        {% if provinciasByCurso[provincia.id] > 0 %}
-                            <a href="{{ path('app_especialidad_detail', {
-                                especialidad: especialidad.id,
-                                curso: cursoId,
-                                provincia: provincia.id
-                            }) }}">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    {{ provinciasByCurso[provincia.id] }}
-                                </span>
-                            </a>
-                        {% else %}
-                            <span>
-                                -
-                            </span>
-                        {% endif %}
-                    </td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
-    <h3 class="mt-5">Gráfico de evolución de plazas</h3>
-    <div class="col-12 col-xl-8 mx-auto" style="min-height: 400px">
-        {{ render_chart(chart) }}
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active" id="pills-one-tab" data-bs-toggle="pill" data-bs-target="#pills-one"
+                    type="button" role="tab" aria-controls="pills-one" aria-selected="true">
+                <i class="bi bi-file-spreadsheet-fill"></i> Tabla de plazas
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="pills-two-tab" data-bs-toggle="pill" data-bs-target="#pills-two"
+                    type="button" role="tab" aria-controls="pills-two" aria-selected="false">
+                <i class="bi bi-patch-question-fill"></i> ¿Cuándo voy a currar?
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="pills-three-tab" data-bs-toggle="pill" data-bs-target="#pills-three"
+                    type="button" role="tab" aria-controls="pills-three" aria-selected="false">
+                <i class="bi bi-graph-up-arrow"></i> Gráfico de evolución
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-one" role="tabpanel" aria-labelledby="pills-one-tab"
+             tabindex="0">
+            {% include 'especialidades/_curso_tab1.html.twig' %}
+        </div>
+        <div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab" tabindex="0">
+            {% include 'especialidades/_curso_tab2.html.twig' %}
+        </div>
+        <div class="tab-pane fade" id="pills-three" role="tabpanel" aria-labelledby="pills-three-tab"
+             tabindex="0">{% include 'especialidades/_curso_tab3.html.twig' %}</div>
     </div>
+
 
 {% endblock %}
