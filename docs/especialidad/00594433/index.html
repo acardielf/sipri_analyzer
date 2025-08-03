@@ -24,11 +24,12 @@
         "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js",
         "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
         "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
-        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-n0tr7Ff.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-lz1RfGx.js",
         "/sipri_analyzer/assets/@symfony/ux-autocomplete/controller.js": "/sipri_analyzer/assets/@symfony/ux-autocomplete/controller-4yKT4My.js",
         "tom-select/dist/css/tom-select.default.css": "data:application/javascript,",
         "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js",
         "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/selector_provincias_controller.js": "/sipri_analyzer/assets/controllers/selector_provincias_controller-R9ZsvGb.js",
         "tom-select": "/sipri_analyzer/assets/vendor/tom-select/tom-select.index-TPK6we8.js",
         "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
         "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
@@ -57,10 +58,11 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
 <link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-V1GtHuK.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
-<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-n0tr7Ff.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-lz1RfGx.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-autocomplete/controller-4yKT4My.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-K2Mf6fa.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/selector_provincias_controller-R9ZsvGb.js">
 <link rel="modulepreload" href="/sipri_analyzer/assets/vendor/tom-select/tom-select.index-TPK6we8.js">
 <script type="module">import 'app';</script>
             </head>
@@ -100,450 +102,1770 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
     <div class="container-fluid">
             <h2>Especialidad: <strong>00594433 - VIOLIN P.M.A.E.</strong></h2>
 
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active" id="pills-one-tab" data-bs-toggle="pill" data-bs-target="#pills-one"
+                    type="button" role="tab" aria-controls="pills-one" aria-selected="true">
+                <i class="bi bi-file-spreadsheet-fill"></i> Tabla de plazas
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="pills-two-tab" data-bs-toggle="pill" data-bs-target="#pills-two"
+                    type="button" role="tab" aria-controls="pills-two" aria-selected="false">
+                <i class="bi bi-patch-question-fill"></i> ¿Cuándo voy a currar?
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="pills-three-tab" data-bs-toggle="pill" data-bs-target="#pills-three"
+                    type="button" role="tab" aria-controls="pills-three" aria-selected="false">
+                <i class="bi bi-graph-up-arrow"></i> Gráfico de evolución
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-one" role="tabpanel" aria-labelledby="pills-one-tab"
+             tabindex="0">
+            <div>
+    Se muestra tabla de plazas por provincia y curso. Se incluyen las plazas de todas las provincias, así como el número de orden mínimo y máximo de la bolsa para cada provincia.
+</div>
+<table class="table table-striped table-bordered mt-5">
+    <tr>
+        <th>Provincia</th>
+                    <th>
+                <span class="d-none d-xl-inline">Curso 2024/2025</span>
+                <span class="d-inline d-xl-none">24/25</span>
+            </th>
+                    <th>
+                <span class="d-none d-xl-inline">Curso 2023/2024</span>
+                <span class="d-inline d-xl-none">23/24</span>
+            </th>
+                    <th>
+                <span class="d-none d-xl-inline">Curso 2022/2023</span>
+                <span class="d-inline d-xl-none">22/23</span>
+            </th>
+                    <th>
+                <span class="d-none d-xl-inline">Curso 2021/2022</span>
+                <span class="d-inline d-xl-none">21/22</span>
+            </th>
+                    <th>
+                <span class="d-none d-xl-inline">Curso 2020/2021</span>
+                <span class="d-inline d-xl-none">20/21</span>
+            </th>
+                    <th>
+                <span class="d-none d-xl-inline">Curso 2019/2020</span>
+                <span class="d-inline d-xl-none">19/20</span>
+            </th>
+                    <th>
+                <span class="d-none d-xl-inline">Curso 2018/2019</span>
+                <span class="d-inline d-xl-none">18/19</span>
+            </th>
+            </tr>
+
+    <tr>
+        <td>
+            <strong>Todas</strong>
+        </td>
+                    <td>
+                
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            53
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [29 - 91]
+                        </span>
+                    </div>
+
+                            </td>
+                    <td>
+                
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            58
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [21 - 86]
+                        </span>
+                    </div>
+
+                            </td>
+                    <td>
+                
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            63
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [66 - 237]
+                        </span>
+                    </div>
+
+                            </td>
+                    <td>
+                
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            50
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [64 - 165]
+                        </span>
+                    </div>
+
+                            </td>
+                    <td>
+                
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            48
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [63 - 189]
+                        </span>
+                    </div>
+
+                            </td>
+                    <td>
+                
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            48
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [56 - 148]
+                        </span>
+                    </div>
+
+                            </td>
+                    <td>
+                
+
+                    <div>
+                        <span class="fs-5 fw-bold text-decoration-none">
+                            15
+                        </span>
+
+                    </div>
+                    <div>
+                        <span class="text-secondary" style="font-size: .8em">
+                            [100 - 142]
+                        </span>
+                    </div>
+
+                            </td>
+            </tr>
+
+    <tr>
+        <td colspan="8"></td>
+    </tr>
+
+
+            <tr>
+            <td>
+                <strong>Almería</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/4">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            2
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [36 - 48]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/4">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            5
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [44 - 77]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/4">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            2
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [224 - 224]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/4">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            2
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [91 - 113]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/4">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            2
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [75 - 82]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/4">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            4
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [80 - 98]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2018/4">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            1
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [134 - 134]
+                                    </span></div>
+
+
+
+                                    </td>
+                    </tr>
+            <tr>
+            <td>
+                <strong>Cádiz</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/11">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            16
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [33 - 90]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/11">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            9
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [24 - 74]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/11">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            19
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [78 - 236]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/11">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            8
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [72 - 165]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/11">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            10
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [68 - 159]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/11">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [77 - 148]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2018/11">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [117 - 142]
+                                    </span></div>
+
+
+
+                                    </td>
+                    </tr>
+            <tr>
+            <td>
+                <strong>Córdoba</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/14">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            2
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [35 - 43]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/14">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            7
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [29 - 81]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/14">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [98 - 231]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/14">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            8
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [87 - 163]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/14">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            5
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [73 - 95]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/14">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            3
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [85 - 137]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2018/14">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            1
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [134 - 134]
+                                    </span></div>
+
+
+
+                                    </td>
+                    </tr>
+            <tr>
+            <td>
+                <strong>Granada</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/18">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            7
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [35 - 90]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/18">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            9
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [26 - 86]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/18">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            7
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [78 - 234]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/18">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            3
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [91 - 97]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/18">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            4
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [63 - 100]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/18">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            4
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [83 - 132]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2018/18">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            3
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [124 - 135]
+                                    </span></div>
+
+
+
+                                    </td>
+                    </tr>
+            <tr>
+            <td>
+                <strong>Huelva</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/21">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            4
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [47 - 61]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/21">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            5
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [23 - 61]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/21">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            7
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [66 - 237]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/21">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [64 - 136]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/21">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [66 - 106]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/21">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            7
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [70 - 142]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                                            <span>-</span>
+                                    </td>
+                    </tr>
+            <tr>
+            <td>
+                <strong>Jaén</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/23">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            11
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [29 - 85]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/23">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            12
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [21 - 85]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/23">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            12
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [78 - 228]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/23">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            9
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [73 - 115]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/23">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            5
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [72 - 105]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/23">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [68 - 137]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                                            <span>-</span>
+                                    </td>
+                    </tr>
+            <tr>
+            <td>
+                <strong>Málaga</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/29">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            3
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [44 - 81]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/29">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            7
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [49 - 63]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/29">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [88 - 222]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/29">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            4
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [80 - 165]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/29">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            6
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [70 - 189]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/29">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            8
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [56 - 136]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2018/29">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            2
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [100 - 111]
+                                    </span></div>
+
+
+
+                                    </td>
+                    </tr>
+            <tr>
+            <td>
+                <strong>Sevilla</strong>
+            </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2024/41">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            8
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [37 - 91]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2023/41">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            4
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [51 - 61]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2022/41">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            4
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [90 - 111]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2021/41">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            10
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [75 - 136]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2020/41">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            10
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [73 - 113]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2019/41">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            10
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [57 - 147]
+                                    </span></div>
+
+
+
+                                    </td>
+                            <td>
+                    
+                        <div>
+                            <a href="/sipri_analyzer/especialidad/00594433/2018/41">
+                                        <span class="fs-5 fw-bold text-decoration-none">
+                                            2
+                                        </span>
+                            </a>
+                        </div>
+                        <div>                                    <span class="text-secondary" style="font-size: .8em">
+                                        [117 - 140]
+                                    </span></div>
+
+
+
+                                    </td>
+                    </tr>
+    
+
+</table>
+        </div>
+        <div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab" tabindex="0">
+            <span>
+    Es imposible saber cuántas plazas se van a ofertar en cada curso, pero sí se puede ver el número de plazas que se han ido adjudicando en los cursos anteriores y en qué momento se han adjudicado.
+    Por eso aquí se muestran de forma ordenada las posiciones en la bolsa que se han ido adjudicando y cuándo se han producido esas adjudicaciones.
+    Se basa en los datos del <strong>curso 2024/2025</strong>.
+</span>
+<div class="mt-4">
+    <span class="bg-warning p-2">Vacante (V)</span>
+    <span class="bg-success text-white p-2">Sustitución (S)</span>
+</div>
+<div class="table-responsive">
     <table class="table table-striped mt-5">
         <tr>
-            <th>Provincia</th>
-                            <th>Curso 2018/2019</th>
-                            <th>Curso 2019/2020</th>
-                            <th>Curso 2020/2021</th>
-                            <th>Curso 2021/2022</th>
-                            <th>Curso 2022/2023</th>
-                            <th>Curso 2023/2024</th>
-                            <th>Curso 2024/2025</th>
+            <th class="header">
+                <span class="d-none d-md-inline">Orden en la bolsa</span>
+                <span class="d-xs d-md-none">Orden</span>
+            </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Almería</span>
+                    <span class="d-xs d-md-none">AL</span>
+                </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Cádiz</span>
+                    <span class="d-xs d-md-none">CA</span>
+                </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Córdoba</span>
+                    <span class="d-xs d-md-none">CO</span>
+                </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Granada</span>
+                    <span class="d-xs d-md-none">GR</span>
+                </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Huelva</span>
+                    <span class="d-xs d-md-none">HU</span>
+                </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Jaén</span>
+                    <span class="d-xs d-md-none">JA</span>
+                </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Málaga</span>
+                    <span class="d-xs d-md-none">MA</span>
+                </th>
+                            <th class="header">
+                    <span class="d-none d-md-inline">Sevilla</span>
+                    <span class="d-xs d-md-none">SE</span>
+                </th>
                     </tr>
+
                     <tr>
-                <td>
-                    Almería
-                </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2018/4">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    1
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/4">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/4">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    2
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/4">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    2
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/4">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    2
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/4">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    5
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/4">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    3
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>29</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
                     <tr>
-                <td>
-                    Cádiz
-                </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2018/11">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    7
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/11">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    6
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/11">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    10
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/11">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    8
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/11">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    19
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/11">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    9
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/11">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    16
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>33</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">09/Sep/2024</span>
+                            <span class="d-inline d-md-none">09/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
                     <tr>
-                <td>
-                    Córdoba
-                </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2018/14">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    1
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/14">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    3
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/14">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    5
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/14">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    8
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/14">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    7
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/14">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    7
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/14">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    2
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>35</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">22/May/2025</span>
+                            <span class="d-inline d-md-none">22/05/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
                     <tr>
-                <td>
-                    Granada
-                </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2018/18">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    3
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/18">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/18">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/18">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    3
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/18">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    8
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/18">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    8
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/18">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    7
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>36</td>
+                                                                                <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
                     <tr>
-                <td>
-                    Huelva
-                </td>
-                                    <td>
-                                                    <span>
-                                -
-                            </span>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/21">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    6
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/21">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    7
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/21">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    6
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/21">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    7
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/21">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    5
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/21">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>37</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                    
+            </tr>
                     <tr>
-                <td>
-                    Jaén
-                </td>
-                                    <td>
-                                                    <span>
-                                -
-                            </span>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/23">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    6
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/23">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    5
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/23">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    11
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/23">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    12
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/23">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    12
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/23">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    11
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>38</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                    
+            </tr>
                     <tr>
-                <td>
-                    Málaga
-                </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2018/29">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    2
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/29">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    8
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/29">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    8
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/29">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/29">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    6
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/29">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    7
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/29">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>40</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
                     <tr>
-                <td>
-                    Sevilla
-                </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2018/41">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    2
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2019/41">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    10
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2020/41">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    11
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2021/41">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    10
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2022/41">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2023/41">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    4
-                                </span>
-                            </a>
-                                            </td>
-                                    <td>
-                                                    <a href="/sipri_analyzer/especialidad/00594433/2024/41">
-                                <span class="badge rounded-pill text-bg-primary">
-                                    8
-                                </span>
-                            </a>
-                                            </td>
-                            </tr>
+                <td>43</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>44</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">09/Jan/2025</span>
+                            <span class="d-inline d-md-none">09/01/25</span>
+                        </td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">09/Apr/2025</span>
+                            <span class="d-inline d-md-none">09/04/25</span>
+                        </td>
+                                    
+            </tr>
+                    <tr>
+                <td>45</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">14/Jan/2025</span>
+                            <span class="d-inline d-md-none">14/01/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">20/Feb/2025</span>
+                            <span class="d-inline d-md-none">20/02/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>47</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">09/Jan/2025</span>
+                            <span class="d-inline d-md-none">09/01/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>48</td>
+                                                                                <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">17/Sep/2024</span>
+                            <span class="d-inline d-md-none">17/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>49</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">17/Sep/2024</span>
+                            <span class="d-inline d-md-none">17/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>51</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>52</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">24/Sep/2024</span>
+                            <span class="d-inline d-md-none">24/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>54</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>55</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">17/Sep/2024</span>
+                            <span class="d-inline d-md-none">17/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>56</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">17/Sep/2024</span>
+                            <span class="d-inline d-md-none">17/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>57</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">19/Sep/2024</span>
+                            <span class="d-inline d-md-none">19/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>58</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">26/Sep/2024</span>
+                            <span class="d-inline d-md-none">26/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>60</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">19/Sep/2024</span>
+                            <span class="d-inline d-md-none">19/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>61</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">12/Sep/2024</span>
+                            <span class="d-inline d-md-none">12/09/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">23/Jan/2025</span>
+                            <span class="d-inline d-md-none">23/01/25</span>
+                        </td>
+                                    
+            </tr>
+                    <tr>
+                <td>62</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">07/Nov/2024</span>
+                            <span class="d-inline d-md-none">07/11/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">27/Mar/2025</span>
+                            <span class="d-inline d-md-none">27/03/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>64</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">23/Jan/2025</span>
+                            <span class="d-inline d-md-none">23/01/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">09/Apr/2025</span>
+                            <span class="d-inline d-md-none">09/04/25</span>
+                        </td>
+                                    
+            </tr>
+                    <tr>
+                <td>67</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">10/Oct/2024</span>
+                            <span class="d-inline d-md-none">10/10/24</span>
+                        </td>
+                                    
+            </tr>
+                    <tr>
+                <td>72</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">15/Oct/2024</span>
+                            <span class="d-inline d-md-none">15/10/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">03/Jun/2025</span>
+                            <span class="d-inline d-md-none">03/06/25</span>
+                        </td>
+                                    
+            </tr>
+                    <tr>
+                <td>73</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">24/Oct/2024</span>
+                            <span class="d-inline d-md-none">24/10/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>77</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">17/Oct/2024</span>
+                            <span class="d-inline d-md-none">17/10/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">23/Jan/2025</span>
+                            <span class="d-inline d-md-none">23/01/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>79</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaV
+                             bg-warning                                                         ">
+                            <span class="d-none d-md-inline">12/Nov/2024</span>
+                            <span class="d-inline d-md-none">12/11/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>80</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">13/May/2025</span>
+                            <span class="d-inline d-md-none">13/05/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>81</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">06/Feb/2025</span>
+                            <span class="d-inline d-md-none">06/02/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">14/Nov/2024</span>
+                            <span class="d-inline d-md-none">14/11/24</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>85</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">09/Apr/2025</span>
+                            <span class="d-inline d-md-none">09/04/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>89</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">09/Apr/2025</span>
+                            <span class="d-inline d-md-none">09/04/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>90</td>
+                                                                                <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">04/Mar/2025</span>
+                            <span class="d-inline d-md-none">04/03/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">09/Apr/2025</span>
+                            <span class="d-inline d-md-none">09/04/25</span>
+                        </td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                    
+            </tr>
+                    <tr>
+                <td>91</td>
+                                                                                <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td>-</td>
+                                                                                                    <td class="small plazaS
+                                                         bg-success text-white                             ">
+                            <span class="d-none d-md-inline">11/Mar/2025</span>
+                            <span class="d-inline d-md-none">11/03/25</span>
+                        </td>
+                                    
+            </tr>
             </table>
-    <h3 class="mt-5">Gráfico de evolución de plazas</h3>
-    <div class="col-12 col-xl-8 mx-auto" style="min-height: 400px">
-        <canvas data-controller="symfony--ux-chartjs--chart" data-symfony--ux-chartjs--chart-view-value="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;2018\/2019&quot;,&quot;2019\/2020&quot;,&quot;2020\/2021&quot;,&quot;2021\/2022&quot;,&quot;2022\/2023&quot;,&quot;2023\/2024&quot;,&quot;2024\/2025&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Almer\u00eda&quot;,&quot;data&quot;:[1,4,2,2,2,5,3],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#CB4335&quot;,&quot;borderColor&quot;:&quot;#CB4335&quot;},{&quot;label&quot;:&quot;C\u00e1diz&quot;,&quot;data&quot;:[7,6,10,8,19,9,16],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#1F618D&quot;,&quot;borderColor&quot;:&quot;#1F618D&quot;},{&quot;label&quot;:&quot;C\u00f3rdoba&quot;,&quot;data&quot;:[1,3,5,8,7,7,2],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#F1C40F&quot;,&quot;borderColor&quot;:&quot;#F1C40F&quot;},{&quot;label&quot;:&quot;Granada&quot;,&quot;data&quot;:[3,4,4,3,8,8,7],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#27AE60&quot;,&quot;borderColor&quot;:&quot;#27AE60&quot;},{&quot;label&quot;:&quot;Huelva&quot;,&quot;data&quot;:[0,6,7,6,7,5,4],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#884EA0&quot;,&quot;borderColor&quot;:&quot;#884EA0&quot;},{&quot;label&quot;:&quot;Ja\u00e9n&quot;,&quot;data&quot;:[0,6,5,11,12,12,11],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#D35400&quot;,&quot;borderColor&quot;:&quot;#D35400&quot;},{&quot;label&quot;:&quot;M\u00e1laga&quot;,&quot;data&quot;:[2,8,8,4,6,7,4],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#F39C12&quot;,&quot;borderColor&quot;:&quot;#F39C12&quot;},{&quot;label&quot;:&quot;Sevilla&quot;,&quot;data&quot;:[2,10,11,10,4,4,8],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#16A085&quot;,&quot;borderColor&quot;:&quot;#16A085&quot;}]},&quot;options&quot;:{&quot;responsive&quot;:true,&quot;maintainAspectRatio&quot;:false,&quot;plugins&quot;:{&quot;autocolors&quot;:{&quot;enabled&quot;:true,&quot;mode&quot;:&quot;dataset&quot;}}}}"></canvas>
+
+</div>
+        </div>
+        <div class="tab-pane fade" id="pills-three" role="tabpanel" aria-labelledby="pills-three-tab"
+             tabindex="0"><h3 class="mt-5">Gráfico de evolución de plazas</h3>
+<div class="col-12 col-xl-8 mx-auto" style="min-height: 400px">
+    <canvas data-controller="symfony--ux-chartjs--chart" data-symfony--ux-chartjs--chart-view-value="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;2024\/2025&quot;,&quot;2023\/2024&quot;,&quot;2022\/2023&quot;,&quot;2021\/2022&quot;,&quot;2020\/2021&quot;,&quot;2019\/2020&quot;,&quot;2018\/2019&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Almer\u00eda&quot;,&quot;data&quot;:[2,5,2,2,2,4,1],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#CB4335&quot;,&quot;borderColor&quot;:&quot;#CB4335&quot;},{&quot;label&quot;:&quot;C\u00e1diz&quot;,&quot;data&quot;:[16,9,19,8,10,6,6],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#1F618D&quot;,&quot;borderColor&quot;:&quot;#1F618D&quot;},{&quot;label&quot;:&quot;C\u00f3rdoba&quot;,&quot;data&quot;:[2,7,6,8,5,3,1],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#F1C40F&quot;,&quot;borderColor&quot;:&quot;#F1C40F&quot;},{&quot;label&quot;:&quot;Granada&quot;,&quot;data&quot;:[7,9,7,3,4,4,3],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#27AE60&quot;,&quot;borderColor&quot;:&quot;#27AE60&quot;},{&quot;label&quot;:&quot;Huelva&quot;,&quot;data&quot;:[4,5,7,6,6,7,0],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#884EA0&quot;,&quot;borderColor&quot;:&quot;#884EA0&quot;},{&quot;label&quot;:&quot;Ja\u00e9n&quot;,&quot;data&quot;:[11,12,12,9,5,6,0],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#D35400&quot;,&quot;borderColor&quot;:&quot;#D35400&quot;},{&quot;label&quot;:&quot;M\u00e1laga&quot;,&quot;data&quot;:[3,7,6,4,6,8,2],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#F39C12&quot;,&quot;borderColor&quot;:&quot;#F39C12&quot;},{&quot;label&quot;:&quot;Sevilla&quot;,&quot;data&quot;:[8,4,4,10,10,10,2],&quot;borderWidth&quot;:3,&quot;backgroundColor&quot;:&quot;#16A085&quot;,&quot;borderColor&quot;:&quot;#16A085&quot;}]},&quot;options&quot;:{&quot;responsive&quot;:true,&quot;maintainAspectRatio&quot;:false,&quot;plugins&quot;:{&quot;autocolors&quot;:{&quot;enabled&quot;:true,&quot;mode&quot;:&quot;dataset&quot;}}}}"></canvas>
+</div>
+</div>
     </div>
+
 
     </div>
 </main>
@@ -557,7 +1879,7 @@ if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (fu
             ni debe entenderse como tal. Se enfatiza en que <strong>puede incluir errores o imperfecciones</strong>.
 
             <br>Lea las <a href="/sipri_analyzer/preguntas_frecuentes">preguntas frecuentes</a> para más información |
-            Datos actualizados a: 31/07/2025 | <a class="link-secondary" href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i></a>
+            Datos actualizados a: 03/08/2025 | <a class="link-secondary" href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i></a>
 
         </small>
     </div>
