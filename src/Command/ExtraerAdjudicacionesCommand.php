@@ -120,7 +120,7 @@ readonly class ExtraerAdjudicacionesCommand
                     new Adjudicacion(
                         id: null,
                         puesto: intval($adjudicaciones_array['orden']),
-                        plaza: $plazasObjetivo[0],
+                        plaza: $plaza,
                     )
                 );
                 $nuevas++;

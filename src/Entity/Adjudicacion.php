@@ -21,6 +21,7 @@ class Adjudicacion
     /**
      * @param int|null $id
      * @param int|null $puesto
+     * @param Plaza|null $plaza
      */
     public function __construct(?int $id, ?int $puesto, ?Plaza $plaza = null)
     {
