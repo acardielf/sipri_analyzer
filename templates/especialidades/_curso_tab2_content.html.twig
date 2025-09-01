@@ -1,0 +1,48 @@
+
+<div class="mt-4">
+    <span class="bg-warning p-2">Vacante (V)</span>
+    <span class="bg-success text-white p-2">Sustitución (S)</span>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped mt-5">
+        <tr>
+            <th class="header">
+                <span class="d-none d-md-inline">Orden en la bolsa</span>
+                <span class="d-xs d-md-none">Orden</span>
+            </th>
+            {% for provincia in provincias %}
+                <th class="header">
+                    <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
+                    <span class="d-xs d-md-none">{{ provincia.twoLetterCode }}</span>
+                </th>
+            {% endfor %}
+        </tr>
+
+        {% for orden, adjudicacion in listaAdjudicaciones %}
+            <tr>
+                <td>{{ orden }}</td>
+                {% for provincia in provincias %}
+                    {% set provId = provincia.id + 0 %}
+                    {% if provId in adjudicacion|keys %}
+                        <td class="small">
+                        {% for entry in adjudicacion[provId] %}
+
+                            <div class="p-1 m-2 plaza{{ entry['tipo'] }}
+                            {% if entry['tipo'] == 'V' %} bg-warning {% endif %}
+                            {% if entry['tipo'] == 'S' %} bg-success text-white {% endif %}
+                            ">
+                                <span class="d-none d-xl-inline">{{entry['fecha'] }}</span>
+                                <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
+                            </div>
+                        {% endfor %}
+                        </td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+                {% endfor %}
+
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>

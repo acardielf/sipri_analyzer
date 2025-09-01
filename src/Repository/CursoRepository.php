@@ -32,6 +32,20 @@ class CursoRepository extends ServiceEntityRepository
         return $result[0];
     }
 
+    public function findPrevious(Curso $curso): ?Curso
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.id < :currentId')
+            ->setParameter('currentId', $curso->getId())
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(1);
+
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+
+        return $result[0] ?? null;
+    }
+
     /**
      * @return iterable<Curso>
      */

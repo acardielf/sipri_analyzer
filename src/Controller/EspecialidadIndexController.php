@@ -73,7 +73,14 @@ class EspecialidadIndexController extends AbstractController
         }
 
         $cursoLast = $this->cursoRepository->findLast();
+        $previo1 = $this->cursoRepository->findPrevious($cursoLast);
+        $previo2 = $this->cursoRepository->findPrevious($previo1);
+
+
         $adjudicaciones = $this->getAdjudicaciones($especialidad, $cursoLast);
+        $adjudicaciones_previo1 = $this->getAdjudicaciones($especialidad, $previo1);
+        $adjudicaciones_previo2 = $this->getAdjudicaciones($especialidad, $previo2);
+
 
         $chart = $this->chartService->createChartByEspecialidadPorProvincia(
             $chartBuilder,
@@ -89,26 +96,30 @@ class EspecialidadIndexController extends AbstractController
             'plazasFiltradas' => $result,
             'chart' => $chart,
             'cursoLast' => $cursoLast,
+            'cursoPrevio1' => $previo1,
+            'cursoPrevio2' => $previo2,
             'adjudicaciones' => $adjudicaciones,
+            'adjudicaciones_previo1' => $adjudicaciones_previo1,
+            'adjudicaciones_previo2' => $adjudicaciones_previo2,
         ]);
     }
 
-    private function getAdjudicaciones(Especialidad $especialidad, Curso $cursoLast): array
+    private function getAdjudicaciones(Especialidad $especialidad, ?Curso $curso): array
     {
-
-
-        if (!$cursoLast) {
+        if (!$curso) {
             throw $this->createNotFoundException('Curso not found');
         }
 
-        $adjudicacionesLastCourse = $this->adjudicacionRepository->findByEspecialidadAndCurso(
+        $adjudicacionesByCourse = $this->adjudicacionRepository->findByEspecialidadAndCurso(
             $especialidad,
-            $cursoLast,
+            $curso,
         );
 
+        $i = 0;
         $adjudicaciones = [];
+
         /** @var Adjudicacion $adjudicacion */
-        foreach ($adjudicacionesLastCourse as $adjudicacion) {
+        foreach ($adjudicacionesByCourse as $adjudicacion) {
             $provincia = $adjudicacion->getPlaza()->getCentro()->getLocalidad()->getProvincia()->getId();
             $f = $adjudicacion->getPlaza()->getConvocatoria()->getFecha();
             $fecha = $f->format('d/M/Y');
@@ -116,9 +127,12 @@ class EspecialidadIndexController extends AbstractController
             $tipo = $adjudicacion->getPlaza()->getTipo()->getShortLabel();
             $orden = $adjudicacion->getOrden();
 
-            $adjudicaciones[$orden][$provincia]['fecha'] = $fecha;
-            $adjudicaciones[$orden][$provincia]['fechaMin'] = $fechaMin;
-            $adjudicaciones[$orden][$provincia]['tipo'] = $tipo;
+
+            $adjudicaciones[$orden][$provincia][$i]['fecha'] = $fecha;
+            $adjudicaciones[$orden][$provincia][$i]['fechaMin'] = $fechaMin;
+            $adjudicaciones[$orden][$provincia][$i]['tipo'] = $tipo;
+
+            $i++;
         }
         ksort($adjudicaciones);
 
