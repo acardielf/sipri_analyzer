@@ -52,7 +52,7 @@ jobs:
 
       - name: Run SIPRI Analyzer
         run: |
-          php bin/console sipri:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; rm -rf docs/; done
+          for i in {1..388}; do php bin/console sipri:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; rm -rf docs/; done
           php bin/console sipri:last
           php bin/console asset-map:compile
           php bin/console -e prod cache:clear
