@@ -31,7 +31,7 @@ trait ConvocatoriaConfigurationTrait
     {
         if (in_array($convocatoria, self::CONVOCATORIA_AUSENTE, true)) {
             throw new RuntimeException(
-                sprintf('No existe ninguna convocatoria convocatoria con el número %d', $convocatoria)
+                sprintf('No existe ninguna convocatoria con el número %d', $convocatoria)
             );
         }
 

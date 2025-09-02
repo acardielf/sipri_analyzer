@@ -78,8 +78,13 @@ jobs:
           php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
       - name: Run SIPRI Analyzer
-        run: for i in {1..388}; do php bin/console sipri:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
-        continue-on-error: true
+        run: |
+          for i in {1..388}; do
+          php bin/console sipri:get "$i" || true
+          php bin/console sipri:ex "$i" || true
+          php bin/console sipri:adj "$i" || true
+          rm -rf docs/
+          done
       
       #      - name: Generate static website
 #        run: |
