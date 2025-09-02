@@ -36,7 +36,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: sqlite-db
-          path: var/data_prod.db
+          path: var/
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true   # por si no existe aún
 
 
