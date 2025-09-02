@@ -5,8 +5,8 @@ on:
     branches:
       - main
   pull_request: ~
-#  schedule:
-#    - cron: "0 17 * * *" # todos los días a las 6 AM UTC
+  schedule:
+    - cron: "0 16 * * *" # todos los días a las 16:00 UTC (17:00 hora de Madrid)
   workflow_dispatch: ~ # manual trigger
   workflow_call:
 
@@ -87,7 +87,7 @@ jobs:
 #          done
           
       - name: Run SIPRI Analyzer only last 
-        run: php bin/console sipri:last 
+        run: php bin/console sipri:last || true
       
 #      - name: Generate static website
 #        run: |
