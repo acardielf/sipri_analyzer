@@ -87,3 +87,11 @@ jobs:
 #          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
 #          rm public/assets/ -rf
 
+
+      - name: Upload PDF files
+        uses: actions/upload-artifact@v4
+        with:
+          name: sqlite-db
+          path: var/data_prod.db
+          retention-days: 90
+  
