@@ -32,13 +32,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-
       - name: Cache DB
         id: cache-db
         uses: actions/cache@v4
         with:
           path: var/data_prod.db
           key: sqlite-db
+        
+      - name: Cache PDF
+        id: cache-pdf
+        uses: actions/cache@v4
+        with:
+          path: pdfs/*
+          key: cache-pdf          
 
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
@@ -72,7 +78,7 @@ jobs:
           php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
       - name: Run SIPRI Analyzer
-        run: php bin/console sipri:last
+        run: for i in {1..388}; do php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
       
 #      - name: Generate static website
 #        run: |
@@ -81,11 +87,3 @@ jobs:
 #          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
 #          rm public/assets/ -rf
 
-
-      - name: Upload PDF files
-        uses: actions/upload-artifact@v4
-        with:
-          name: pdf-files
-          path: pdfs/*
-          retention-days: 90
-  
