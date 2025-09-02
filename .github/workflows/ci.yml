@@ -39,6 +39,12 @@ jobs:
           path: var/
         continue-on-error: true   # por si no existe aún
 
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_APP_ENV: prod
+
       - name: Install PHP dependencies
         run: composer install --no-interaction --no-progress
 
@@ -54,7 +60,6 @@ jobs:
 
       - name: Install Java (for tabula-py)
         run: sudo apt-get update && sudo apt-get install -y default-jre
-
 
       - name: Prepare Symfony dependencies
         run: |
@@ -80,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sqlite-db
-          path: var/data.sqlite
+          path: var/data_prod.db
           retention-days: 30
           overwrite: 'true'
 
