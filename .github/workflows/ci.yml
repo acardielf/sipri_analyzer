@@ -66,16 +66,8 @@ jobs:
           php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
       - name: Run SIPRI Analyzer
-        run: |
-#          for i in {1..388}; do php bin/console sipri:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
-          php bin/console sipri:last
+        run: php bin/console sipri:last
 
-#      - name: Generate static website
-#        run: |
-#          php bin/console asset-map:compile
-#          php bin/console -e prod cache:clear
-#          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
-#          rm public/assets/ -rf
 
       - name: Upload DB
         uses: actions/upload-artifact@v4
