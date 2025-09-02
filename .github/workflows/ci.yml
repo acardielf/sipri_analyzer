@@ -44,6 +44,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_APP_ENV: prod
+          envkey_DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data_%kernel.environment%.db"
 
       - name: Install PHP dependencies
         run: composer install --no-interaction --no-progress
