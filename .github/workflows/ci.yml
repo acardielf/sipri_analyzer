@@ -8,7 +8,7 @@ on:
 #  schedule:
 #    - cron: "0 17 * * *" # todos los días a las 6 AM UTC
   workflow_dispatch: ~ # manual trigger
-
+  workflow_call:
 
 
 concurrency:
@@ -32,15 +32,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download previous DB
-        uses: actions/download-artifact@v4
-        with:
-          name: sqlite-db
-          path: var/
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true   # por si no existe aún
 
+      - name: Cache DB
+        id: cache-db
+        uses: actions/cache@v4
+        with:
+          path: var/data_prod.db
+          key: sqlite-db
 
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
@@ -83,14 +81,6 @@ jobs:
 #          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
 #          rm public/assets/ -rf
 
-
-      - name: Upload DB
-        uses: actions/upload-artifact@v4
-        with:
-          name: sqlite-db
-          path: var/data_prod.db
-          retention-days: 30
-          overwrite: 'true'
 
       - name: Upload PDF files
         uses: actions/upload-artifact@v4
