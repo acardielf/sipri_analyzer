@@ -140,6 +140,8 @@ readonly class ExtraerAdjudicacionesCommand
             $progressBar->clear();
         }
 
+        $io->newLine();
+
         if (!empty($noEncontradas)) {
             $io->writeln('<error>Algunas adjudicaciones no se han podido asociar a plazas.</error>');
             foreach ($noEncontradas as $noEncontrada) {

@@ -73,7 +73,7 @@ readonly class ExtraerPlazasCommand
         $resultadoProcesamiento = $this->persistirPlazas($plazas, $fechaConvocatoria, $convocatoria, $io, $info);
 
         $this->mostrarResumen($io, $convocatoria, $fechaConvocatoria, $resultadoProcesamiento);
-        
+
 
         return Command::SUCCESS;
     }
@@ -167,6 +167,8 @@ readonly class ExtraerPlazasCommand
         if (!$info) {
             $progressBar->clear();
         }
+
+        $io->newLine();
 
         return [
             'total' => $ocurrencia - 1,
