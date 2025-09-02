@@ -42,6 +42,11 @@ readonly class RemoveConvocatoriaCommand
             shortcut: 'f',
         )] bool $removeFiles = false,
         #[Option(
+            description: 'Elimina exclusivamente los ficheros asociados a la convocatoria',
+            name: 'exclusively-files',
+            shortcut: 'ef',
+        )] bool $removeExclusivelyFiles = false,
+        #[Option(
             description: 'Elimina las adjudicaciones asociadas a la convocatoria',
             name: 'adjudicaciones',
             shortcut: 'a',
@@ -50,15 +55,22 @@ readonly class RemoveConvocatoriaCommand
         {
             $io->title('ELIMINAR CONVOCATORIA: ' . $convocatoria);
 
+            $mainMode = $adjudicaciones ? 'Adjudicaciones' : 'Plazas y Convocatoria';
+            $mode = $removeExclusivelyFiles ? 'Eliminación de ficheros' : $mainMode;
+
             $io->table(['Opciones', 'Valor'], [
                 ['Eliminar ficheros', $removeFiles ? 'Sí' : 'No'],
-                ['Modo', $adjudicaciones ? 'Adjudicaciones' : 'Plazas y Convocatoria'],
+                ['Modo', $mode],
             ]);
 
             $path = FileUtilitiesService::getLocalPathForConvocatoria($convocatoria);
 
             if ($removeFiles) {
                 $this->removeFiles($path, $convocatoria, $io);
+            }
+
+            if ($removeExclusivelyFiles) {
+                return Command::SUCCESS;
             }
 
             if ($adjudicaciones) {
@@ -73,13 +85,13 @@ readonly class RemoveConvocatoriaCommand
         }
     }
 
-    private function removePlazasAndConvocatoria(int $convocatoria, SymfonyStyle $io): int
+    private function removePlazasAndConvocatoria(int $convocatoria, SymfonyStyle $io): void
     {
         $convocatoriaEntity = $this->convocatoriaRepository->find($convocatoria);
 
         if (!$convocatoriaEntity) {
             $io->note('Convocatoria no encontrada.');
-            return Command::FAILURE;
+            return;
         }
 
         $numPlazas = count($convocatoriaEntity->getPlazas());
@@ -90,7 +102,6 @@ readonly class RemoveConvocatoriaCommand
             ['Convocatoria eliminada', $convocatoria],
             ['Plazas eliminadas', $numPlazas],
         ]);
-        return Command::SUCCESS;
     }
 
     private function removeOnlyAdjudicaciones(int $convocatoria, SymfonyStyle $io): void

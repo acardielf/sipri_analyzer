@@ -10,13 +10,14 @@ trait ConvocatoriaConfigurationTrait
 {
 
     private const array CONVOCATORIA_RANGES = [
-        ['min' => 1, 'max' => 30, 'year' => 2018],
-        ['min' => 31, 'max' => 81, 'year' => 2019],
-        ['min' => 82, 'max' => 136, 'year' => 2020],
-        ['min' => 137, 'max' => 198, 'year' => 2021],
-        ['min' => 200, 'max' => 262, 'year' => 2022],
-        ['min' => 263, 'max' => 324, 'year' => 2023],
-        ['min' => 325, 'max' => 388, 'year' => 2024],
+        ['min' => 1, 'max' => 30, 'year' => 2018], // 29 convocatorias
+        ['min' => 31, 'max' => 81, 'year' => 2019], // 51 convocatorias
+        ['min' => 82, 'max' => 136, 'year' => 2020], // 55 convocatorias
+        ['min' => 137, 'max' => 198, 'year' => 2021], // 62 convocatorias
+        ['min' => 200, 'max' => 262, 'year' => 2022], // 63 convocatorias
+        ['min' => 263, 'max' => 324, 'year' => 2023], // 62 convocatorias
+        ['min' => 325, 'max' => 388, 'year' => 2024], // 64 convocatorias
+        ['min' => 389, 'max' => 459, 'year' => 2025], // suposición de maximo 70 convocatorias. max = 389+70 = 459
     ];
     private const array CONVOCATORIA_AUSENTE = [
         26, 45, 91, 114, 155, 180, 199, 260, 265,

@@ -21,17 +21,14 @@ use Symfony\Component\DomCrawler\Crawler;
 )]
 class GetConvocatoria extends Command
 {
-    private SessionCookieJar $jar;
-    private Client $client;
 
-    const BASE_URL = 'https://www.juntadeandalucia.es';
-    const HISTORICO_BUSCAR_URL = '/educacion/sipri/normativa/historicobuscar/';
-    const CLIENT_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3';
+    public const string BASE_URL = 'https://www.juntadeandalucia.es/educacion/sipri/normativa/';
+    public const string HISTORICO_BUSCAR_URL = './historicobuscar/';
+    public const string CLIENT_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3';
 
     public function __construct(
         private readonly FileUtilitiesService $fileUtilitiesService,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -40,7 +37,13 @@ class GetConvocatoria extends Command
     {
         $this->setHelp('This command allows you to get convocatoria from SIPRI');
         $this->addArgument('convocatoria', InputArgument::REQUIRED, 'Convocatoria to download');
-        $this->addOption('force', 'f', InputOption::VALUE_NEGATABLE, 'Force download even if files already exist', false);
+        $this->addOption(
+            'force',
+            'f',
+            InputOption::VALUE_NEGATABLE,
+            'Force download even if files already exist',
+            false
+        );
     }
 
     /**
@@ -61,10 +64,12 @@ class GetConvocatoria extends Command
 
 
         if (!$input->getOption('force')) {
-            $allFilesExist = $this->checkIfAllFilesExist(array_map(
-                fn($file) => $file['sink'],
-                $files
-            ));
+            $allFilesExist = $this->checkIfAllFilesExist(
+                array_map(
+                    fn($file) => $file['sink'],
+                    $files
+                )
+            );
 
             if ($allFilesExist) {
                 $output->writeln('<info>Todos los archivos ya existen. No se descargarán de nuevo.</info>');
@@ -72,17 +77,17 @@ class GetConvocatoria extends Command
             }
         }
 
-        $this->jar = new SessionCookieJar('SipriSession', true);
+        $jar = new SessionCookieJar('SipriSession', true);
 
-        $this->client = new Client([
+        $client = new Client([
             'base_uri' => self::BASE_URL,
-            'cookies' => $this->jar,
+            'cookies' => $jar,
             'headers' => [
                 'User-Agent' => self::CLIENT_AGENT,
             ],
         ]);
 
-        $response = $this->client->request('POST', self::HISTORICO_BUSCAR_URL, [
+        $response = $client->request('POST', self::HISTORICO_BUSCAR_URL, [
             'form_params' => [
                 'convocatoria' => $convocatoria,
             ],
@@ -109,8 +114,8 @@ class GetConvocatoria extends Command
             } else {
                 $url = parse_url($file['url']->attr('href'), PHP_URL_PATH);
                 $url = str_replace('/historicobuscar', '', $url);
-                $this->client->request('GET', $url, [
-                    'cookies' => $this->jar,
+                $client->request('GET', $url, [
+                    'cookies' => $jar,
                     'sink' => $file['sink'],
                 ]);
             }
