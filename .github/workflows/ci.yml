@@ -79,8 +79,9 @@ jobs:
 
       - name: Run SIPRI Analyzer
         run: for i in {1..388}; do php bin/console sipri:get "$i"; php bin/console sipri:ex "$i"; php bin/console sipri:adj "$i"; done
+        continue-on-error: true
       
-#      - name: Generate static website
+      #      - name: Generate static website
 #        run: |
 #          php bin/console asset-map:compile
 #          php bin/console -e prod cache:clear
