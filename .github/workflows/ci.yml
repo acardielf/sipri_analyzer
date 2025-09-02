@@ -20,6 +20,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+        
+      - name: Install PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, pdo, pdo_sqlite, xml, curl
+          tools: composer:v2
+          coverage: none
+        
+        
       - name: Checkout repo
         uses: actions/checkout@v4
 
