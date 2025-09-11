@@ -75,11 +75,13 @@ class EspecialidadIndexController extends AbstractController
         $cursoLast = $this->cursoRepository->findLast();
         $previo1 = $this->cursoRepository->findPrevious($cursoLast);
         $previo2 = $this->cursoRepository->findPrevious($previo1);
+        $previo3 = $this->cursoRepository->findPrevious($previo2);
 
 
         $adjudicaciones = $this->getAdjudicaciones($especialidad, $cursoLast);
         $adjudicaciones_previo1 = $this->getAdjudicaciones($especialidad, $previo1);
         $adjudicaciones_previo2 = $this->getAdjudicaciones($especialidad, $previo2);
+        $adjudicaciones_previo3 = $this->getAdjudicaciones($especialidad, $previo3);
 
 
         $chart = $this->chartService->createChartByEspecialidadPorProvincia(
@@ -98,9 +100,11 @@ class EspecialidadIndexController extends AbstractController
             'cursoLast' => $cursoLast,
             'cursoPrevio1' => $previo1,
             'cursoPrevio2' => $previo2,
+            'cursoPrevio3' => $previo3,
             'adjudicaciones' => $adjudicaciones,
             'adjudicaciones_previo1' => $adjudicaciones_previo1,
             'adjudicaciones_previo2' => $adjudicaciones_previo2,
+            'adjudicaciones_previo3' => $adjudicaciones_previo3,
         ]);
     }
 

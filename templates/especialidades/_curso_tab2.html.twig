@@ -10,7 +10,7 @@
     <li class="nav-item">
         <button class="nav-link active" id="currar-curso-main-tab" data-bs-toggle="pill" data-bs-target="#currar-curso-main"
                 type="button" role="tab" aria-controls="currar-curso-main" aria-selected="true">
-            <i class="bi bi-align-start"></i> {{ cursoLast.nombre }}
+            <i class="bi bi-align-start"></i> {{ cursoLast.nombre }} / Actual
         </button>
     </li>
     <li class="nav-item">
@@ -22,7 +22,13 @@
     <li class="nav-item">
         <button class="nav-link " id="currar-curso-previous2-tab" data-bs-toggle="pill" data-bs-target="#currar-curso-previous2"
                 type="button" role="tab" aria-controls="currar-curso-previous2" aria-selected="false">
-            <i class="bi bi-align-end"></i> {{ cursoPrevio2.nombre }}
+            <i class="bi bi-align-middle"></i> {{ cursoPrevio2.nombre }}
+        </button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link " id="currar-curso-previous3-tab" data-bs-toggle="pill" data-bs-target="#currar-curso-previous3"
+                type="button" role="tab" aria-controls="currar-curso-previous3" aria-selected="false">
+            <i class="bi bi-align-end"></i> {{ cursoPrevio3.nombre }}
         </button>
     </li>
 </ul>
@@ -38,5 +44,9 @@
     <div class="tab-pane fade" id="currar-curso-previous2" role="tabpanel" aria-labelledby="currar-curso-previous2-tab"
          tabindex="0">
         {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo2 }  %}
+    </div>
+    <div class="tab-pane fade" id="currar-curso-previous3" role="tabpanel" aria-labelledby="currar-curso-previous3-tab"
+         tabindex="0">
+        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo3 }  %}
     </div>
 </div>
