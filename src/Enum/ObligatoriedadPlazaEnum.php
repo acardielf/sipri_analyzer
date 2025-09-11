@@ -15,8 +15,8 @@ enum ObligatoriedadPlazaEnum: string
         }
 
         return match ($obligatoriedad) {
-            'VOLUNTARIA', 'VOL', 'N' => self::VOL,
-            'OBLIGATORIA', 'OBL', 'S' => self::OBL,
+            'VOLUNTARIA', 'VOL', 'S' => self::VOL,
+            'OBLIGATORIA', 'OBL', 'N' => self::OBL,
             'SÍ/NO', 'SN', 'S/N' => self::SN,
             default => throw new \InvalidArgumentException("Invalid value for ObligatoriedadPlazaEnum: $obligatoriedad"),
         };
