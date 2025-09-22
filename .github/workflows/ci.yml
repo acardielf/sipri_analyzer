@@ -20,7 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-
+        
+      - name: Download existing files
+        uses: actions/download-artifact@v4
+        with:
+          name: sipri-analyzer-files
+          
       - name: Install PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
@@ -32,25 +37,25 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Cache DB
-        id: cache-db
+      - name: Restore cache
         uses: actions/cache@v4
         with:
-          path: var/data_prod.db
-          key: sqlite-db
-        
-      - name: Cache PDF
-        id: cache-pdf
-        uses: actions/cache@v4
-        with:
-          path: pdfs/*
-          key: cache-pdf          
+          path: ./vendor/
+          key: sipri_cache
 
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_APP_ENV: prod
           envkey_DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data_%kernel.environment%.db"
+
+      - name: Cache Vendor dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-vendor-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-vendor-
 
       - name: Install PHP dependencies
         run: composer install --no-interaction --no-progress
@@ -73,19 +78,16 @@ jobs:
           composer install --no-interaction --prefer-dist --optimize-autoloader
           php bin/console cache:clear
 
+
+      - name: Check existing records
+        run: |
+          php bin/console doctrine:query:sql "SELECT max(cast(id as integer)) FROM convocatoria"
+          
+
       - name: Prepare Symfony DB
         run: |
           php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-
-#      - name: Run SIPRI Analyzer FULL
-#        run: |
-#          for i in {1..388}; do
-#          php bin/console sipri:get "$i" || true
-#          php bin/console sipri:ex "$i" || true
-#          php bin/console sipri:adj "$i" || true
-#          rm -rf docs/
-#          done
-          
+         
       - name: Run SIPRI Analyzer only last 
         run: php bin/console sipri:last || true
       
@@ -96,11 +98,10 @@ jobs:
 #          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
 #          rm public/assets/ -rf
 
-
-      - name: Upload DB file
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: sqlite-db
-          path: var/data_prod.db
-          retention-days: 90
-  
+          name: sipri-analyzer-files
+          path: |
+            pdfs/
+            var/data_prod.db
