@@ -21,11 +21,12 @@ jobs:
     
     steps:
         
-      - name: Download existing files
+      - name: Download existing files (if exists)
         uses: actions/download-artifact@v4
         with:
           name: sipri-analyzer-files
-          
+        continue-on-error: true
+        
       - name: Install PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
