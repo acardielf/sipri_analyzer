@@ -199,6 +199,13 @@ jobs:
       - name: Run SIPRI Analyzer only last 
         run: php bin/console sipri:last || true
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sipri-analyzer-files
+          path: |
+            pdfs/
+            var/data_prod.db
      
       - name: Generate static website
         run: |
@@ -212,9 +219,9 @@ jobs:
           echo "<!-- redeploy $(date -u) -->" > docs/.redeploy
 
       - name: Commit y push de docs
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+        run: |          
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "acardielf@users.noreply.github.com"
           git add docs
           git commit -m "docs: update site [skip ci]"
           git push
