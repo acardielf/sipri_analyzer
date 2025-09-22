@@ -24,54 +24,117 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Get last successful run and download artifact
+      - name: Download artifact from full-manual.yml
         uses: actions/github-script@v7
-        continue-on-error: true
         with:
           script: |
-            const workflowFileName = "ci.yml"; 
+            const workflowFileName = "full-manual.yml";
             const artifactName = "sipri-analyzer-files";
 
-            // Buscar la última ejecución exitosa
-            const runs = await github.rest.actions.listWorkflowRuns({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: workflowFileName,
-              status: "success",
-              per_page: 1
-            });
+            async function downloadArtifact(workflowFileName) {
+              const runs = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: workflowFileName,
+                status: "success",
+                per_page: 1
+              });
 
-            if (runs.data.workflow_runs.length === 0) {
-              core.setFailed("❌ No se encontró ninguna ejecución previa exitosa.");
-              return;
+              if (runs.data.workflow_runs.length === 0) {
+                core.warning(`⚠️ No se encontró ejecución previa para ${workflowFileName}`);
+                return false;
+              }
+
+              const run_id = runs.data.workflow_runs[0].id;
+
+              const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id
+              });
+
+              const artifact = artifacts.data.artifacts.find(a => a.name === artifactName);
+              if (!artifact) {
+                core.warning(`⚠️ No se encontró el artefacto ${artifactName} en ${workflowFileName}`);
+                return false;
+              }
+
+              const download = await github.rest.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id,
+                archive_format: "zip"
+              });
+
+              const fs = require("fs");
+              fs.writeFileSync(`${artifactName}-${workflowFileName}.zip`, Buffer.from(download.data));
+              return true;
             }
 
-            const run_id = runs.data.workflow_runs[0].id;
+            await downloadArtifact("full-manual.yml");
 
-            // Listar artefactos de esa ejecución
-            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id
-            });
+      - name: Unzip full-manual artifact if exists
+        run: |
+          if [ -f sipri-analyzer-files-full-manual.yml.zip ]; then
+            unzip -o sipri-analyzer-files-full-manual.yml.zip -d .
+          fi
 
-            const artifact = artifacts.data.artifacts.find(a => a.name === artifactName);
-            if (!artifact) {
-              core.setFailed(`❌ No se encontró el artefacto ${artifactName}.`);
-              return;
-            }
-
-            // Descargarlo en zip
-            const download = await github.rest.actions.downloadArtifact({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              artifact_id: artifact.id,
-              archive_format: "zip"
-            });
-
+      - name: Download artifact from ci.yml
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const workflowFileName = "ci.yml";
+            const artifactName = "sipri-analyzer-files";
             const fs = require("fs");
-            fs.writeFileSync(`${artifactName}.zip`, Buffer.from(download.data));
-      
+
+            async function downloadArtifact(workflowFileName) {
+              const runs = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: workflowFileName,
+                status: "success",
+                per_page: 1
+              });
+
+              if (runs.data.workflow_runs.length === 0) {
+                core.warning(`⚠️ No se encontró ejecución previa para ${workflowFileName}`);
+                return false;
+              }
+
+              const run_id = runs.data.workflow_runs[0].id;
+
+              const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id
+              });
+
+              const artifact = artifacts.data.artifacts.find(a => a.name === artifactName);
+              if (!artifact) {
+                core.warning(`⚠️ No se encontró el artefacto ${artifactName} en ${workflowFileName}`);
+                return false;
+              }
+
+              const download = await github.rest.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id,
+                archive_format: "zip"
+              });
+
+              fs.writeFileSync(`${artifactName}-${workflowFileName}.zip`, Buffer.from(download.data));
+              return true;
+            }
+
+            await downloadArtifact("ci.yml");
+            
+            
+      - name: Unzip ci artifact if exists (overwrites duplicates)
+        run: |
+          if [ -f sipri-analyzer-files-ci.yml.zip ]; then
+            unzip -o sipri-analyzer-files-ci.yml.zip -d artifact
+          fi
+
       - name: Unzip artifact
         run: unzip sipri-analyzer-files.zip -d .
         
@@ -133,21 +196,28 @@ jobs:
         run: |
           php bin/console doctrine:query:sql "SELECT max(cast(id as integer)) FROM convocatoria"
       
-#      - name: Run SIPRI Analyzer only last 
-#        run: php bin/console sipri:last || true
+      - name: Run SIPRI Analyzer only last 
+        run: php bin/console sipri:last || true
 
-      - name: Run SIPRI Analyzer specific convocatoria
-        run: | 
-          php bin/console sipri:get 2
-          php bin/console sipri:ext 2
-          php bin/console sipri:adj 2
-      
-#      - name: Generate static website
-#        run: |
-#          php bin/console asset-map:compile
-#          php bin/console -e prod cache:clear
-#          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
-#          rm public/assets/ -rf
+     
+      - name: Generate static website
+        run: |
+          php bin/console asset-map:compile
+          php bin/console -e prod cache:clear
+          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+          rm public/assets/ -rf
+
+      - name: Add mark to force redeploy
+        run: |
+          echo "<!-- redeploy $(date -u) -->" > docs/.redeploy
+
+      - name: Commit y push de docs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git commit -m "docs: update site [skip ci]"
+          git push
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

@@ -13,11 +13,11 @@
         </h1>
 
         <p class="lead container pt-4">
-
             <strong>¿Cuándo voy a currar?</strong> Es la pregunta que todos los interinos
             e interinas se hacen al inicio de cada curso escolar, pendientes de la bolsa de trabajo y de las diferentes
             convocatorias de interinidades que se van produciendo.
         </p>
+
         <p class="lead container pt-4">
             Esta página pretende recoger de forma organizada los
             datos acumulados del Sistema de Provisión de
@@ -29,15 +29,25 @@
             como
             <a href="https://www.mapavacantesandalucia.es/" target="_blank"><i class="bi bi-box-arrow-up-right"></i>
                 mapa de vacantes</a>, que recogen esta información.
-
         </p>
+
         <p class="lead p-5">
             <a href="{{ path('app_lista_cuerpos') }}" class="btn btn-lg btn-primary fw-bold ">Listado
                 cuerpos y especialidades</a>
         </p>
-        <p class="lead">
-        <div class="alert alert-secondary" role="alert">Datos actualizados a: {{ "now"|date("d/m/Y") }}</div>
-        </p>
+
+        <div class="row gap-1 align-middle justify-content-center">
+
+            <div class="col-5 alert alert-secondary" role="alert">
+                Datos actualizados a: {{ "now"|date("d/m/Y") }}
+            </div>
+
+            <div class="col-5 alert alert-secondary" role="alert">
+                Última convocatoria analizada nº {{ convocatoria.id }} [ {{ convocatoria.fecha|date("d/m/Y") }} ]
+            </div>
+
+        </div>
+
     </div>
 
 
