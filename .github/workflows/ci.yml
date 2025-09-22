@@ -214,22 +214,8 @@ jobs:
           php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
           rm public/assets/ -rf
 
-      - name: Add mark to force redeploy
-        run: |
-          echo "<!-- redeploy $(date -u) -->" > docs/.redeploy
-
-      - name: Commit y push de docs
-        run: |          
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "acardielf@users.noreply.github.com"
-          git add docs
-          git commit -m "docs: update site [skip ci]"
-          git push
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Commit and Push changes if any
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          name: sipri-analyzer-files
-          path: |
-            pdfs/
-            var/data_prod.db
+          commit_message: Generated static website with date ${{ github.event.workflow_run.created_at }}
+
