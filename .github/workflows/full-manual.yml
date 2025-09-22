@@ -1,0 +1,95 @@
+name: Full Manual Run
+
+on:
+  workflow_dispatch: ~ # manual trigger
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  get-last-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, pdo, pdo_sqlite, xml, curl, http, zip
+          tools: composer:v2
+          coverage: none
+
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: ./vendor/
+          key: sipri_cache
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_APP_ENV: prod
+          envkey_DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data_%kernel.environment%.db"
+
+      - name: Cache Vendor dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-vendor-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-vendor-
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tabula-py[jpype] pandas
+
+      - name: Install Java (for tabula-py)
+        run: sudo apt-get update && sudo apt-get install -y default-jre
+
+      - name: Prepare Symfony dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          php bin/console cache:clear
+
+      - name: Prepare Symfony DB
+        run: |
+          php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+
+      - name: Run SIPRI Analyzer FULL
+        run: |
+          for i in {1..393}; do
+          php bin/console sipri:get "$i" || true
+          php bin/console sipri:ex "$i" || true
+          php bin/console sipri:adj "$i" || true
+          sleep 2
+          done
+      
+      #      - name: Generate static website
+      #        run: |
+      #          php bin/console asset-map:compile
+      #          php bin/console -e prod cache:clear
+      #          php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
+      #          rm public/assets/ -rf
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sipri-analyzer-files
+          path: |
+            pdfs/
+            var/data_prod.db
