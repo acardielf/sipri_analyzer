@@ -80,17 +80,22 @@ jobs:
           php bin/console cache:clear
 
 
-      - name: Check existing records
-        run: |
-          php bin/console doctrine:query:sql "SELECT max(cast(id as integer)) FROM convocatoria"
-          
-
       - name: Prepare Symfony DB
         run: |
           php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-         
-      - name: Run SIPRI Analyzer only last 
-        run: php bin/console sipri:last || true
+
+      - name: Check existing records
+        run: |
+          php bin/console doctrine:query:sql "SELECT max(cast(id as integer)) FROM convocatoria"
+      
+#      - name: Run SIPRI Analyzer only last 
+#        run: php bin/console sipri:last || true
+
+      - name: Run SIPRI Analyzer specific convocatoria
+        run: | 
+          php bin/console sipri:get 2
+          php bin/console sipri:ext 2
+          php bin/console sipri:adj 2
       
 #      - name: Generate static website
 #        run: |
