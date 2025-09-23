@@ -1,9 +1,9 @@
 name: CI
 
 on:
-#  push:
-#    branches:
-#      - main
+  #  push:
+  #    branches:
+  #      - main
   pull_request: ~
   schedule:
     - cron: "0 16 * * *" # todos los días a las 16:00 UTC (17:00 hora de Madrid)
@@ -20,15 +20,15 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
-      contents: write    
+      contents: write
     
     steps:
 
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}          
-          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}        
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
 
       - name: Download artifact from full-manual.yml
         uses: actions/github-script@v7
@@ -198,16 +198,23 @@ jobs:
       - name: Check existing records
         run: |
           php bin/console doctrine:query:sql "SELECT max(cast(id as integer)) FROM convocatoria"
-      
-      - name: Run SIPRI Analyzer only last 
+
+      - name: Run SIPRI Analyzer only last
         run: php bin/console sipri:last --back 2 || true
-     
+
       - name: Generate static website
+        if: ${{ success() && steps.sipri.outcome == 'success' }}
         run: |
           php bin/console asset-map:compile
           php bin/console -e prod cache:clear
           php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
           rm public/assets/ -rf
+
+      - name: Commit y push de docs
+        if: ${{ steps.sipri.outcome == 'success' }}
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          file_pattern: 'docs/**'
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -216,9 +223,3 @@ jobs:
           path: |
             pdfs/
             var/data_prod.db
-
-      - name: Commit y push de docs
-        uses: stefanzweifel/git-auto-commit-action@v6
-        with: 
-          file_pattern: 'docs/**'
-
