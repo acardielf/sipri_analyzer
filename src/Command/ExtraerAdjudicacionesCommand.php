@@ -69,7 +69,7 @@ readonly class ExtraerAdjudicacionesCommand
                     "Elimínelas primero con sipri:del $convocatoria --adjudicaciones"
                 ]
             );
-            return Command::FAILURE;
+            return Command::SUCCESS;
         }
 
         $adjudicaciones = $this->procesarAdjudicaciones($convocatoria, $pdfPath);
