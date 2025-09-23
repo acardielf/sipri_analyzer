@@ -1,4 +1,3 @@
-
 <div class="mt-4">
     <span class="bg-warning p-2">Vacante (V)</span>
     <span class="bg-success text-white p-2">Sustitución (S)</span>
@@ -18,23 +17,41 @@
             {% endfor %}
         </tr>
 
+        {% set last = 0 %}
+
         {% for orden, adjudicacion in listaAdjudicaciones %}
             <tr>
-                <td>{{ orden }}</td>
+                <td>
+                    {% if anchors == 1 %}
+                        {# anchors invisibles solo si hay huecos #}
+                        {% if orden > last + 1 %}
+                            {% for i in (last + 1)..(orden - 1) %}
+                                <a id="o{{ i }}"></a>
+                            {% endfor %}
+                        {% endif %}
+
+                        {# anchor visible actual #}
+                        <a id="o{{ orden }}">{{ orden }}</a>
+                    {% else %}
+                        {{ orden }}
+                    {% endif %}
+
+                    {% set last = orden %}
+                </td>
                 {% for provincia in provincias %}
                     {% set provId = provincia.id + 0 %}
                     {% if provId in adjudicacion|keys %}
                         <td class="small">
-                        {% for entry in adjudicacion[provId] %}
+                            {% for entry in adjudicacion[provId] %}
 
-                            <div class="p-1 m-2 plaza{{ entry['tipo'] }}
+                                <div class="p-1 m-2 plaza{{ entry['tipo'] }}
                             {% if entry['tipo'] == 'V' %} bg-warning {% endif %}
                             {% if entry['tipo'] == 'S' %} bg-success text-white {% endif %}
                             ">
-                                <span class="d-none d-xl-inline">{{entry['fecha'] }}</span>
-                                <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
-                            </div>
-                        {% endfor %}
+                                    <span class="d-none d-xl-inline">{{ entry['fecha'] }}</span>
+                                    <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
+                                </div>
+                            {% endfor %}
                         </td>
                     {% else %}
                         <td>-</td>
