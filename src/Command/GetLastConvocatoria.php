@@ -29,13 +29,12 @@ class GetLastConvocatoria extends Command
     protected function configure(): void
     {
         $this->setHelp('This command allows you to get last convocatoria from SIPRI');
-        $this->addArgument('number', InputArgument::OPTIONAL, 'Last X convocatorias', 0);
         $this->addOption(
-            'all',
-            'all',
-            InputOption::VALUE_OPTIONAL,
-            'Execute get/ext/adj for the last convocatoria',
-            true
+            name: 'number',
+            shortcut: 'n',
+            mode: InputOption::VALUE_OPTIONAL,
+            description: 'Get last X convocatorias',
+            default: 0,
         );
     }
 
@@ -66,13 +65,12 @@ class GetLastConvocatoria extends Command
         $output->writeln('Última convocatoria detectada: ' . $lastConvocatoria);
 
         $startingConvocatoria = $lastConvocatoria;
-        $reduce = $input->getArgument('number');
+        $reduce = (int)$input->getOption('number');
 
         if ($reduce > 0) {
             $startingConvocatoria = $lastConvocatoria - $reduce;
             $output->writeln("Iniciando desde convocatoria: $startingConvocatoria");
         }
-
 
         $io = new SymfonyStyle($input, $output);
 
