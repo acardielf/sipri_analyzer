@@ -200,7 +200,7 @@ jobs:
           php bin/console doctrine:query:sql "SELECT max(cast(id as integer)) FROM convocatoria"
       
       - name: Run SIPRI Analyzer only last 
-        run: php bin/console sipri:last || true
+        run: php bin/console sipri:last --number 2 || true
      
       - name: Generate static website
         run: |

@@ -10,6 +10,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\ExceptionInterface;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,6 +29,7 @@ class GetLastConvocatoria extends Command
     protected function configure(): void
     {
         $this->setHelp('This command allows you to get last convocatoria from SIPRI');
+        $this->addArgument('number', InputArgument::OPTIONAL, 'Last X convocatorias', 0);
         $this->addOption(
             'all',
             'all',
@@ -59,9 +61,18 @@ class GetLastConvocatoria extends Command
         $crawler = new Crawler($response->getBody()->getContents());
 
         $firstOption = $crawler->filter('#convocatoria option')->first();
-        $convocatoria = (int)$firstOption->attr('value');
+        $lastConvocatoria = (int)$firstOption->attr('value');
 
-        $output->writeln('Última convocatoria detectada: ' . $convocatoria);
+        $output->writeln('Última convocatoria detectada: ' . $lastConvocatoria);
+
+        $startingConvocatoria = $lastConvocatoria;
+        $reduce = $input->getArgument('number');
+
+        if ($reduce > 0) {
+            $startingConvocatoria = $lastConvocatoria - $reduce;
+            $output->writeln("Iniciando desde convocatoria: $startingConvocatoria");
+        }
+
 
         $io = new SymfonyStyle($input, $output);
 
@@ -71,46 +82,28 @@ class GetLastConvocatoria extends Command
             'sipri:adj',
         ];
 
-        foreach ($order as $lineCommand) {
-            $io->writeln("Ejecutando comando $lineCommand");
-            $command = $this->getApplication()->find($lineCommand);
 
-            $arguments = [
-                'command' => $lineCommand,
-                'convocatoria' => $convocatoria,
-            ];
+        for ($i = $startingConvocatoria; $i <= $lastConvocatoria; $i++) {
+            foreach ($order as $lineCommand) {
+                $io->writeln("Ejecutando comando $lineCommand");
+                $command = $this->getApplication()->find($lineCommand);
 
-            $gInput = new ArrayInput($arguments);
+                $arguments = [
+                    'command' => $lineCommand,
+                    'convocatoria' => $lastConvocatoria,
+                ];
 
-            $returnCode = $command->run($gInput, $output);
+                $gInput = new ArrayInput($arguments);
 
-            if ($returnCode !== Command::SUCCESS) {
-                $io->error("El subcomando $lineCommand falló.");
-                return Command::FAILURE;
+                $returnCode = $command->run($gInput, $output);
+
+                if ($returnCode !== Command::SUCCESS) {
+                    $io->error("El subcomando $lineCommand falló.");
+                    return Command::FAILURE;
+                }
             }
         }
 
-        $io->writeln('Limpiando ejecución...');
-
-        $command = $this->getApplication()->find('sipri:del');
-
-        $arguments = [
-            'command' => 'sipri:del',
-            'convocatoria' => $convocatoria,
-            '--exclusively-files' => true,
-            '--files' => true,
-        ];
-
-        $gInput = new ArrayInput($arguments);
-
-        $returnCode = $command->run($gInput, $output);
-
-        if ($returnCode !== Command::SUCCESS) {
-            $io->error('El subcomando de eliminación falló.');
-            return Command::FAILURE;
-        }
-
-        $io->success('Comando secundario ejecutado correctamente.');
         return Command::SUCCESS;
     }
 
