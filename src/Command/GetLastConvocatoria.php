@@ -30,10 +30,10 @@ class GetLastConvocatoria extends Command
     {
         $this->setHelp('This command allows you to get last convocatoria from SIPRI');
         $this->addOption(
-            name: 'number',
-            shortcut: 'n',
+            name: 'back',
+            shortcut: 'b',
             mode: InputOption::VALUE_OPTIONAL,
-            description: 'Get last X convocatorias',
+            description: 'Get last X convocatorias back',
             default: 0,
         );
     }
