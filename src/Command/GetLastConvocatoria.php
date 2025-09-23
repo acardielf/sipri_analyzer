@@ -65,7 +65,7 @@ class GetLastConvocatoria extends Command
         $output->writeln('Última convocatoria detectada: ' . $lastConvocatoria);
 
         $startingConvocatoria = $lastConvocatoria;
-        $reduce = (int)$input->getOption('number');
+        $reduce = (int)$input->getOption('back');
 
         if ($reduce > 0) {
             $startingConvocatoria = $lastConvocatoria - $reduce;
