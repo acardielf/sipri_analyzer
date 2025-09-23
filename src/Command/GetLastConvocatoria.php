@@ -81,14 +81,14 @@ class GetLastConvocatoria extends Command
         ];
 
 
-        for ($i = $startingConvocatoria; $i <= $lastConvocatoria; $i++) {
+        for ($currentConvocatoria = $startingConvocatoria; $currentConvocatoria <= $lastConvocatoria; $currentConvocatoria++) {
             foreach ($order as $lineCommand) {
                 $io->writeln("Ejecutando comando $lineCommand");
                 $command = $this->getApplication()->find($lineCommand);
 
                 $arguments = [
                     'command' => $lineCommand,
-                    'convocatoria' => $lastConvocatoria,
+                    'convocatoria' => $currentConvocatoria,
                 ];
 
                 $gInput = new ArrayInput($arguments);
