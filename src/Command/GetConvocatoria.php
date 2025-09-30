@@ -105,7 +105,7 @@ class GetConvocatoria extends Command
 
         if ($files['plazas']['url']->count() === 0 || $files['adjudicados']['url']->count() === 0) {
             $output->writeln('<error>No se encontraron archivos para la convocatoria ' . $convocatoria . '</error>');
-            return Command::FAILURE;
+            return Command::SUCCESS;
         }
 
         foreach ($files as $key => $file) {
