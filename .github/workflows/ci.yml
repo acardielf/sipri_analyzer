@@ -203,7 +203,7 @@ jobs:
         run: php bin/console sipri:last --back 2 || true
 
       - name: Generate static website
-        if: ${{ success() && steps.sipri.outcome == 'success' }}
+#        if: ${{ success() && steps.sipri.outcome == 'success' }}
         run: |
           php bin/console asset-map:compile
           php bin/console -e prod cache:clear
@@ -211,7 +211,7 @@ jobs:
           rm public/assets/ -rf
 
       - name: Commit y push de docs
-        if: ${{ steps.sipri.outcome == 'success' }}
+#        if: ${{ steps.sipri.outcome == 'success' }}
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
           file_pattern: 'docs/**'
