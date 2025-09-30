@@ -64,7 +64,7 @@ readonly class ExtraerPlazasCommand
 
         if (!$this->fileUtilitiesService->fileExists($archivos['pdf'])) {
             $io->writeln('<error>Archivo PDF no encontrado.</error>');
-            return Command::FAILURE;
+            return Command::SUCCESS;
         }
 
         $fechaConvocatoria = $this->extraerFechaConvocatoria($archivos['pdf']);

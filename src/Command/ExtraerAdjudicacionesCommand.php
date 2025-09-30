@@ -58,7 +58,7 @@ readonly class ExtraerAdjudicacionesCommand
 
         if (!$this->fileUtilitiesService->fileExists($pdfPath)) {
             $io->writeln('<error>Archivo PDF no encontrado.</error>');
-            return Command::FAILURE;
+            return Command::SUCCESS;
         }
 
         $adjudicacionesPasadas = $this->adjudicacionRepository->findByConvocatoria($convocatoria);
