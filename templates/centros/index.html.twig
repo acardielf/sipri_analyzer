@@ -30,8 +30,8 @@
                 <a href="{{ path('app_centros_provincia', { provincia: provincia.id }) }}" class="card-sipri">
                     <div class="d-flex align-items-center justify-content-between w-100">
                         <div>
-                            <div class="card-name">{{ provincia.nombre }}</div>
-                            <div style="font-size:.8rem;color:var(--sipri-muted);margin-top:.15rem">
+                            <div class="card-name" style="font-size:1.05rem;font-weight:700;color:var(--sipri-blue)">{{ provincia.nombre }}</div>
+                            <div style="font-size:.8rem;color:var(--sipri-muted);margin-top:.2rem">
                                 <i class="bi bi-building me-1"></i>
                                 {% if stats %}
                                     {{ stats.total }} centro{{ stats.total != 1 ? 's' }}
@@ -40,14 +40,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            {% if stats %}
-                            <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.8rem;border-radius:var(--sipri-radius-sm)">
-                                {{ stats.total }}
-                            </span>
-                            {% endif %}
-                            <i class="bi bi-chevron-right card-arrow"></i>
-                        </div>
+                        <i class="bi bi-chevron-right card-arrow"></i>
                     </div>
                 </a>
             </div>

@@ -16,7 +16,7 @@ class CentroRepository extends ServiceEntityRepository
         parent::__construct($registry, Centro::class);
     }
 
-    public function findByProvinciaWithStats(string $provinciaId): array
+    public function findByProvinciaWithStats(string $provinciaId, string $lastCursoId): array
     {
         $dql = '
             SELECT
@@ -24,7 +24,8 @@ class CentroRepository extends ServiceEntityRepository
                 c.nombre,
                 l.nombre AS localidad,
                 COUNT(p.id) AS totalPlazas,
-                MAX(cu.nombre) AS maxCursoNombre
+                SUM(CASE WHEN cu.id = :lastCursoId THEN 1 ELSE 0 END) AS plazasUltimoCurso,
+                MAX(conv.fecha) AS ultimaFecha
             FROM App\Entity\Centro c
             JOIN c.localidad l
             JOIN l.provincia prov
@@ -40,6 +41,7 @@ class CentroRepository extends ServiceEntityRepository
         return $this->getEntityManager()
             ->createQuery($dql)
             ->setParameter('provinciaId', $provinciaId)
+            ->setParameter('lastCursoId', $lastCursoId)
             ->setParameter('ocep', Centro::OCEP_OTROS_CENTROS)
             ->getArrayResult();
     }

@@ -59,21 +59,29 @@
                             <div style="font-size:.8rem;color:var(--sipri-muted);margin-top:.15rem">
                                 <i class="bi bi-geo-alt me-1"></i>{{ centro.localidad }}
                             </div>
-                            {% if not sinDatos and centro.maxCursoNombre %}
+                            {% if not sinDatos and centro.ultimaFecha %}
                             <div style="font-size:.75rem;color:var(--sipri-muted);margin-top:.15rem">
-                                Último curso: {{ centro.maxCursoNombre }}
+                                Última plaza: {{ centro.ultimaFecha|date('d/m/Y') }}
                             </div>
                             {% endif %}
                         </div>
                         <div class="d-flex align-items-center gap-2 flex-shrink-0">
                             {% if sinDatos %}
-                            <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-muted);border:1px solid var(--sipri-border);font-size:.75rem">
-                                Sin datos
-                            </span>
+                                <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-muted);border:1px solid var(--sipri-border);font-size:.75rem">
+                                    Sin datos
+                                </span>
                             {% else %}
-                            <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
-                                {{ centro.totalPlazas }}
-                            </span>
+                                <div class="d-flex flex-column align-items-end gap-1">
+                                    {% if centro.plazasUltimoCurso > 0 %}
+                                    <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem"
+                                          title="Plazas en {{ ultimoCurso.nombre }}">
+                                        {{ centro.plazasUltimoCurso }} <span style="font-weight:400;opacity:.8;font-size:.68rem">{{ ultimoCurso.simpleLabel }}</span>
+                                    </span>
+                                    {% endif %}
+                                    <span style="font-size:.68rem;color:var(--sipri-muted)" title="Total histórico">
+                                        {{ centro.totalPlazas }} total
+                                    </span>
+                                </div>
                             {% endif %}
                             <i class="bi bi-chevron-right card-arrow"></i>
                         </div>

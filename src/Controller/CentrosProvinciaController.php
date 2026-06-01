@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CentroRepository;
+use App\Repository\CursoRepository;
 use App\Repository\ProvinciaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,7 @@ class CentrosProvinciaController extends AbstractController
     public function __construct(
         private readonly ProvinciaRepository $provinciaRepository,
         private readonly CentroRepository $centroRepository,
+        private readonly CursoRepository $cursoRepository,
     ) {
     }
 
@@ -25,11 +27,16 @@ class CentrosProvinciaController extends AbstractController
             throw $this->createNotFoundException('Provincia no encontrada');
         }
 
-        $centros = $this->centroRepository->findByProvinciaWithStats($provinciaEntity->getId());
+        $ultimoCurso = $this->cursoRepository->findLast();
+        $centros = $this->centroRepository->findByProvinciaWithStats(
+            $provinciaEntity->getId(),
+            $ultimoCurso->getId(),
+        );
 
         return $this->render('centros/provincia.html.twig', [
-            'provincia' => $provinciaEntity,
-            'centros' => $centros,
+            'provincia'   => $provinciaEntity,
+            'centros'     => $centros,
+            'ultimoCurso' => $ultimoCurso,
         ]);
     }
 }

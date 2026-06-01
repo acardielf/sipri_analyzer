@@ -97,11 +97,18 @@
                         {% for plaza in plazas %}
                         {% set tipoValue = plaza.tipo.value is defined ? plaza.tipo.value : plaza.tipo %}
                         <tr>
-                            <td style="color:var(--sipri-muted);white-space:nowrap">
-                                {{ plaza.convFecha ? plaza.convFecha|date('d/m/Y') : '–' }}
+                            <td style="white-space:nowrap">
+                                <a href="{{ path('app_convocatoria_detalle', { id: plaza.convId }) }}"
+                                   class="badge-code text-decoration-none">{{ plaza.convId }}</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    {{ plaza.convFecha ? plaza.convFecha|date('d/m/Y') : '' }}
+                                </span>
                             </td>
                             <td>
-                                <span class="fw-semibold">{{ plaza.espNombre }}</span>
+                                <a href="{{ path('app_especialidad_index', { especialidad: plaza.espId }) }}"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    {{ plaza.espNombre }}
+                                </a>
                                 <span class="badge-code ms-1" style="font-size:.7rem">{{ plaza.espId }}</span>
                             </td>
                             <td>

@@ -161,10 +161,18 @@
                     data-prov="{{ provNombre }}"
                     data-esp="{{ plaza.espId }}">
                     <td>
-                        <span class="fw-semibold">{{ plaza.espNombre }}</span>
+                        <a href="{{ path('app_especialidad_index', { especialidad: plaza.espId }) }}"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            {{ plaza.espNombre }}
+                        </a>
                         <span class="badge-code ms-1" style="font-size:.7rem">{{ plaza.espId }}</span>
                     </td>
-                    <td style="color:var(--sipri-muted)">{{ plaza.centroNombre }}</td>
+                    <td>
+                        <a href="{{ path('app_centro_detalle', { id: plaza.centroId }) }}"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            {{ plaza.centroNombre }}
+                        </a>
+                    </td>
                     <td style="color:var(--sipri-muted)">{{ plaza.localidad }}</td>
                     <td>
                         <span class="badge {{ tipoValue == 'VACANTE' ? 'badge-vacante' : 'badge-sustitucion' }}">

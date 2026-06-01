@@ -31,14 +31,16 @@ export default class extends Controller {
 
         const convs = curso.convocatorias.filter(c => c.fecha);
 
-        // ── Resumen ──
-        const total = convs.reduce((s, c) => s + c.plazas, 0);
-        this.resumenTarget.innerHTML = `
-            <div class="cal-resumen">
-                <span><strong>${convs.length}</strong> convocatorias</span>
-                <span class="cal-resumen-sep">·</span>
-                <span><strong>${total.toLocaleString('es-ES')}</strong> plazas totales</span>
-            </div>`;
+        // ── Resumen (opcional: solo si el target existe en el DOM) ──
+        if (this.hasResumenTarget) {
+            const total = convs.reduce((s, c) => s + c.plazas, 0);
+            this.resumenTarget.innerHTML = `
+                <div class="cal-resumen">
+                    <span><strong>${convs.length}</strong> convocatorias</span>
+                    <span class="cal-resumen-sep">·</span>
+                    <span><strong>${total.toLocaleString('es-ES')}</strong> plazas totales</span>
+                </div>`;
+        }
 
         // ── Calendario ──
         this.calendarTarget.innerHTML = '';
