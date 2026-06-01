@@ -30,6 +30,23 @@ class EspecialidadRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+     * @param array<Curso> $cursos
+     * @return array<string> IDs de especialidades con plazas en alguno de los cursos dados
+     */
+    public function findActivasEnCursos(array $cursos): array
+    {
+        return $this->createQueryBuilder('e')
+            ->select('e.id')
+            ->join('e.plazas', 'p')
+            ->join('p.convocatoria', 'c')
+            ->where('c.curso IN (:cursos)')
+            ->setParameter('cursos', $cursos)
+            ->distinct()
+            ->getQuery()
+            ->getSingleColumnResult();
+    }
+
     public function getEspecialidadesByCurso(Curso $curso): array
     {
         $qb = $this->createQueryBuilder('e')

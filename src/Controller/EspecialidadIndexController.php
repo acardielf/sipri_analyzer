@@ -86,10 +86,13 @@ class EspecialidadIndexController extends AbstractController
 
         $chart = $this->chartService->createChartByEspecialidadPorProvincia(
             $chartBuilder,
-            $cursos,
+            array_reverse($cursos),
             $provincias,
             $result
         );
+
+        $isInactiva = ($result[$cursoLast->getId()]['ALL']['plazas'] ?? 0) === 0
+            && ($previo1 === null || ($result[$previo1->getId()]['ALL']['plazas'] ?? 0) === 0);
 
         return $this->render('especialidades/curso.html.twig', [
             'provincias' => $provincias,
@@ -105,6 +108,7 @@ class EspecialidadIndexController extends AbstractController
             'adjudicaciones_previo1' => $adjudicaciones_previo1,
             'adjudicaciones_previo2' => $adjudicaciones_previo2,
             'adjudicaciones_previo3' => $adjudicaciones_previo3,
+            'isInactiva' => $isInactiva,
         ]);
     }
 

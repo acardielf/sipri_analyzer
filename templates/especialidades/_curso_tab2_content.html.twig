@@ -1,65 +1,86 @@
-<div class="mt-4">
-    <span class="bg-warning p-2">Vacante (V)</span>
-    <span class="bg-success text-white p-2">Sustitución (S)</span>
-</div>
-<div class="table-responsive">
-    <table class="table table-striped mt-5">
-        <tr>
-            <th class="header">
-                <span class="d-none d-md-inline">Orden en la bolsa</span>
-                <span class="d-xs d-md-none">Orden</span>
-            </th>
+<div data-controller="selector-provincias">
+
+    <div class="d-flex align-items-center gap-2 mt-3 mb-2 flex-wrap">
+        <span class="prov-filter-label">Provincia:</span>
+        <div class="prov-btns-wrap">
+            <button class="prov-btn prov-btn--activo"
+                    data-selector-provincias-target="btn"
+                    data-action="selector-provincias#select"
+                    data-prov="all">
+                Todas
+            </button>
             {% for provincia in provincias %}
-                <th class="header">
-                    <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
-                    <span class="d-xs d-md-none">{{ provincia.twoLetterCode }}</span>
-                </th>
+                <button class="prov-btn"
+                        data-selector-provincias-target="btn"
+                        data-action="selector-provincias#select"
+                        data-prov="{{ provincia.id }}">
+                    {{ provincia.twoLetterCode }}
+                </button>
             {% endfor %}
-        </tr>
+        </div>
+    </div>
 
-        {% set last = 0 %}
+    <div class="mt-2 mb-3">
+        <span class="bg-warning p-2">Vacante (V)</span>
+        <span class="bg-success text-white p-2">Sustitución (S)</span>
+    </div>
 
-        {% for orden, adjudicacion in listaAdjudicaciones %}
+    <div class="table-responsive">
+        <table class="table table-striped mt-2">
             <tr>
-                <td>
-                    {% if anchors == 1 %}
-                        {# anchors invisibles solo si hay huecos #}
-                        {% if orden > last + 1 %}
-                            {% for i in (last + 1)..(orden - 1) %}
-                                <a id="o{{ i }}"></a>
-                            {% endfor %}
-                        {% endif %}
-
-                        {# anchor visible actual #}
-                        <a id="o{{ orden }}">{{ orden }}</a>
-                    {% else %}
-                        {{ orden }}
-                    {% endif %}
-
-                    {% set last = orden %}
-                </td>
+                <th class="header">
+                    <span class="d-none d-md-inline">Orden en la bolsa</span>
+                    <span class="d-xs d-md-none">Orden</span>
+                </th>
                 {% for provincia in provincias %}
-                    {% set provId = provincia.id + 0 %}
-                    {% if provId in adjudicacion|keys %}
-                        <td class="small">
-                            {% for entry in adjudicacion[provId] %}
-
-                                <div class="p-1 m-2 plaza{{ entry['tipo'] }}
-                            {% if entry['tipo'] == 'V' %} bg-warning {% endif %}
-                            {% if entry['tipo'] == 'S' %} bg-success text-white {% endif %}
-                            ">
-                                    <span class="d-none d-xl-inline">{{ entry['fecha'] }}</span>
-                                    <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
-                                </div>
-                            {% endfor %}
-                        </td>
-                    {% else %}
-                        <td>-</td>
-                    {% endif %}
+                    <th class="header"
+                        data-selector-provincias-target="col"
+                        data-prov="{{ provincia.id }}">
+                        <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
+                        <span class="d-xs d-md-none">{{ provincia.twoLetterCode }}</span>
+                    </th>
                 {% endfor %}
-
             </tr>
-        {% endfor %}
-    </table>
+
+            {% set last = 0 %}
+
+            {% for orden, adjudicacion in listaAdjudicaciones %}
+                <tr>
+                    <td>
+                        {% if anchors == 1 %}
+                            {% if orden > last + 1 %}
+                                {% for i in (last + 1)..(orden - 1) %}
+                                    <a id="o{{ i }}"></a>
+                                {% endfor %}
+                            {% endif %}
+                            <a id="o{{ orden }}">{{ orden }}</a>
+                        {% else %}
+                            {{ orden }}
+                        {% endif %}
+                        {% set last = orden %}
+                    </td>
+                    {% for provincia in provincias %}
+                        {% set provId = provincia.id + 0 %}
+                        <td class="{{ provId in adjudicacion|keys ? 'small' : '' }}"
+                            data-selector-provincias-target="col"
+                            data-prov="{{ provincia.id }}">
+                            {% if provId in adjudicacion|keys %}
+                                {% for entry in adjudicacion[provId] %}
+                                    <div class="p-1 m-2
+                                        {% if entry['tipo'] == 'V' %}bg-warning{% endif %}
+                                        {% if entry['tipo'] == 'S' %}bg-success text-white{% endif %}">
+                                        <span class="d-none d-xl-inline">{{ entry['fecha'] }}</span>
+                                        <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                –
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 </div>

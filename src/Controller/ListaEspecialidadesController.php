@@ -25,10 +25,16 @@ class ListaEspecialidadesController extends AbstractController
         $cuerpo = $this->cuerpoRepository->find($cuerpo);
         $especialidades = $this->especialidadRepository->findBy(['cuerpo' => $cuerpo]);
 
+        $cursoLast   = $this->cursoRepository->findLast();
+        $cursoPrevio = $this->cursoRepository->findPrevious($cursoLast);
+        $ultimosCursos = array_filter([$cursoLast, $cursoPrevio]);
+        $activasIds = $this->especialidadRepository->findActivasEnCursos($ultimosCursos);
+
         return $this->render('especialidades/index.html.twig', [
             'especialidades' => $especialidades,
             'cuerpo' => $cuerpo,
             'cursos' => $this->cursoRepository->findAll(),
+            'activasIds' => $activasIds,
         ]);
     }
 

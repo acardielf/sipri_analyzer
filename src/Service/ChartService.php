@@ -53,7 +53,7 @@ class ChartService
 
         $chart->setData([
             'labels' => $this->getCurseNameLabels($cursos),
-            'datasets' => $this->buildDataSetEspecialidadPorProvincia($provincias, $result),
+            'datasets' => $this->buildDataSetEspecialidadPorProvincia($cursos, $provincias, $result),
         ]);
 
         $chart->setOptions($this->getDefaultOptions());
@@ -75,30 +75,63 @@ class ChartService
     }
 
     /**
+     * @param array<Curso> $cursos
      * @param array<Provincia> $provincias
      * @param array $result
      * @return array
      */
-    private function buildDataSetEspecialidadPorProvincia(array $provincias, array $result): array
+    private function buildDataSetEspecialidadPorProvincia(array $cursos, array $provincias, array $result): array
     {
         $data = [];
         $colors = $this->getColors();
 
         $transpose = [];
-        foreach ($result as $cursoId => $curso) {
-            foreach ($curso as $provId => $totalPlazas) {
-                $transpose[$provId][$cursoId] = $totalPlazas['plazas'] ?? 0;
+        $totals = [];
+        foreach ($cursos as $curso) {
+            $totals[$curso->getId()] = 0;
+        }
+        foreach ($provincias as $provincia) {
+            foreach ($cursos as $curso) {
+                $value = $result[$curso->getId()][$provincia->getId()]['plazas'] ?? 0;
+                $transpose[$provincia->getId()][$curso->getId()] = $value;
+                $totals[$curso->getId()] += $value;
             }
         }
+
+        $data[] = [
+            'label' => 'Total Andalucía',
+            'data' => array_values($totals),
+            'borderWidth' => 3,
+            'backgroundColor' => 'var(--sipri-blue)',
+            'borderColor' => '#1a5f28',
+            'hidden' => false,
+            'datalabels' => [
+                'display' => true,
+                'anchor' => 'end',
+                'align' => 'top',
+                'color' => '#1a5f28',
+                'font' => ['weight' => 'bold', 'size' => 11],
+                'padding' => 4,
+            ],
+        ];
 
         $i = 0;
         foreach ($provincias as $provincia) {
             $data[] = [
                 'label' => $provincia->getNombre(),
                 'data' => array_values($transpose[$provincia->getId()] ?? []),
-                'borderWidth' => 3,
+                'borderWidth' => 2,
                 'backgroundColor' => $colors[$i],
                 'borderColor' => $colors[$i],
+                'hidden' => true,
+                'datalabels' => [
+                    'display' => true,
+                    'anchor' => 'end',
+                    'align' => 'top',
+                    'color' => $colors[$i],
+                    'font' => ['weight' => 'bold', 'size' => 10],
+                    'padding' => 3,
+                ],
             ];
             $i++;
         }

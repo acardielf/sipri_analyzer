@@ -21,7 +21,7 @@
 </div>
 
 <div class="container-fluid pb-5"
-     data-controller="search pinned-cards">
+     data-controller="search pinned-cards filtro-historicas">
 
     {# ── Favoritas de este cuerpo ──────────────────────────────────────────── #}
     <div data-pinned-cards-target="seccion" class="d-none mb-4">
@@ -47,21 +47,31 @@
                        data-action="input->search#filter">
             </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-8 mt-2 mt-md-0 text-md-end search-count">
-            <span data-search-target="count">{{ especialidades|length }}</span> especialidades
+        <div class="col-12 col-md-6 col-lg-8 mt-2 mt-md-0 text-md-end search-count d-flex align-items-center justify-content-md-end gap-3 flex-wrap">
+            {% set countHistoricas = especialidades|filter(e => e.id not in activasIds)|length %}
+            {% if countHistoricas > 0 %}
+                <button class="btn btn-sm btn-outline-secondary"
+                        data-filtro-historicas-target="btn"
+                        data-action="filtro-historicas#toggle">
+                    Ver históricas ({{ countHistoricas }})
+                </button>
+            {% endif %}
+            <span><span data-search-target="count">{{ especialidades|length }}</span> especialidades</span>
         </div>
     </div>
 
     {# ── Grid de especialidades ────────────────────────────────────────────── #}
     <div class="row g-3" data-pinned-cards-target="grid">
         {% for especialidad in especialidades %}
+        {% set esHistorica = especialidad.id not in activasIds %}
         <div class="col-12 col-md-6 col-xl-4"
              data-search-target="item"
-             data-search-terms="{{ especialidad.id|lower }} {{ especialidad.nombre|lower }}">
+             data-search-terms="{{ especialidad.id|lower }} {{ especialidad.nombre|lower }}"
+             {% if esHistorica %}data-historica="true"{% endif %}>
             <div class="card-sipri-wrap">
                 <a href="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}" class="card-sipri">
                     <span class="card-code">{{ especialidad.id }}</span>
-                    <span class="card-name">{{ especialidad.nombre }}</span>
+                    <span class="card-name">{{ especialidad.nombre }}{% if esHistorica %}&nbsp;<span class="badge-historica">Histórica</span>{% endif %}</span>
                     <i class="bi bi-chevron-right card-arrow"></i>
                 </a>
                 <button class="fav-btn"

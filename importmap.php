@@ -79,4 +79,7 @@ return [
     'chart.js/helpers' => [
         'version' => '3.7.1',
     ],
+    'chartjs-plugin-datalabels' => [
+        'version' => '2.2.0',
+    ],
 ];

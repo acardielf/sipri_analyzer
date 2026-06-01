@@ -13,6 +13,8 @@ import 'bootstrap-icons/font/bootstrap-icons.min.css'
 import { Chart } from 'chart.js'
 import 'chartjs-plugin-autocolors'
 import annotationPlugin from 'chartjs-plugin-annotation'
-Chart.register(annotationPlugin)
+import datalabelsPlugin from 'chartjs-plugin-datalabels'
+Chart.register(annotationPlugin, datalabelsPlugin)
+Chart.defaults.plugins.datalabels = { display: false }
 
 //console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
