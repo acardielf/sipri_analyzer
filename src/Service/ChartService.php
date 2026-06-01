@@ -22,6 +22,7 @@ class ChartService
         array $cursos,
         array $result,
         array $index_weeks,
+        ?int $currentWeek = null,
     ): Chart {
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
 
@@ -30,7 +31,7 @@ class ChartService
             'datasets' => $this->buildDataSetPlazasPorCurso($cursos, $result, $index_weeks),
         ]);
 
-        $chart->setOptions($this->getDefaultOptions());
+        $chart->setOptions($this->getDefaultOptions($currentWeek));
 
         return $chart;
     }
@@ -243,9 +244,9 @@ class ChartService
         ];
     }
 
-    private function getDefaultOptions(): array
+    private function getDefaultOptions(?int $currentWeek = null): array
     {
-        return [
+        $options = [
             'responsive' => true,
             'maintainAspectRatio' => false,
             'plugins' => [
@@ -255,6 +256,33 @@ class ChartService
                 ],
             ],
         ];
+
+        if ($currentWeek !== null) {
+            $options['plugins']['annotation'] = [
+                'annotations' => [
+                    [
+                        'type'            => 'box',
+                        'xScaleID'        => 'x',
+                        'xMin'            => $currentWeek,
+                        'xMax'            => $currentWeek,
+                        'backgroundColor' => 'rgba(196, 17, 17, 0.10)',
+                        'borderColor'     => 'rgba(196, 17, 17, 0.70)',
+                        'borderWidth'     => 2,
+                        'label'           => [
+                            'enabled'   => true,
+                            'content'   => 'Semana actual',
+                            'position'  => 'start',
+                            'color'     => '#ffffff',
+                            'backgroundColor' => 'rgba(196, 17, 17, 0.80)',
+                            'font'      => ['size' => 11],
+                            'padding'   => 4,
+                        ],
+                    ],
+                ],
+            ];
+        }
+
+        return $options;
     }
 
 

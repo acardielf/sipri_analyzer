@@ -55,7 +55,21 @@ class ConvocatoriasStatsController extends AbstractController
 
         $cursos = $this->cursoRepository->findAll();
 
-        $chart = $this->chartService->createChartPlazasPorCursosGeneral($chartBuilder, $cursos, $result, $index_weeks);
+        // Semana actual: solo si estamos en periodo escolar (sept–jun)
+        $now   = new DateTime();
+        $month = (int) $now->format('n');
+        $currentWeek = null;
+        if ($month <= 6 || $month >= 9) {
+            $week  = (int) $now->format('W');
+            // El plugin v1.x posiciona por índice en el array de etiquetas,
+            // no por el valor numérico de la semana.
+            $index = array_search($week, $index_weeks);
+            if ($index !== false) {
+                $currentWeek = (int) $index;
+            }
+        }
+
+        $chart = $this->chartService->createChartPlazasPorCursosGeneral($chartBuilder, $cursos, $result, $index_weeks, $currentWeek);
 
         return $this->render('convocatorias/stats.html.twig', [
             'convocatorias' => $chart,

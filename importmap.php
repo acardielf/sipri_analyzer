@@ -40,7 +40,7 @@ return [
         'path' => './vendor/symfony/stimulus-bundle/assets/dist/loader.js',
     ],
     'chart.js' => [
-        'version' => '3.9.1',
+        'version' => '3.7.1',
     ],
     'chartjs-plugin-autocolors' => [
         'version' => '0.3.1',
@@ -72,5 +72,11 @@ return [
     'tom-select/dist/css/tom-select.bootstrap5.css' => [
         'version' => '2.4.3',
         'type' => 'css',
+    ],
+    'chartjs-plugin-annotation' => [
+        'version' => '1.4.0',
+    ],
+    'chart.js/helpers' => [
+        'version' => '3.7.1',
     ],
 ];
