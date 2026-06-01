@@ -702,6 +702,58 @@ main { flex: 1; }
 }
 
 /* ── Badge code ──────────────────────────────────────────────────────────────── */
+/* ── Especialidad page ───────────────────────────────────────────────────────── */
+.esp-title {
+  font-size: clamp(1.15rem, 2.8vw, 1.55rem);
+  font-weight: 700;
+  color: var(--sipri-blue);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.esp-tabs-wrap {
+  background: var(--sipri-surface);
+  border-bottom: 2px solid var(--sipri-border);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.sipri-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sipri-tabs::-webkit-scrollbar { display: none; }
+
+.sipri-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  padding: .85rem 1.3rem;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--sipri-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--t), border-color var(--t);
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  line-height: 1;
+}
+
+.sipri-tab:hover  { color: var(--sipri-blue-mid); }
+
+.sipri-tab.active {
+  color: var(--sipri-blue);
+  border-bottom-color: var(--sipri-blue);
+  font-weight: 600;
+}
+
 .badge-code {
   font-family: ui-monospace, monospace;
   background: var(--sipri-blue);

@@ -1,68 +1,128 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ especialidad.id }} – {{ especialidad.nombre }}{% endblock %}
 
-{% block title %}{{ especialidad.id }} - {{ especialidad.nombre }}{% endblock %}
+{% block main_content %}
 
-{% block body %}
-    {% if isInactiva %}
-    <div class="alert-historica mb-3">
+{# ── Cabecera de página ──────────────────────────────────────────────────────── #}
+<div class="page-header">
+    <div class="container-fluid">
+
+        <nav aria-label="breadcrumb" class="mb-2">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_lista_cuerpos') }}">
+                        <i class="bi bi-collection-fill me-1"></i>Cuerpos
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_lista_especialidades', { cuerpo: especialidad.cuerpo.id }) }}">
+                        {{ especialidad.cuerpo.id }} – {{ especialidad.cuerpo.nombre }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ especialidad.id }}</li>
+            </ol>
+        </nav>
+
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <h2 class="esp-title flex-grow-1">
+                <span class="badge-code me-2">{{ especialidad.id }}</span>
+                {{ especialidad.nombre }}
+                {% if isInactiva %}<span class="badge-historica ms-2">Histórica</span>{% endif %}
+            </h2>
+            <button class="fav-btn fav-btn--lg flex-shrink-0"
+                    data-controller="favorito-btn"
+                    data-favorito-btn-type-value="especialidades"
+                    data-favorito-btn-id-value="{{ especialidad.id }}"
+                    data-favorito-btn-nombre-value="{{ especialidad.nombre }}"
+                    data-favorito-btn-href-value="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}"
+                    data-action="click->favorito-btn#toggle"
+                    aria-label="Añadir a favoritos"
+                    title="Añadir a favoritos">
+                <i class="fav-btn-icon bi bi-star"></i>
+                <span class="fav-btn-label">Guardar en favoritos</span>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+{# ── Banner especialidad inactiva ────────────────────────────────────────────── #}
+{% if isInactiva %}
+<div class="container-fluid">
+    <div class="alert-historica mt-3">
         <i class="bi bi-archive me-1"></i>
         Esta especialidad no registra actividad en los dos últimos cursos. Los datos históricos están disponibles a continuación.
     </div>
-    {% endif %}
+</div>
+{% endif %}
 
-    <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
-        <h2 class="mb-0">
-            <span class="badge-code me-1">{{ especialidad.id }}</span>
-            {{ especialidad.nombre }}
-            {% if isInactiva %}<span class="badge-historica ms-1">Histórica</span>{% endif %}
-        </h2>
-        <button class="fav-btn fav-btn--lg"
-                data-controller="favorito-btn"
-                data-favorito-btn-type-value="especialidades"
-                data-favorito-btn-id-value="{{ especialidad.id }}"
-                data-favorito-btn-nombre-value="{{ especialidad.nombre }}"
-                data-favorito-btn-href-value="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}"
-                data-action="click->favorito-btn#toggle"
-                aria-label="Añadir a favoritos"
-                title="Añadir a favoritos">
-            <i class="fav-btn-icon bi bi-star"></i>
-            <span class="fav-btn-label">Guardar en favoritos</span>
-        </button>
+{# ── Barra de tabs (sticky) ──────────────────────────────────────────────────── #}
+<div class="esp-tabs-wrap mt-3">
+    <div class="container-fluid">
+        <div class="sipri-tabs" id="pills-tab" role="tablist">
+            <button class="sipri-tab active"
+                    id="pills-one-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-one"
+                    type="button" role="tab"
+                    aria-controls="pills-one"
+                    aria-selected="true">
+                <i class="bi bi-file-spreadsheet-fill"></i>
+                Tabla de plazas
+            </button>
+            <button class="sipri-tab"
+                    id="pills-two-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-two"
+                    type="button" role="tab"
+                    aria-controls="pills-two"
+                    aria-selected="false">
+                <i class="bi bi-patch-question-fill"></i>
+                ¿Cuándo voy a currar?
+            </button>
+            <button class="sipri-tab"
+                    id="pills-three-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-three"
+                    type="button" role="tab"
+                    aria-controls="pills-three"
+                    aria-selected="false">
+                <i class="bi bi-graph-up-arrow"></i>
+                Gráfico de evolución
+            </button>
+        </div>
     </div>
+</div>
 
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link active" id="pills-one-tab" data-bs-toggle="pill" data-bs-target="#pills-one"
-                    type="button" role="tab" aria-controls="pills-one" aria-selected="true">
-                <i class="bi bi-file-spreadsheet-fill"></i> Tabla de plazas
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" id="pills-two-tab" data-bs-toggle="pill" data-bs-target="#pills-two"
-                    type="button" role="tab" aria-controls="pills-two" aria-selected="false">
-                <i class="bi bi-patch-question-fill"></i> ¿Cuándo voy a currar?
-            </button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" id="pills-three-tab" data-bs-toggle="pill" data-bs-target="#pills-three"
-                    type="button" role="tab" aria-controls="pills-three" aria-selected="false">
-                <i class="bi bi-graph-up-arrow"></i> Gráfico de evolución
-            </button>
-        </li>
-    </ul>
-
+{# ── Contenido de tabs ───────────────────────────────────────────────────────── #}
+<div class="container-fluid py-4 pb-5">
     <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-one" role="tabpanel" aria-labelledby="pills-one-tab"
-             tabindex="0">
+
+        <div class="tab-pane fade show active"
+             id="pills-one" role="tabpanel"
+             aria-labelledby="pills-one-tab" tabindex="0">
             {% include 'especialidades/_curso_tab1.html.twig' %}
         </div>
-        <div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab" tabindex="0">
+
+        <div class="tab-pane fade"
+             id="pills-two" role="tabpanel"
+             aria-labelledby="pills-two-tab" tabindex="0">
             {% include 'especialidades/_curso_tab2.html.twig' %}
         </div>
-        <div class="tab-pane fade" id="pills-three" role="tabpanel" aria-labelledby="pills-three-tab"
-             tabindex="0">{% include 'especialidades/_curso_tab3.html.twig' %}</div>
-    </div>
 
+        <div class="tab-pane fade"
+             id="pills-three" role="tabpanel"
+             aria-labelledby="pills-three-tab" tabindex="0">
+            <h3 class="mt-4 mb-3" style="font-size:1.1rem;font-weight:600;color:var(--sipri-blue)">
+                Evolución de plazas por curso
+            </h3>
+            <div class="col-12 col-xl-9 mx-auto" style="min-height:420px">
+                {{ render_chart(chart) }}
+            </div>
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}
