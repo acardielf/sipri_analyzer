@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/jpg" href="{{ asset('favicon.ico') }}"/>
-    <title>{% block title %}SIPRI - Análisis{% endblock %}</title>
+    <title>{% block title %}Analizador SIPRI{% endblock %}</title>
     {% block stylesheets %}
     {% endblock %}
 
@@ -21,10 +21,12 @@
     {% include 'header.html.twig' %}
 {% endblock %}
 
-<main class="py-4">
-    <div class="container-fluid">
+<main>
+    {% block main_content %}
+    <div class="container-fluid py-4">
         {% block body %}{% endblock %}
     </div>
+    {% endblock %}
 </main>
 
 {% block footer %}

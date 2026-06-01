@@ -1,29 +1,61 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ cuerpo.id }} – {{ cuerpo.nombre }}{% endblock %}
 
-{% block title %}Especialidades{% endblock %}
+{% block main_content %}
+<div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_lista_cuerpos') }}"><i class="bi bi-collection-fill me-1"></i>Cuerpos</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ cuerpo.id }}</li>
+            </ol>
+        </nav>
+        <h2>
+            <span class="badge-code me-2">{{ cuerpo.id }}</span>
+            {{ cuerpo.nombre }}
+        </h2>
+    </div>
+</div>
 
-{% block body %}
-    <h2><strong>{{ cuerpo.id }}</strong> - {{ cuerpo.nombre }}</h2>
-
-    <div class="row">
-
-    {% for especialidad in especialidades %}
-        <div class="col-12 col-md-6 col-xl-4 p-2">
-        <table>
-            <tr>
-                <td class="font-monospace align-top">
-                    <a class="badge text-bg-primary text-decoration-none"
-                       href="{{ path('app_especialidad_index', { especialidad: especialidad.id } ) }}">{{ especialidad.id }}</a>
-                </td>
-                <td>
-                    <a class="text-decoration-none text-black" href="{{ path('app_especialidad_index', { especialidad: especialidad.id } ) }}">{{ especialidad.nombre }}</a>
-                </td>
-            </tr>
-        </table>
+<div class="container-fluid pb-5" data-controller="search">
+    <div class="row mb-4 align-items-center">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="search-wrapper">
+                <i class="bi bi-search search-icon"></i>
+                <input type="search"
+                       class="form-control search-input"
+                       placeholder="Filtrar por código o denominación…"
+                       autocomplete="off"
+                       autofocus
+                       data-search-target="input"
+                       data-action="input->search#filter">
+            </div>
         </div>
-    {% endfor %}
+        <div class="col-12 col-md-6 col-lg-8 mt-2 mt-md-0 text-md-end search-count">
+            <span data-search-target="count">{{ especialidades|length }}</span> especialidades
+        </div>
     </div>
 
+    <div class="row g-3">
+        {% for especialidad in especialidades %}
+        <div class="col-12 col-md-6 col-xl-4"
+             data-search-target="item"
+             data-search-terms="{{ especialidad.id|lower }} {{ especialidad.nombre|lower }}">
+            <a href="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}" class="card-sipri">
+                <span class="card-code">{{ especialidad.id }}</span>
+                <span class="card-name">{{ especialidad.nombre }}</span>
+                <i class="bi bi-chevron-right card-arrow"></i>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
 
+    <div class="text-center py-5 d-none" data-search-target="empty" style="color:var(--sipri-muted)">
+        <i class="bi bi-search d-block fs-2 mb-2 opacity-50"></i>
+        No se encontraron especialidades con ese criterio
+    </div>
+</div>
 {% endblock %}
