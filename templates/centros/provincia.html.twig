@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Centros de {{ provincia.nombre }} – Analizador SIPRI{% endblock %}
+
+{% block main_content %}
+<div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_index') }}"><i class="bi bi-house-fill me-1"></i>Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_centros_index') }}">Centros</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ provincia.nombre }}</li>
+            </ol>
+        </nav>
+        <h2>
+            <i class="bi bi-geo-alt-fill me-2"></i>{{ provincia.nombre }}
+        </h2>
+        <p class="mb-0" style="color:var(--sipri-muted);font-size:.95rem">
+            {{ centros|length }} centro{{ centros|length != 1 ? 's' }} registrado{{ centros|length != 1 ? 's' }}
+        </p>
+    </div>
+</div>
+
+<div class="container-fluid py-4 pb-5" data-controller="search">
+
+    <div class="row mb-4 align-items-center">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="search-wrapper">
+                <i class="bi bi-search search-icon"></i>
+                <input type="search"
+                       class="form-control search-input"
+                       placeholder="Filtrar por nombre o localidad…"
+                       autocomplete="off"
+                       autofocus
+                       data-search-target="input"
+                       data-action="input->search#filter">
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-8 mt-2 mt-md-0 text-md-end search-count">
+            <span><span data-search-target="count">{{ centros|length }}</span> centros</span>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        {% for centro in centros %}
+        {% set sinDatos = centro.totalPlazas == 0 %}
+        <div class="col-12 col-md-6 col-xl-4"
+             data-search-target="item"
+             data-search-terms="{{ centro.nombre|lower }} {{ centro.localidad|lower }}">
+            <div class="card-sipri-wrap" {% if sinDatos %}style="opacity:.55"{% endif %}>
+                <a href="{{ path('app_centro_detalle', { id: centro.id }) }}" class="card-sipri">
+                    <div class="d-flex align-items-start justify-content-between w-100 gap-2">
+                        <div style="min-width:0">
+                            <div class="card-name text-truncate">{{ centro.nombre }}</div>
+                            <div style="font-size:.8rem;color:var(--sipri-muted);margin-top:.15rem">
+                                <i class="bi bi-geo-alt me-1"></i>{{ centro.localidad }}
+                            </div>
+                            {% if not sinDatos and centro.maxCursoNombre %}
+                            <div style="font-size:.75rem;color:var(--sipri-muted);margin-top:.15rem">
+                                Último curso: {{ centro.maxCursoNombre }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                            {% if sinDatos %}
+                            <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-muted);border:1px solid var(--sipri-border);font-size:.75rem">
+                                Sin datos
+                            </span>
+                            {% else %}
+                            <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                                {{ centro.totalPlazas }}
+                            </span>
+                            {% endif %}
+                            <i class="bi bi-chevron-right card-arrow"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center py-5 d-none" data-search-target="empty" style="color:var(--sipri-muted)">
+        <i class="bi bi-search d-block fs-2 mb-2 opacity-50"></i>
+        No se encontraron centros con ese criterio
+    </div>
+
+</div>
+{% endblock %}

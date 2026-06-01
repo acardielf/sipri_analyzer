@@ -701,7 +701,195 @@ main { flex: 1; }
   color: #fff;
 }
 
+.prov-btn--disabled {
+  opacity: .3;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* ── Zona de filtro de especialidades ────────────────────────────────────────── */
+.esp-filter-zone {
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  background: var(--sipri-surface);
+  padding: .5rem .6rem .6rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.esp-filter-search {
+  width: 100%;
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius-sm);
+  padding: .3rem .7rem;
+  font-size: .82rem;
+  margin-bottom: .45rem;
+  background: var(--sipri-bg);
+  color: var(--sipri-text);
+  outline: none;
+  transition: border-color var(--t);
+}
+
+.esp-filter-search:focus { border-color: var(--sipri-blue-mid); }
+
+.esp-filter-btns {
+  max-height: 9rem;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sipri-border) transparent;
+}
+
+/* Botones más compactos dentro de la zona */
+.esp-filter-btns .prov-btn {
+  padding: .18rem .55rem;
+  font-size: .75rem;
+}
+
+.prov-btn--favorita {
+  border-color: #f0b429;
+  background: rgba(240,180,41,.08);
+  color: var(--sipri-text);
+}
+
+.prov-btn--favorita:hover {
+  border-color: #d4991f;
+  background: rgba(240,180,41,.18);
+}
+
+.prov-btn--favorita.prov-btn--activo {
+  background: #f0b429;
+  border-color: #f0b429;
+  color: #1a202c;
+}
+
+.esp-fav-star {
+  color: #f0b429;
+  font-size: .6rem;
+  vertical-align: middle;
+  margin-right: .2rem;
+}
+
 /* ── Badge code ──────────────────────────────────────────────────────────────── */
+/* ── Calendario de convocatorias ─────────────────────────────────────────────── */
+.cal-resumen {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .9rem;
+  color: var(--sipri-muted);
+  flex-wrap: wrap;
+}
+
+.cal-resumen strong {
+  font-size: 1.15rem;
+  color: var(--sipri-blue);
+  font-weight: 800;
+}
+
+.cal-resumen-sep { opacity: .4; }
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  margin: 1.25rem 0 1rem;
+}
+
+@media (max-width: 1100px) {
+  .cal-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 680px) {
+  .cal-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.cal-month {
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  padding: 1rem;
+  box-shadow: var(--sipri-shadow-sm);
+}
+
+.cal-month-name {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--sipri-blue);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: .6rem;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: .35rem;
+}
+
+.cal-weekdays span {
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--sipri-muted);
+  opacity: .7;
+}
+
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  border-radius: var(--sipri-radius-sm);
+  color: var(--sipri-muted);
+  line-height: 1;
+  gap: 2px;
+  transition: background var(--t);
+}
+
+.cal-day--empty  { visibility: hidden; }
+
+.cal-day--conv {
+  background: var(--sipri-blue);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--t), transform var(--t), box-shadow var(--t);
+}
+
+.cal-day--conv:hover {
+  background: var(--sipri-blue-mid);
+  transform: scale(1.1);
+  box-shadow: 0 2px 10px rgba(26,95,40,.4);
+  position: relative;
+  z-index: 1;
+}
+
+.cal-day-num    { font-size: .82rem; font-weight: 700; line-height: 1; }
+.cal-day-plazas { font-size: .66rem; opacity: .85;    line-height: 1; }
+
+.cal-lista-title {
+  color: var(--sipri-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-size: .75rem;
+  font-weight: 700;
+  margin-bottom: .75rem;
+  margin-top: .25rem;
+}
+
 /* ── Especialidad page ───────────────────────────────────────────────────────── */
 .esp-title {
   font-size: clamp(1.15rem, 2.8vw, 1.55rem);

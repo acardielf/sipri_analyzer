@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Centros educativos – Analizador SIPRI{% endblock %}
+
+{% block main_content %}
+<div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_index') }}"><i class="bi bi-house-fill me-1"></i>Inicio</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Centros educativos</li>
+            </ol>
+        </nav>
+        <h2><i class="bi bi-building-fill me-2"></i>Centros educativos</h2>
+        <p class="mb-0" style="color:var(--sipri-muted);font-size:.95rem">
+            Consulta el historial de plazas por centro educativo, organizado por provincia.
+        </p>
+    </div>
+</div>
+
+<div class="container-fluid py-4 pb-5">
+
+    <div class="row g-3">
+        {% for provincia in provincias %}
+        {% set stats = centrosPorProvincia[provincia.id] ?? null %}
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="card-sipri-wrap">
+                <a href="{{ path('app_centros_provincia', { provincia: provincia.id }) }}" class="card-sipri">
+                    <div class="d-flex align-items-center justify-content-between w-100">
+                        <div>
+                            <div class="card-name">{{ provincia.nombre }}</div>
+                            <div style="font-size:.8rem;color:var(--sipri-muted);margin-top:.15rem">
+                                <i class="bi bi-building me-1"></i>
+                                {% if stats %}
+                                    {{ stats.total }} centro{{ stats.total != 1 ? 's' }}
+                                {% else %}
+                                    Sin centros registrados
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            {% if stats %}
+                            <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.8rem;border-radius:var(--sipri-radius-sm)">
+                                {{ stats.total }}
+                            </span>
+                            {% endif %}
+                            <i class="bi bi-chevron-right card-arrow"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

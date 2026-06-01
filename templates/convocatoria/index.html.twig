@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Convocatorias – Analizador SIPRI{% endblock %}
+
+{% block main_content %}
+
+<div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_index') }}"><i class="bi bi-house-fill me-1"></i>Inicio</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Convocatorias</li>
+            </ol>
+        </nav>
+        <h2><i class="bi bi-clipboard-data-fill me-2"></i>Convocatorias</h2>
+        <p class="mb-0" style="color:var(--sipri-muted);font-size:.92rem">
+            Selecciona un curso académico para ver el calendario de convocatorias.
+        </p>
+    </div>
+</div>
+
+<div class="container-fluid py-4 pb-5">
+    <div class="row g-3">
+        {% for cursoId, curso in cursos %}
+        <div class="col-12 col-md-6 col-xl-4">
+            <a href="{{ path('app_convocatoria_curso', { cursoId: cursoId }) }}" class="card-sipri">
+                <div style="flex:1;min-width:0">
+                    <div class="card-name" style="font-size:1rem;font-weight:700;color:var(--sipri-blue)">
+                        Curso {{ curso.nombre }}
+                    </div>
+                    <div style="font-size:.82rem;color:var(--sipri-muted);margin-top:.3rem;display:flex;gap:.75rem;flex-wrap:wrap">
+                        <span><i class="bi bi-calendar3 me-1"></i>{{ curso.total }} convocatoria{{ curso.total != 1 ? 's' }}</span>
+                        <span><i class="bi bi-people me-1"></i>{{ curso.plazas|number_format(0, ',', '.') }} plazas</span>
+                    </div>
+                    {% if curso.primera %}
+                    <div style="font-size:.78rem;color:var(--sipri-muted);margin-top:.2rem;opacity:.75">
+                        {{ curso.primera|date('d/m/Y') }} – {{ curso.ultima|date('d/m/Y') }}
+                    </div>
+                    {% endif %}
+                </div>
+                <i class="bi bi-chevron-right card-arrow"></i>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

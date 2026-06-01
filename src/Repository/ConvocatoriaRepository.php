@@ -43,6 +43,23 @@ class ConvocatoriaRepository extends ServiceEntityRepository
         )->getResult();
     }
 
+    public function findByCursoInArray(string $cursoId): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.id AS id, c.fecha AS fecha')
+            ->addSelect('COUNT(p.id) AS plazas')
+            ->addSelect('SUM(CASE WHEN p.tipo = :tipoPlaza THEN 1 ELSE 0 END) AS vacantes')
+            ->join('c.curso', 'cu')
+            ->leftJoin('c.plazas', 'p')
+            ->where('cu.id = :cursoId')
+            ->groupBy('c.id')
+            ->orderBy('c.fecha', 'ASC')
+            ->setParameter('cursoId', $cursoId)
+            ->setParameter('tipoPlaza', TipoPlazaEnum::VACANTE)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     public function findWithBasicDataInArray(): array
     {
         $qb = $this->createQueryBuilder('c')

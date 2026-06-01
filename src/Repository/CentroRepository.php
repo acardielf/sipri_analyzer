@@ -16,4 +16,59 @@ class CentroRepository extends ServiceEntityRepository
         parent::__construct($registry, Centro::class);
     }
 
+    public function findByProvinciaWithStats(string $provinciaId): array
+    {
+        $dql = '
+            SELECT
+                c.id,
+                c.nombre,
+                l.nombre AS localidad,
+                COUNT(p.id) AS totalPlazas,
+                MAX(cu.nombre) AS maxCursoNombre
+            FROM App\Entity\Centro c
+            JOIN c.localidad l
+            JOIN l.provincia prov
+            LEFT JOIN c.plazas p
+            LEFT JOIN p.convocatoria conv
+            LEFT JOIN conv.curso cu
+            WHERE prov.id = :provinciaId
+              AND c.id NOT IN (:ocep)
+            GROUP BY c.id, c.nombre, l.nombre
+            ORDER BY l.nombre ASC, c.nombre ASC
+        ';
+
+        return $this->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('provinciaId', $provinciaId)
+            ->setParameter('ocep', Centro::OCEP_OTROS_CENTROS)
+            ->getArrayResult();
+    }
+
+    public function countByProvincia(): array
+    {
+        $dql = '
+            SELECT
+                prov.id AS provId,
+                prov.nombre AS provNombre,
+                COUNT(c.id) AS total
+            FROM App\Entity\Centro c
+            JOIN c.localidad l
+            JOIN l.provincia prov
+            WHERE c.id NOT IN (:ocep)
+            GROUP BY prov.id, prov.nombre
+        ';
+
+        $rows = $this->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('ocep', Centro::OCEP_OTROS_CENTROS)
+            ->getArrayResult();
+
+        $indexed = [];
+        foreach ($rows as $row) {
+            $indexed[$row['provId']] = $row;
+        }
+
+        return $indexed;
+    }
+
 }

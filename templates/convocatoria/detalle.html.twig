@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conv. {{ convocatoria.id }} – Analizador SIPRI{% endblock %}
+
+{% block main_content %}
+<div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_index') }}"><i class="bi bi-house-fill me-1"></i>Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_convocatoria_index') }}">Convocatorias</a>
+                </li>
+                {% if convocatoria.curso %}
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_convocatoria_curso', { cursoId: convocatoria.curso.id }) }}">
+                        Curso {{ convocatoria.curso.nombre }}
+                    </a>
+                </li>
+                {% endif %}
+                <li class="breadcrumb-item active" aria-current="page">Conv. {{ convocatoria.id }}</li>
+            </ol>
+        </nav>
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <h2 class="mb-0">
+                <span class="badge-code me-2">{{ convocatoria.id }}</span>
+                Convocatoria {{ convocatoria.id }}
+            </h2>
+            <div class="d-flex gap-2 flex-wrap">
+                {% if convocatoria.fecha %}
+                    <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-text);border:1px solid var(--sipri-border);font-size:.85rem">
+                        <i class="bi bi-calendar3 me-1"></i>{{ convocatoria.fecha|date('d/m/Y') }}
+                    </span>
+                {% endif %}
+                {% if convocatoria.curso %}
+                    <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.85rem">
+                        Curso {{ convocatoria.curso.nombre }}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-4 pb-5" data-controller="filtros-convocatoria">
+
+    {# ── Stats ───────────────────────────────────────────────────────────────── #}
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue)">{{ totalPlazas }}</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Total plazas</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:#e6a817">{{ vacantes }}</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Vacantes</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:#198754">{{ sustit }}</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Sustituciones</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue-mid)">{{ adjudicadas }}</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Adjudicadas</div>
+            </div>
+        </div>
+    </div>
+
+    {# ── Filtro por provincia ─────────────────────────────────────────────────── #}
+    {% if plazasByProv|length > 1 %}
+    <div class="mb-2 d-flex flex-wrap gap-2 align-items-center">
+        <span class="prov-filter-label">Provincia:</span>
+        <div class="prov-btns-wrap">
+            <button class="prov-btn prov-btn--activo"
+                    data-prov="all"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Todas
+            </button>
+            {% for provNombre, _ in plazasByProv %}
+            <button class="prov-btn"
+                    data-prov="{{ provNombre }}"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                {{ provNombre }}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Filtro por especialidad ──────────────────────────────────────────────── #}
+    {% if especialidades|length > 1 %}
+    <div class="mb-4 d-flex gap-2 align-items-start">
+        <span class="prov-filter-label" style="padding-top:.45rem;white-space:nowrap">Especialidad:</span>
+        <div class="esp-filter-zone">
+            {% if especialidades|length > 8 %}
+            <input type="search"
+                   class="esp-filter-search"
+                   placeholder="Buscar especialidad…"
+                   autocomplete="off"
+                   data-action="input->filtros-convocatoria#searchEsp">
+            {% endif %}
+            <div class="esp-filter-btns">
+                <button class="prov-btn prov-btn--activo"
+                        data-esp="all"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp">
+                    Todas
+                </button>
+                {% for espId, espNombre in especialidades %}
+                <button class="prov-btn"
+                        data-esp="{{ espId }}"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="{{ espId }}">
+                    {{ espNombre }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Tabla de plazas ──────────────────────────────────────────────────────── #}
+    {% if totalPlazas > 0 %}
+    <div class="table-responsive">
+        <table class="table table-hover" style="font-size:.875rem">
+            <thead style="background:var(--sipri-bg)">
+                <tr>
+                    <th>Especialidad</th>
+                    <th>Centro</th>
+                    <th>Localidad</th>
+                    <th>Tipo</th>
+                    <th class="text-end">Nº</th>
+                    <th class="text-end">Orden adj.</th>
+                </tr>
+            </thead>
+
+            {% for provNombre, plazas in plazasByProv %}
+            <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>{{ provNombre }}
+                        <span style="font-weight:400;color:var(--sipri-muted)">({{ plazas|length }})</span>
+                    </th>
+                </tr>
+
+                {% for plaza in plazas %}
+                {% set tipoValue = plaza.tipo.value is defined ? plaza.tipo.value : plaza.tipo %}
+                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="{{ provNombre }}"
+                    data-esp="{{ plaza.espId }}">
+                    <td>
+                        <span class="fw-semibold">{{ plaza.espNombre }}</span>
+                        <span class="badge-code ms-1" style="font-size:.7rem">{{ plaza.espId }}</span>
+                    </td>
+                    <td style="color:var(--sipri-muted)">{{ plaza.centroNombre }}</td>
+                    <td style="color:var(--sipri-muted)">{{ plaza.localidad }}</td>
+                    <td>
+                        <span class="badge {{ tipoValue == 'VACANTE' ? 'badge-vacante' : 'badge-sustitucion' }}">
+                            {{ tipoValue == 'VACANTE' ? 'Vacante' : 'Sustitución' }}
+                        </span>
+                    </td>
+                    <td class="text-end">{{ plaza.numero }}</td>
+                    <td class="text-end font-monospace">
+                        {% if plaza.adjOrden is not null %}
+                            {{ plaza.adjOrden }}
+                        {% else %}
+                            <span style="color:var(--sipri-muted)">–</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+            {% endfor %}
+
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5" style="color:var(--sipri-muted)">
+        <i class="bi bi-clipboard-x d-block fs-2 mb-2 opacity-50"></i>
+        No hay plazas registradas para esta convocatoria.
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

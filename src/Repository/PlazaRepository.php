@@ -250,5 +250,73 @@ class PlazaRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findByConvocatoriaArray(string $convocatoriaId): array
+    {
+        $dql = '
+            SELECT
+                p.id,
+                p.tipo,
+                p.obligatoriedad,
+                p.numero,
+                p.fechaPrevistaCese,
+                esp.id AS espId,
+                esp.nombre AS espNombre,
+                prov.id AS provId,
+                prov.nombre AS provNombre,
+                l.nombre AS localidad,
+                centro.id AS centroId,
+                centro.nombre AS centroNombre,
+                MIN(a.orden) AS adjOrden
+            FROM App\Entity\Plaza p
+            JOIN p.especialidad esp
+            JOIN p.centro centro
+            JOIN centro.localidad l
+            JOIN l.provincia prov
+            LEFT JOIN p.adjudicaciones a
+            WHERE p.convocatoria = :convocatoriaId
+            GROUP BY p.id, p.tipo, p.obligatoriedad, p.numero, p.fechaPrevistaCese,
+                     esp.id, esp.nombre, prov.id, prov.nombre, l.nombre,
+                     centro.id, centro.nombre
+            ORDER BY prov.nombre ASC, esp.nombre ASC
+        ';
+
+        return $this->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('convocatoriaId', $convocatoriaId)
+            ->getArrayResult();
+    }
+
+    public function findByCentroArray(string $centroId): array
+    {
+        $dql = '
+            SELECT
+                p.id,
+                p.tipo,
+                p.obligatoriedad,
+                p.numero,
+                p.fechaPrevistaCese,
+                esp.id AS espId,
+                esp.nombre AS espNombre,
+                cu.id AS cursoId,
+                cu.nombre AS cursoNombre,
+                conv.id AS convId,
+                conv.fecha AS convFecha,
+                MIN(a.orden) AS adjOrden
+            FROM App\Entity\Plaza p
+            JOIN p.especialidad esp
+            JOIN p.convocatoria conv
+            JOIN conv.curso cu
+            LEFT JOIN p.adjudicaciones a
+            WHERE p.centro = :centroId
+            GROUP BY p.id, p.tipo, p.obligatoriedad, p.numero, p.fechaPrevistaCese,
+                     esp.id, esp.nombre, cu.id, cu.nombre, conv.id, conv.fecha
+            ORDER BY cu.id DESC, conv.id DESC, esp.nombre ASC
+        ';
+
+        return $this->getEntityManager()
+            ->createQuery($dql)
+            ->setParameter('centroId', $centroId)
+            ->getArrayResult();
+    }
 
 }
