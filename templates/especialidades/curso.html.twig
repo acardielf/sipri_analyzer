@@ -4,7 +4,24 @@
 {% block title %}{{ especialidad.id }} - {{ especialidad.nombre }}{% endblock %}
 
 {% block body %}
-    <h2>Especialidad: <strong>{{ especialidad.id }} - {{ especialidad.nombre }}</strong></h2>
+    <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+        <h2 class="mb-0">
+            <span class="badge-code me-1">{{ especialidad.id }}</span>
+            {{ especialidad.nombre }}
+        </h2>
+        <button class="fav-btn fav-btn--lg"
+                data-controller="favorito-btn"
+                data-favorito-btn-type-value="especialidades"
+                data-favorito-btn-id-value="{{ especialidad.id }}"
+                data-favorito-btn-nombre-value="{{ especialidad.nombre }}"
+                data-favorito-btn-href-value="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}"
+                data-action="click->favorito-btn#toggle"
+                aria-label="Añadir a favoritos"
+                title="Añadir a favoritos">
+            <i class="fav-btn-icon bi bi-star"></i>
+            <span class="fav-btn-label">Guardar en favoritos</span>
+        </button>
+    </div>
 
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">

@@ -330,6 +330,377 @@ main { flex: 1; }
   color: var(--sipri-blue);
 }
 
+/* ── Hero — botón secundario ─────────────────────────────────────────────────── */
+.btn-hero-outline {
+  background: transparent;
+  color: #ffffff;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, .55);
+  border-radius: 2rem;
+  padding: .7rem 2rem;
+  font-size: 1rem;
+  transition: background var(--t), border-color var(--t), transform var(--t), box-shadow var(--t);
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  text-decoration: none;
+}
+
+.btn-hero-outline:hover {
+  background: rgba(255, 255, 255, .15);
+  border-color: rgba(255, 255, 255, .9);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+}
+
+/* ── Buscador card ───────────────────────────────────────────────────────────── */
+.buscador-card {
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  box-shadow: var(--sipri-shadow);
+  padding: 2rem;
+}
+
+.buscador-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  margin-bottom: 1.75rem;
+}
+
+.buscador-icon-wrap {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sipri-blue), var(--sipri-blue-mid));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.buscador-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--sipri-blue);
+  margin-bottom: .2rem;
+}
+
+.buscador-subtitle {
+  font-size: .88rem;
+  color: var(--sipri-muted);
+}
+
+.btn-buscador {
+  background: var(--sipri-blue);
+  color: #fff;
+  border: none;
+  border-radius: var(--sipri-radius-sm);
+  padding: .5rem 1.1rem;
+  font-weight: 600;
+  font-size: .9rem;
+  transition: background var(--t), transform var(--t);
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.btn-buscador:hover {
+  background: var(--sipri-blue-mid);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.buscador-placeholder {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--sipri-muted);
+}
+
+.buscador-placeholder-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: .75rem;
+  opacity: .45;
+}
+
+.buscador-tabla thead th {
+  position: sticky;
+  top: 0;
+}
+
+/* ── Badges de adjudicación (buscador) ───────────────────────────────────────── */
+.buscador-badge {
+  display: inline-block;
+  font-size: .75rem;
+  line-height: 1.3;
+  padding: .2rem .45rem;
+  border-radius: var(--sipri-radius-sm);
+  margin: .1rem;
+  white-space: nowrap;
+}
+
+.badge-vacante {
+  background: #ffc107;
+  color: #212529;
+}
+
+.badge-sustitucion {
+  background: #198754;
+  color: #fff;
+}
+
+.buscador-row-target {
+  background: rgba(46, 134, 54, .12) !important;
+  outline: 2px solid var(--sipri-blue-mid);
+  outline-offset: -2px;
+}
+
+.buscador-row-target td:first-child {
+  color: var(--sipri-blue);
+  font-size: 1.05rem;
+}
+
+/* ── Sección pinned en lista de especialidades ───────────────────────────────── */
+.pinned-section-header {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin-bottom: .75rem;
+}
+
+.pinned-section-star { color: #f0b429; font-size: 1rem; }
+
+.pinned-section-title {
+  font-weight: 700;
+  font-size: .9rem;
+  color: var(--sipri-blue);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.pinned-section-sep {
+  margin-top: 1.25rem;
+  border-color: var(--sipri-border);
+}
+
+.card-sipri--pinned {
+  border-color: #f0b429;
+  border-left: 3px solid #f0b429;
+}
+
+.card-sipri--pinned::after {
+  background: linear-gradient(180deg, #f0b429, #e09a00);
+  opacity: 1;
+}
+
+/* ── Badge provincia favorita ────────────────────────────────────────────────── */
+.badge--fav-prov {
+  outline: 2px solid var(--sipri-blue-mid);
+  outline-offset: 1px;
+}
+
+/* ── Card wrap con estrella ──────────────────────────────────────────────────── */
+.card-sipri-wrap {
+  position: relative;
+  display: flex;
+  height: 100%;
+}
+
+.card-sipri-wrap .card-sipri {
+  flex: 1;
+  padding-right: 2.8rem;
+}
+
+/* ── Botón favorito (estrella) ───────────────────────────────────────────────── */
+.fav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--sipri-muted);
+  padding: .45rem .55rem;
+  border-radius: var(--sipri-radius-sm);
+  transition: color var(--t), background var(--t), transform var(--t);
+  font-size: 1rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.fav-btn:hover {
+  color: #f0b429;
+  background: rgba(240, 180, 41, .1);
+  transform: scale(1.12);
+}
+
+.fav-btn--activo {
+  color: #f0b429;
+}
+
+.fav-btn--activo:hover {
+  color: var(--sipri-muted);
+  background: rgba(0, 0, 0, .05);
+}
+
+/* Estrella dentro del card-sipri-wrap: posición absoluta */
+.card-sipri-wrap .fav-btn {
+  position: absolute;
+  right: .35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.card-sipri-wrap .fav-btn:hover { transform: translateY(-50%) scale(1.2); }
+
+/* Estrella grande en la página de detalle */
+.fav-btn--lg {
+  font-size: .88rem;
+  padding: .35rem .75rem;
+  border: 1px solid var(--sipri-border);
+  background: var(--sipri-surface);
+}
+
+.fav-btn--lg .fav-btn-label {
+  font-size: .82rem;
+  font-weight: 600;
+}
+
+.fav-btn--lg.fav-btn--activo { color: #f0b429; border-color: #f0b429; }
+
+/* ── Mis especialidades ──────────────────────────────────────────────────────── */
+.mis-fav-seccion {
+  background: linear-gradient(135deg, rgba(26, 95, 40, .06), rgba(46, 134, 54, .04));
+  border: 1px solid var(--sipri-border);
+  border-left: 3px solid #f0b429;
+  border-radius: var(--sipri-radius);
+  padding: 1rem 1.25rem;
+}
+
+.mis-fav-header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .75rem;
+}
+
+.mis-fav-icon { color: #f0b429; font-size: 1.1rem; }
+
+.mis-fav-title {
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--sipri-blue);
+}
+
+.mis-fav-hint {
+  font-size: .78rem;
+  color: var(--sipri-muted);
+  margin-left: .25rem;
+}
+
+.mis-fav-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.fav-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: 2rem;
+  padding: .35rem .85rem .35rem .65rem;
+  font-size: .83rem;
+  font-weight: 500;
+  color: var(--sipri-text);
+  cursor: pointer;
+  transition: background var(--t), border-color var(--t), transform var(--t), box-shadow var(--t);
+  white-space: nowrap;
+  max-width: 28rem;
+}
+
+.fav-chip:hover {
+  background: rgba(46, 134, 54, .08);
+  border-color: var(--sipri-blue-mid);
+  transform: translateY(-1px);
+  box-shadow: var(--sipri-shadow-sm);
+}
+
+.fav-chip-star { color: #f0b429; font-size: .8rem; flex-shrink: 0; }
+.fav-chip-nombre { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.fav-chip-action { color: var(--sipri-blue-mid); font-size: .85rem; flex-shrink: 0; }
+
+/* ── Filtro de provincias en buscador ────────────────────────────────────────── */
+.prov-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  padding: .65rem .85rem;
+  background: rgba(46, 134, 54, .05);
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius-sm);
+  margin-bottom: 1rem;
+}
+
+.prov-filter-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--sipri-blue);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.prov-filter-hint {
+  font-size: .75rem;
+  color: var(--sipri-muted);
+  margin-left: auto;
+}
+
+.prov-btns-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+
+.prov-btn {
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: 2rem;
+  padding: .2rem .7rem;
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--sipri-muted);
+  cursor: pointer;
+  transition: background var(--t), border-color var(--t), color var(--t);
+}
+
+.prov-btn:hover {
+  border-color: var(--sipri-blue-mid);
+  color: var(--sipri-blue);
+}
+
+.prov-btn--activo {
+  background: var(--sipri-blue);
+  border-color: var(--sipri-blue);
+  color: #fff;
+}
+
+.prov-btn--activo:hover {
+  background: var(--sipri-blue-mid);
+  border-color: var(--sipri-blue-mid);
+  color: #fff;
+}
+
 /* ── Badge code ──────────────────────────────────────────────────────────────── */
 .badge-code {
   font-family: ui-monospace, monospace;

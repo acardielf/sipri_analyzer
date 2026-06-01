@@ -7,6 +7,7 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'tom-select/dist/css/tom-select.bootstrap5.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap-icons/font/bootstrap-icons.min.css'
 import { Chart } from 'chart.js'

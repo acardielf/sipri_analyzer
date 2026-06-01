@@ -20,7 +20,20 @@
     </div>
 </div>
 
-<div class="container-fluid pb-5" data-controller="search">
+<div class="container-fluid pb-5"
+     data-controller="search pinned-cards">
+
+    {# ── Favoritas de este cuerpo ──────────────────────────────────────────── #}
+    <div data-pinned-cards-target="seccion" class="d-none mb-4">
+        <div class="pinned-section-header">
+            <i class="bi bi-star-fill pinned-section-star"></i>
+            <span class="pinned-section-title">Mis favoritas en este cuerpo</span>
+        </div>
+        <div class="row g-3" data-pinned-cards-target="lista"></div>
+        <hr class="pinned-section-sep">
+    </div>
+
+    {# ── Buscador de especialidades ────────────────────────────────────────── #}
     <div class="row mb-4 align-items-center">
         <div class="col-12 col-md-6 col-lg-4">
             <div class="search-wrapper">
@@ -39,16 +52,30 @@
         </div>
     </div>
 
-    <div class="row g-3">
+    {# ── Grid de especialidades ────────────────────────────────────────────── #}
+    <div class="row g-3" data-pinned-cards-target="grid">
         {% for especialidad in especialidades %}
         <div class="col-12 col-md-6 col-xl-4"
              data-search-target="item"
              data-search-terms="{{ especialidad.id|lower }} {{ especialidad.nombre|lower }}">
-            <a href="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}" class="card-sipri">
-                <span class="card-code">{{ especialidad.id }}</span>
-                <span class="card-name">{{ especialidad.nombre }}</span>
-                <i class="bi bi-chevron-right card-arrow"></i>
-            </a>
+            <div class="card-sipri-wrap">
+                <a href="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}" class="card-sipri">
+                    <span class="card-code">{{ especialidad.id }}</span>
+                    <span class="card-name">{{ especialidad.nombre }}</span>
+                    <i class="bi bi-chevron-right card-arrow"></i>
+                </a>
+                <button class="fav-btn"
+                        data-controller="favorito-btn"
+                        data-favorito-btn-type-value="especialidades"
+                        data-favorito-btn-id-value="{{ especialidad.id }}"
+                        data-favorito-btn-nombre-value="{{ especialidad.nombre }}"
+                        data-favorito-btn-href-value="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}"
+                        data-action="click->favorito-btn#toggle"
+                        aria-label="Añadir a favoritos"
+                        title="Añadir a favoritos">
+                    <i class="fav-btn-icon bi bi-star"></i>
+                </button>
+            </div>
         </div>
         {% endfor %}
     </div>

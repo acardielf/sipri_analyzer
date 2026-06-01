@@ -4,6 +4,8 @@
 {% block header %}{% endblock %}
 
 {% block main_content %}
+
+{# ── Hero ──────────────────────────────────────────────────────────────────── #}
 <div class="hero-section">
     <div class="container">
         <p class="mb-2" style="font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45)">
@@ -14,9 +16,15 @@
             Histórico de convocatorias de interinidades docentes en Andalucía desde el curso 2018/2019.
             Consulta plazas por especialidad, posiciones de bolsa y evolución por curso.
         </p>
-        <a href="{{ path('app_lista_cuerpos') }}" class="btn-hero mb-5">
-            <i class="bi bi-search"></i> Explorar especialidades
-        </a>
+
+        <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
+            <a href="{{ path('app_lista_cuerpos') }}" class="btn-hero">
+                <i class="bi bi-collection-fill"></i> Explorar especialidades
+            </a>
+            <a href="{{ path('app_convocatorias_stat') }}" class="btn-hero-outline">
+                <i class="bi bi-graph-up"></i> Ver evolución
+            </a>
+        </div>
 
         <div class="row g-3 justify-content-center mt-1">
             <div class="col-12 col-sm-auto">
@@ -36,9 +44,121 @@
 </div>
 
 <div class="container py-5">
+    <div class="row g-4">
+
+        {# ── Mis especialidades (oculto hasta que JS detecte favoritos) ─────── #}
+        <div class="col-12" data-controller="mis-favoritos">
+            <div data-mis-favoritos-target="seccion" class="mis-fav-seccion d-none">
+                <div class="mis-fav-header">
+                    <i class="bi bi-star-fill mis-fav-icon"></i>
+                    <span class="mis-fav-title">Mis especialidades</span>
+                    <span class="mis-fav-hint">Haz clic para cargar en el buscador</span>
+                </div>
+                <div data-mis-favoritos-target="lista" class="mis-fav-lista"></div>
+            </div>
+        </div>
+
+        {# ── Buscador ─────────────────────────────────────────────────────────── #}
+        <div class="col-12">
+            <div class="buscador-card"
+                 data-controller="buscador">
+
+                <div class="buscador-header">
+                    <div class="buscador-icon-wrap">
+                        <i class="bi bi-search-heart-fill"></i>
+                    </div>
+                    <div>
+                        <h2 class="buscador-title">¿Cuándo fue llamada mi posición?</h2>
+                        <p class="buscador-subtitle mb-0">
+                            Selecciona tu especialidad e introduce tu número de orden en la bolsa
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-end mb-3">
+                    <div class="col-12 col-lg-7">
+                        <label class="form-label fw-semibold small text-uppercase" style="letter-spacing:.05em;color:var(--sipri-blue)">
+                            Especialidad
+                        </label>
+                        <select data-buscador-target="select" class="form-select">
+                            <option value="">— Selecciona una especialidad —</option>
+                            {% set prevCuerpoId = null %}
+                            {% for esp in especialidades %}
+                                {% if esp.cuerpoId != prevCuerpoId %}
+                                    {% if prevCuerpoId is not null %}</optgroup>{% endif %}
+                                    {% set prevCuerpoId = esp.cuerpoId %}
+                                    <optgroup label="{{ esp.cuerpoId }} — {{ esp.cuerpoNombre }}">
+                                {% endif %}
+                                <option value="{{ esp.id }}"
+                                        data-url="{{ path('app_buscador_data', {especialidadId: esp.id}) }}">
+                                    [{{ esp.id }}] {{ esp.nombre }}
+                                </option>
+                            {% endfor %}
+                            {% if especialidades|length > 0 %}</optgroup>{% endif %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <label class="form-label fw-semibold small text-uppercase" style="letter-spacing:.05em;color:var(--sipri-blue)">
+                            Posición en la bolsa
+                        </label>
+                        <input type="number"
+                               min="1"
+                               placeholder="Ej: 42"
+                               class="form-control"
+                               data-buscador-target="posicion"
+                               data-action="input->buscador#filtrar">
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <button class="btn btn-buscador w-100"
+                                data-action="click->buscador#filtrar">
+                            <i class="bi bi-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+
+                {# Filtro de provincias (aparece tras cargar una especialidad) #}
+                <div data-buscador-target="provinciasRow" class="prov-filter-row d-none">
+                    <span class="prov-filter-label">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Filtrar provincias:
+                    </span>
+                    <div data-buscador-target="provinciasBtns" class="prov-btns-wrap"></div>
+                    <span class="prov-filter-hint">Se guarda automáticamente</span>
+                </div>
+
+                {# Placeholder inicial #}
+                <div data-buscador-target="placeholder" class="buscador-placeholder">
+                    <i class="bi bi-arrow-up-circle buscador-placeholder-icon"></i>
+                    <p class="mb-0">Selecciona tu especialidad para ver el histórico de adjudicaciones</p>
+                </div>
+
+                {# Tabla de resultados #}
+                <div data-buscador-target="resultado" class="d-none">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-sm align-middle buscador-tabla">
+                            <thead>
+                                <tr data-buscador-target="cursoHeaders"></tr>
+                            </thead>
+                            <tbody data-buscador-target="tbody"></tbody>
+                        </table>
+                    </div>
+                    <p class="text-muted small mt-2 mb-0">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Posición específica: ±10 filas de contexto. Sin filtro: primeras 60 posiciones.
+                        <span class="badge-vacante px-2 py-1 ms-2">V</span> Vacante
+                        <span class="badge-sustitucion px-2 py-1 ms-1">S</span> Sustitución
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{# ── Info ──────────────────────────────────────────────────────────────────── #}
+<div class="container pb-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6 text-center">
-            <p class="text-muted">
+            <p class="text-muted small">
                 Los datos proceden de los anexos PDF publicados en el SIPRI oficial y se procesan de forma automática.
                 Se recogen sustituciones y vacantes sobrevenidas, sin incluir vacantes informatizadas.
             </p>
@@ -54,4 +174,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

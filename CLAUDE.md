@@ -121,6 +121,35 @@ Para depurar un comando con Xdebug:
 XDEBUG_SESSION=1 PHP_IDE_CONFIG="serverName=symfony" php bin/console <comando>
 ```
 
+## Sistema de diseño (Design tokens)
+
+Los tokens CSS están definidos en `assets/styles/app.css` bajo `:root`. **No usar valores hardcodeados**; usar siempre las variables CSS del sistema.
+
+| Token                  | Valor             | Uso                                      |
+|------------------------|-------------------|------------------------------------------|
+| `--sipri-blue`         | `#1a5f28`         | Verde oscuro USTEA — color principal     |
+| `--sipri-blue-mid`     | `#2e8636`         | Verde medio — hover, acentos activos     |
+| `--sipri-blue-light`   | `#4aaa58`         | Verde claro — degradados, iconos         |
+| `--sipri-accent`       | `#c41111`         | Rojo rayo USTEA — CTAs primarios         |
+| `--sipri-bg`           | `#f2f7f3`         | Fondo general con tinte verde sutil      |
+| `--sipri-surface`      | `#ffffff`         | Fondo de tarjetas y modales              |
+| `--sipri-text`         | `#1a202c`         | Texto principal                          |
+| `--sipri-muted`        | `#6b7280`         | Texto secundario / placeholders          |
+| `--sipri-border`       | `#ddeee0`         | Bordes de componentes                    |
+| `--sipri-shadow-sm`    | `0 1px 4px …`     | Sombra sutil de tarjetas                 |
+| `--sipri-shadow`       | `0 6px 24px …`    | Sombra elevada (hover, modales)          |
+| `--sipri-radius`       | `.75rem`          | Radio de esquinas estándar               |
+| `--sipri-radius-sm`    | `.4rem`           | Radio pequeño (badges, botones inline)   |
+| `--t`                  | `.18s ease`       | Duración base de transiciones CSS        |
+
+**Color de favoritos/estrella**: `#f0b429` (ámbar, sin variable propia — consistente en todos los componentes de estrella).
+
+**Clases de adjudicación** (sin variables, colores Bootstrap):
+- `.badge-vacante` → fondo `#ffc107` (warning), texto oscuro
+- `.badge-sustitucion` → fondo `#198754` (success), texto blanco
+
+**Nota sobre Docker**: Cambios en PHP/Twig requieren `docker restart sipri` para invalidar OPcache. El directorio del proyecto se monta en `/app` vía bind mount (definido en `compose.override.yaml`, no en `compose.yaml`).
+
 ## Notas de arquitectura relevantes
 
 - El sitio está pensado para ser publicado (carpeta `docs/`) de forma estática sin acceso a ningún backend, así que todas las decisiones deben tener en cuenta esto.

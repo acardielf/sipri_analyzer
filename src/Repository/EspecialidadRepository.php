@@ -17,6 +17,19 @@ class EspecialidadRepository extends ServiceEntityRepository
         parent::__construct($registry, Especialidad::class);
     }
 
+    public function findAllForSelect(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->select('e.id, e.nombre, c.id as cuerpoId, c.nombre as cuerpoNombre')
+            ->join('e.cuerpo', 'c')
+            ->where('e.nombre != :empty')
+            ->setParameter('empty', '')
+            ->orderBy('c.id', 'ASC')
+            ->addOrderBy('e.nombre', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     public function getEspecialidadesByCurso(Curso $curso): array
     {
         $qb = $this->createQueryBuilder('e')
