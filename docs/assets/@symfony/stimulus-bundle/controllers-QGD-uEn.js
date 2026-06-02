@@ -1,0 +1,18 @@
+import controller_0 from "../ux-autocomplete/controller.js";
+import "tom-select/dist/css/tom-select.default.css";
+import controller_1 from "../ux-chartjs/controller.js";
+import controller_2 from "../../controllers/buscador_controller.js";
+import controller_3 from "../../controllers/filtros_convocatoria_controller.js";
+import controller_4 from "../../controllers/selector_provincias_controller.js";
+import controller_5 from "../../controllers/hello_controller.js";
+import controller_6 from "../../controllers/tabla_historico_controller.js";
+import controller_7 from "../../controllers/filtro_historicas_controller.js";
+import controller_8 from "../../controllers/pinned_cards_controller.js";
+import controller_9 from "../../controllers/search_controller.js";
+import controller_10 from "../../controllers/calendario_convocatorias_controller.js";
+import controller_11 from "../../controllers/navbar_controller.js";
+import controller_12 from "../../controllers/mis_favoritos_controller.js";
+import controller_13 from "../../controllers/favorito_btn_controller.js";
+export const eagerControllers = {"symfony--ux-autocomplete--autocomplete": controller_0, "symfony--ux-chartjs--chart": controller_1, "buscador": controller_2, "filtros-convocatoria": controller_3, "selector-provincias": controller_4, "hello": controller_5, "tabla-historico": controller_6, "filtro-historicas": controller_7, "pinned-cards": controller_8, "search": controller_9, "calendario-convocatorias": controller_10, "navbar": controller_11, "mis-favoritos": controller_12, "favorito-btn": controller_13};
+export const lazyControllers = {"csrf-protection": () => import("../../controllers/csrf_protection_controller.js")};
+export const isApplicationDebug = false;

@@ -1,0 +1,20 @@
+import './bootstrap.js';
+/*
+ * Welcome to your app's main JavaScript file!
+ *
+ * This file will be included onto the page via the importmap() Twig function,
+ * which should already be in your base.html.twig.
+ */
+import './styles/app.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'tom-select/dist/css/tom-select.bootstrap5.css';
+import 'bootstrap/dist/js/bootstrap.min.js'
+import 'bootstrap-icons/font/bootstrap-icons.min.css'
+import { Chart } from 'chart.js'
+import 'chartjs-plugin-autocolors'
+import annotationPlugin from 'chartjs-plugin-annotation'
+import datalabelsPlugin from 'chartjs-plugin-datalabels'
+Chart.register(annotationPlugin, datalabelsPlugin)
+Chart.defaults.plugins.datalabels = { display: false }
+
+//console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

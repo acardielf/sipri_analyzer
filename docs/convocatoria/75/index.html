@@ -1,0 +1,3201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/sipri_analyzer/favicon.svg"/>
+    <link rel="alternate icon" type="image/x-icon" href="/sipri_analyzer/favicon.ico"/>
+    <title>Conv. 75 – Analizador SIPRI</title>
+        
+                        
+<link rel="stylesheet" href="/sipri_analyzer/assets/styles/app-2V3NrzZ.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/bootstrap/dist/css/bootstrap.min-BtgVHdz.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.bootstrap5-PmntfHB.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/bootstrap-icons/font/bootstrap-icons.min-5BD67CJ.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.default-EUMPfwl.css">
+<script type="importmap">
+{
+    "imports": {
+        "app": "/sipri_analyzer/assets/app-UJ90Zlh.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
+        "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
+        "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
+        "tom-select/dist/css/tom-select.bootstrap5.css": "data:application/javascript,",
+        "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
+        "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-fic0rHJ.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "chartjs-plugin-annotation": "/sipri_analyzer/assets/vendor/chartjs-plugin-annotation/chartjs-plugin-annotation.index-w2pLQ9a.js",
+        "chartjs-plugin-datalabels": "/sipri_analyzer/assets/vendor/chartjs-plugin-datalabels/chartjs-plugin-datalabels.index-Glkiqxt.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-IOzBDLu.js",
+        "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-QGD-uEn.js",
+        "/sipri_analyzer/assets/@symfony/ux-autocomplete/controller.js": "/sipri_analyzer/assets/@symfony/ux-autocomplete/controller-FEEd2HP.js",
+        "tom-select/dist/css/tom-select.default.css": "data:application/javascript,",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-Gcnh5ai.js",
+        "/sipri_analyzer/assets/controllers/buscador_controller.js": "/sipri_analyzer/assets/controllers/buscador_controller-N0LFc8I.js",
+        "/sipri_analyzer/assets/controllers/filtros_convocatoria_controller.js": "/sipri_analyzer/assets/controllers/filtros_convocatoria_controller-DZ_2LOT.js",
+        "/sipri_analyzer/assets/controllers/selector_provincias_controller.js": "/sipri_analyzer/assets/controllers/selector_provincias_controller-o0sYkT1.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/tabla_historico_controller.js": "/sipri_analyzer/assets/controllers/tabla_historico_controller-6Tt4z9-.js",
+        "/sipri_analyzer/assets/controllers/filtro_historicas_controller.js": "/sipri_analyzer/assets/controllers/filtro_historicas_controller-cb67HMk.js",
+        "/sipri_analyzer/assets/controllers/pinned_cards_controller.js": "/sipri_analyzer/assets/controllers/pinned_cards_controller-gp8wm7B.js",
+        "/sipri_analyzer/assets/controllers/search_controller.js": "/sipri_analyzer/assets/controllers/search_controller-yGXqYhi.js",
+        "/sipri_analyzer/assets/controllers/calendario_convocatorias_controller.js": "/sipri_analyzer/assets/controllers/calendario_convocatorias_controller-tVtusK-.js",
+        "/sipri_analyzer/assets/controllers/navbar_controller.js": "/sipri_analyzer/assets/controllers/navbar_controller-_chQFDc.js",
+        "/sipri_analyzer/assets/controllers/mis_favoritos_controller.js": "/sipri_analyzer/assets/controllers/mis_favoritos_controller-4xrVcQ1.js",
+        "/sipri_analyzer/assets/controllers/favorito_btn_controller.js": "/sipri_analyzer/assets/controllers/favorito_btn_controller-eTQeMI1.js",
+        "tom-select": "/sipri_analyzer/assets/vendor/tom-select/tom-select.index-TPK6we8.js",
+        "/sipri_analyzer/assets/lib/favoritos.js": "/sipri_analyzer/assets/lib/favoritos-ana2LgV.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js",
+        "@orchidjs/sifter": "/sipri_analyzer/assets/vendor/@orchidjs/sifter/sifter.index-zEuztG7.js",
+        "@orchidjs/unicode-variants": "/sipri_analyzer/assets/vendor/@orchidjs/unicode-variants/unicode-variants.index-OoJoyLT.js",
+        "tom-select/dist/css/tom-select.default.min.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement('link'),{rel:'stylesheet',href:'/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.default.min-QHz1RWP.css'}))",
+        "tom-select/dist/css/tom-select.bootstrap4.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement('link'),{rel:'stylesheet',href:'/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.bootstrap4--gGdn36.css'}))",
+        "chart.js/helpers": "/sipri_analyzer/assets/vendor/chart.js/helpers-LUX1uER.js"
+    }
+}
+</script><script>
+if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (function () {
+    const script = document.createElement('script');
+    script.src = 'https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js';
+    if (document.currentScript?.nonce) script.nonce = document.currentScript.nonce;
+    script.setAttribute('crossorigin', 'anonymous');
+    script.setAttribute('integrity', 'sha384-ie1x72Xck445i0j4SlNJ5W5iGeL3Dpa0zD48MZopgWsjNB/lt60SuG1iduZGNnJn');
+    document.head.appendChild(script);
+})();
+</script>
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-UJ90Zlh.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-fic0rHJ.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-annotation/chartjs-plugin-annotation.index-w2pLQ9a.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-datalabels/chartjs-plugin-datalabels.index-Glkiqxt.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-IOzBDLu.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-QGD-uEn.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-autocomplete/controller-FEEd2HP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-Gcnh5ai.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/buscador_controller-N0LFc8I.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/filtros_convocatoria_controller-DZ_2LOT.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/selector_provincias_controller-o0sYkT1.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/tabla_historico_controller-6Tt4z9-.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/filtro_historicas_controller-cb67HMk.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/pinned_cards_controller-gp8wm7B.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/search_controller-yGXqYhi.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/calendario_convocatorias_controller-tVtusK-.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/navbar_controller-_chQFDc.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/mis_favoritos_controller-4xrVcQ1.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/favorito_btn_controller-eTQeMI1.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/tom-select/tom-select.index-TPK6we8.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/lib/favoritos-ana2LgV.js">
+<script type="module">import 'app';</script>
+            </head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-sipri" data-controller="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/sipri_analyzer/">
+            <i class="bi bi-bar-chart-fill brand-icon"></i>
+            <span>Analizador SIPRI</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Menú">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto gap-1">
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"
+                       data-nav-prefix="/cuerpos /cuerpo/ /especialidad/">
+                        <i class="bi bi-collection-fill"></i> Cuerpos docentes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/convocatoria/"
+                       data-nav-prefix="/convocatoria/">
+                        <i class="bi bi-clipboard-data-fill"></i> Convocatorias
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/centros/"
+                       data-nav-prefix="/centros/ /centro/">
+                        <i class="bi bi-building-fill"></i> Centros
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/convocatorias/stats/">
+                        <i class="bi bi-graph-up"></i> Evolución
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes">
+                        <i class="bi bi-question-circle-fill"></i> FAQ
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="/sipri_analyzer/"><i class="bi bi-house-fill me-1"></i>Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/sipri_analyzer/convocatoria/">Convocatorias</a>
+                </li>
+                                <li class="breadcrumb-item">
+                    <a href="/sipri_analyzer/convocatoria/curso/2019/">
+                        Curso 2019/2020
+                    </a>
+                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Conv. 75</li>
+            </ol>
+        </nav>
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <h2 class="mb-0">
+                <span class="badge-code me-2">75</span>
+                Convocatoria 75
+            </h2>
+            <div class="d-flex gap-2 flex-wrap">
+                                    <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-text);border:1px solid var(--sipri-border);font-size:.85rem">
+                        <i class="bi bi-calendar3 me-1"></i>22/04/2020
+                    </span>
+                                                    <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.85rem">
+                        Curso 2019/2020
+                    </span>
+                            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-4 pb-5" data-controller="filtros-convocatoria">
+
+        <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue)">92</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Total plazas</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:#e6a817">9</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Vacantes</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:#198754">83</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Sustituciones</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue-mid)">81</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Adjudicadas</div>
+            </div>
+        </div>
+    </div>
+
+            <div class="mb-2 d-flex flex-wrap gap-2 align-items-center">
+        <span class="prov-filter-label">Provincia:</span>
+        <div class="prov-btns-wrap">
+            <button class="prov-btn prov-btn--activo"
+                    data-prov="all"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Todas
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Almería"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Almería
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Cádiz"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Cádiz
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Córdoba"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Córdoba
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Granada"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Granada
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Huelva"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Huelva
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Jaén"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Jaén
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Málaga"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Málaga
+            </button>
+                        <button class="prov-btn"
+                    data-prov="Sevilla"
+                    data-action="filtros-convocatoria#selectProv"
+                    data-filtros-convocatoria-target="btnProv">
+                Sevilla
+            </button>
+                    </div>
+    </div>
+    
+            <div class="mb-4 d-flex gap-2 align-items-start">
+        <span class="prov-filter-label" style="padding-top:.45rem;white-space:nowrap">Especialidad:</span>
+        <div class="esp-filter-zone">
+                        <input type="search"
+                   class="esp-filter-search"
+                   placeholder="Buscar especialidad…"
+                   autocomplete="off"
+                   data-action="input->filtros-convocatoria#searchEsp">
+                        <div class="esp-filter-btns">
+                <button class="prov-btn prov-btn--activo"
+                        data-esp="all"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp">
+                    Todas
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590102"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590102">
+                    ANALISIS Y QUIMICA INDUSTRIAL P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00592002"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00592002">
+                    ARABE P.E.O.I. (1/2 J)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590008"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590008">
+                    BIOLOGIA Y GEOLOGIA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00593009"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00593009">
+                    CLAVE CMAE (1/2 J)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00591201"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00591201">
+                    COCINA Y PASTELERIA P.T.F.P.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590803"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590803">
+                    CULTURA CLASICA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590061"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590061">
+                    ECONOMIA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590017"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590017">
+                    EDUCACION FISICA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00597034"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00597034">
+                    EDUCACIÓN FÍSICA (PRIMARIA)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00597031"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00597031">
+                    EDUCACIÓN INFANTIL
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00597038"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00597038">
+                    EDUCACIÓN PRIMARIA
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11597038"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11597038">
+                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00591202"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00591202">
+                    EQUIPOS ELECTRONICOS P.T.F.P.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11590001"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11590001">
+                    FILOSOFIA (INGLES) P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11590007"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11590007">
+                    FISICA Y QUIMICA (INGLES) P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590105"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590105">
+                    FORMACION Y ORIENTACION LABORAL P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590010"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590010">
+                    FRANCES P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11590005"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11590005">
+                    GEOGRAFIA E HISTORIA (INGLES) P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590005"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590005">
+                    GEOGRAFIA E HISTORIA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00594415"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00594415">
+                    GUITARRA FLAMENCA P.M.A.E.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00597025"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00597025">
+                    IDIOMA EXTRANJERO-INGLÉS (SECUNDARIA)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00593061"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00593061">
+                    IMPROVISACION ACOMPAÑAMIENT CMAE (1/2 J)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590107"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590107">
+                    INFORMATICA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590011"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590011">
+                    INGLES P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590004"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590004">
+                    LENGUA CASTELLANA Y LITERATURA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00597033"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00597033">
+                    LENGUA EXTRANJERA-FRANCÉS (PRIMARIA)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00597032"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00597032">
+                    LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00594460"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00594460">
+                    LENGUAJE MUSICAL P.M.A.E.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11590006"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11590006">
+                    MATEMATICAS (INGLES) P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590006"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590006">
+                    MATEMATICAS P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11590016"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11590016">
+                    MUSICA (INGLES) P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590016"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590016">
+                    MUSICA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00597035"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00597035">
+                    MÚSICA (PRIMARIA)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590018"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590018">
+                    ORIENTACIÓN EDUCATIVA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00593057"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00593057">
+                    PEDAGOGIA C.M.A.E.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11591222"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11591222">
+                    PROC. GESTION ADMTVA (INGLES)  P.T.F.P.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00590116"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00590116">
+                    PROCESOS INDUSTRIA ALIMENTARIA P.E.S.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00593098"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00593098">
+                    REP. CON PIANO PARA INSTRUMENTOS (1/2 J)
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00591225"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00591225">
+                    SERVICIOS A LA COMUNIDAD P.T.F.P.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00591226"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00591226">
+                    SERVICIOS DE RESTAURACION P.T.F.P.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="11591227"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="11591227">
+                    SIST. APLIC. INFORMAT. (INGLES) P.T.F.P.
+                </button>
+                                <button class="prov-btn"
+                        data-esp="00594428"
+                        data-action="filtros-convocatoria#selectEsp"
+                        data-filtros-convocatoria-target="btnEsp"
+                        title="00594428">
+                    TROMPETA P.M.A.E.
+                </button>
+                            </div>
+        </div>
+    </div>
+    
+            <div class="table-responsive">
+        <table class="table table-hover" style="font-size:.875rem">
+            <thead style="background:var(--sipri-bg)">
+                <tr>
+                    <th>Especialidad</th>
+                    <th>Centro</th>
+                    <th>Localidad</th>
+                    <th>Tipo</th>
+                    <th class="text-end">Nº</th>
+                    <th class="text-end">Orden adj.</th>
+                </tr>
+            </thead>
+
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Almería
+                        <span style="font-weight:400;color:var(--sipri-muted)">(7)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Almería"
+                    data-esp="00597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/04002180/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Santa María del Águila
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Santa María del Águila</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1154
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Almería"
+                    data-esp="11597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/04005594/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Arco Iris
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Aguadulce</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    247
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Almería"
+                    data-esp="00590011">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590011/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            INGLES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590011</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/04002532/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Sierra Nevada
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Fiñana</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1048
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Almería"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/04006045/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Mar Mediterráneo
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Aguadulce</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1264
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Almería"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/04700570/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Carmen de Burgos
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Huércal de Almería</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1241
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Almería"
+                    data-esp="00591225">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00591225/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            SERVICIOS A LA COMUNIDAD P.T.F.P.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00591225</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/04001163/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Alhadra
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Almería</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    83
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Almería"
+                    data-esp="00594428">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00594428/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            TROMPETA P.M.A.E.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00594428</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/04700284/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.M. Olula del Río
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Olula del Río</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    43
+                                            </td>
+                </tr>
+                
+            </tbody>
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Cádiz
+                        <span style="font-weight:400;color:var(--sipri-muted)">(10)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00591201">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00591201/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            COCINA Y PASTELERIA P.T.F.P.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00591201</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11007685/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. El Picacho
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sanlúcar de Barrameda</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    69
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00590061">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590061/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            ECONOMIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590061</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11005275/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Las Salinas
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">San Fernando</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    391
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00590017">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590017/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACION FISICA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590017</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11005275/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Las Salinas
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">San Fernando</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    378
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11001178/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Campo del Sur
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cádiz</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    438
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="11590007">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11590007/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FISICA Y QUIMICA (INGLES) P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11590007</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11000371/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Kursaal
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Algeciras</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    695
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00590010">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590010/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FRANCES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590010</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11700299/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Drago
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cádiz</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    465
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00590005">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590005/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            GEOGRAFIA E HISTORIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590005</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11003230/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. La Granja
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jerez de la Frontera</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1080
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00590011">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590011/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            INGLES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590011</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11003205/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Padre Luis Coloma
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jerez de la Frontera</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1084
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11008471/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Salmedina
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Chipiona</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1218
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Cádiz"
+                    data-esp="11591227">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11591227/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            SIST. APLIC. INFORMAT. (INGLES) P.T.F.P.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11591227</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/11000371/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Kursaal
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Algeciras</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                
+            </tbody>
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Córdoba
+                        <span style="font-weight:400;color:var(--sipri-muted)">(6)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Córdoba"
+                    data-esp="00597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/14003356/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Los Alcalá Galiano
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Doña Mencía</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    330
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Córdoba"
+                    data-esp="00597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/14003851/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Blas Infante
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Aldea de Fuente Carretero</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    155
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Córdoba"
+                    data-esp="00594415">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00594415/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            GUITARRA FLAMENCA P.M.A.E.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00594415</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/14700225/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.P.M. Músico Ziryab
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Córdoba</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    40
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Córdoba"
+                    data-esp="00594460">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00594460/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUAJE MUSICAL P.M.A.E.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00594460</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/14700225/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.P.M. Músico Ziryab
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Córdoba</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    105
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Córdoba"
+                    data-esp="00590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/14002984/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Averroes
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Córdoba</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1004
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Córdoba"
+                    data-esp="00590016">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590016/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MUSICA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590016</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/14700468/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Nuevo Scala
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Rute</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    181
+                                            </td>
+                </tr>
+                
+            </tbody>
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Granada
+                        <span style="font-weight:400;color:var(--sipri-muted)">(11)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18001792/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. El Zargal
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cenes de la Vega</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1328
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18005189/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Ángeles Bedmar
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Huétor de Santillán</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    483
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="11597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18601886/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.P.R. La Inmaculada
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Fornes</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    269
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00590010">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590010/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FRANCES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590010</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18700232/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Alba Longa
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Armilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    171
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00597025">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597025/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            IDIOMA EXTRANJERO-INGLÉS (SECUNDARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597025</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18008774/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. San Isidro Labrador
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cuevas del Campo</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    659
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00590011">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590011/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            INGLES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590011</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18004291/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Padre Manjón
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Granada</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1069
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="11590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS (INGLES) P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18700360/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Arjé
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Chauchina</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    188
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18700621/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Isabel La Católica
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Guadahortuna</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    851
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00593057">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00593057/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            PEDAGOGIA C.M.A.E.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00593057</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18009781/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.S.M. Victoria Eugenia
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Granada</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="11591222">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11591222/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            PROC. GESTION ADMTVA (INGLES)  P.T.F.P.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11591222</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18001123/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Pedro Jiménez Montoya
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Baza</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    319
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Granada"
+                    data-esp="00590116">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590116/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            PROCESOS INDUSTRIA ALIMENTARIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590116</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/18001123/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Pedro Jiménez Montoya
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Baza</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                
+            </tbody>
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Huelva
+                        <span style="font-weight:400;color:var(--sipri-muted)">(5)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Huelva"
+                    data-esp="00590010">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590010/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FRANCES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590010</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/21001892/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. La Rábida
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Huelva</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    472
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Huelva"
+                    data-esp="00597025">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597025/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            IDIOMA EXTRANJERO-INGLÉS (SECUNDARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597025</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/21000759/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. San Roque
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cala</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    826
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Huelva"
+                    data-esp="00590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/21003165/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Diego Angulo
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Valverde del Camino</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    2063
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Huelva"
+                    data-esp="11590016">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11590016/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MUSICA (INGLES) P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11590016</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/21002975/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Odón Betanzos Palacios
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Mazagón</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    80
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Huelva"
+                    data-esp="00597035">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597035/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MÚSICA (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597035</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/21001375/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Príncipe de España
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Huelva</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    166
+                                            </td>
+                </tr>
+                
+            </tbody>
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Jaén
+                        <span style="font-weight:400;color:var(--sipri-muted)">(9)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00593009">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00593009/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            CLAVE CMAE (1/2 J)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00593009</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23008919/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.S.M. Andrés de Vandelvira
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jaén</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="11597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23003387/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Ntra. Sra. de los Dolores
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Pozo Alcón</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    83
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00590105">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590105/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FORMACION Y ORIENTACION LABORAL P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590105</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23002851/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Reyes de España
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Linares</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    631
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00590005">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590005/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            GEOGRAFIA E HISTORIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590005</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23004240/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Juan López Morillas
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jódar</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    915
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23700839/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Santa Teresa
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jaén</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1181
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00597032">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597032/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23003454/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. San Ginés de la Jara
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sabiote</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    276
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23002474/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Jabalcuz
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jaén</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    963
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00593098">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00593098/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            REP. CON PIANO PARA INSTRUMENTOS (1/2 J)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00593098</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23008919/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.S.M. Andrés de Vandelvira
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jaén</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Jaén"
+                    data-esp="00593098">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00593098/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            REP. CON PIANO PARA INSTRUMENTOS (1/2 J)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00593098</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/23008919/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.S.M. Andrés de Vandelvira
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Jaén</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                
+            </tbody>
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Málaga
+                        <span style="font-weight:400;color:var(--sipri-muted)">(14)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00592002">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00592002/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            ARABE P.E.O.I. (1/2 J)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00592002</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29011308/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            E.O.I. Málaga
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Málaga</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00590008">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590008/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            BIOLOGIA Y GEOLOGIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590008</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29007998/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Pérez de Guzmán
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Ronda</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    506
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00590803">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590803/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            CULTURA CLASICA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590803</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29010365/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Profesor Isidoro Sánchez
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Málaga</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    175
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00590061">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590061/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            ECONOMIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590061</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29700761/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Alta Axarquía
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Periana</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    270
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00597031">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597031/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN INFANTIL
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29005931/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Jardín Botánico
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Mijas</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    95
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="11597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29006143/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Clara Campoamor
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Málaga</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    290
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00590010">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590010/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FRANCES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590010</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29700680/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Trayamar
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Algarrobo</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    355
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00590005">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590005/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            GEOGRAFIA E HISTORIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590005</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29012076/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Ben Gabirol
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Málaga</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    910
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29009934/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Salvador Rueda
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Málaga</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1090
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00597032">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597032/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29002265/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.PR. Pintor Palomo y Anaya
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Coín</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    124
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00597032">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597032/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29008905/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. López Mayor
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Villanueva del Trabuco</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    419
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00597032">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597032/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29009727/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Ramón del Valle Inclán
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Málaga</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    480
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00597032">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597032/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29602499/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Zambrana
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Alhaurín de la Torre</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    472
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Málaga"
+                    data-esp="00591226">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00591226/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            SERVICIOS DE RESTAURACION P.T.F.P.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00591226</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/29005916/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. La Rosaleda
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Málaga</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    74
+                                            </td>
+                </tr>
+                
+            </tbody>
+                        <tbody data-filtros-convocatoria-target="grupo">
+
+                <tr style="background:var(--sipri-bg)">
+                    <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Sevilla
+                        <span style="font-weight:400;color:var(--sipri-muted)">(30)</span>
+                    </th>
+                </tr>
+
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590102">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590102/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            ANALISIS Y QUIMICA INDUSTRIAL P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590102</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41006997/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Politécnico
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590008">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590008/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            BIOLOGIA Y GEOLOGIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590008</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41008507/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. López de Arenas
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Marchena</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    442
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590803">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590803/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            CULTURA CLASICA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590803</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41010541/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Joaquín Turina
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    171
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590061">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590061/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            ECONOMIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590061</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41006912/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Gustavo Adolfo Bécquer
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    371
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00597034">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597034/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN FÍSICA (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597034</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41002751/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Francisco Reina
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Martín de la Jara</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    545
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41007281/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Emilio Prados
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1311
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="11597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41000727/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Los Rosales
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Mairena del Aljarafe</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    286
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="11597038">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11597038/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41010150/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Rafael Alberti
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Dos Hermanas</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    220
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00591202">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00591202/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            EQUIPOS ELECTRONICOS P.T.F.P.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00591202</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41700361/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Torre de los Herberos
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Dos Hermanas</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    575
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="11590001">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11590001/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FILOSOFIA (INGLES) P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11590001</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41701158/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Cantillana
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cantillana</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    128
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="11590007">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11590007/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FISICA Y QUIMICA (INGLES) P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11590007</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41701626/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Cavaleri
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Mairena del Aljarafe</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    748
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590105">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590105/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FORMACION Y ORIENTACION LABORAL P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590105</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41701158/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Cantillana
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cantillana</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    217
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590010">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590010/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            FRANCES P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590010</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41009822/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Bajo Guadalquivir
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Lebrija</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    419
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="11590005">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/11590005/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            GEOGRAFIA E HISTORIA (INGLES) P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">11590005</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41009071/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Antonio Machado
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    446
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590005">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590005/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            GEOGRAFIA E HISTORIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590005</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41007230/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Carlos Haya
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1093
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590005">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590005/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            GEOGRAFIA E HISTORIA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590005</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41701377/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Antonio de Ulloa
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">La Rinconada</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    982
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00593061">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00593061/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            IMPROVISACION ACOMPAÑAMIENT CMAE (1/2 J)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00593061</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41010125/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.S.M. Manuel Castillo
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590107">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590107/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            INFORMATICA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590107</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41701158/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Cantillana
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Cantillana</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    399
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41007230/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Carlos Haya
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    981
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41011038/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Gonzalo Nazareno
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Dos Hermanas</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    928
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590004">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590004/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA CASTELLANA Y LITERATURA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590004</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41701730/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Alminar
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Bollullos de la Mitación</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    878
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00597033">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597033/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-FRANCÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597033</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41001987/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Santa Teresa
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Estepa</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    523
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00597033">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597033/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-FRANCÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597033</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41010678/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Ortiz de Zúñiga
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    513
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00597032">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00597032/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41003613/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.E.I.P. Federico García Lorca
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">El Real de la Jara</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    763
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41000880/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Tartessos
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Camas</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1129
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41006951/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Luca de Tena
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1239
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590006">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590006/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            MATEMATICAS P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590006</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41011014/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Profesor Tierno Galván
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Alcalá de Guadaíra</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    1181
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00590018">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00590018/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            ORIENTACIÓN EDUCATIVA P.E.S.
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00590018</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41000880/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            I.E.S. Tartessos
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Camas</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    447
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00593098">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00593098/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            REP. CON PIANO PARA INSTRUMENTOS (1/2 J)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00593098</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41010125/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.S.M. Manuel Castillo
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-vacante">
+                            Vacante
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                                                <tr data-filtros-convocatoria-target="fila"
+                    data-prov="Sevilla"
+                    data-esp="00593098">
+                    <td>
+                        <a href="/sipri_analyzer/especialidad/00593098/"
+                           class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                            REP. CON PIANO PARA INSTRUMENTOS (1/2 J)
+                        </a>
+                        <span class="badge-code ms-1" style="font-size:.7rem">00593098</span>
+                    </td>
+                    <td>
+                        <a href="/sipri_analyzer/centro/41010125/"
+                           class="text-decoration-none" style="color:var(--sipri-muted)">
+                            C.S.M. Manuel Castillo
+                        </a>
+                    </td>
+                    <td style="color:var(--sipri-muted)">Sevilla</td>
+                    <td>
+                        <span class="badge badge-sustitucion">
+                            Sustitución
+                        </span>
+                    </td>
+                    <td class="text-end">1</td>
+                    <td class="text-end font-monospace">
+                                                    <span style="color:var(--sipri-muted)">–</span>
+                                            </td>
+                </tr>
+                
+            </tbody>
+            
+        </table>
+    </div>
+    
+</div>
+</main>
+
+    <footer class="footer-sipri">
+    <div class="container">
+        <div class="row align-items-center gy-2">
+            <div class="col-12 col-md-9">
+                <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i>
+                Procesamiento automático sobre convocatorias públicas del SIPRI (Consejería de Desarrollo Educativo y FP, Junta de Andalucía).
+                <strong style="color:rgba(255,255,255,.85)">No es información oficial y puede contener errores.</strong>
+                <span class="d-block d-md-inline ms-md-2">
+                    <a href="/sipri_analyzer/preguntas_frecuentes">Preguntas frecuentes</a> ·
+                    Datos actualizados <a href="/sipri_analyzer/">según se indica</a>
+                </span>
+            </div>
+            <div class="col-12 col-md-3 text-md-end">
+                <a href="https://github.com/acardielf/sipri_analyzer" style="color:rgba(255,255,255,.6);font-size:1.3rem" title="Código fuente en GitHub">
+                    <i class="bi bi-github"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+
+</html>
