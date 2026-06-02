@@ -1,84 +1,75 @@
-{% set countHistorico = cursos|length > 3 ? cursos|length - 3 : 0 %}
-
-<div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2"
-     data-controller="tabla-historico">
-    <p class="mb-0 text-secondary small">
-        Número de plazas por provincia y curso, con el rango de órdenes de bolsa adjudicados.
-    </p>
-    {% if countHistorico > 0 %}
-        <button class="btn btn-sm btn-outline-secondary"
-                data-tabla-historico-target="btn"
-                data-action="tabla-historico#toggle">
-            Ver cursos anteriores
-        </button>
-    {% endif %}
-
-<table class="table table-striped table-bordered mt-3">
-    <tr>
-        <th>Provincia</th>
-        {% for curso in cursos %}
-            <th {% if loop.index > 3 %}data-tabla-historico-target="col" class="d-none"{% endif %}>
+{# ── Tabla ────────────────────────────────────────────────────────────────── #}
+<div class="tab-plazas-wrap mt-3">
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-sticky">Provincia</th>
+            {% for curso in cursos %}
+            <th class="{{ loop.index > 3 ? 'th-hist' : '' }}" style="min-width:95px;width:95px">
+                {% if loop.first %}<i class="bi bi-circle-fill me-1" style="font-size:.45rem;vertical-align:middle;opacity:.7"></i>{% endif %}
                 <span class="d-none d-xl-inline">Curso {{ curso.nombre }}</span>
                 <span class="d-inline d-xl-none">{{ curso.simpleLabel }}</span>
             </th>
-        {% endfor %}
-    </tr>
+            {% endfor %}
+        </tr>
+    </thead>
 
-    <tr>
-        <td>
-            <strong>Todas</strong>
-        </td>
-        {% for cursoId, provinciasByCurso in plazasFiltradas %}
-            <td {% if loop.index > 3 %}data-tabla-historico-target="col" class="d-none"{% endif %}>
-                {% if provinciasByCurso['ALL']['plazas'] > 0 %}
-                    <div>
-                        <span class="fs-5 fw-bold">{{ provinciasByCurso['ALL']['plazas'] }}</span>
-                    </div>
-                    <div>
-                        <span class="text-secondary" style="font-size:.8em">
-                            [{{ provinciasByCurso['ALL']['minOrden'] }} – {{ provinciasByCurso['ALL']['maxOrden'] }}]
-                        </span>
-                    </div>
+    <tbody>
+
+    {# ── Fila "Todas" ─────────────────────────────────────────────────────── #}
+    <tr class="tr-todas">
+        <td class="col-sticky fw-bold">Todas</td>
+        {% for cursoId, byCurso in plazasFiltradas %}
+            {% set d = byCurso['ALL'] %}
+            <td class="{{ loop.index > 3 ? 'td-hist' : '' }}">
+                {% if d.plazas > 0 %}
+                    <div class="fw-bold" style="font-size:1.45rem;color:var(--sipri-blue)">{{ d.plazas }}</div>
+                    {% if d.maxOrden > 0 %}
+                        <div class="range-nums">
+                            <span title="Primera posición llamada">[ {{ d.minOrden }}</span>
+                            <span style="opacity:.4">-</span>
+                            <span title="Última posición llamada">{{ d.maxOrden }} ]</span>
+                        </div>
+                    {% endif %}
                 {% else %}
-                    <span>–</span>
+                    <span class="text-muted">–</span>
                 {% endif %}
             </td>
         {% endfor %}
     </tr>
 
-    <tr>
-        <td colspan="{{ cursos|length + 1 }}"></td>
-    </tr>
+    <tr class="tr-sep"><td colspan="{{ cursos|length + 1 }}"></td></tr>
 
+    {# ── Filas por provincia ───────────────────────────────────────────────── #}
     {% for provincia in provincias %}
-        <tr>
-            <td>
-                <strong>{{ provincia.nombre }}</strong>
-            </td>
-            {% for cursoId, provinciasByCurso in plazasFiltradas %}
-                <td {% if loop.index > 3 %}data-tabla-historico-target="col" class="d-none"{% endif %}>
-                    {% if provinciasByCurso[provincia.id]['plazas'] > 0 %}
-                        <div>
-                            <a href="{{ path('app_especialidad_detail', {
-                                especialidad: especialidad.id,
-                                curso: cursoId,
-                                provincia: provincia.id
-                            }) }}">
-                                <span class="fs-5 fw-bold">{{ provinciasByCurso[provincia.id]['plazas'] }}</span>
-                            </a>
+    <tr>
+        <td class="col-sticky fw-semibold" style="color:var(--sipri-text)">{{ provincia.nombre }}</td>
+        {% for cursoId, byCurso in plazasFiltradas %}
+            {% set d = byCurso[provincia.id] is defined ? byCurso[provincia.id] : {'plazas':0,'minOrden':0,'maxOrden':0} %}
+            <td class="{{ loop.index > 3 ? 'td-hist' : '' }}">
+                {% if d.plazas > 0 %}
+                    <a href="{{ path('app_especialidad_detail', {
+                        especialidad: especialidad.id,
+                        curso: cursoId,
+                        provincia: provincia.id
+                    }) }}" class="fw-bold text-decoration-none" style="font-size:1.25rem;color:var(--sipri-blue)">
+                        {{ d.plazas }}
+                    </a>
+                    {% if d.maxOrden > 0 %}
+                        <div class="range-nums">
+                            <span title="Primera posición llamada">[ {{ d.minOrden }}</span>
+                            <span style="opacity:.4">-</span>
+                            <span title="Última posición llamada">{{ d.maxOrden }} ]</span>
                         </div>
-                        <div>
-                            <span class="text-secondary" style="font-size:.8em">
-                                [{{ provinciasByCurso[provincia.id]['minOrden'] }} – {{ provinciasByCurso[provincia.id]['maxOrden'] }}]
-                            </span>
-                        </div>
-                    {% else %}
-                        <span>–</span>
                     {% endif %}
-                </td>
-            {% endfor %}
-        </tr>
+                {% else %}
+                    <span class="text-muted small">–</span>
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
     {% endfor %}
 
+    </tbody>
 </table>
 </div>

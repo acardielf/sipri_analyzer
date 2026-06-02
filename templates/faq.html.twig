@@ -1,295 +1,262 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Preguntas frecuentes{% endblock %}
+{% block title %}Preguntas frecuentes – Analizador SIPRI{% endblock %}
 
-{% block body %}
+{% block main_content %}
 
-    <div class="container">
-
-        <h2>Preguntas frecuentes</h2>
-
-        <div class="accordion" id="preguntas">
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q01JZ7VCMQEWAFJ4TCF9CCAFXAP">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ7VCMQEWAFJ4TCF9CCAFXAP" aria-expanded="true"
-                            aria-controls="a01JZ7VCMQEWAFJ4TCF9CCAFXAP">
-                        <strong>¿Es oficial y completamente fiable la información que se muestra en esta
-                            página?</strong>
-                    </button>
-                </h2>
-                <div id="a01JZ7VCMQEWAFJ4TCF9CCAFXAP" class="accordion-collapse collapse show"
-                     aria-labelledby="q01JZ7VCMQEWAFJ4TCF9CCAFXAP"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        <strong>No</strong>. El único lugar oficial para las convocatorias son las resoluciones
-                        publicadas
-                        periódicamente en <a href="https://sipri.juntadeandalucia.es/sipri/inicio/">la web de
-                            SIPRI</a> la Consejería de Desarrollo Educativo y Formación Profesional de la Junta de
-                        Andalucía.
-                        <br>
-                        Los datos que aquí se muestran pueden tener errores, puesto que el procesamiento de los datos se
-                        hace de forma automática sin revisión humana.
-                        Recomiendo visitar la sección de "Problemas conocidos" de esta misma página de preguntas
-                        frecuentes.
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="accordion-item">
-
-
-                <h2 class="accordion-header" id="q01JZ7TSZV0X2TVYRVN5BR80GVT">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ7TSZV0X2TVYRVN5BR80GVT" aria-expanded="false"
-                            aria-controls="a01JZ7TSZV0X2TVYRVN5BR80GVT">
-                        <strong>¿Cómo se obtienen los datos? ¿Qué tecnología se usa?</strong>
-                    </button>
-                </h2>
-
-
-                <div id="a01JZ7TSZV0X2TVYRVN5BR80GVT" class="accordion-collapse collapse"
-                     aria-labelledby="q01JZ7TSZV0X2TVYRVN5BR80GVT"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        <ul>
-                            <li>Los datos se obtienen de los anexos oficiales publicados en SIPRI en PDF. Para ello, se
-                                utiliza
-                                un aplicación desarrollada en PHP / Symfony que se encarga de descargar los datos,
-                                procesar las plazas y las adjudicaciones de las diferentes convocatorias.
-                            </li>
-                            <li>El esqueleto de la
-                                aplicación es una plantilla (<code>dunglas/symfony-docker</code>) que permite ejecutar
-                                un
-                                entorno de
-                                desarrollo en local.
-                            </li>
-                            <li>La aplicación además utiliza un wrapper de python de <code><a
-                                        href="https://tabula.technology/">Tabula</a></code> para
-                                poder extraer las tablas de los PDFs de las convocatorias.
-                            </li>
-                            <li>Una vez se han procesado los datos, con la librería <code>Stenope</code> se generan los
-                                archivos
-                                estáticos y se publican en el repositorio.
-                            </li>
-                            <li>En el archivo README.md existen algunas instrucciones para poder hacer build del
-                                contenedor
-                                y poder ejecutar los comandos
-                                en la terminal para poder hacerlo funcionar en tu propio equipo.
-                            </li>
-                            <li>El código fuente de la aplicación está disponible en <a
-                                    href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i>
-                                    GitHub</a> y
-                                es susceptible de ser
-                                mejorado por cualquier persona interesada en el proyecto. Animo a que creen issues o
-                                pull
-                                requests o que contacten por si tienen alguna duda o sugerencia.
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q01JZ7VG8KXR251KSM4EMK2VMP2">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ7VGG1ZKKN88ZZJBD0TFBFN" aria-expanded="false"
-                            aria-controls="a01JZ7VGG1ZKKN88ZZJBD0TFBFN">
-                        <strong>Información legal y protección de datos</strong>
-                    </button>
-                </h2>
-                <div id="a01JZ7VGG1ZKKN88ZZJBD0TFBFN" class="accordion-collapse collapse"
-                     aria-labelledby="q01JZ7VG8KXR251KSM4EMK2VMP2"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        <p>
-                            Este sitio web es estático, y no almacena, recoge ni procesa ningún tipo de información
-                            personal en ningún servidor. No se hace uso de cookies de ningún tipo y no se rastrea
-                            de ninguna forma su uso.
-                        </p>
-                        <p>
-                            En lo relativo a las adjudicaciones se omite premeditamente todo dato que suponga una
-                            vinculación individual con datos personales de las personas adjudicatarias, tal y como
-                            se puede observar en el código fuente.
-                        </p>
-                        <p>
-                            La funcionalidad de <strong>especialidades favoritas y provincias preferidas</strong>
-                            guarda esos datos exclusivamente en el almacenamiento local del propio navegador
-                            (<code>localStorage</code>), sin que salgan en ningún momento del dispositivo del
-                            usuario. Puedes borrarlos en cualquier momento desde los ajustes de tu navegador.
-                        </p>
-                        <p>
-                            El creador de este sitio web es Ángel Cardiel Ferrero.
-                            Puedes contactar en la dirección <code>angel.cardiel@protonmail.com</code>.
-                            Los datos que se muestran han sido obtenidos de los directorios públicos de la Consejería
-                            de Desarrollo Educativo y Formación Profesional de la Junta de Andalucía, accesibles
-                            públicamente. La web estática se aloja en GitHub Pages y está sujeta a sus condiciones
-                            de uso.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q-especialidades-historicas">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a-especialidades-historicas" aria-expanded="false"
-                            aria-controls="a-especialidades-historicas">
-                        <strong>¿Qué son las especialidades históricas?</strong>
-                    </button>
-                </h2>
-                <div id="a-especialidades-historicas" class="accordion-collapse collapse"
-                     aria-labelledby="q-especialidades-historicas"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        <p>
-                            Se marca como <span class="badge-historica">Histórica</span> cualquier especialidad que
-                            no ha tenido plazas ofertadas en ninguna de las convocatorias de los dos últimos cursos
-                            académicos registrados.
-                        </p>
-                        <p>
-                            Esto ocurre en varios supuestos:
-                        </p>
-                        <ul>
-                            <li>
-                                <strong>Especialidades creadas durante el COVID-19</strong> (cursos 2019/20 y 2020/21)
-                                para cubrir necesidades extraordinarias que no se han vuelto a convocar desde entonces.
-                            </li>
-                            <li>
-                                <strong>Especialidades fusionadas o reconvertidas</strong> en otras denominaciones
-                                al actualizarse los catálogos de cuerpos docentes.
-                            </li>
-                            <li>
-                                <strong>Especialidades extinguidas</strong> o con bolsa agotada sin previsión de
-                                nuevas convocatorias.
-                            </li>
-                        </ul>
-                        <p>
-                            Sus datos históricos siguen siendo accesibles y útiles para entender tendencias pasadas,
-                            pero es poco probable que generen actividad en cursos futuros. En el listado de
-                            especialidades de cada cuerpo están ocultas por defecto; puedes mostrarlas con el botón
-                            <em>Ver históricas</em>.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q01JZ7WXTGTAG8DW95K4ANN0CET">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ7WXTGTAG8DW95K4ANN0CET" aria-expanded="false"
-                            aria-controls="a01JZ7WXTGTAG8DW95K4ANN0CET">
-                        <strong>Problemas conocidos</strong>
-                    </button>
-                </h2>
-                <div id="a01JZ7WXTGTAG8DW95K4ANN0CET" class="accordion-collapse collapse"
-                     aria-labelledby="q01JZ7WXTGTAG8DW95K4ANN0CET"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        <ul>
-                            <li>Existen adjudicaciones a centros "OCEP" que no aparecen en los listados finales.</li>
-                            <li>La determinación de si una determinada plaza ha quedado desierta en la convocatoria o
-                                no, no es siempre es precisa.
-                            </li>
-                        </ul>
-                        En caso de detectar nuevos problemas, se irán detallando en esta sección.
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q67900d98">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a67900d98" aria-expanded="false" aria-controls="a67900d98">
-                        <strong>¿Cada cuánto se actualizan los datos?</strong>
-                    </button>
-                </h2>
-                <div id="a67900d98" class="accordion-collapse collapse" aria-labelledby="q67900d98"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        Los datos son obtenidos de los anexos oficiales publicados en SIPRI en PDF. Por lo tanto, a
-                        medida
-                        que la Junta vaya publicando nuevas convocatorias, la idea es que se vayan actualizando los
-                        datos. Sin embargo, esto no es algo inmediato, ya que el proceso de extracción hay que
-                        lanzarlo manualmente y tampoco sabemos como se va a comportar el sistema una vez que se inicien
-                        las convocatorias del nuevo curso escolar.
-                        <br>
-                        Desde el 22 de septiembre de 2025 se ha automatizado el proceso de actualización de datos, que
-                        se encuentra actualmente en pruebas. Diariamente se comprobará si existen nuevas
-                        convocatorias y, en caso afirmativo, se procesarán y actualizarán los datos.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q01JZ9310NHKAT108RE9DQRAEWC">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ9310NHKAT108RE9DQRAEWC" aria-expanded="false"
-                            aria-controls="a01JZ9310NHKAT108RE9DQRAEWC">
-                        <strong>¿Por qué he hecho esta página?</strong>
-                    </button>
-                </h2>
-                <div id="a01JZ9310NHKAT108RE9DQRAEWC" class="accordion-collapse collapse"
-                     aria-labelledby="q01JZ9310NHKAT108RE9DQRAEWC"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        SIPRI es un sistema genial para la cobertura de plazas docentes en Andalucía, pero la
-                        información
-                        que nos ofrecen en ocasiones es muy difícil de interpretar al no estar agrupadas por
-                        especialidad.
-                        <br>
-                        Así que, como soy interino, estoy afiliado a <a href="https://ustea.org/">USTEA</a> y me gusta la programación, decidí hacer una
-                        página que no requiera
-                        de
-                        un servidor en ejecución para poder consultar los datos de las convocatorias, en la que poder
-                        agrupar las plazas por especialidad y que permita ver de forma sencilla la información de las
-                        convocatorias,
-                        las posiciones en la bolsa de trabajo que van siendo llamadas durante el curso escolar, las
-                        diferentes plazas que se ofertan, etc.
-                        <br>
-                        Estar afiliado a un sindicato es fundamental porque nos da fuerzas y herramientas para
-                        defender la escuela pública. No se trata únicamente de mejorar nuestras condiciones laborales, sino de
-                        luchar por una educación gratuita, inclusiva y de calidad para todos y todas. Busca el que mejor
-                        represente tus intereses e ideales y únete a la lucha de la educación pública.
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="q01JZ92S87Y3V3RES2MCYMC98WM">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#a01JZ92S87Y3V3RES2MCYMC98WM" aria-expanded="false"
-                            aria-controls="a01JZ92S87Y3V3RES2MCYMC98WM">
-                        <strong>He encontrado un problema, imprecisión o tengo alguna sugerencia</strong>
-                    </button>
-                </h2>
-                <div id="a01JZ92S87Y3V3RES2MCYMC98WM" class="accordion-collapse collapse"
-                     aria-labelledby="q01JZ92S87Y3V3RES2MCYMC98WM"
-                     data-bs-parent="#preguntas">
-                    <div class="accordion-body">
-                        Puedes contactar en la dirección <code>angel.cardiel@protonmail.com</code>.
-                        Además, el código fuente de la aplicación está disponible en <a
-                            href="https://github.com/acardielf/sipri_analyzer"><i class="bi bi-github"></i> GitHub</a> y
-                        es susceptible de ser
-                        mejorado por cualquier persona interesada en el proyecto. Animo a que creen issues o pull
-                        requests o que contacten por si tienen alguna duda o sugerencia.
-                    </div>
-
-                </div>
-            </div>
-
-
+    <div class="page-header">
+        <div class="container-fluid">
+            <nav aria-label="breadcrumb" class="mb-1">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('app_index') }}"><i class="bi bi-house-fill me-1"></i>Inicio</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Preguntas frecuentes</li>
+                </ol>
+            </nav>
+            <h2><i class="bi bi-question-circle-fill me-2"></i>Preguntas frecuentes</h2>
         </div>
     </div>
 
+    <div class="container py-5 pb-6" style="max-width:820px">
+
+        <div class="faq-accordion" id="preguntas">
+
+            {% set preguntas = [
+                {
+                    'id':    'faq-fiabilidad',
+                    'icon':  'bi-shield-exclamation',
+                    'q':     '¿Es oficial y completamente fiable la información?',
+                    'open':  true
+                },
+                {
+                    'id':    'faq-porque',
+                    'icon':  'bi-heart',
+                    'q':     '¿Por qué he hecho esta página?',
+                    'open':  false
+                },
+                {
+                    'id':    'faq-tecnologia',
+                    'icon':  'bi-cpu',
+                    'q':     '¿Cómo se obtienen los datos? ¿Qué tecnología se usa?',
+                    'open':  false
+                },
+                {
+                    'id':    'faq-legal',
+                    'icon':  'bi-lock',
+                    'q':     'Información legal y protección de datos',
+                    'open':  false
+                },
+                {
+                    'id':    'faq-historicas',
+                    'icon':  'bi-archive',
+                    'q':     '¿Qué son las especialidades históricas?',
+                    'open':  false
+                },
+                {
+                    'id':    'faq-problemas',
+                    'icon':  'bi-exclamation-triangle',
+                    'q':     'Problemas conocidos',
+                    'open':  false
+                },
+                {
+                    'id':    'faq-actualizacion',
+                    'icon':  'bi-arrow-repeat',
+                    'q':     '¿Cada cuánto se actualizan los datos?',
+                    'open':  false
+                },
+                {
+                    'id':    'faq-contacto',
+                    'icon':  'bi-chat-dots',
+                    'q':     'He encontrado un problema o tengo una sugerencia',
+                    'open':  false
+                }
+            ] %}
+
+            {% for item in preguntas %}
+                <div class="faq-item">
+                    <button class="faq-btn {{ item.open ? '' : 'collapsed' }}"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#{{ item.id }}"
+                            aria-expanded="{{ item.open ? 'true' : 'false' }}"
+                            aria-controls="{{ item.id }}">
+                <span class="faq-btn-icon">
+                    <i class="bi {{ item.icon }}"></i>
+                </span>
+                        <span class="faq-btn-text">{{ item.q }}</span>
+                        <i class="bi bi-chevron-down faq-chevron"></i>
+                    </button>
+                    <div id="{{ item.id }}" class="collapse {{ item.open ? 'show' : '' }}">
+                        <div class="faq-body">
+
+                            {% if item.id == 'faq-fiabilidad' %}
+                                <p>
+                                    <strong>No.</strong> El único lugar oficial para las convocatorias son las
+                                    resoluciones
+                                    publicadas periódicamente en
+                                    <a href="https://sipri.juntadeandalucia.es/sipri/inicio/" target="_blank"
+                                       rel="noopener">la web de SIPRI</a>
+                                    de la Consejería de Desarrollo Educativo y Formación Profesional de la Junta de
+                                    Andalucía.
+                                </p>
+                                <p class="mb-0">
+                                    Los datos que aquí se muestran pueden tener errores, puesto que el procesamiento se
+                                    hace
+                                    de forma automática <strong>sin revisión humana</strong>. Consulta la sección de
+                                    <em>Problemas conocidos</em>
+                                    de esta misma página.
+                                </p>
+
+
+                            {% elseif item.id == 'faq-porque' %}
+                                <p>
+                                    Cada curso, miles de docentes se ven obligados a
+                                    vivir sin saber si van a trabajar la semana siguiente ni en qué provincia acabarán.
+                                    Esa incertidumbre no solo redunda en un problema personal,
+                                    familiar y de conciliación que merma las esperanzas y la estabilidad de nuestro personal docente:
+                                    Además, dificulta la planificación de los centros, genera inestabilidad en las aulas
+                                    y pone en riesgo la calidad de la escuela pública.
+                                </p>
+                                <p>
+                                    SIPRI es un sistema que publica la información de las convocatorias en PDF,
+                                    pero sin agruparlas por
+                                    especialidad ni permitir un análisis histórico sencillo. Esta herramienta nació
+                                    para cubrir esa necesidad: consultar las plazas por especialidad, seguir las
+                                    posiciones de bolsa llamadas a lo largo del curso y ver la evolución entre años.
+                                </p>
+                                <p>
+                                    Estoy afiliado a <a href="https://ustea.org/" target="_blank"
+                                                        rel="noopener"><strong>USTEA</strong></a>,
+                                    y este proyecto altruista forma parte de mi compromiso con la escuela pública y con
+                                    el
+                                    software libre.
+                                </p>
+                                <p>
+                                    Estar afiliado a un sindicato es fundamental porque nos da fuerzas y herramientas
+                                    para
+                                    defender la escuela pública. No se trata únicamente de mejorar nuestras condiciones
+                                    laborales, sino de
+                                    luchar por una educación gratuita, inclusiva y de calidad para todos y todas. Busca
+                                    el que mejor
+                                    represente tus intereses e ideales y únete a la lucha de la educación pública.
+                                </p>
+
+
+                            {% elseif item.id == 'faq-tecnologia' %}
+                                <ul class="faq-list">
+                                    <li>Los datos se obtienen de los <strong>anexos oficiales publicados en
+                                            SIPRI</strong> en PDF mediante una
+                                        aplicación desarrollada en PHP / Symfony.
+                                    </li>
+                                    <li>Utiliza un wrapper de Python de <a href="https://tabula.technology/"
+                                                                           target="_blank"
+                                                                           rel="noopener"><code>Tabula</code></a>
+                                        para extraer las tablas de los PDFs de las convocatorias.
+                                    </li>
+                                    <li>Diariamente, la librería <code>Stenope</code> genera los archivos
+                                        estáticos
+                                        que se publican en el repositorio.
+                                    </li>
+                                    <li>El código fuente está disponible en
+                                        <a href="https://github.com/acardielf/sipri_analyzer" target="_blank"
+                                           rel="noopener">
+                                            <i class="bi bi-github me-1"></i>GitHub</a>.
+                                        Animo a que creen issues o pull requests.
+                                    </li>
+                                </ul>
+
+                            {% elseif item.id == 'faq-legal' %}
+                                <p>
+                                    Este sitio web es estático y no almacena, recoge ni procesa ningún tipo de
+                                    información
+                                    personal en ningún servidor. No se hace uso de cookies y no se rastrea su uso de
+                                    ninguna forma.
+                                </p>
+                                <p>
+                                    En lo relativo a las adjudicaciones se omite premeditadamente todo dato que suponga
+                                    vinculación individual con datos personales de las personas adjudicatarias.
+                                </p>
+                                <p>
+                                    La funcionalidad de <strong>especialidades favoritas y provincias
+                                        preferidas</strong>
+                                    guarda esos datos exclusivamente en el <code>localStorage</code> del navegador,
+                                    sin que salgan en ningún momento del dispositivo del usuario.
+                                </p>
+                                <p class="mb-0">
+                                    El creador de este sitio es Ángel Cardiel Ferrero —
+                                    <code>angel.cardiel@protonmail.com</code>.
+                                    Los datos proceden de los directorios públicos de la Consejería de Desarrollo
+                                    Educativo
+                                    de la Junta de Andalucía. La web se aloja en GitHub Pages.
+                                </p>
+
+                            {% elseif item.id == 'faq-historicas' %}
+                                <p>
+                                    Se marca como <span class="badge-historica">Histórica</span> cualquier especialidad
+                                    que
+                                    no ha tenido plazas ofertadas en ninguna de las convocatorias de los dos últimos
+                                    cursos académicos.
+                                </p>
+                                <p>Esto ocurre en varios supuestos:</p>
+                                <ul class="faq-list">
+                                    <li><strong>Especialidades creadas durante el COVID-19</strong> (cursos 2019/20 y
+                                        2020/21)
+                                        para cubrir necesidades extraordinarias que no se han vuelto a convocar.
+                                    </li>
+                                    <li><strong>Especialidades fusionadas o reconvertidas</strong> en otras
+                                        denominaciones
+                                        al actualizarse los catálogos de cuerpos docentes.
+                                    </li>
+                                    <li><strong>Especialidades extinguidas</strong> o con bolsa agotada sin previsión de
+                                        nuevas convocatorias.
+                                    </li>
+                                </ul>
+                                <p class="mb-0">
+                                    Sus datos históricos siguen siendo accesibles. En el listado de especialidades de
+                                    cada
+                                    cuerpo están ocultas por defecto; puedes mostrarlas con el botón <em>Ver
+                                        históricas</em>.
+                                </p>
+
+                            {% elseif item.id == 'faq-problemas' %}
+                                <ul class="faq-list mb-2">
+                                    <li>Existen adjudicaciones a centros <strong>OCEP</strong> que no aparecen en los
+                                        listados finales.
+                                    </li>
+                                    <li>La determinación de si una plaza ha quedado desierta no siempre es precisa.</li>
+                                </ul>
+                                <p class="mb-0 text-muted small">En caso de detectar nuevos problemas se irán detallando
+                                    en esta sección.</p>
+
+                            {% elseif item.id == 'faq-actualizacion' %}
+                                <p>
+                                    Los datos proceden de los anexos PDF publicados en SIPRI. A medida que la Junta
+                                    publica
+                                    nuevas convocatorias, se procesan y actualizan los datos automáticamente.
+
+                                </p>
+
+                            {% elseif item.id == 'faq-contacto' %}
+                                <p>
+                                    Puedes contactar en <code>angel.cardiel@protonmail.com</code>.
+                                </p>
+                                <p class="mb-0">
+                                    El código fuente está disponible en
+                                    <a href="https://github.com/acardielf/sipri_analyzer" target="_blank"
+                                       rel="noopener">
+                                        <i class="bi bi-github me-1"></i>GitHub</a>.
+                                    Puedes crear un <em>issue</em> o un <em>pull request</em> si detectas algo
+                                    o quieres colaborar.
+                                </p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
 
 {% endblock %}
