@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/sipri_analyzer/favicon.svg"/>
+    <link rel="alternate icon" type="image/x-icon" href="/sipri_analyzer/favicon.ico"/>
+    <title>C.E.I.P. Las Erillas – Analizador SIPRI</title>
+        
+                        
+<link rel="stylesheet" href="/sipri_analyzer/assets/styles/app-2V3NrzZ.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/bootstrap/dist/css/bootstrap.min-BtgVHdz.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.bootstrap5-PmntfHB.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/bootstrap-icons/font/bootstrap-icons.min-5BD67CJ.css">
+<link rel="stylesheet" href="/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.default-EUMPfwl.css">
+<script type="importmap">
+{
+    "imports": {
+        "app": "/sipri_analyzer/assets/app-UJ90Zlh.js",
+        "/sipri_analyzer/assets/bootstrap.js": "/sipri_analyzer/assets/bootstrap-xCO4u8H.js",
+        "/sipri_analyzer/assets/styles/app.css": "data:application/javascript,",
+        "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,",
+        "tom-select/dist/css/tom-select.bootstrap5.css": "data:application/javascript,",
+        "bootstrap/dist/js/bootstrap.min.js": "/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js",
+        "bootstrap-icons/font/bootstrap-icons.min.css": "data:application/javascript,",
+        "chart.js": "/sipri_analyzer/assets/vendor/chart.js/chart.js.index-fic0rHJ.js",
+        "chartjs-plugin-autocolors": "/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js",
+        "chartjs-plugin-annotation": "/sipri_analyzer/assets/vendor/chartjs-plugin-annotation/chartjs-plugin-annotation.index-w2pLQ9a.js",
+        "chartjs-plugin-datalabels": "/sipri_analyzer/assets/vendor/chartjs-plugin-datalabels/chartjs-plugin-datalabels.index-Glkiqxt.js",
+        "@symfony/stimulus-bundle": "/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-IOzBDLu.js",
+        "@popperjs/core": "/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js",
+        "@hotwired/stimulus": "/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js",
+        "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers.js": "/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-QGD-uEn.js",
+        "/sipri_analyzer/assets/@symfony/ux-autocomplete/controller.js": "/sipri_analyzer/assets/@symfony/ux-autocomplete/controller-FEEd2HP.js",
+        "tom-select/dist/css/tom-select.default.css": "data:application/javascript,",
+        "/sipri_analyzer/assets/@symfony/ux-chartjs/controller.js": "/sipri_analyzer/assets/@symfony/ux-chartjs/controller-Gcnh5ai.js",
+        "/sipri_analyzer/assets/controllers/buscador_controller.js": "/sipri_analyzer/assets/controllers/buscador_controller-N0LFc8I.js",
+        "/sipri_analyzer/assets/controllers/filtros_convocatoria_controller.js": "/sipri_analyzer/assets/controllers/filtros_convocatoria_controller-DZ_2LOT.js",
+        "/sipri_analyzer/assets/controllers/selector_provincias_controller.js": "/sipri_analyzer/assets/controllers/selector_provincias_controller-o0sYkT1.js",
+        "/sipri_analyzer/assets/controllers/hello_controller.js": "/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js",
+        "/sipri_analyzer/assets/controllers/tabla_historico_controller.js": "/sipri_analyzer/assets/controllers/tabla_historico_controller-6Tt4z9-.js",
+        "/sipri_analyzer/assets/controllers/filtro_historicas_controller.js": "/sipri_analyzer/assets/controllers/filtro_historicas_controller-cb67HMk.js",
+        "/sipri_analyzer/assets/controllers/pinned_cards_controller.js": "/sipri_analyzer/assets/controllers/pinned_cards_controller-gp8wm7B.js",
+        "/sipri_analyzer/assets/controllers/search_controller.js": "/sipri_analyzer/assets/controllers/search_controller-yGXqYhi.js",
+        "/sipri_analyzer/assets/controllers/calendario_convocatorias_controller.js": "/sipri_analyzer/assets/controllers/calendario_convocatorias_controller-tVtusK-.js",
+        "/sipri_analyzer/assets/controllers/navbar_controller.js": "/sipri_analyzer/assets/controllers/navbar_controller-_chQFDc.js",
+        "/sipri_analyzer/assets/controllers/mis_favoritos_controller.js": "/sipri_analyzer/assets/controllers/mis_favoritos_controller-4xrVcQ1.js",
+        "/sipri_analyzer/assets/controllers/favorito_btn_controller.js": "/sipri_analyzer/assets/controllers/favorito_btn_controller-eTQeMI1.js",
+        "tom-select": "/sipri_analyzer/assets/vendor/tom-select/tom-select.index-TPK6we8.js",
+        "/sipri_analyzer/assets/lib/favoritos.js": "/sipri_analyzer/assets/lib/favoritos-ana2LgV.js",
+        "/sipri_analyzer/assets/controllers/csrf_protection_controller.js": "/sipri_analyzer/assets/controllers/csrf_protection_controller-qtTFcyL.js",
+        "bootstrap": "/sipri_analyzer/assets/vendor/bootstrap/bootstrap.index-4PupftR.js",
+        "@kurkle/color": "/sipri_analyzer/assets/vendor/@kurkle/color/color.index-urH_Z5M.js",
+        "@orchidjs/sifter": "/sipri_analyzer/assets/vendor/@orchidjs/sifter/sifter.index-zEuztG7.js",
+        "@orchidjs/unicode-variants": "/sipri_analyzer/assets/vendor/@orchidjs/unicode-variants/unicode-variants.index-OoJoyLT.js",
+        "tom-select/dist/css/tom-select.default.min.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement('link'),{rel:'stylesheet',href:'/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.default.min-QHz1RWP.css'}))",
+        "tom-select/dist/css/tom-select.bootstrap4.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement('link'),{rel:'stylesheet',href:'/sipri_analyzer/assets/vendor/tom-select/dist/css/tom-select.bootstrap4--gGdn36.css'}))",
+        "chart.js/helpers": "/sipri_analyzer/assets/vendor/chart.js/helpers-LUX1uER.js"
+    }
+}
+</script><script>
+if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (function () {
+    const script = document.createElement('script');
+    script.src = 'https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js';
+    if (document.currentScript?.nonce) script.nonce = document.currentScript.nonce;
+    script.setAttribute('crossorigin', 'anonymous');
+    script.setAttribute('integrity', 'sha384-ie1x72Xck445i0j4SlNJ5W5iGeL3Dpa0zD48MZopgWsjNB/lt60SuG1iduZGNnJn');
+    document.head.appendChild(script);
+})();
+</script>
+<link rel="modulepreload" href="/sipri_analyzer/assets/app-UJ90Zlh.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/bootstrap-xCO4u8H.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/bootstrap/dist/js/bootstrap.min-ofJlyYq.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chart.js/chart.js.index-fic0rHJ.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-autocolors/chartjs-plugin-autocolors.index-PTMBdKU.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-annotation/chartjs-plugin-annotation.index-w2pLQ9a.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/chartjs-plugin-datalabels/chartjs-plugin-datalabels.index-Glkiqxt.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/loader-IOzBDLu.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@popperjs/core/core.index-QBO6pjP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/@hotwired/stimulus/stimulus.index-S4zNcea.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/stimulus-bundle/controllers-QGD-uEn.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-autocomplete/controller-FEEd2HP.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/@symfony/ux-chartjs/controller-Gcnh5ai.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/buscador_controller-N0LFc8I.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/filtros_convocatoria_controller-DZ_2LOT.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/selector_provincias_controller-o0sYkT1.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/hello_controller-VYgvytJ.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/tabla_historico_controller-6Tt4z9-.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/filtro_historicas_controller-cb67HMk.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/pinned_cards_controller-gp8wm7B.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/search_controller-yGXqYhi.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/calendario_convocatorias_controller-tVtusK-.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/navbar_controller-_chQFDc.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/mis_favoritos_controller-4xrVcQ1.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/controllers/favorito_btn_controller-eTQeMI1.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/vendor/tom-select/tom-select.index-TPK6we8.js">
+<link rel="modulepreload" href="/sipri_analyzer/assets/lib/favoritos-ana2LgV.js">
+<script type="module">import 'app';</script>
+            </head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-sipri" data-controller="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/sipri_analyzer/">
+            <i class="bi bi-bar-chart-fill brand-icon"></i>
+            <span>Analizador SIPRI</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Menú">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto gap-1">
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/cuerpos"
+                       data-nav-prefix="/cuerpos /cuerpo/ /especialidad/">
+                        <i class="bi bi-collection-fill"></i> Cuerpos docentes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/convocatoria/"
+                       data-nav-prefix="/convocatoria/">
+                        <i class="bi bi-clipboard-data-fill"></i> Convocatorias
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/centros/"
+                       data-nav-prefix="/centros/ /centro/">
+                        <i class="bi bi-building-fill"></i> Centros
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/convocatorias/stats/">
+                        <i class="bi bi-graph-up"></i> Evolución
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sipri_analyzer/preguntas_frecuentes">
+                        <i class="bi bi-question-circle-fill"></i> FAQ
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="/sipri_analyzer/"><i class="bi bi-house-fill me-1"></i>Inicio</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/sipri_analyzer/centros/">Centros</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/sipri_analyzer/centros/41/">Sevilla</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">C.E.I.P. Las Erillas</li>
+            </ol>
+        </nav>
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <h2 class="mb-0">
+                <i class="bi bi-building-fill me-2"></i>C.E.I.P. Las Erillas
+                            </h2>
+        </div>
+        <p class="mb-0 mt-1" style="color:var(--sipri-muted);font-size:.9rem">
+            <span class="badge-code me-1">41000612</span>
+            Aznalcóllar · Sevilla
+        </p>
+    </div>
+</div>
+
+<div class="container-fluid py-4 pb-5">
+
+        <div class="row g-3 mb-4">
+        <div class="col-6 col-md-4">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue)">57</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Total plazas</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue-mid)">11</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Especialidades</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="card-sipri text-center p-3" style="display:block">
+                <div style="font-size:1.4rem;font-weight:700;color:var(--sipri-blue)">2025/2026</div>
+                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Último curso</div>
+            </div>
+        </div>
+    </div>
+
+                        <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2025/2026
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    6 plazas
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/450/"
+                                   class="badge-code text-decoration-none">450</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    19/05/2026
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2026
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    2352
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/445/"
+                                   class="badge-code text-decoration-none">445</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    29/04/2026
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597037/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    AUDICIÓN Y LENGUAJE
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597037</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    559
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/425/"
+                                   class="badge-code text-decoration-none">425</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    10/02/2026
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    946
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/417/"
+                                   class="badge-code text-decoration-none">417</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    13/01/2026
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597034/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN FÍSICA (PRIMARIA)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597034</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    643
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/411/"
+                                   class="badge-code text-decoration-none">411</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    25/11/2025
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597032/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    922
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/389/"
+                                   class="badge-code text-decoration-none">389</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    04/09/2025
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2026
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    525
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2024/2025
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    8 plazas
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/379/"
+                                   class="badge-code text-decoration-none">379</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/05/2025
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597037/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    AUDICIÓN Y LENGUAJE
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597037</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2025
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    764
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/378/"
+                                   class="badge-code text-decoration-none">378</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    29/04/2025
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    700
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/344/"
+                                   class="badge-code text-decoration-none">344</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    14/11/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                04/12/2024
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    2770
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/339/"
+                                   class="badge-code text-decoration-none">339</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    24/10/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597037/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    AUDICIÓN Y LENGUAJE
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597037</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    <span style="color:var(--sipri-muted)">–</span>
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/337/"
+                                   class="badge-code text-decoration-none">337</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    17/10/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597037/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    AUDICIÓN Y LENGUAJE
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597037</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    679
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/333/"
+                                   class="badge-code text-decoration-none">333</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    03/10/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597036/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    PEDAGOGÍA TERAPÉUTICA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597036</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1320
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/326/"
+                                   class="badge-code text-decoration-none">326</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    09/09/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                22/01/2025
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    516
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/325/"
+                                   class="badge-code text-decoration-none">325</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    04/09/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2025
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    612
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2023/2024
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    8 plazas
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/306/"
+                                   class="badge-code text-decoration-none">306</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    20/03/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    584
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/288/"
+                                   class="badge-code text-decoration-none">288</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    09/01/2024
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    428
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/269/"
+                                   class="badge-code text-decoration-none">269</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    26/09/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                31/10/2023
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    902
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/266/"
+                                   class="badge-code text-decoration-none">266</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    14/09/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2024
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    987
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/263/"
+                                   class="badge-code text-decoration-none">263</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                31/10/2023
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    767
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/263/"
+                                   class="badge-code text-decoration-none">263</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2024
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    660
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/263/"
+                                   class="badge-code text-decoration-none">263</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597032/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    915
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/263/"
+                                   class="badge-code text-decoration-none">263</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/SG597036/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    PEDAGOGÍA TERAPEUTICA - LENG.SIGNOS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">SG597036</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2024
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1820
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2022/2023
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    11 plazas
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/257/"
+                                   class="badge-code text-decoration-none">257</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    25/05/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597032/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENGUA EXTRANJERA-INGLÉS (PRIMARIA)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597032</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1583
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/246/"
+                                   class="badge-code text-decoration-none">246</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    18/04/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597037/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    AUDICIÓN Y LENGUAJE
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597037</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    788
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/245/"
+                                   class="badge-code text-decoration-none">245</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    13/04/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1569
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/234/"
+                                   class="badge-code text-decoration-none">234</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    09/02/2023
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    679
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/220/"
+                                   class="badge-code text-decoration-none">220</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    17/11/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597034/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN FÍSICA (PRIMARIA)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597034</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                02/12/2022
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1254
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/214/"
+                                   class="badge-code text-decoration-none">214</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    27/10/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    2660
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/211/"
+                                   class="badge-code text-decoration-none">211</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    18/10/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                27/03/2023
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1991
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/200/"
+                                   class="badge-code text-decoration-none">200</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1518
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/200/"
+                                   class="badge-code text-decoration-none">200</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1159
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/200/"
+                                   class="badge-code text-decoration-none">200</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">2</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2023
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    277
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/200/"
+                                   class="badge-code text-decoration-none">200</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    05/09/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2023
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    688
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2021/2022
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    7 plazas
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/185/"
+                                   class="badge-code text-decoration-none">185</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    21/04/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    777
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/164/"
+                                   class="badge-code text-decoration-none">164</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    18/01/2022
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    814
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/158/"
+                                   class="badge-code text-decoration-none">158</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    25/11/2021
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    777
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/153/"
+                                   class="badge-code text-decoration-none">153</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    11/11/2021
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597035/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    MÚSICA (PRIMARIA)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597035</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    413
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/152/"
+                                   class="badge-code text-decoration-none">152</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    09/11/2021
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597036/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    PEDAGOGÍA TERAPÉUTICA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597036</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1177
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/148/"
+                                   class="badge-code text-decoration-none">148</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    21/10/2021
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    3546
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/137/"
+                                   class="badge-code text-decoration-none">137</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    03/09/2021
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2022
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    667
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2020/2021
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    8 plazas
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/95/"
+                                   class="badge-code text-decoration-none">95</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    10/11/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/TA597036/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    PED.TERAP.  EN AULA T.E.A.
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">TA597036</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1212
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/84/"
+                                   class="badge-code text-decoration-none">84</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    16/09/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    3629
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/82/"
+                                   class="badge-code text-decoration-none">82</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    03/09/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    433
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/82/"
+                                   class="badge-code text-decoration-none">82</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    03/09/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2021
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    260
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/82/"
+                                   class="badge-code text-decoration-none">82</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    03/09/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    278
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/82/"
+                                   class="badge-code text-decoration-none">82</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    03/09/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2021
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    543
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/136/"
+                                   class="badge-code text-decoration-none">136</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    08/06/2021
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    870
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/110/"
+                                   class="badge-code text-decoration-none">110</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    11/02/2021
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    2372
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2019/2020
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    8 plazas
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/69/"
+                                   class="badge-code text-decoration-none">69</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    25/02/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1901
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/62/"
+                                   class="badge-code text-decoration-none">62</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    28/01/2020
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    1172
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/32/"
+                                   class="badge-code text-decoration-none">32</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    10/09/2019
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                –
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    292
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/31/"
+                                   class="badge-code text-decoration-none">31</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    04/09/2019
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597031/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN INFANTIL
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597031</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                02/10/2019
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    475
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/31/"
+                                   class="badge-code text-decoration-none">31</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    04/09/2019
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                23/10/2019
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    643
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/31/"
+                                   class="badge-code text-decoration-none">31</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    04/09/2019
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                18/10/2019
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    687
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/31/"
+                                   class="badge-code text-decoration-none">31</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    04/09/2019
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/11597038/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN PRIMARIA - BILINGÜE INGLÉS
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">11597038</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                08/10/2019
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    241
+                                                            </td>
+                        </tr>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/31/"
+                                   class="badge-code text-decoration-none">31</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    04/09/2019
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/CC597033/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    LENG. EXTR. FRANCÉS PRIM. (C.COMPARTIDO)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">CC597033</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vacante">
+                                    Vacante
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                30/06/2020
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    429
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+                <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2"
+                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
+                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
+                    <i class="bi bi-calendar3 me-1"></i>2018/2019
+                </h5>
+                <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                    1 plaza
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:.875rem">
+                    <thead style="background:var(--sipri-bg)">
+                        <tr>
+                            <th>Fecha conv.</th>
+                            <th>Especialidad</th>
+                            <th>Tipo</th>
+                            <th class="text-end">Nº</th>
+                            <th>F. Cese</th>
+                            <th class="text-end">Orden adj.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                                        <tr>
+                            <td style="white-space:nowrap">
+                                <a href="/sipri_analyzer/convocatoria/9/"
+                                   class="badge-code text-decoration-none">9</a>
+                                <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
+                                    14/03/2019
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/sipri_analyzer/especialidad/00597034/"
+                                   class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">
+                                    EDUCACIÓN FÍSICA (PRIMARIA)
+                                </a>
+                                <span class="badge-code ms-1" style="font-size:.7rem">00597034</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-sustitucion">
+                                    Sustitución
+                                </span>
+                            </td>
+                            <td class="text-end">1</td>
+                            <td style="color:var(--sipri-muted);white-space:nowrap">
+                                23/06/2019
+                            </td>
+                            <td class="text-end font-monospace">
+                                                                    398
+                                                            </td>
+                        </tr>
+                                            </tbody>
+                </table>
+            </div>
+        </div>
+            
+</div>
+</main>
+
+    <footer class="footer-sipri">
+    <div class="container">
+        <div class="row align-items-center gy-2">
+            <div class="col-12 col-md-9">
+                <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i>
+                Procesamiento automático sobre convocatorias públicas del SIPRI (Consejería de Desarrollo Educativo y FP, Junta de Andalucía).
+                <strong style="color:rgba(255,255,255,.85)">No es información oficial y puede contener errores.</strong>
+                <span class="d-block d-md-inline ms-md-2">
+                    <a href="/sipri_analyzer/preguntas_frecuentes">Preguntas frecuentes</a> ·
+                    Datos actualizados <a href="/sipri_analyzer/">según se indica</a>
+                </span>
+            </div>
+            <div class="col-12 col-md-3 text-md-end">
+                <a href="https://github.com/acardielf/sipri_analyzer" style="color:rgba(255,255,255,.6);font-size:1.3rem" title="Código fuente en GitHub">
+                    <i class="bi bi-github"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+
+</html>
