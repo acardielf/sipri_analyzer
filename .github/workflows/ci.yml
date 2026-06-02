@@ -25,13 +25,13 @@ jobs:
     steps:
 
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
 
       - name: Download artifact from full-manual.yml
-        uses: actions/github-script@v7
+        uses: actions/github-script@v7.0.1
         continue-on-error: true
         with:
           script: |
@@ -92,7 +92,7 @@ jobs:
           fi
 
       - name: Download artifact from ci.yml
-        uses: actions/github-script@v7
+        uses: actions/github-script@v7.0.1
         continue-on-error: true
         with:
           script: |
@@ -162,19 +162,20 @@ jobs:
           coverage: none
 
       - name: Restore cache
-        uses: actions/cache@v4
+        uses: actions/cache@v4.2.3
         with:
           path: ./vendor/
           key: sipri_cache
 
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_APP_ENV: prod
-          envkey_DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data_%kernel.environment%.db"
+        run: |
+          cat > .env << 'EOF'
+          APP_ENV=prod
+          DATABASE_URL=sqlite:///%kernel.project_dir%/var/data_%kernel.environment%.db
+          EOF
 
       - name: Cache Vendor dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v4.2.3
         with:
           path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('composer.lock') }}
@@ -185,7 +186,7 @@ jobs:
         run: composer install --no-interaction --no-progress
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.4.0
         with:
           python-version: '3.x'
 
@@ -209,7 +210,7 @@ jobs:
 
       - name: Check existing records
         run: |
-          php bin/console doctrine:query:sql "SELECT max(cast(id as integer)) FROM convocatoria"
+          php bin/console dbal:run-sql "SELECT max(cast(id as integer)) FROM convocatoria"
 
       - name: Run SIPRI Analyzer only last
         run: php bin/console sipri:last --back 2 || true
@@ -224,12 +225,12 @@ jobs:
 
       - name: Commit y push de docs
         #        if: ${{ steps.sipri.outcome == 'success' }}
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v5.2.0
         with:
           file_pattern: 'docs/**'
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: sipri-analyzer-files
           path: |
