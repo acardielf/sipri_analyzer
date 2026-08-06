@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
+{% import '_macros.html.twig' as macros %}
 
 {% block title %}Conv. {{ convocatoria.id }} – Analizador SIPRI{% endblock %}
+
+{% block meta_description %}Convocatoria {{ convocatoria.id }} del SIPRI{% if convocatoria.fecha %}, publicada el {{ convocatoria.fecha|date('d/m/Y') }}{% endif %}: plazas ofertadas por provincia, centro y especialidad, con su posición adjudicada.{% endblock %}
+{% block og_image %}og/convocatoria.png{% endblock %}
 
 {% block main_content %}
 <div class="page-header">
@@ -47,32 +51,7 @@
 <div class="container-fluid py-4 pb-5" data-controller="filtros-convocatoria">
 
     {# ── Stats ───────────────────────────────────────────────────────────────── #}
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-md-3">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue)">{{ totalPlazas }}</div>
-                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Total plazas</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:2rem;font-weight:800;color:#e6a817">{{ vacantes }}</div>
-                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Vacantes</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:2rem;font-weight:800;color:#198754">{{ sustit }}</div>
-                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Sustituciones</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue-mid)">{{ adjudicadas }}</div>
-                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Adjudicadas</div>
-            </div>
-        </div>
-    </div>
+    {% include 'especialidades/_stats_plazas.html.twig' with { mostrarPosiciones: false } %}
 
     {# ── Filtro por provincia ─────────────────────────────────────────────────── #}
     {% if plazasByProv|length > 1 %}
@@ -131,7 +110,7 @@
     {% endif %}
 
     {# ── Tabla de plazas ──────────────────────────────────────────────────────── #}
-    {% if totalPlazas > 0 %}
+    {% if stats.plazas > 0 %}
     <div class="table-responsive">
         <table class="table table-hover" style="font-size:.875rem">
             <thead style="background:var(--sipri-bg)">
@@ -181,11 +160,11 @@
                     </td>
                     <td class="text-end">{{ plaza.numero }}</td>
                     <td class="text-end font-monospace">
-                        {% if plaza.adjOrden is not null %}
-                            {{ plaza.adjOrden }}
-                        {% else %}
-                            <span style="color:var(--sipri-muted)">–</span>
-                        {% endif %}
+                        {{- macros.posicionAdjudicada(
+                            plaza.adjOrden is not null ? plaza.adjOrden : '',
+                            sinCubrir[plaza.id]|default(0),
+                            plaza.numero
+                        ) -}}
                     </td>
                 </tr>
                 {% endfor %}
@@ -195,6 +174,7 @@
 
         </table>
     </div>
+    {{ macros.notaDesiertas() }}
     {% else %}
     <div class="text-center py-5" style="color:var(--sipri-muted)">
         <i class="bi bi-clipboard-x d-block fs-2 mb-2 opacity-50"></i>

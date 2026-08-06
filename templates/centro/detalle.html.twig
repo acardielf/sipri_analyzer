@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
+{% import '_macros.html.twig' as macros %}
 
 {% set localidad = centro.localidad %}
 {% set provincia = localidad.provincia %}
 {% set isOcep = centro.id in constant('App\\Entity\\Centro::OCEP_OTROS_CENTROS') %}
 
 {% block title %}{{ centro.nombre }} – Analizador SIPRI{% endblock %}
+
+{% block meta_description %}Plazas docentes ofertadas en {{ centro.nombre }} ({{ localidad.nombre }}, {{ provincia.nombre }}): especialidad, tipo de plaza y posición adjudicada, curso por curso.{% endblock %}
+{% block og_image %}og/centro.png{% endblock %}
 
 {% block main_content %}
 <div class="page-header">
@@ -40,28 +44,6 @@
 
 <div class="container-fluid py-4 pb-5">
 
-    {# ── Stats ────────────────────────────────────────────────────────────────── #}
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-md-4">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue)">{{ totalPlazas }}</div>
-                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Total plazas</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:2rem;font-weight:800;color:var(--sipri-blue-mid)">{{ totalEspecialidades }}</div>
-                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Especialidades</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:1.4rem;font-weight:700;color:var(--sipri-blue)">{{ ultimoCurso ?? '–' }}</div>
-                <div style="font-size:.82rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Último curso</div>
-            </div>
-        </div>
-    </div>
-
     {# ── Plazas por curso ─────────────────────────────────────────────────────── #}
     {% if plazasByCurso is empty %}
     <div class="text-center py-5" style="color:var(--sipri-muted)">
@@ -69,17 +51,17 @@
         No hay plazas registradas para este centro.
     </div>
     {% else %}
+        {# Solo el curso más reciente viene desplegado; el histórico, a un clic #}
         {% for cursoNombre, plazas in plazasByCurso %}
-        <div class="mb-4">
-            <div class="d-flex align-items-center gap-2 mb-2"
-                 style="border-bottom:2px solid var(--sipri-border);padding-bottom:.5rem">
-                <h5 class="mb-0" style="color:var(--sipri-blue);font-weight:700">
-                    <i class="bi bi-calendar3 me-1"></i>{{ cursoNombre }}
-                </h5>
+        {% set puestos = plazas|reduce((total, p) => total + p.numero, 0) %}
+        <details class="curso-bloque"{{ loop.first ? ' open' : '' }}>
+            <summary class="curso-bloque-head">
+                <i class="bi bi-chevron-right curso-bloque-chevron"></i>
+                <span class="curso-bloque-titulo">{{ cursoNombre }}</span>
                 <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
-                    {{ plazas|length }} plaza{{ plazas|length != 1 ? 's' }}
+                    {{ puestos }} plaza{{ puestos != 1 ? 's' }}
                 </span>
-            </div>
+            </summary>
 
             <div class="table-responsive">
                 <table class="table table-hover mb-0" style="font-size:.875rem">
@@ -121,19 +103,20 @@
                                 {{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '–' }}
                             </td>
                             <td class="text-end font-monospace">
-                                {% if plaza.adjOrden is not null %}
-                                    {{ plaza.adjOrden }}
-                                {% else %}
-                                    <span style="color:var(--sipri-muted)">–</span>
-                                {% endif %}
+                                {{- macros.posicionAdjudicada(
+                                    plaza.adjOrden is not null ? plaza.adjOrden : '',
+                                    sinCubrir[plaza.id]|default(0),
+                                    plaza.numero
+                                ) -}}
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-        </div>
+        </details>
         {% endfor %}
+        {{ macros.notaDesiertas() }}
     {% endif %}
 
 </div>

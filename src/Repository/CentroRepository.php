@@ -24,7 +24,7 @@ class CentroRepository extends ServiceEntityRepository
                 c.nombre,
                 l.nombre AS localidad,
                 COUNT(p.id) AS totalPlazas,
-                SUM(CASE WHEN cu.id = :lastCursoId THEN 1 ELSE 0 END) AS plazasUltimoCurso,
+                SUM(CASE WHEN cu.id = :lastCursoId THEN p.numero ELSE 0 END) AS plazasUltimoCurso,
                 MAX(conv.fecha) AS ultimaFecha
             FROM App\Entity\Centro c
             JOIN c.localidad l

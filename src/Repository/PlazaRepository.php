@@ -21,8 +21,10 @@ class PlazaRepository extends ServiceEntityRepository
 {
     protected EntityManagerInterface $em;
 
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private readonly ConvocatoriaRepository $convocatoriaRepository,
+    ) {
         $this->em = $registry->getManager();
         parent::__construct($registry, Plaza::class);
     }
@@ -152,10 +154,174 @@ class PlazaRepository extends ServiceEntityRepository
     }
 
     /**
+     * Todas las plazas de una especialidad en un curso, de todas las provincias.
+     *
+     * @param Curso $curso
      * @param Especialidad $especialidad
-     * @return iterable<Plaza>
+     * @return array<Plaza>
      */
-    public function getEspecialidadAsArray(Especialidad $especialidad): iterable
+    public function getEspecialidadesByCurso(Curso $curso, Especialidad $especialidad): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->addSelect('c', 'cc', 'l', 'prov', 'a')
+            ->join('p.convocatoria', 'c')
+            ->join('p.centro', 'cc')
+            ->join('cc.localidad', 'l')
+            ->join('l.provincia', 'prov')
+            ->leftJoin('p.adjudicaciones', 'a')
+            ->where('p.especialidad = :especialidad')
+            ->andWhere('c.curso = :curso')
+            ->orderBy('c.fecha', 'DESC')
+            ->addOrderBy('prov.nombre', 'ASC')
+            ->addOrderBy('a.orden', 'ASC')
+            ->setParameter('especialidad', $especialidad)
+            ->setParameter('curso', $curso);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Puestos sin cubrir por plaza: `[plazaId => puestos desiertos]`.
+     *
+     * Una fila de `plaza` puede ofertar varios puestos (`numero`), así que puede
+     * quedar desierta del todo o solo en parte. Solo se consideran las
+     * convocatorias de las que se conocen adjudicaciones; en las demás la
+     * ausencia de adjudicación significa "sin datos", no "desierta".
+     *
+     * A diferencia de findPlazasDesiertas(), no necesita recibir el listado de
+     * plazas, que en especialidades grandes desborda el límite de parámetros de
+     * SQLite.
+     *
+     * @return array<int, int>
+     */
+    public function findSinCubrirPorPlaza(
+        Curso $curso,
+        Especialidad $especialidad,
+        ?Provincia $provincia = null
+    ): array {
+        $qb = $this->createQueryBuilder('p')
+            ->select('p.id AS id')
+            ->addSelect('p.numero - COUNT(a.id) AS sinCubrir')
+            ->join('p.convocatoria', 'c')
+            ->join('p.centro', 'cc')
+            ->join('cc.localidad', 'l')
+            ->leftJoin('p.adjudicaciones', 'a')
+            ->where('p.especialidad = :especialidad')
+            ->andWhere('c.curso = :curso')
+            ->andWhere('c.id IN (:convocatoriasConAdjudicaciones)')
+            ->groupBy('p.id')
+            ->addGroupBy('p.numero')
+            ->having('p.numero - COUNT(a.id) > 0')
+            ->setParameter('especialidad', $especialidad)
+            ->setParameter('curso', $curso)
+            ->setParameter(
+                'convocatoriasConAdjudicaciones',
+                $this->convocatoriaRepository->findIdsConAdjudicaciones()
+            );
+
+        if ($provincia) {
+            $qb->andWhere('l.provincia = :provincia')
+                ->setParameter('provincia', $provincia);
+        }
+
+        $sinCubrir = [];
+        foreach ($qb->getQuery()->getArrayResult() as $fila) {
+            $sinCubrir[(int)$fila['id']] = (int)$fila['sinCubrir'];
+        }
+
+        return $sinCubrir;
+    }
+
+    /**
+     * Agregados por curso y provincia de una especialidad.
+     *
+     * `totalPlazas` cuenta adjudicaciones (una plaza puede tener varias y las
+     * desiertas quedan fuera), mientras que el resto de métricas cuentan plazas
+     * ofertadas. Son dos universos distintos y por eso se calculan por separado.
+     *
+     * @param Especialidad $especialidad
+     * @return array<array{cursoId: string, provId: string, totalPlazas: int, plazasOfertadas: int,
+     *                     vacantes: int, vacantesInicio: int, sustituciones: int, desiertas: int,
+     *                     minOrden: int, maxOrden: int}>
+     */
+    public function getEspecialidadAsArray(Especialidad $especialidad): array
+    {
+        $result = [];
+
+        foreach ($this->getPlazasOfertadasAsArray($especialidad) as $fila) {
+            $clave = $fila['cursoId'] . '-' . $fila['provId'];
+
+            $result[$clave] = [
+                'cursoId' => $fila['cursoId'],
+                'provId' => $fila['provId'],
+                'totalPlazas' => 0,
+                'plazasOfertadas' => (int)$fila['plazasOfertadas'],
+                'vacantes' => (int)$fila['vacantes'],
+                'vacantesInicio' => (int)$fila['vacantesInicio'],
+                'sustituciones' => (int)$fila['sustituciones'],
+                'desiertas' => (int)$fila['plazasEnConvocatoriasConAdjudicaciones'],
+                'minOrden' => 0,
+                'maxOrden' => 0,
+            ];
+        }
+
+        foreach ($this->getAdjudicacionesAsArray($especialidad) as $fila) {
+            $clave = $fila['cursoId'] . '-' . $fila['provId'];
+
+            $result[$clave]['totalPlazas'] = (int)$fila['totalPlazas'];
+            $result[$clave]['minOrden'] = (int)$fila['minOrden'];
+            $result[$clave]['maxOrden'] = (int)$fila['maxOrden'];
+            // Una plaza puede ofertar varios puestos: lo no adjudicado queda desierto
+            $result[$clave]['desiertas'] -= (int)$fila['totalPlazas'];
+        }
+
+        return array_values($result);
+    }
+
+    /**
+     * Conteos sobre plazas ofertadas: sin join con adjudicaciones, para que una
+     * plaza adjudicada varias veces no cuente más de una vez.
+     */
+    private function getPlazasOfertadasAsArray(Especialidad $especialidad): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('curso.id as cursoId')
+            ->addSelect('prov.id as provId')
+            ->addSelect('SUM(p.numero) AS plazasOfertadas')
+            ->addSelect('SUM(CASE WHEN p.tipo = :vacante THEN p.numero ELSE 0 END) AS vacantes')
+            ->addSelect(
+                'SUM(CASE WHEN p.tipo = :vacante AND c.id IN (:convocatoriasInicio) THEN p.numero ELSE 0 END) AS vacantesInicio'
+            )
+            ->addSelect('SUM(CASE WHEN p.tipo = :sustitucion THEN p.numero ELSE 0 END) AS sustituciones')
+            ->addSelect(
+                'SUM(CASE WHEN c.id IN (:convocatoriasConAdjudicaciones) THEN p.numero ELSE 0 END) AS plazasEnConvocatoriasConAdjudicaciones'
+            )
+            ->join('p.convocatoria', 'c')
+            ->join('c.curso', 'curso')
+            ->join('p.centro', 'cc')
+            ->join('cc.localidad', 'l')
+            ->join('l.provincia', 'prov')
+            ->where('p.especialidad = :especialidad')
+            ->groupBy('c.curso')
+            ->addGroupBy('l.provincia')
+            ->orderBy('c.curso', 'ASC')
+            ->addOrderBy('l.provincia', 'ASC')
+            ->setParameter('especialidad', $especialidad)
+            ->setParameter('vacante', TipoPlazaEnum::VACANTE)
+            ->setParameter('sustitucion', TipoPlazaEnum::SUSTITUCION)
+            ->setParameter('convocatoriasInicio', $this->convocatoriaRepository->findIdsInicioCurso())
+            ->setParameter(
+                'convocatoriasConAdjudicaciones',
+                $this->convocatoriaRepository->findIdsConAdjudicaciones()
+            );
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * Recuento de adjudicaciones y rango de posiciones llamadas.
+     */
+    private function getAdjudicacionesAsArray(Especialidad $especialidad): array
     {
         $qb = $this->createQueryBuilder('p')
             ->select('curso.id as cursoId')
@@ -266,7 +432,8 @@ class PlazaRepository extends ServiceEntityRepository
                 l.nombre AS localidad,
                 centro.id AS centroId,
                 centro.nombre AS centroNombre,
-                MIN(a.orden) AS adjOrden
+                MIN(a.orden) AS adjOrden,
+                COUNT(a.id) AS adjCount
             FROM App\Entity\Plaza p
             JOIN p.especialidad esp
             JOIN p.centro centro
@@ -301,7 +468,8 @@ class PlazaRepository extends ServiceEntityRepository
                 cu.nombre AS cursoNombre,
                 conv.id AS convId,
                 conv.fecha AS convFecha,
-                MIN(a.orden) AS adjOrden
+                MIN(a.orden) AS adjOrden,
+                COUNT(a.id) AS adjCount
             FROM App\Entity\Plaza p
             JOIN p.especialidad esp
             JOIN p.convocatoria conv

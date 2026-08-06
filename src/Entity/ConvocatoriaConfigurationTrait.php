@@ -17,7 +17,8 @@ trait ConvocatoriaConfigurationTrait
         ['min' => 200, 'max' => 262, 'year' => 2022], // 63 convocatorias
         ['min' => 263, 'max' => 324, 'year' => 2023], // 62 convocatorias
         ['min' => 325, 'max' => 388, 'year' => 2024], // 64 convocatorias
-        ['min' => 389, 'max' => 459, 'year' => 2025], // suposición de maximo 70 convocatorias. max = 389+70 = 459
+        ['min' => 389, 'max' => 455, 'year' => 2025], // 67 convocatorias
+        ['min' => 456, 'max' => 526, 'year' => 2026], // suposición de máximo 70 convocatorias. max = 456+70 = 526
     ];
     private const array CONVOCATORIA_AUSENTE = [
         26, 45, 91, 114, 155, 180, 199, 260, 265,

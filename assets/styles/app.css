@@ -4,6 +4,18 @@
   --sipri-blue-mid:    #2e8636;   /* verde medio USTEA */
   --sipri-blue-light:  #4aaa58;   /* verde claro */
   --sipri-accent:      #c41111;   /* rojo rayo USTEA */
+
+  /* Tipo de plaza: el verde queda reservado a la identidad, así que cada tipo
+     tiene su propio color y se distinguen sin leer la etiqueta */
+  --sipri-vacante:      #b8860b;  /* ámbar oscuro — texto y cifras sobre blanco */
+  --sipri-vacante-bg:   #ffc107;  /* ámbar — fondo de badge */
+  --sipri-vacante-soft: #fff3cd;  /* ámbar muy claro — fondos de celda */
+  --sipri-vacante-ink:  #212529;  /* texto sobre fondo ámbar */
+
+  --sipri-sustitucion:      #1d6fa3;  /* azul acero — texto y cifras sobre blanco */
+  --sipri-sustitucion-bg:   #1d6fa3;  /* azul acero — fondo de badge */
+  --sipri-sustitucion-soft: #e1eff8;  /* azul muy claro — fondos de celda */
+
   --sipri-bg:          #f2f7f3;   /* fondo con tinte verde muy sutil */
   --sipri-surface:     #ffffff;
   --sipri-text:        #1a202c;
@@ -577,12 +589,12 @@ main { flex: 1; }
 }
 
 .badge-vacante {
-  background: #ffc107;
-  color: #212529;
+  background: var(--sipri-vacante-bg);
+  color: var(--sipri-vacante-ink);
 }
 
 .badge-sustitucion {
-  background: #198754;
+  background: var(--sipri-sustitucion-bg);
   color: #fff;
 }
 
@@ -1040,14 +1052,13 @@ main { flex: 1; }
 .tab-plazas-wrap td,
 .tab-plazas-wrap th {
   border: 1px solid var(--sipri-border);
-  padding: .4rem .5rem;
-  vertical-align: middle;
-  text-align: center;
-}
-
-.tab-plazas-wrap .col-sticky {
+  padding: .45rem .6rem;
+  vertical-align: top;
   text-align: left;
 }
+
+.tab-plazas-wrap thead th { vertical-align: middle; }
+.tab-plazas-wrap .col-sticky { vertical-align: middle; }
 
 .tab-plazas-wrap thead th {
   background: var(--sipri-blue);
@@ -1058,6 +1069,11 @@ main { flex: 1; }
   letter-spacing: .04em;
   white-space: nowrap;
   vertical-align: middle;
+}
+
+.tab-plazas-wrap thead th:not(.col-sticky) {
+  min-width: 165px;
+  width: 165px;
 }
 
 /* Columna sticky de provincia */
@@ -1080,20 +1096,347 @@ thead .col-sticky {
 .tr-todas td { background: #f6faf7; }
 .tr-todas .col-sticky { background: #f6faf7; box-shadow: 3px 0 6px rgba(0,0,0,.06); }
 
+/* Curso en marcha: destacado */
+.tab-plazas-wrap thead th.th-actual {
+  background: var(--sipri-blue-mid);
+  box-shadow: inset 0 -3px 0 var(--sipri-accent);
+}
+
+.tab-plazas-wrap td.td-actual { background: rgba(74, 170, 88, .07); }
+.tr-todas td.td-actual { background: rgba(74, 170, 88, .13); }
+.td-actual .cell-total { font-size: 1.75rem; }
+
+/* Cursos históricos: presentes pero en segundo plano */
+.tab-plazas-wrap thead th.th-hist { background: #5a7a60; font-weight: 500; }
+.tab-plazas-wrap td.td-hist { opacity: .62; }
+
 /* Separador visual entre "Todas" y provincias */
 .tr-sep td { padding: 0; border: none; height: 6px; background: var(--sipri-bg); }
 
-/* Columnas históricas desvanecidas */
-.th-hist   { opacity: .5; }
-.td-hist   { opacity: .6; }
+/* Cifra principal de la celda: adjudicaciones */
+.cell-head { line-height: 1.1; }
 
-/* Rango de orden */
-.range-nums {
-  font-size: .7rem;
-  color: var(--sipri-muted);
-  line-height: 1.3;
-  margin-top: 2px;
+.cell-total {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--sipri-blue);
+  text-decoration: none;
 }
+
+a.cell-total:hover { color: var(--sipri-blue-mid); text-decoration: underline; }
+
+.cell-total-label {
+  display: block;
+  font-size: .66rem;
+  color: var(--sipri-muted);
+  letter-spacing: .02em;
+  margin-top: .05rem;
+}
+
+/* Desglose de lo ofertado: cifra a la derecha, concepto a la izquierda */
+.cell-breakdown {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: .3rem;
+  margin: .35rem 0 0;
+  padding-top: .3rem;
+  border-top: 1px solid var(--sipri-border);
+  font-size: .7rem;
+  line-height: 1.45;
+}
+
+.cell-breakdown dt { text-align: right; font-weight: 700; }
+.cell-breakdown dd { margin: 0; color: var(--sipri-muted); white-space: nowrap; }
+
+.cell-b-vac  { color: var(--sipri-vacante); }
+.cell-b-sept { color: var(--sipri-vacante); opacity: .8; }
+.cell-b-sust { color: var(--sipri-sustitucion); }
+.cell-b-des  { color: var(--sipri-muted); }
+
+/* La cifra de septiembre es un subconjunto de las vacantes */
+.cell-breakdown dd.cell-b-sub {
+  font-size: .66rem;
+  opacity: .85;
+  padding-left: .55rem;
+}
+
+.cell-breakdown dt:has(+ dd.cell-b-sub) { font-size: .66rem; }
+
+/* Rango de posiciones llamadas */
+.cell-rango {
+  font-size: .68rem;
+  color: var(--sipri-text);
+  font-weight: 600;
+  margin-top: .3rem;
+  border-top: 1px solid var(--sipri-border);
+  padding-top: .25rem;
+  white-space: nowrap;
+}
+
+.cell-rango-pre { color: var(--sipri-muted); font-weight: 400; margin-right: .1rem; }
+.cell-rango-sep { color: var(--sipri-muted); opacity: .6; margin: 0 .15rem; }
+
+/* Ficha de centro: un bloque plegable por curso, sin JS (funciona en estático) */
+.curso-bloque {
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  background: var(--sipri-surface);
+  box-shadow: var(--sipri-shadow-sm);
+  margin-bottom: .75rem;
+  overflow: hidden;
+}
+
+.curso-bloque-head {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .7rem 1rem;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background var(--t);
+}
+
+.curso-bloque-head::-webkit-details-marker { display: none; }
+.curso-bloque-head:hover { background: var(--sipri-bg); }
+.curso-bloque[open] .curso-bloque-head { border-bottom: 1px solid var(--sipri-border); }
+
+.curso-bloque-titulo {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sipri-blue);
+}
+
+.curso-bloque-chevron {
+  font-size: .8rem;
+  color: var(--sipri-muted);
+  transition: transform var(--t);
+}
+
+.curso-bloque[open] .curso-bloque-chevron { transform: rotate(90deg); }
+
+.curso-bloque .table { margin-bottom: 0; font-size: .875rem; }
+.curso-bloque thead { background: var(--sipri-bg); }
+
+/* Tarjeta de centro: plazas del curso en marcha, con el curso siempre a la vista */
+.centro-curso {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .15rem;
+}
+
+.centro-curso-label {
+  font-size: .68rem;
+  color: var(--sipri-muted);
+  white-space: nowrap;
+}
+
+/* ── Tab "¿Cuándo voy a currar?" ────────────────────────────────────────────── */
+
+/* Selector de curso: sustituye a los nav-pills azules de Bootstrap */
+.curso-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: 1rem 0 1.1rem;
+  padding-bottom: .9rem;
+  border-bottom: 1px solid var(--sipri-border);
+}
+
+.curso-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: 2rem;
+  padding: .4rem .95rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--sipri-text);
+  cursor: pointer;
+  transition: background var(--t), border-color var(--t), color var(--t);
+}
+
+.curso-pill:hover { background: var(--sipri-bg); border-color: var(--sipri-blue-light); }
+
+.curso-pill.active {
+  background: var(--sipri-blue);
+  border-color: var(--sipri-blue);
+  color: #fff;
+}
+
+.curso-pill-dot { font-size: .4rem; opacity: .85; }
+
+.curso-pill-tag {
+  font-size: .66rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  background: rgba(255, 255, 255, .22);
+  border-radius: 1rem;
+  padding: .05rem .4rem;
+}
+
+.curso-pill:not(.active) .curso-pill-tag {
+  background: var(--sipri-bg);
+  color: var(--sipri-muted);
+}
+
+/* Rejilla orden × provincia. La cabecera se ancla al viewport justo debajo de la
+   barra de tabs (.esp-tabs-wrap), así que el contenedor no puede tener overflow:
+   crearía su propio contexto de scroll y el sticky dejaría de funcionar. */
+.tabla-currar thead th.header {
+  position: sticky;
+  top: 3.05rem;
+  z-index: 5;
+  background-color: var(--sipri-blue);
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border-bottom: none;
+  vertical-align: middle;
+}
+
+.tabla-currar td.td-orden { font-weight: 600; white-space: nowrap; }
+.tabla-currar td.td-orden a { color: inherit; text-decoration: none; }
+
+/* En móvil la tabla necesita scroll horizontal, y ese overflow es incompatible
+   con el sticky vertical: se prescinde de la cabecera fija en pantallas pequeñas */
+@media (max-width: 991.98px) {
+  .tabla-currar-wrap { overflow-x: auto; }
+  .tabla-currar thead th.header { position: static; }
+}
+
+/* Adjudicación en la rejilla orden × provincia */
+.adj-chip {
+  display: block;
+  margin: .2rem 0;
+  padding: .2rem .45rem;
+  border-radius: var(--sipri-radius-sm);
+  font-size: .74rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.adj-chip--v {
+  background: var(--sipri-vacante-soft);
+  color: #7a5a06;
+}
+
+.adj-chip--s {
+  background: var(--sipri-sustitucion-soft);
+  color: #12506f;
+}
+
+/* En la leyenda el chip va en línea, sin ocupar todo el ancho */
+.adj-chip--muestra { display: inline-block; margin: 0; }
+
+/* ── Tarjetas de resumen (ficha de provincia y de curso completo) ───────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: .75rem;
+}
+
+/* Sin hover: no son clicables, así que no deben comportarse como enlaces */
+.stat-card {
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  box-shadow: var(--sipri-shadow-sm);
+  padding: .9rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* El pie se ancla al fondo para que todas las tarjetas lo alineen entre sí,
+   aunque la cifra tenga otro tamaño (el rango de posiciones es más pequeño) */
+.stat-card > :last-child { margin-top: auto; }
+
+.stat-num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .2rem;
+}
+
+.stat-num--rango {
+  font-size: 1.35rem;
+  white-space: nowrap;
+}
+
+.stat-rango-sep { color: var(--sipri-muted); opacity: .5; margin: 0 .15rem; }
+
+.stat-label {
+  font-size: .78rem;
+  color: var(--sipri-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-top: .1rem;
+}
+
+.stat-foot {
+  font-size: .72rem;
+  color: var(--sipri-muted);
+  margin-top: .35rem;
+  line-height: 1.35;
+}
+
+.stat-foot strong { color: var(--sipri-text); font-weight: 700; }
+
+/* Proporción de vacantes de inicio de curso sobre el total de vacantes */
+.stat-split-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(230, 168, 23, .25);
+  margin-top: .45rem;
+  overflow: hidden;
+}
+
+.stat-split-bar span {
+  display: block;
+  height: 100%;
+  background: var(--sipri-vacante);
+  border-radius: 2px;
+}
+
+/* ── Tabla de plazas (ficha de provincia y de curso completo) ───────────────── */
+.tabla-plazas { font-size: .875rem; }
+.tabla-plazas thead { background: var(--sipri-bg); }
+.tabla-plazas .td-nowrap { white-space: nowrap; }
+.tabla-plazas .td-muted  { color: var(--sipri-muted); }
+.tabla-plazas .td-fecha  { color: var(--sipri-muted); font-size: .8rem; margin-left: .3rem; }
+.tabla-plazas .td-link   { color: var(--sipri-blue-mid); text-decoration: none; }
+.tabla-plazas .td-link:hover { text-decoration: underline; }
+.tabla-plazas .td-code   { font-size: .65rem; opacity: .7; margin-left: .25rem; }
+
+/* Filas fuera de pantalla: el navegador no las maqueta hasta que hacen falta */
+.tabla-plazas tbody tr {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 42px;
+}
+
+/* Leyenda bajo la tabla */
+.tabla-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .9rem;
+  margin-top: .6rem;
+  font-size: .74rem;
+  color: var(--sipri-muted);
+}
+
+.tabla-leyenda i { margin-right: .2rem; }
 
 /* Barra visual del rango */
 .range-bar {

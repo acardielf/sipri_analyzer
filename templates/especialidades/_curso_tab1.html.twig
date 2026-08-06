@@ -1,75 +1,123 @@
+{# ── Celda de métricas ─────────────────────────────────────────────────────── #}
+{% macro celda(d, enlace) %}
+    {% if d.plazasOfertadas > 0 or d.plazas > 0 %}
+        {% set titulo = d.plazas ~ ' adjudicaciones sobre ' ~ d.plazasOfertadas ~ ' ofertas publicadas' %}
+
+        <div class="cell-head">
+            {% if enlace %}
+                <a href="{{ enlace }}" class="cell-total" title="{{ titulo }}">{{ d.plazas }}</a>
+            {% else %}
+                <span class="cell-total" title="{{ titulo }}">{{ d.plazas }}</span>
+            {% endif %}
+            <span class="cell-total-label">adjudicaciones</span>
+        </div>
+
+        <dl class="cell-breakdown">
+            <dt class="cell-b-num cell-b-vac">{{ d.vacantes }}</dt>
+            <dd>vacantes</dd>
+
+            {% if d.vacantesInicio > 0 %}
+                <dt class="cell-b-num cell-b-sept">{{ d.vacantesInicio }}</dt>
+                <dd class="cell-b-sub" title="Vacantes publicadas en las convocatorias de septiembre">en septiembre</dd>
+            {% endif %}
+
+            <dt class="cell-b-num cell-b-sust">{{ d.sustituciones }}</dt>
+            <dd>sustituciones</dd>
+
+            {% if d.desiertas > 0 %}
+                <dt class="cell-b-num cell-b-des">{{ d.desiertas }}</dt>
+                <dd title="Ofertas que no llegaron a adjudicarse">sin cubrir</dd>
+            {% endif %}
+        </dl>
+
+        {% if d.maxOrden > 0 %}
+            <div class="cell-rango" title="De la posición {{ d.minOrden }} a la {{ d.maxOrden }} de la bolsa">
+                <span class="cell-rango-pre">nº</span>
+                {{ d.minOrden }}<span class="cell-rango-sep">–</span>{{ d.maxOrden }}
+            </div>
+        {% endif %}
+    {% else %}
+        <span class="text-muted small">–</span>
+    {% endif %}
+{% endmacro %}
+
+{% import _self as tabla %}
+
 {# ── Tabla ────────────────────────────────────────────────────────────────── #}
-<div class="tab-plazas-wrap mt-3">
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th class="col-sticky">Provincia</th>
-            {% for curso in cursos %}
-            <th class="{{ loop.index > 3 ? 'th-hist' : '' }}" style="min-width:95px;width:95px">
-                {% if loop.first %}<i class="bi bi-circle-fill me-1" style="font-size:.45rem;vertical-align:middle;opacity:.7"></i>{% endif %}
-                <span class="d-none d-xl-inline">Curso {{ curso.nombre }}</span>
-                <span class="d-inline d-xl-none">{{ curso.simpleLabel }}</span>
-            </th>
+<div data-controller="tabla-historico">
+
+    {% set cursosOcultos = cursos|length - columnasVisibles %}
+    {% if cursosOcultos > 0 %}
+    <div class="d-flex justify-content-end mb-2">
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary"
+                data-tabla-historico-target="btn"
+                data-tabla-historico-count-value="{{ cursosOcultos }}"
+                data-action="tabla-historico#toggle">
+            Ver cursos anteriores ({{ cursosOcultos }})
+        </button>
+    </div>
+    {% endif %}
+
+    <div class="tabla-leyenda">
+        <span><strong>En septiembre:</strong> vacantes publicadas en las convocatorias de inicio de curso.</span>
+        <span><strong>Sin cubrir:</strong> ofertas que no llegaron a adjudicarse.</span>
+        <span><strong>nº:</strong> primera y última posición de la bolsa llamadas.</span>
+    </div>
+
+    <div class="tab-plazas-wrap">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="col-sticky">Provincia</th>
+                {% for curso in cursos %}
+                <th class="{{ loop.first ? 'th-actual' : '' }}{{ loop.index > columnasVisibles ? ' th-hist d-none' : '' }}"
+                    {% if loop.index > columnasVisibles %}data-tabla-historico-target="col"{% endif %}>
+                    {% if loop.first %}<i class="bi bi-circle-fill me-1" style="font-size:.45rem;vertical-align:middle;opacity:.7"></i>{% endif %}
+                    <span class="d-none d-xl-inline">Curso {{ curso.nombre }}</span>
+                    <span class="d-inline d-xl-none">{{ curso.simpleLabel }}</span>
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {# ── Fila "Todas" ─────────────────────────────────────────────────────── #}
+        <tr class="tr-todas">
+            <td class="col-sticky fw-bold">Todas</td>
+            {% for cursoId, byCurso in plazasFiltradas %}
+                <td class="{{ loop.first ? 'td-actual' : '' }}{{ loop.index > columnasVisibles ? ' td-hist d-none' : '' }}"
+                    {% if loop.index > columnasVisibles %}data-tabla-historico-target="col"{% endif %}>
+                    {{ tabla.celda(byCurso['ALL'], path('app_especialidad_curso', {
+                        especialidad: especialidad.id,
+                        curso: cursoId
+                    })) }}
+                </td>
             {% endfor %}
         </tr>
-    </thead>
 
-    <tbody>
+        <tr class="tr-sep"><td colspan="{{ min(cursos|length, columnasVisibles) + 1 }}"></td></tr>
 
-    {# ── Fila "Todas" ─────────────────────────────────────────────────────── #}
-    <tr class="tr-todas">
-        <td class="col-sticky fw-bold">Todas</td>
-        {% for cursoId, byCurso in plazasFiltradas %}
-            {% set d = byCurso['ALL'] %}
-            <td class="{{ loop.index > 3 ? 'td-hist' : '' }}">
-                {% if d.plazas > 0 %}
-                    <div class="fw-bold" style="font-size:1.45rem;color:var(--sipri-blue)">{{ d.plazas }}</div>
-                    {% if d.maxOrden > 0 %}
-                        <div class="range-nums">
-                            <span title="Primera posición llamada">[ {{ d.minOrden }}</span>
-                            <span style="opacity:.4">-</span>
-                            <span title="Última posición llamada">{{ d.maxOrden }} ]</span>
-                        </div>
-                    {% endif %}
-                {% else %}
-                    <span class="text-muted">–</span>
-                {% endif %}
-            </td>
-        {% endfor %}
-    </tr>
-
-    <tr class="tr-sep"><td colspan="{{ cursos|length + 1 }}"></td></tr>
-
-    {# ── Filas por provincia ───────────────────────────────────────────────── #}
-    {% for provincia in provincias %}
-    <tr>
-        <td class="col-sticky fw-semibold" style="color:var(--sipri-text)">{{ provincia.nombre }}</td>
-        {% for cursoId, byCurso in plazasFiltradas %}
-            {% set d = byCurso[provincia.id] is defined ? byCurso[provincia.id] : {'plazas':0,'minOrden':0,'maxOrden':0} %}
-            <td class="{{ loop.index > 3 ? 'td-hist' : '' }}">
-                {% if d.plazas > 0 %}
-                    <a href="{{ path('app_especialidad_detail', {
+        {# ── Filas por provincia ───────────────────────────────────────────────── #}
+        {% for provincia in provincias %}
+        <tr>
+            <td class="col-sticky fw-semibold" style="color:var(--sipri-text)">{{ provincia.nombre }}</td>
+            {% for cursoId, byCurso in plazasFiltradas %}
+                <td class="{{ loop.first ? 'td-actual' : '' }}{{ loop.index > columnasVisibles ? ' td-hist d-none' : '' }}"
+                    {% if loop.index > columnasVisibles %}data-tabla-historico-target="col"{% endif %}>
+                    {{ tabla.celda(byCurso[provincia.id], path('app_especialidad_detail', {
                         especialidad: especialidad.id,
                         curso: cursoId,
                         provincia: provincia.id
-                    }) }}" class="fw-bold text-decoration-none" style="font-size:1.25rem;color:var(--sipri-blue)">
-                        {{ d.plazas }}
-                    </a>
-                    {% if d.maxOrden > 0 %}
-                        <div class="range-nums">
-                            <span title="Primera posición llamada">[ {{ d.minOrden }}</span>
-                            <span style="opacity:.4">-</span>
-                            <span title="Última posición llamada">{{ d.maxOrden }} ]</span>
-                        </div>
-                    {% endif %}
-                {% else %}
-                    <span class="text-muted small">–</span>
-                {% endif %}
-            </td>
+                    })) }}
+                </td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </tr>
-    {% endfor %}
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    </div>
+
 </div>
