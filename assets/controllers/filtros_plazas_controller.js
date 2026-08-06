@@ -4,6 +4,7 @@ import { Controller } from '@hotwired/stimulus';
  * Filtra las filas de la tabla de plazas por provincia y por tipo. Ambos
  * filtros se combinan: una fila se muestra si supera los dos.
  */
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static targets = ['fila', 'btnProv', 'btnTipo', 'count'];
 

@@ -11,7 +11,7 @@ SYMFONY  = $(PHP) bin/console
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        : help build up start down logs sh composer vendor sf cc test
+.PHONY        : help build up start down logs sh composer vendor sf cc test og-images minify static
 
 ## —— 🎵 🐳 The Symfony Docker Makefile 🐳 🎵 ——————————————————————————————————
 help: ## Outputs this help screen
@@ -61,3 +61,13 @@ cc: c=c:c ## Clear the cache
 cc: sf
 
 
+
+## —— Sitio estático 📄 ————————————————————————————————————————————————————————
+og-images: ## Genera las imágenes de previsualización en public/og/
+	@$(SYMFONY) sipri:og-images
+
+minify: ## Minifica el HTML ya generado en ./docs
+	@$(PHP_CONT) bin/minify-docs.sh ./docs
+
+static: ## Genera el sitio estático completo en ./docs (imágenes + build + minificado)
+	@$(COMPOSER) run generate-static

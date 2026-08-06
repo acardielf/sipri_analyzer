@@ -1,7 +1,9 @@
 import { Controller } from '@hotwired/stimulus';
 import TomSelect from 'tom-select';
+import 'tom-select/dist/css/tom-select.bootstrap5.css';
 import { getList, setList, savePosicion, getPosicion } from '../lib/favoritos.js';
 
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static targets = [
         'select', 'posicion', 'resultado',

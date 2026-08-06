@@ -2,6 +2,9 @@
 
 {% block title %}{{ especialidad.id }} – {{ especialidad.nombre }}{% endblock %}
 
+{# Gráfico de evolución: Chart.js sólo se carga en las páginas que lo pintan #}
+{% block importmap %}{{ importmap(['app', 'graficos']) }}{% endblock %}
+
 {% block meta_description %}Adjudicaciones de {{ especialidad.nombre }} ({{ especialidad.id }}), {{ especialidad.cuerpo.nombre }}. Consulta por provincia y curso qué posiciones de la bolsa han sido llamadas y cuándo.{% endblock %}
 {% block og_image %}og/especialidad.png{% endblock %}
 

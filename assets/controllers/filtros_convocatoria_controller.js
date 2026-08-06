@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import { getList }     from '../lib/favoritos.js';
 
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static targets = ['fila', 'grupo', 'btnProv', 'btnEsp'];
 

@@ -4,6 +4,10 @@ framework:
         paths:
             - assets/
         missing_import_mode: strict
+        # es-module-shims sólo hace falta en navegadores sin soporte de importmap
+        # (anteriores a 2023). Emitirlo costaba ~546 B en cada una de las páginas
+        # del sitio estático, más una petición a un CDN externo.
+        importmap_polyfill: false
 
 when@prod:
     framework:

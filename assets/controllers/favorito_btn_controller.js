@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import { toggle, has } from '../lib/favoritos.js';
 
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static values = { type: String, id: String, nombre: String, href: String };
 

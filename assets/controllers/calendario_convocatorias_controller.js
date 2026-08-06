@@ -4,6 +4,7 @@ const MESES   = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
                   'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const SEMANA  = ['L','M','X','J','V','S','D'];
 
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static targets = ['calendar', 'lista', 'resumen'];
 

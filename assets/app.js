@@ -7,14 +7,15 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'tom-select/dist/css/tom-select.bootstrap5.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap-icons/font/bootstrap-icons.min.css'
-import { Chart } from 'chart.js'
-import 'chartjs-plugin-autocolors'
-import annotationPlugin from 'chartjs-plugin-annotation'
-import datalabelsPlugin from 'chartjs-plugin-datalabels'
-Chart.register(annotationPlugin, datalabelsPlugin)
-Chart.defaults.plugins.datalabels = { display: false }
+
+/*
+ * Chart.js no se importa aquí: sólo lo usan 740 de las ~20.000 páginas del sitio
+ * estático, y lo que cuelgue de este entrypoint se precarga en todas ellas. Vive
+ * en el entrypoint `graficos`, que esas plantillas cargan sobrescribiendo el
+ * bloque `importmap` de base.html.twig. TomSelect llega por el buscador, que es
+ * un controller lazy.
+ */
 
 //console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static targets = ['input', 'item', 'count', 'empty'];
     static values  = { minLength: { type: Number, default: 0 } };
