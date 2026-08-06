@@ -1,0 +1,75 @@
+{# Resumen de puestos del curso. Todo se cuenta en puestos ofertados, no en
+   filas de plaza: una plaza puede ofertar varios. #}
+{% set sobrevenidas = stats.vacantes - stats.vacantesInicio %}
+{% set pctInicio = stats.vacantes > 0 ? (stats.vacantesInicio / stats.vacantes * 100)|round : 0 %}
+
+<div class="stats-grid mb-4">
+
+    <div class="stat-card">
+        <div class="stat-num" style="color:var(--sipri-blue)">{{ stats.plazas }}</div>
+        <div class="stat-label">Plazas ofertadas</div>
+        <div class="stat-foot">
+            <strong>{{ stats.vacantes }}</strong> vacante{{ stats.vacantes != 1 ? 's' }}
+            + <strong>{{ stats.sustituciones }}</strong> sustitucion{{ stats.sustituciones != 1 ? 'es' : '' }}
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-num" style="color:#e6a817">{{ stats.vacantes }}</div>
+        <div class="stat-label"><i class="bi bi-calendar-check me-1"></i>Vacantes</div>
+        {% if stats.vacantes > 0 %}
+            <div class="stat-split" title="{{ stats.vacantesInicio }} en septiembre y {{ sobrevenidas }} {{ sobrevenidas == 1 ? 'surgida' : 'surgidas' }} durante el curso">
+                <div class="stat-split-bar">
+                    <span style="width:{{ pctInicio }}%"></span>
+                </div>
+                <div class="stat-foot">
+                    <i class="bi bi-sunrise" style="color:#b8860b"></i>
+                    <strong>{{ stats.vacantesInicio }}</strong> durante septiembre
+                    {%- if sobrevenidas > 0 %} · <strong>{{ sobrevenidas }}</strong> durante el curso{% endif %}
+                    {%- if stats.vacantesDesiertas > 0 %}<br><strong class="text-danger">{{ stats.vacantesDesiertas }}</strong> desierta{{ stats.vacantesDesiertas > 1 ? 's' }}{% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="stat-foot">Sin vacantes este curso</div>
+        {% endif %}
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-num" style="color:#198754">{{ stats.sustituciones }}</div>
+        <div class="stat-label"><i class="bi bi-arrow-repeat me-1"></i>Sustituciones</div>
+        <div class="stat-foot">
+            <strong>{{ stats.sustitucionesAdjudicadas }}</strong> adjudicadas
+            · <strong class="text-danger">{{ stats.sustitucionesDesiertas }}</strong> desiertas
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-num" style="color:var(--sipri-blue-mid)">{{ stats.adjudicadas }}</div>
+        <div class="stat-label"><i class="bi bi-person-check me-1"></i>Adjudicadas</div>
+        <div class="stat-foot">
+            <strong>{{ stats.vacantesAdjudicadas }}</strong> vacante{{ stats.vacantesAdjudicadas != 1 ? 's' }}
+            + <strong>{{ stats.sustitucionesAdjudicadas }}</strong> sustitucion{{ stats.sustitucionesAdjudicadas != 1 ? 'es' : '' }}
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-num" style="color:var(--sipri-muted)">{{ stats.desiertas }}</div>
+        <div class="stat-label"><i class="bi bi-dash-circle me-1"></i>Desiertas</div>
+        <div class="stat-foot">
+            <strong class="text-danger">{{ stats.vacantesDesiertas }}</strong> vacante{{ stats.vacantesDesiertas != 1 ? 's' }}
+            + <strong class="text-danger">{{ stats.sustitucionesDesiertas }}</strong> sustitucion{{ stats.sustitucionesDesiertas != 1 ? 'es' : '' }}
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-num stat-num--rango">
+            nº
+            <span style="color:var(--sipri-blue-mid)">{{ stats.minOrden }}</span>
+            <span class="stat-rango-sep">–</span>
+            <span style="color:var(--sipri-accent)">{{ stats.maxOrden }}</span>
+        </div>
+        <div class="stat-label"><i class="bi bi-list-ol me-1"></i>Posiciones llamadas</div>
+        <div class="stat-foot">primera y última de la bolsa</div>
+    </div>
+
+</div>

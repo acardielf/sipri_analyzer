@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ especialidad.id }} · {{ curso.nombre }} · Todas las provincias{% endblock %}
+
+{% block main_content %}
+
+<div class="page-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-1">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_lista_cuerpos') }}"><i class="bi bi-collection-fill me-1"></i>Cuerpos</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_lista_especialidades', { cuerpo: especialidad.cuerpo.id }) }}">
+                        {{ especialidad.cuerpo.nombre }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_especialidad_index', { especialidad: especialidad.id }) }}">
+                        {{ especialidad.id }} – {{ especialidad.nombre }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ curso.nombre }} / Todas las provincias
+                </li>
+            </ol>
+        </nav>
+
+        <div class="d-flex align-items-start gap-3 flex-wrap mt-1">
+            <div>
+                <h2 class="mb-1" style="font-size:clamp(1.1rem,2.5vw,1.45rem);font-weight:700;color:var(--sipri-blue)">
+                    <span class="badge-code me-2">{{ especialidad.id }}</span>{{ especialidad.nombre }}
+                </h2>
+                <div class="d-flex gap-2 flex-wrap">
+                    <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.82rem">
+                        <i class="bi bi-calendar3 me-1"></i>Curso {{ curso.nombre }}
+                    </span>
+                    <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-text);border:1px solid var(--sipri-border);font-size:.82rem">
+                        <i class="bi bi-geo-alt-fill me-1"></i>Todas las provincias
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-4 pb-5">
+
+    {# ── Stats ───────────────────────────────────────────────────────────────── #}
+    {% include 'especialidades/_stats_plazas.html.twig' %}
+
+    <div data-controller="filtros-plazas">
+
+        {# ── Filtros ─────────────────────────────────────────────────────────── #}
+        <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+            <span class="prov-filter-label">Provincia:</span>
+            <div class="prov-btns-wrap">
+                <button class="prov-btn prov-btn--activo"
+                        data-filtros-plazas-target="btnProv"
+                        data-action="filtros-plazas#selectProv"
+                        data-prov="all">Todas</button>
+                {% for provincia in provincias %}
+                    <button class="prov-btn"
+                            data-filtros-plazas-target="btnProv"
+                            data-action="filtros-plazas#selectProv"
+                            data-prov="{{ provincia.id }}">
+                        <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
+                        <span class="d-inline d-md-none">{{ provincia.twoLetterCode }}</span>
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
+            <span class="prov-filter-label">Tipo:</span>
+            <div class="prov-btns-wrap">
+                <button class="prov-btn prov-btn--activo"
+                        data-filtros-plazas-target="btnTipo"
+                        data-action="filtros-plazas#selectTipo"
+                        data-tipo="all">Todas</button>
+                <button class="prov-btn"
+                        data-filtros-plazas-target="btnTipo"
+                        data-action="filtros-plazas#selectTipo"
+                        data-tipo="V">Vacantes</button>
+                <button class="prov-btn"
+                        data-filtros-plazas-target="btnTipo"
+                        data-action="filtros-plazas#selectTipo"
+                        data-tipo="S">Sustituciones</button>
+            </div>
+            <span class="text-muted small ms-md-2">
+                <span data-filtros-plazas-target="count">{{ stats.plazas }}</span> plazas mostradas
+            </span>
+        </div>
+
+        {# ── Tabla ───────────────────────────────────────────────────────────── #}
+        {% include 'especialidades/_tabla_plazas.html.twig' with { mostrarProvincia: true } %}
+
+    </div>
+
+</div>
+{% endblock %}

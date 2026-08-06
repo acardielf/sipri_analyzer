@@ -18,6 +18,19 @@ use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 
 class EspecialidadIndexController extends AbstractController
 {
+    /** Número de cursos visibles sin desplegar: el actual y los cuatro anteriores. */
+    private const int COLUMNAS_VISIBLES = 5;
+
+    private const array METRICAS_VACIAS = [
+        'plazas' => 0,
+        'plazasOfertadas' => 0,
+        'vacantes' => 0,
+        'vacantesInicio' => 0,
+        'sustituciones' => 0,
+        'desiertas' => 0,
+        'minOrden' => 0,
+        'maxOrden' => 0,
+    ];
 
     public function __construct(
         private readonly CursoRepository $cursoRepository,
@@ -39,18 +52,14 @@ class EspecialidadIndexController extends AbstractController
         }
 
         $provincias = $this->provinciaRepository->findAll();
-        $cursos = $this->cursoRepository->findAllDescent();
+        $cursosConDatos = $this->cursoRepository->findAllDescent();
+        $cursos = $this->cursoRepository->findAllParaTabla();
 
         $result = [];
 
         foreach ($cursos as $curso) {
-            foreach ($provincias as $provincia) {
-                $result[$curso->getId()][$provincia->getId()]['plazas'] = 0;
-                $result[$curso->getId()][$provincia->getId()]['minOrden'] = 0;
-                $result[$curso->getId()][$provincia->getId()]['maxOrden'] = 0;
-                $result[$curso->getId()]['ALL']['plazas'] = 0;
-                $result[$curso->getId()]['ALL']['minOrden'] = 99999999999;
-                $result[$curso->getId()]['ALL']['maxOrden'] = 0;
+            foreach ([...array_map(fn($p) => $p->getId(), $provincias), 'ALL'] as $ambito) {
+                $result[$curso->getId()][$ambito] = self::METRICAS_VACIAS;
             }
         }
 
@@ -59,12 +68,28 @@ class EspecialidadIndexController extends AbstractController
         foreach ($plazas as $r) {
             $cursoId = $r['cursoId'];
             $provId = $r['provId'];
-            $result[$cursoId][$provId]['plazas'] = $r['totalPlazas'];
-            $result[$cursoId][$provId]['minOrden'] = $r['minOrden'];
-            $result[$cursoId][$provId]['maxOrden'] = $r['maxOrden'];
 
-            $result[$cursoId]['ALL']['plazas'] += $r['totalPlazas'];
-            if ($r['minOrden'] < $result[$cursoId]['ALL']['minOrden']) {
+            if (!isset($result[$cursoId])) {
+                continue;
+            }
+
+            $result[$cursoId][$provId] = [
+                'plazas' => $r['totalPlazas'],
+                'plazasOfertadas' => $r['plazasOfertadas'],
+                'vacantes' => $r['vacantes'],
+                'vacantesInicio' => $r['vacantesInicio'],
+                'sustituciones' => $r['sustituciones'],
+                'desiertas' => $r['desiertas'],
+                'minOrden' => $r['minOrden'],
+                'maxOrden' => $r['maxOrden'],
+            ];
+
+            foreach (['plazas', 'plazasOfertadas', 'vacantes', 'vacantesInicio', 'sustituciones', 'desiertas'] as $metrica) {
+                $result[$cursoId]['ALL'][$metrica] += $result[$cursoId][$provId][$metrica];
+            }
+
+            $minOrdenTotal = $result[$cursoId]['ALL']['minOrden'];
+            if ($r['minOrden'] > 0 && ($minOrdenTotal === 0 || $r['minOrden'] < $minOrdenTotal)) {
                 $result[$cursoId]['ALL']['minOrden'] = $r['minOrden'];
             }
             if ($r['maxOrden'] > $result[$cursoId]['ALL']['maxOrden']) {
@@ -84,9 +109,15 @@ class EspecialidadIndexController extends AbstractController
         $adjudicaciones_previo3 = $this->getAdjudicaciones($especialidad, $previo3);
 
 
+        // El gráfico ignora los cursos que aún no han empezado
+        $cursosGrafico = array_filter(
+            [...$cursosConDatos],
+            fn(Curso $curso) => isset($result[$curso->getId()])
+        );
+
         $chart = $this->chartService->createChartByEspecialidadPorProvincia(
             $chartBuilder,
-            array_reverse($cursos),
+            array_reverse($cursosGrafico),
             $provincias,
             $result
         );
@@ -97,6 +128,7 @@ class EspecialidadIndexController extends AbstractController
         return $this->render('especialidades/curso.html.twig', [
             'provincias' => $provincias,
             'cursos' => $cursos,
+            'columnasVisibles' => self::COLUMNAS_VISIBLES,
             'especialidad' => $especialidad,
             'plazasFiltradas' => $result,
             'chart' => $chart,

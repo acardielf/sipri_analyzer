@@ -1,0 +1,64 @@
+{# Tabla de plazas de una especialidad. `mostrarProvincia` añade la columna de
+   provincia y los atributos que usan los filtros en cliente.
+
+   El marcado va comprimido a propósito: estas tablas llegan a 4.450 filas y se
+   publican como HTML estático, así que cada byte por fila se multiplica. #}
+{% set mostrarProvincia = mostrarProvincia|default(false) %}
+
+<div class="table-responsive">
+    <table class="table table-hover tabla-plazas">
+        <thead>
+            <tr>
+                <th>Convocatoria</th>
+                {% if mostrarProvincia %}<th>Provincia</th>{% endif %}
+                <th>Localidad</th>
+                <th>Centro</th>
+                <th>Tipo</th>
+                <th class="text-end">Nº</th>
+                <th>F. Cese</th>
+                <th class="text-end">Posición adj.</th>
+            </tr>
+        </thead>
+        <tbody>
+        {%- for plaza in plazas -%}
+            {%- set esVacante = plaza.tipo == constant('App\\Enum\\TipoPlazaEnum::VACANTE') -%}
+            {%- apply spaceless -%}
+            <tr{% if mostrarProvincia %} data-filtros-plazas-target="fila" data-prov="{{ plaza.centro.localidad.provincia.id }}" data-tipo="{{ esVacante ? 'V' : 'S' }}" data-numero="{{ plaza.numero }}"{% endif %}>
+                <td class="td-nowrap">
+                    <a href="{{ path('app_convocatoria_detalle', { id: plaza.convocatoria.id }) }}" class="badge-code text-decoration-none">{{ plaza.convocatoria.id }}</a>
+                    <span class="td-fecha">{{ plaza.convocatoria.fecha|date('d/m/Y') }}</span>
+                </td>
+                {%- if mostrarProvincia %}
+                <td class="td-nowrap">
+                    <a href="{{ path('app_especialidad_detail', { especialidad: especialidad.id, curso: curso.id, provincia: plaza.centro.localidad.provincia.id }) }}" class="td-link">{{ plaza.centro.localidad.provincia.nombre }}</a>
+                </td>
+                {%- endif %}
+                <td class="td-muted td-nowrap">{{ plaza.centro.localidad.nombre }}</td>
+                <td>
+                    <a href="{{ path('app_centro_detalle', { id: plaza.centro.id }) }}" class="td-link fw-medium">{{ plaza.centro.nombre }}</a>
+                    <span class="badge-code td-code">{{ plaza.centro.id }}</span>
+                </td>
+                <td><span class="badge {{ esVacante ? 'badge-vacante' : 'badge-sustitucion' }}">{{ plaza.tipo.getLabel() }}</span></td>
+                <td class="text-end">{{ plaza.numero }}</td>
+                <td class="td-muted td-nowrap">{{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '–' }}</td>
+                <td class="text-end font-monospace">
+                    {%- set faltan = sinCubrir[plaza.id]|default(0) -%}
+                    {%- if plaza.adjudicaciones is not empty %}{{ plaza.adjudicacionesAsString }}{% endif -%}
+                    {%- if faltan > 0 -%}
+                        {%- if plaza.adjudicaciones is not empty %} {% endif -%}
+                        <span class="text-muted" title="{{ faltan }} de los {{ plaza.numero }} puestos de esta plaza quedaron desiertos, no adjudicados o sin adjudicación conocida">{{ faltan == plaza.numero ? 'Desierta*' : '+' ~ faltan ~ ' desierta' ~ (faltan > 1 ? 's' : '') ~ '*' }}</span>
+                    {%- elseif plaza.adjudicaciones is empty -%}
+                        –
+                    {%- endif -%}
+                </td>
+            </tr>
+            {%- endapply -%}
+        {%- endfor -%}
+        </tbody>
+    </table>
+</div>
+
+<p class="text-muted small mt-2">
+    * Desierta, no adjudicada o sin adjudicación conocida. Consulta las
+    <a href="{{ path('app_faq') }}">preguntas frecuentes</a>.
+</p>

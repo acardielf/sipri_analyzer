@@ -48,103 +48,10 @@
 <div class="container-fluid py-4 pb-5">
 
     {# ── Stats ───────────────────────────────────────────────────────────────── #}
-    <div class="row g-3 mb-4">
-        <div class="col-6 col-md-4 col-lg-2">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:1.8rem;font-weight:800;color:var(--sipri-blue)">{{ plazas|length }}</div>
-                <div style="font-size:.78rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Plazas</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-2">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:1.8rem;font-weight:800;color:#e6a817">{{ vacantes|length }}</div>
-                <div style="font-size:.78rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Vacantes</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-4 col-lg-2">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:1.8rem;font-weight:800;color:var(--sipri-muted)">{{ desiertas|length }}</div>
-                <div style="font-size:.78rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">Desiertas</div>
-            </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-3">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:1.8rem;font-weight:800;color:var(--sipri-blue-mid)">{{ minOrden }}</div>
-                <div style="font-size:.78rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">
-                    <i class="bi bi-arrow-up text-success me-1"></i>Primera posición
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-3">
-            <div class="card-sipri text-center p-3" style="display:block">
-                <div style="font-size:1.8rem;font-weight:800;color:var(--sipri-accent)">{{ maxOrden }}</div>
-                <div style="font-size:.78rem;color:var(--sipri-muted);text-transform:uppercase;letter-spacing:.04em">
-                    <i class="bi bi-arrow-down text-danger me-1"></i>Última posición
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'especialidades/_stats_plazas.html.twig' %}
 
     {# ── Tabla ───────────────────────────────────────────────────────────────── #}
-    <div class="table-responsive">
-        <table class="table table-hover" style="font-size:.875rem">
-            <thead style="background:var(--sipri-bg)">
-                <tr>
-                    <th>Convocatoria</th>
-                    <th>Localidad</th>
-                    <th>Centro</th>
-                    <th>Tipo</th>
-                    <th class="text-end">Nº</th>
-                    <th>F. Cese</th>
-                    <th class="text-end">Posición adj.</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for plaza in plazas %}
-                <tr>
-                    <td style="white-space:nowrap">
-                        <a href="{{ path('app_convocatoria_detalle', { id: plaza.convocatoria.id }) }}"
-                           class="badge-code text-decoration-none">
-                            {{ plaza.convocatoria.id }}
-                        </a>
-                        <span style="color:var(--sipri-muted);font-size:.8rem;margin-left:.3rem">
-                            {{ plaza.convocatoria.fecha|date('d/m/Y') }}
-                        </span>
-                    </td>
-                    <td style="color:var(--sipri-muted);white-space:nowrap">{{ plaza.centro.localidad.nombre }}</td>
-                    <td>
-                        <a href="{{ path('app_centro_detalle', { id: plaza.centro.id }) }}"
-                           class="text-decoration-none" style="color:var(--sipri-blue-mid);font-weight:500">
-                            {{ plaza.centro.nombre }}
-                        </a>
-                        <span class="badge-code ms-1" style="font-size:.65rem;opacity:.7">{{ plaza.centro.id }}</span>
-                    </td>
-                    <td>
-                        <span class="badge {{ plaza.tipo == constant('App\\Enum\\TipoPlazaEnum::VACANTE') ? 'badge-vacante' : 'badge-sustitucion' }}">
-                            {{ plaza.tipo.getLabel() }}
-                        </span>
-                    </td>
-                    <td class="text-end">{{ plaza.numero }}</td>
-                    <td style="color:var(--sipri-muted);white-space:nowrap">
-                        {{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '–' }}
-                    </td>
-                    <td class="text-end font-monospace">
-                        {% if plaza.id in desiertas %}
-                            <span class="text-muted" title="Desierta, no adjudicada o sin adjudicación conocida">Desierta*</span>
-                        {% else %}
-                            {{ plaza.adjudicaciones is not empty ? plaza.adjudicacionesAsString : '–' }}
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <p class="text-muted small mt-2">
-        * Desierta, no adjudicada o sin adjudicación conocida. Consulta las
-        <a href="{{ path('app_faq') }}">preguntas frecuentes</a>.
-    </p>
+    {% include 'especialidades/_tabla_plazas.html.twig' %}
 
 </div>
 {% endblock %}
