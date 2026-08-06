@@ -1,10 +1,14 @@
 name: CI
 
 on:
-  #  push:
-  #    branches:
-  #      - main
-  pull_request: ~
+  push:
+    branches:
+      - main
+    # El propio workflow hace commit de docs/. Si ese commit se empuja con un PAT
+    # (secrets.PAT), GitHub sí dispara workflows de nuevo: sin esta exclusión se
+    # entraría en bucle.
+    paths-ignore:
+      - 'docs/**'
   schedule:
     - cron: "0 16 * 1-6,9-12 *" # todos los días de septiembre a junio (excluye julio y agosto) a las 16:00 UTC
   workflow_dispatch: ~ # manual trigger
