@@ -158,8 +158,9 @@ jobs:
       - name: Install PHP 8.5
         uses: shivammathur/setup-php@v2
         with:
+          # gd genera las imágenes de previsualización (sipri:og-images)
           php-version: '8.5'
-          extensions: mbstring, intl, pdo, pdo_sqlite, xml, curl, zip
+          extensions: mbstring, intl, pdo, pdo_sqlite, xml, curl, zip, gd
           tools: composer:v2
           coverage: none
 
@@ -220,10 +221,72 @@ jobs:
       - name: Generate static website
         #        if: ${{ success() && steps.sipri.outcome == 'success' }}
         run: |
+          php bin/console sipri:og-images
           php bin/console asset-map:compile
           php bin/console -e prod cache:clear
           php bin/console -e prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs
           rm public/assets/ -rf
+
+      # minify-html (Rust): procesa los ~1,6 GB de HTML en segundos, donde un
+      # minificador en JS tardaría minutos. Reduce el peso a algo menos de la
+      # mitad, lo que además frena el crecimiento del historial del repositorio.
+      - name: Install minify-html
+        env:
+          MINHTML_VERSION: '0.18.1'
+        run: |
+          curl -fsSL -o /usr/local/bin/minhtml \
+            "https://github.com/wilsonzlin/minify-html/releases/download/v${MINHTML_VERSION}/minhtml-${MINHTML_VERSION}-x86_64-unknown-linux-gnu"
+          sudo chmod +x /usr/local/bin/minhtml
+          minhtml --version
+
+      - name: Minify generated HTML
+        run: |
+          antes=$(du -sm docs | cut -f1)
+
+          # --keep-closing-tags y --keep-html-and-head-opening-tags mantienen el
+          # marcado explícito: los rastreadores de Telegram, WhatsApp y Facebook
+          # leen las meta etiquetas de <head> y conviene no darles sorpresas.
+          find docs -name '*.html' -print0 \
+            | xargs -0 -n 200 -P "$(nproc)" minhtml --keep-closing-tags --keep-html-and-head-opening-tags
+
+          despues=$(du -sm docs | cut -f1)
+          echo "docs/: ${antes} MB → ${despues} MB"
+          echo "### HTML minificado: ${antes} MB → ${despues} MB" >> "$GITHUB_STEP_SUMMARY"
+
+      # Si la minificación rompiera el <head>, las previsualizaciones al
+      # compartir dejarían de funcionar sin que nadie se diera cuenta.
+      - name: Verify metadata survived minification
+        run: |
+          python3 - <<'EOF'
+          import glob, sys
+          from html.parser import HTMLParser
+
+          class Meta(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.tags = {}
+              def handle_starttag(self, tag, attrs):
+                  d = dict(attrs)
+                  clave = d.get('property') or d.get('name')
+                  if tag == 'meta' and clave:
+                      self.tags[clave] = d.get('content')
+
+          requeridas = ['og:title', 'og:description', 'og:image', 'og:url', 'twitter:card']
+          fallos = []
+
+          for ruta in ['docs/index.html'] + sorted(glob.glob('docs/*/*/index.html'))[:40]:
+              p = Meta()
+              p.feed(open(ruta, encoding='utf-8').read())
+              faltan = [t for t in requeridas if not p.tags.get(t)]
+              if faltan:
+                  fallos.append(f'{ruta}: faltan {", ".join(faltan)}')
+
+          if fallos:
+              print('\n'.join(fallos))
+              sys.exit(1)
+
+          print('Meta etiquetas Open Graph verificadas.')
+          EOF
 
       - name: Commit y push de docs
         #        if: ${{ steps.sipri.outcome == 'success' }}

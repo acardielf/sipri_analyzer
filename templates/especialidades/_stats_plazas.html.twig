@@ -1,5 +1,8 @@
 {# Resumen de puestos del curso. Todo se cuenta en puestos ofertados, no en
    filas de plaza: una plaza puede ofertar varios. #}
+{# `default(true)` no serviría: el filtro se dispara con valores vacíos, así que
+   convertiría un `false` explícito en `true` #}
+{% set mostrarPosiciones = mostrarPosiciones is defined ? mostrarPosiciones : true %}
 {% set sobrevenidas = stats.vacantes - stats.vacantesInicio %}
 {% set pctInicio = stats.vacantes > 0 ? (stats.vacantesInicio / stats.vacantes * 100)|round : 0 %}
 
@@ -15,27 +18,41 @@
     </div>
 
     <div class="stat-card">
-        <div class="stat-num" style="color:#e6a817">{{ stats.vacantes }}</div>
+        <div class="stat-num" style="color:var(--sipri-vacante)">{{ stats.vacantes }}</div>
         <div class="stat-label"><i class="bi bi-calendar-check me-1"></i>Vacantes</div>
         {% if stats.vacantes > 0 %}
-            <div class="stat-split" title="{{ stats.vacantesInicio }} en septiembre y {{ sobrevenidas }} {{ sobrevenidas == 1 ? 'surgida' : 'surgidas' }} durante el curso">
-                <div class="stat-split-bar">
-                    <span style="width:{{ pctInicio }}%"></span>
-                </div>
+            <div class="stat-split" title="{{ stats.vacantesInicio }} en septiembre y {{ sobrevenidas }} {{ sobrevenidas == 1 ? 'surgida' : 'surgidas' }} después">
+                {# La barra solo aporta cuando hay mezcla de ambas #}
+                {% if stats.vacantesInicio > 0 and sobrevenidas > 0 %}
+                    <div class="stat-split-bar">
+                        <span style="width:{{ pctInicio }}%"></span>
+                    </div>
+                {% endif %}
                 <div class="stat-foot">
-                    <i class="bi bi-sunrise" style="color:#b8860b"></i>
-                    <strong>{{ stats.vacantesInicio }}</strong> durante septiembre
-                    {%- if sobrevenidas > 0 %} · <strong>{{ sobrevenidas }}</strong> durante el curso{% endif %}
-                    {%- if stats.vacantesDesiertas > 0 %}<br><strong class="text-danger">{{ stats.vacantesDesiertas }}</strong> desierta{{ stats.vacantesDesiertas > 1 ? 's' }}{% endif %}
+                    {% if stats.vacantesInicio > 0 %}
+                        <i class="bi bi-sunrise" style="color:var(--sipri-vacante)"></i>
+                        {% if sobrevenidas > 0 %}
+                            <strong>{{ stats.vacantesInicio }}</strong> durante septiembre
+                            · <strong>{{ sobrevenidas }}</strong> después
+                        {% else %}
+                            todas de inicio de curso
+                        {% endif %}
+                        {%- if stats.vacantesDesiertas > 0 %}<br>{% endif %}
+                    {% endif %}
+                    {%- if stats.vacantesDesiertas > 0 -%}
+                        <strong class="text-danger">{{ stats.vacantesDesiertas }}</strong> sin cubrir
+                    {%- elseif stats.vacantesInicio == 0 -%}
+                        <strong>{{ stats.vacantesAdjudicadas }}</strong> adjudicada{{ stats.vacantesAdjudicadas != 1 ? 's' }}
+                    {%- endif -%}
                 </div>
             </div>
         {% else %}
-            <div class="stat-foot">Sin vacantes este curso</div>
+            <div class="stat-foot">Sin vacantes</div>
         {% endif %}
     </div>
 
     <div class="stat-card">
-        <div class="stat-num" style="color:#198754">{{ stats.sustituciones }}</div>
+        <div class="stat-num" style="color:var(--sipri-sustitucion)">{{ stats.sustituciones }}</div>
         <div class="stat-label"><i class="bi bi-arrow-repeat me-1"></i>Sustituciones</div>
         <div class="stat-foot">
             <strong>{{ stats.sustitucionesAdjudicadas }}</strong> adjudicadas
@@ -61,15 +78,25 @@
         </div>
     </div>
 
+    {# En una convocatoria suelta el rango de posiciones mezcla todas las
+       especialidades, así que no dice nada: solo se muestra por curso #}
+    {% if mostrarPosiciones %}
     <div class="stat-card">
-        <div class="stat-num stat-num--rango">
-            nº
-            <span style="color:var(--sipri-blue-mid)">{{ stats.minOrden }}</span>
-            <span class="stat-rango-sep">–</span>
-            <span style="color:var(--sipri-accent)">{{ stats.maxOrden }}</span>
-        </div>
-        <div class="stat-label"><i class="bi bi-list-ol me-1"></i>Posiciones llamadas</div>
-        <div class="stat-foot">primera y última de la bolsa</div>
+        {% if stats.maxOrden > 0 %}
+            <div class="stat-num stat-num--rango">
+                nº
+                <span style="color:var(--sipri-blue-mid)">{{ stats.minOrden }}</span>
+                <span class="stat-rango-sep">–</span>
+                <span style="color:var(--sipri-accent)">{{ stats.maxOrden }}</span>
+            </div>
+            <div class="stat-label"><i class="bi bi-list-ol me-1"></i>Posiciones llamadas</div>
+            <div class="stat-foot">primera y última de la bolsa</div>
+        {% else %}
+            <div class="stat-num stat-num--rango" style="color:var(--sipri-muted)">–</div>
+            <div class="stat-label"><i class="bi bi-list-ol me-1"></i>Posiciones llamadas</div>
+            <div class="stat-foot">sin posiciones registradas</div>
+        {% endif %}
     </div>
+    {% endif %}
 
 </div>

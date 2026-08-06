@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
+{#- Previsualización al compartir el enlace. Las descripciones no llevan cifras a
+    propósito: quedarían desfasadas y obligarían a regenerar el HTML de las 16.000
+    páginas en cada build. Cada plantilla sobrescribe `meta_description` y, si le
+    corresponde otra imagen, `og_image`. -#}
+{%- set metaDescripcion %}{% block meta_description %}Consulta las adjudicaciones de plazas docentes del SIPRI (Junta de Andalucía) por especialidad, provincia y curso. Datos procesados automáticamente desde las convocatorias públicas.{% endblock %}{% endset -%}
+{%- set ogImagen %}{% block og_image %}og/default.png{% endblock %}{% endset -%}
+{%- set metaDescripcion = metaDescripcion|striptags|spaceless|trim -%}
+{%- set ogImagenUrl = absolute_url(asset(ogImagen|trim)) -%}
+{#- Con el router, no con pathInfo: es lo único que respeta el --base-url del
+    build estático (/sipri_analyzer) -#}
+{%- set rutaActual = app.request.attributes.get('_route') -%}
+{%- set urlActual = rutaActual
+    ? url(rutaActual, app.request.attributes.get('_route_params'))
+    : absolute_url(app.request.requestUri) -%}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}"/>
     <link rel="alternate icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     <title>{% block title %}Analizador SIPRI{% endblock %}</title>
+
+    <meta name="description" content="{{ metaDescripcion }}">
+    <link rel="canonical" href="{{ urlActual }}">
+
+    <meta property="og:site_name" content="Analizador SIPRI">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{{ block('title')|striptags|trim }}">
+    <meta property="og:description" content="{{ metaDescripcion }}">
+    <meta property="og:url" content="{{ urlActual }}">
+    <meta property="og:image" content="{{ ogImagenUrl }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ block('title')|striptags|trim }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ block('title')|striptags|trim }}">
+    <meta name="twitter:description" content="{{ metaDescripcion }}">
+    <meta name="twitter:image" content="{{ ogImagenUrl }}">
+
     {% block stylesheets %}
     {% endblock %}
 
@@ -34,6 +68,5 @@
     {% include 'footer.html.twig' %}
 {% endblock %}
 </body>
-
 
 </html>

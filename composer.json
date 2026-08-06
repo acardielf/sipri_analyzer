@@ -9,6 +9,7 @@
         "php": ">=8.4.8",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-gd": "*",
         "doctrine/dbal": "^4.4.4",
         "doctrine/doctrine-bundle": "^3.3.1",
         "doctrine/doctrine-migrations-bundle": "^4.0",
@@ -81,6 +82,7 @@
         ],
         "generate-static": [
             "@auto-scripts",
+            "bin/console sipri:og-images",
             "bin/console -e prod cache:clear",
             "php -d memory_limit=-1 bin/console --env=prod stenope:build --host=acardielf.github.io --base-url=/sipri_analyzer --scheme=https --no-sitemap ./docs"
         ]

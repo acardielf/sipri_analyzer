@@ -2,6 +2,9 @@
 
 {% block title %}Centros de {{ provincia.nombre }} – Analizador SIPRI{% endblock %}
 
+{% block meta_description %}Centros educativos de {{ provincia.nombre }} con plazas adjudicadas en el SIPRI. Consulta la actividad de cada centro por curso.{% endblock %}
+{% block og_image %}og/centro.png{% endblock %}
+
 {% block main_content %}
 <div class="page-header">
     <div class="container-fluid">
@@ -71,16 +74,17 @@
                                     Sin datos
                                 </span>
                             {% else %}
-                                <div class="d-flex flex-column align-items-end gap-1">
+                                <div class="centro-curso">
                                     {% if centro.plazasUltimoCurso > 0 %}
-                                    <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem"
-                                          title="Plazas en {{ ultimoCurso.nombre }}">
-                                        {{ centro.plazasUltimoCurso }} <span style="font-weight:400;opacity:.8;font-size:.68rem">{{ ultimoCurso.simpleLabel }}</span>
-                                    </span>
+                                        <span class="badge" style="background:var(--sipri-blue);color:#fff;font-size:.78rem">
+                                            {{ centro.plazasUltimoCurso }} plaza{{ centro.plazasUltimoCurso != 1 ? 's' }}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-muted);border:1px solid var(--sipri-border);font-size:.78rem">
+                                            sin plazas
+                                        </span>
                                     {% endif %}
-                                    <span style="font-size:.68rem;color:var(--sipri-muted)" title="Total histórico">
-                                        {{ centro.totalPlazas }} total
-                                    </span>
+                                    <span class="centro-curso-label">curso {{ ultimoCurso.simpleLabel }}</span>
                                 </div>
                             {% endif %}
                             <i class="bi bi-chevron-right card-arrow"></i>

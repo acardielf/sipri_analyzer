@@ -20,13 +20,15 @@
         </div>
     </div>
 
-    <div class="mt-2 mb-3">
-        <span class="bg-warning p-2">Vacante (V)</span>
-        <span class="bg-success text-white p-2">Sustitución (S)</span>
+    <div class="d-flex align-items-center gap-2 mt-2 mb-3 flex-wrap">
+        <span class="prov-filter-label">Tipo:</span>
+        <span class="adj-chip adj-chip--v adj-chip--muestra">Vacante</span>
+        <span class="adj-chip adj-chip--s adj-chip--muestra">Sustitución</span>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped mt-2">
+    <div class="tabla-currar-wrap">
+        <table class="table table-striped mb-0 tabla-currar">
+            <thead>
             <tr>
                 <th class="header">
                     <span class="d-none d-md-inline">Orden en la bolsa</span>
@@ -41,12 +43,14 @@
                     </th>
                 {% endfor %}
             </tr>
+            </thead>
 
+            <tbody>
             {% set last = 0 %}
 
             {% for orden, adjudicacion in listaAdjudicaciones %}
                 <tr>
-                    <td>
+                    <td class="td-orden">
                         {% if anchors == 1 %}
                             {% if orden > last + 1 %}
                                 {% for i in (last + 1)..(orden - 1) %}
@@ -66,9 +70,8 @@
                             data-prov="{{ provincia.id }}">
                             {% if provId in adjudicacion|keys %}
                                 {% for entry in adjudicacion[provId] %}
-                                    <div class="p-1 m-2
-                                        {% if entry['tipo'] == 'V' %}bg-warning{% endif %}
-                                        {% if entry['tipo'] == 'S' %}bg-success text-white{% endif %}">
+                                    <div class="adj-chip {{ entry['tipo'] == 'V' ? 'adj-chip--v' : 'adj-chip--s' }}"
+                                         title="{{ entry['tipo'] == 'V' ? 'Vacante' : 'Sustitución' }} · {{ entry['fecha'] }}">
                                         <span class="d-none d-xl-inline">{{ entry['fecha'] }}</span>
                                         <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
                                     </div>
@@ -80,6 +83,7 @@
                     {% endfor %}
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 

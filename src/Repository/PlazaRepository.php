@@ -432,7 +432,8 @@ class PlazaRepository extends ServiceEntityRepository
                 l.nombre AS localidad,
                 centro.id AS centroId,
                 centro.nombre AS centroNombre,
-                MIN(a.orden) AS adjOrden
+                MIN(a.orden) AS adjOrden,
+                COUNT(a.id) AS adjCount
             FROM App\Entity\Plaza p
             JOIN p.especialidad esp
             JOIN p.centro centro
@@ -467,7 +468,8 @@ class PlazaRepository extends ServiceEntityRepository
                 cu.nombre AS cursoNombre,
                 conv.id AS convId,
                 conv.fecha AS convFecha,
-                MIN(a.orden) AS adjOrden
+                MIN(a.orden) AS adjOrden,
+                COUNT(a.id) AS adjCount
             FROM App\Entity\Plaza p
             JOIN p.especialidad esp
             JOIN p.convocatoria conv

@@ -25,7 +25,7 @@ El pipeline completo es: descarga de PDF → extracción de tablas (tabula-py) �
 | Frontend       | Twig + Bootstrap 5.3 + Symfony UX (Chart.js, Autocomplete) |
 | Assets         | Symfony AssetMapper (importmap, sin Webpack)               |
 | Sitio estático | Stenope (genera HTML en `./docs/`)                         |
-| Contenedores   | Docker Compose (imagen `dunglas/frankenphp:1-php8.4`)      |
+| Contenedores   | Docker Compose (imagen `dunglas/frankenphp:1-php8.5`)      |
 
 ## Estructura del proyecto
 
@@ -74,6 +74,7 @@ Los comandos están en `src/Command/` y se invocan como `bin/console sipri:<subc
 | `sipri:extraer-plazas`   | `sipri:ext` | Extrae plazas del PDF de convocatoria y las persiste              |
 | `sipri:adj`              | —           | Extrae adjudicaciones del PDF y las vincula a plazas              |
 | `sipri:del`              | —           | Elimina convocatorias (y opcionalmente adjudicaciones o archivos) |
+| `sipri:og-images`        | —           | Genera las imágenes de previsualización en `public/og/` (requiere `ext-gd`) |
 
 Ejemplo de procesado completo en bucle:
 ```bash
@@ -89,6 +90,7 @@ done
 
 ```bash
 cp var/data_dev.db var/data_prod.db
+bin/console sipri:og-images
 bin/console asset-map:compile
 bin/console -e prod cache:clear
 bin/console -e prod stenope:build \
@@ -101,6 +103,23 @@ rm public/assets/ -rf
 ```
 
 También disponible como script de Composer: `composer run generate-static`.
+
+Stenope copia `public/` completo a `docs/`, así que las imágenes de `public/og/` acaban publicadas en `docs/og/` sin configuración adicional.
+
+### Minificación del HTML
+
+El workflow `ci.yml` minifica `docs/` tras generarlo con [minify-html](https://github.com/wilsonzlin/minify-html) (binario `minhtml`, Rust). Reduce los ~1,6 GB de HTML a algo menos de la mitad en segundos, lo que frena el crecimiento del historial de git. Se ejecuta con `--keep-closing-tags --keep-html-and-head-opening-tags`, y un paso posterior comprueba con un parser HTML que las meta etiquetas Open Graph siguen siendo legibles.
+
+No se aplica en el build local: es un paso exclusivo del CI, sobre la carpeta ya generada.
+
+## Previsualización al compartir enlaces (Open Graph)
+
+`base.html.twig` genera `description`, `canonical`, Open Graph y Twitter Cards para todas las páginas. Cada plantilla define dos bloques:
+
+- `{% block meta_description %}` — descripción específica de la página. **Sin cifras**: quedarían desfasadas y obligarían a regenerar el HTML de las 16.000 páginas en cada build.
+- `{% block og_image %}` — ruta de la imagen dentro de `public/`, una por sección (`og/especialidad.png`, `og/convocatoria.png`, `og/centro.png`, `og/cuerpo.png`, `og/faq.png`, `og/default.png`).
+
+La URL canónica se compone con `url()` del router, **no** con `absolute_url(app.request.pathInfo)`: pathInfo no incluye el `--base-url` del build (`/sipri_analyzer`) y la URL saldría mal.
 
 ## Entorno de desarrollo con Docker
 
@@ -144,9 +163,21 @@ Los tokens CSS están definidos en `assets/styles/app.css` bajo `:root`. **No us
 
 **Color de favoritos/estrella**: `#f0b429` (ámbar, sin variable propia — consistente en todos los componentes de estrella).
 
-**Clases de adjudicación** (sin variables, colores Bootstrap):
-- `.badge-vacante` → fondo `#ffc107` (warning), texto oscuro
-- `.badge-sustitucion` → fondo `#198754` (success), texto blanco
+### Color por tipo de plaza
+
+El verde de marca está reservado a identidad y navegación (códigos, enlaces, totales, adjudicaciones), así que cada tipo de plaza tiene su propio color y se distingue sin leer la etiqueta:
+
+| Token                       | Valor     | Uso                                        |
+|-----------------------------|-----------|--------------------------------------------|
+| `--sipri-vacante`           | `#b8860b` | Ámbar oscuro — cifras y texto sobre blanco |
+| `--sipri-vacante-bg`        | `#ffc107` | Ámbar — fondo de `.badge-vacante`          |
+| `--sipri-vacante-soft`      | `#fff3cd` | Ámbar claro — fondo de `.adj-chip--v`      |
+| `--sipri-vacante-ink`       | `#212529` | Texto sobre fondo ámbar                    |
+| `--sipri-sustitucion`       | `#1d6fa3` | Azul acero — cifras y texto sobre blanco   |
+| `--sipri-sustitucion-bg`    | `#1d6fa3` | Azul acero — fondo de `.badge-sustitucion` |
+| `--sipri-sustitucion-soft`  | `#e1eff8` | Azul claro — fondo de `.adj-chip--s`       |
+
+Componentes que los aplican: `.badge-vacante` / `.badge-sustitucion` (tablas de plazas), `.adj-chip--v` / `.adj-chip--s` (rejilla del tab «¿Cuándo voy a currar?»), `.cell-b-vac` / `.cell-b-sust` (celda de la tabla de especialidad) y las tarjetas de `_stats_plazas.html.twig`. **Nunca hardcodear estos colores**: `buscador_controller.js` y `calendario_convocatorias_controller.js` generan HTML en cliente y deben usar las mismas clases.
 
 **Nota sobre Docker**: Cambios en PHP/Twig requieren `docker restart sipri` para invalidar OPcache. El directorio del proyecto se monta en `/app` vía bind mount (definido en `compose.override.yaml`, no en `compose.yaml`).
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CentroRepository;
+use App\Repository\ConvocatoriaRepository;
 use App\Repository\PlazaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,7 @@ class CentroDetalleController extends AbstractController
     public function __construct(
         private readonly CentroRepository $centroRepository,
         private readonly PlazaRepository $plazaRepository,
+        private readonly ConvocatoriaRepository $convocatoriaRepository,
     ) {
     }
 
@@ -27,31 +29,27 @@ class CentroDetalleController extends AbstractController
 
         $plazas = $this->plazaRepository->findByCentroArray($id);
 
+        // Sin adjudicaciones extraídas no se puede saber si una plaza quedó desierta
+        $convocatoriasConAdjudicaciones = array_flip(
+            $this->convocatoriaRepository->findIdsConAdjudicaciones()
+        );
+
         $plazasByCurso = [];
+        $sinCubrir = [];
+
         foreach ($plazas as $p) {
             $plazasByCurso[$p['cursoNombre']][] = $p;
+
+            $sinCubrir[$p['id']] = isset($convocatoriasConAdjudicaciones[$p['convId']])
+                ? max(0, (int)$p['numero'] - (int)$p['adjCount'])
+                : 0;
         }
         krsort($plazasByCurso);
-
-        $totalPlazas = count($plazas);
-
-        $especialidades = [];
-        foreach ($plazas as $p) {
-            $especialidades[$p['espId']] = true;
-        }
-        $totalEspecialidades = count($especialidades);
-
-        $ultimoCurso = null;
-        if (!empty($plazasByCurso)) {
-            $ultimoCurso = array_key_first($plazasByCurso);
-        }
 
         return $this->render('centro/detalle.html.twig', [
             'centro' => $centro,
             'plazasByCurso' => $plazasByCurso,
-            'totalPlazas' => $totalPlazas,
-            'totalEspecialidades' => $totalEspecialidades,
-            'ultimoCurso' => $ultimoCurso,
+            'sinCubrir' => $sinCubrir,
         ]);
     }
 }

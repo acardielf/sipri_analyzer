@@ -3,6 +3,7 @@
 
    El marcado va comprimido a propósito: estas tablas llegan a 4.450 filas y se
    publican como HTML estático, así que cada byte por fila se multiplica. #}
+{% import '_macros.html.twig' as macros %}
 {% set mostrarProvincia = mostrarProvincia|default(false) %}
 
 <div class="table-responsive">
@@ -42,14 +43,11 @@
                 <td class="text-end">{{ plaza.numero }}</td>
                 <td class="td-muted td-nowrap">{{ plaza.fechaPrevistaCese ? plaza.fechaPrevistaCese|date('d/m/Y') : '–' }}</td>
                 <td class="text-end font-monospace">
-                    {%- set faltan = sinCubrir[plaza.id]|default(0) -%}
-                    {%- if plaza.adjudicaciones is not empty %}{{ plaza.adjudicacionesAsString }}{% endif -%}
-                    {%- if faltan > 0 -%}
-                        {%- if plaza.adjudicaciones is not empty %} {% endif -%}
-                        <span class="text-muted" title="{{ faltan }} de los {{ plaza.numero }} puestos de esta plaza quedaron desiertos, no adjudicados o sin adjudicación conocida">{{ faltan == plaza.numero ? 'Desierta*' : '+' ~ faltan ~ ' desierta' ~ (faltan > 1 ? 's' : '') ~ '*' }}</span>
-                    {%- elseif plaza.adjudicaciones is empty -%}
-                        –
-                    {%- endif -%}
+                    {{- macros.posicionAdjudicada(
+                        plaza.adjudicaciones is not empty ? plaza.adjudicacionesAsString : '',
+                        sinCubrir[plaza.id]|default(0),
+                        plaza.numero
+                    ) -}}
                 </td>
             </tr>
             {%- endapply -%}
@@ -58,7 +56,4 @@
     </table>
 </div>
 
-<p class="text-muted small mt-2">
-    * Desierta, no adjudicada o sin adjudicación conocida. Consulta las
-    <a href="{{ path('app_faq') }}">preguntas frecuentes</a>.
-</p>
+{{ macros.notaDesiertas() }}
