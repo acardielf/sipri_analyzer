@@ -122,39 +122,14 @@ class PlazaRepository extends ServiceEntityRepository
         return $this->findOneBy(['hash' => $dto->getHash($ocurrencia)]);
     }
 
-
-    /**
-     * @param Curso $curso
-     * @param Especialidad $especialidad
-     * @param Provincia $provincia
-     * @return array<Plaza>
-     */
-    public function getEspecialidadesByCursoAndProvincia(
-        Curso $curso,
-        Especialidad $especialidad,
-        Provincia $provincia
-    ): array {
-        $qb = $this->createQueryBuilder('p')
-            ->join('p.convocatoria', 'c')
-            ->join('p.centro', 'cc')
-            ->join('cc.localidad', 'l')
-            ->join('l.provincia', 'prov')
-            ->leftJoin('p.adjudicaciones', 'a')
-            ->where('p.especialidad = :especialidad')
-            ->andWhere('c.curso = :curso')
-            ->andWhere('prov.id = :provincia')
-            ->orderBy('p.convocatoria', 'DESC')
-            ->addOrderBy('a.orden', 'DESC')
-            ->addOrderBy('p.centro', 'ASC')
-            ->setParameter('especialidad', $especialidad)
-            ->setParameter('curso', $curso)
-            ->setParameter('provincia', $provincia);
-
-        return $qb->getQuery()->getResult();
-    }
-
     /**
      * Todas las plazas de una especialidad en un curso, de todas las provincias.
+     *
+     * Dentro de cada convocatoria las plazas se ordenan por número de orden
+     * descendente, pero las que no tienen adjudicación ("desiertas") van
+     * primero: su `a.orden` es NULL y SQLite ordena los NULL como el valor más
+     * bajo, así que caían al final. El discriminador HIDDEN los sube al
+     * principio sin alterar el resto del orden.
      *
      * @param Curso $curso
      * @param Especialidad $especialidad
@@ -164,6 +139,7 @@ class PlazaRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('p')
             ->addSelect('c', 'cc', 'l', 'prov', 'a')
+            ->addSelect('CASE WHEN a.id IS NULL THEN 0 ELSE 1 END AS HIDDEN adjudicada')
             ->join('p.convocatoria', 'c')
             ->join('p.centro', 'cc')
             ->join('cc.localidad', 'l')
@@ -172,6 +148,7 @@ class PlazaRepository extends ServiceEntityRepository
             ->where('p.especialidad = :especialidad')
             ->andWhere('c.curso = :curso')
             ->orderBy('c.fecha', 'DESC')
+            ->addOrderBy('adjudicada', 'ASC')
             ->addOrderBy('a.orden', 'DESC')
             ->addOrderBy('prov.nombre', 'ASC')
             ->setParameter('especialidad', $especialidad)
