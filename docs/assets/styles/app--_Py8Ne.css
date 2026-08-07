@@ -1333,6 +1333,29 @@ a.cell-total:hover { color: var(--sipri-blue-mid); text-decoration: underline; }
   color: #12506f;
 }
 
+/* Segunda línea del chip: el centro adjudicado. Va a menor peso y tamaño para
+   que la fecha siga siendo lo primero que se lee, y se limita a dos líneas
+   porque hay nombres de centro muy largos que descuadrarían la fila entera */
+.adj-chip__centro {
+  margin-top: .1rem;
+  font-size: .66rem;
+  font-weight: 500;
+  line-height: 1.25;
+  opacity: .85;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* Con el centro dentro del chip las columnas necesitan ancho mínimo: si no, el
+   nombre se parte en una palabra por línea */
+@media (min-width: 992px) {
+  .tabla-currar td[data-prov] { min-width: 9.5rem; }
+}
+
 /* En la leyenda el chip va en línea, sin ocupar todo el ancho */
 .adj-chip--muestra { display: inline-block; margin: 0; }
 
