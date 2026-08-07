@@ -4,7 +4,7 @@
     propósito: quedarían desfasadas y obligarían a regenerar el HTML de las 16.000
     páginas en cada build. Cada plantilla sobrescribe `meta_description` y, si le
     corresponde otra imagen, `og_image`. -#}
-{%- set metaDescripcion %}{% block meta_description %}Consulta las adjudicaciones de plazas docentes del SIPRI (Junta de Andalucía) por especialidad, provincia y curso. Datos procesados automáticamente desde las convocatorias públicas.{% endblock %}{% endset -%}
+{%- set metaDescripcion %}{% block meta_description %}Consulta las adjudicaciones de plazas docentes del SIPRI (Junta de Andalucía) por especialidad, provincia y curso. {% endblock %}{% endset -%}
 {%- set ogImagen %}{% block og_image %}og/default.png{% endblock %}{% endset -%}
 {%- set metaDescripcion = metaDescripcion|striptags|spaceless|trim -%}
 {%- set ogImagenUrl = absolute_url(asset(ogImagen|trim)) -%}

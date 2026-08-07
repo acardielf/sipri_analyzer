@@ -23,6 +23,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class GenerarOgImagesCommand extends Command
 {
+
+    private const string TITLE1 = '¿Cuándo voy a currar?';
+    private const string TITLE2 = 'Analizador SIPRI';
+    private const string TITLE3 = 'Qué posiciones de la bolsa se han llamado, y cuándo';
+    private const string TITLE4 = 'Bolsas docentes en Andalucía';
     private const int ANCHO = 1200;
     private const int ALTO = 630;
 
@@ -33,18 +38,19 @@ class GenerarOgImagesCommand extends Command
 
     /** Una imagen por sección; la clave es el nombre del fichero. */
     private const array VARIANTES = [
-        'default' => ['titulo' => 'Adjudicaciones docentes', 'sub' => 'Convocatorias del SIPRI en Andalucía'],
-        'especialidad' => ['titulo' => 'Especialidades', 'sub' => 'Qué posiciones de la bolsa se han llamado, y cuándo'],
-        'convocatoria' => ['titulo' => 'Convocatorias', 'sub' => 'Plazas ofertadas en cada adjudicación del SIPRI'],
-        'centro' => ['titulo' => 'Centros', 'sub' => 'Plazas ofertadas centro por centro'],
-        'cuerpo' => ['titulo' => 'Cuerpos docentes', 'sub' => 'Secundaria, Maestros, FP, Idiomas, Música y Artes'],
-        'faq' => ['titulo' => 'Preguntas frecuentes', 'sub' => 'De dónde salen los datos y cómo interpretarlos'],
+        'default' => ['titulo' => self::TITLE2, 'sub' => self::TITLE3],
+//        'especialidad' => ['titulo' => 'Especialidades', 'sub' => 'Qué posiciones de la bolsa se han llamado, y cuándo'],
+//        'convocatoria' => ['titulo' => 'Convocatorias', 'sub' => 'Plazas ofertadas en cada adjudicación del SIPRI'],
+//        'centro' => ['titulo' => 'Centros', 'sub' => 'Plazas ofertadas centro por centro'],
+//        'cuerpo' => ['titulo' => 'Cuerpos docentes', 'sub' => 'Secundaria, Maestros, FP, Idiomas, Música y Artes'],
+//        'faq' => ['titulo' => 'Preguntas frecuentes', 'sub' => 'De dónde salen los datos y cómo interpretarlos'],
     ];
 
     public function __construct(
         #[Autowire('%kernel.project_dir%')]
         private readonly string $projectDir,
-    ) {
+    )
+    {
         parent::__construct();
     }
 
@@ -116,7 +122,7 @@ class GenerarOgImagesCommand extends Command
             imagefilledrectangle($img, $bx + $dx, $base - $alto, $bx + $dx + 32, $base, $tono);
         }
 
-        imagettftext($img, 30, 0, $bx + 205, $base - 2, $blanco, $fuente, 'Analizador SIPRI');
+        imagettftext($img, 30, 0, $bx + 205, $base - 2, $blanco, $fuente, self::TITLE1);
 
         // Título de la sección, partido en líneas si no cabe
         $y = 360;
@@ -133,7 +139,7 @@ class GenerarOgImagesCommand extends Command
             $y += 40;
         }
 
-        imagettftext($img, 22, 0, 90, self::ALTO - 52, $verdeClaro, $fuente, '¿Cuándo voy a currar?');
+        imagettftext($img, 22, 0, 90, self::ALTO - 52, $verdeClaro, $fuente, self::TITLE4);
 
         imagepng($img, $ruta, 9);
         imagedestroy($img);
