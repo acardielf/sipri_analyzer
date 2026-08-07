@@ -10,35 +10,35 @@ const MESES_CURSO = [8, 9, 10, 11, 0, 1, 2, 3, 4, 5];
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-    static targets = ['datos', 'barra', 'calendario', 'resumen', 'col'];
-    static values = { curso: String, especialidad: String };
+    static targets = ['datos', 'barra', 'calendario', 'resumen', 'col', 'estado',
+        'bloqueBarra', 'notaCalendario'];
+    static values = { curso: String, anio: Number, especialidad: String };
 
     connect() {
-        // El filtro puede haberse elegido en una visita anterior, y el selector común
-        // quizá ya emitió su evento inicial antes de que este controller (lazy) se
-        // conectara: se lee de localStorage para no depender del orden de arranque.
-        // Conjunto vacío = todas las provincias.
+        // El filtro puede haberse elegido en una visita anterior, y los controles
+        // comunes quizá emitieron su evento inicial antes de que este controller
+        // (lazy) se conectara: se lee de localStorage para no depender del orden de
+        // arranque. Conjunto vacío = todas las provincias.
         this.provincias = new Set(getProvinciasBolsa(this.especialidadValue));
         this.nombresProvincias = this.nombresDe(this.provincias);
         this.posicion = getPosicion(this.especialidadValue);
 
-        this.onProvincias = this.onProvincias.bind(this);
-        window.addEventListener('sipri:provincias', this.onProvincias);
-
-        this.aplicarColumnas();
-
-        // Los cursos sin adjudicaciones no traen datos: el controller sigue vivo para
-        // filtrar las columnas de la tabla, pero no hay nada que dibujar.
-        if (!this.hasDatosTarget) {
-            return;
-        }
+        // El curso va del 1 de septiembre al 30 de junio. Se calcula a partir del año
+        // y no de la primera convocatoria porque un curso recién empezado aún no tiene
+        // ninguna, y aun así hay que saber que está en marcha.
+        this.inicioCurso = new Date(this.anioValue, 8, 1);
+        this.finCurso = new Date(this.anioValue + 1, 5, 30);
 
         const paquete = JSON.parse(this.datosTarget.textContent);
-
         this.convocatorias = paquete.convocatorias.map(iso => new Date(`${iso}T00:00:00`));
         this.puntos = paquete.adjudicaciones.map(([orden, conv, prov]) => ({ orden, conv, prov }));
 
-        this.inicioCurso = this.calcularInicioCurso();
+        this.onProvincias = this.onProvincias.bind(this);
+        this.onPosicionExterna = this.onPosicionExterna.bind(this);
+        window.addEventListener('sipri:provincias', this.onProvincias);
+        window.addEventListener('sipri:posicion', this.onPosicionExterna);
+
+        this.aplicarColumnas();
 
         // Los tabs de curso que no están activos arrancan ocultos y miden 0 px de
         // ancho: dibujar la barra ahí produce un SVG degenerado. El observer espera a
@@ -51,9 +51,6 @@ export default class extends Controller {
             }
         });
         this.observer.observe(this.barraTarget);
-
-        this.onPosicionExterna = this.onPosicionExterna.bind(this);
-        window.addEventListener('sipri:posicion', this.onPosicionExterna);
     }
 
     disconnect() {
@@ -75,6 +72,16 @@ export default class extends Controller {
         this.programarRender();
     }
 
+    /** La posición se escribe en un único campo, fuera de las pestañas de curso. */
+    onPosicionExterna(event) {
+        if (event.detail.especialidad !== this.especialidadValue) {
+            return;
+        }
+
+        this.posicion = event.detail.posicion;
+        this.programarRender();
+    }
+
     /** Oculta las columnas de la tabla de detalle que quedan fuera del filtro. */
     aplicarColumnas() {
         const todas = this.provincias.size === 0;
@@ -92,16 +99,6 @@ export default class extends Controller {
             ?.dataset.nombre ?? id);
     }
 
-    /** La posición se escribe en un único campo, fuera de las pestañas de curso. */
-    onPosicionExterna(event) {
-        if (event.detail.especialidad !== this.especialidadValue) {
-            return;
-        }
-
-        this.posicion = event.detail.posicion;
-        this.programarRender();
-    }
-
     programarRender() {
         cancelAnimationFrame(this.pendiente);
         this.pendiente = requestAnimationFrame(() => this.render());
@@ -114,29 +111,78 @@ export default class extends Controller {
     }
 
     render() {
-        if (!this.hasBarraTarget) {
-            return;
-        }
-
         const ancho = this.anchoBarra();
         if (ancho === 0) {
             return;
         }
         this.ultimoAncho = ancho;
 
-        const puntos = this.provincias.size === 0
-            ? this.puntos
-            : this.puntos.filter(p => this.provincias.has(p.prov));
+        const puntos = this.filtrar(this.puntos);
 
+        this.actualizarEstado();
+
+        if (puntos.length === 0) {
+            this.pintarSinDatos();
+            return;
+        }
+
+        this.notaCalendarioTarget.hidden = false;
+        this.bloqueBarraTarget.hidden = false;
         this.dibujarBarra(puntos, ancho);
         this.dibujarCalendario(puntos);
     }
 
-    /** Posición que ha escrito el usuario, o null si no hay ninguna válida. */
-    posicionBuscada() {
-        const n = parseInt(this.posicion, 10);
+    filtrar(puntos) {
+        return this.provincias.size === 0
+            ? puntos
+            : puntos.filter(p => this.provincias.has(p.prov));
+    }
 
-        return Number.isInteger(n) && n > 0 ? n : null;
+    /* ── Estado del curso ───────────────────────────────────────────────────── */
+
+    /** El curso todavía no ha empezado (estamos antes de su 1 de septiembre). */
+    get porEmpezar() {
+        return new Date() < this.inicioCurso;
+    }
+
+    /** El curso ha empezado pero aún no ha terminado. */
+    get enMarcha() {
+        const hoy = new Date();
+
+        return hoy >= this.inicioCurso && hoy <= this.finCurso;
+    }
+
+    actualizarEstado() {
+        this.estadoTarget.hidden = !this.enMarcha;
+
+        if (this.enMarcha) {
+            this.estadoTarget.textContent = 'curso en marcha';
+        }
+    }
+
+    /** Ni barra ni calendario tienen nada que dibujar: se explica por qué. */
+    pintarSinDatos() {
+        const ambito = this.textoAmbito();
+
+        this.bloqueBarraTarget.hidden = true;
+        this.calendarioTarget.innerHTML = '';
+        this.notaCalendarioTarget.hidden = true;
+
+        if (this.porEmpezar) {
+            this.resumenTarget.innerHTML =
+                `El curso ${this.cursoValue} todavía no ha empezado. Consulta los cursos anteriores`
+                + ' para hacerte una idea de cómo suele avanzar la bolsa.';
+            return;
+        }
+
+        if (this.enMarcha) {
+            this.resumenTarget.innerHTML =
+                `El curso ${this.cursoValue} acaba de empezar y aún no hay adjudicaciones publicadas${ambito}.`
+                + ' En cuanto se convoque la primera aparecerá aquí.';
+            return;
+        }
+
+        this.resumenTarget.innerHTML = `No hay adjudicaciones registradas en ${this.cursoValue}${ambito}.`;
     }
 
     /* ── Barra de recorrido ─────────────────────────────────────────────────── */
@@ -174,27 +220,27 @@ export default class extends Controller {
     }
 
     dibujarBarra(puntos, ancho) {
-        if (puntos.length === 0) {
-            this.barraTarget.innerHTML = '<p class="timeline-vacio">Sin adjudicaciones con este filtro.</p>';
-            return;
-        }
-
         const minimo = Math.min(...puntos.map(p => p.orden));
         const maximo = Math.max(...puntos.map(p => p.orden));
+        const buscada = this.posicionBuscada();
 
         // Sin recorrido no hay nada que dibujar: una barra de ancho cero sólo
         // confundiría. Pasa en especialidades con una única adjudicación en el curso.
-        if (minimo === maximo) {
+        if (minimo === maximo && (buscada === null || buscada <= maximo)) {
             this.barraTarget.innerHTML =
                 `<p class="timeline-vacio">Sólo se ha llamado a la posición <strong>${minimo}</strong> en todo el curso.</p>`;
             return;
         }
 
         const tramos = this.calcularTramos(puntos);
-        const rango = maximo - minimo;
 
-        // El margen lateral reserva sitio para la mitad de la etiqueta de mes del
-        // último tramo, que va centrada sobre el extremo derecho de la barra.
+        // Si la posición buscada queda por encima de lo adjudicado, el eje se estira
+        // hasta ella: así en lugar de desaparecer del gráfico se ve cuánto falta para
+        // llegar, que es justo la lectura útil a mitad de curso.
+        const pendiente = buscada !== null && buscada > maximo;
+        const tope = pendiente ? buscada : maximo;
+        const rango = tope - minimo;
+
         const alto = 78;
         const margen = 18;
         const util = ancho - margen * 2;
@@ -208,6 +254,15 @@ export default class extends Controller {
         piezas.push(
             `<rect x="${margen}" y="${yBarra}" width="${util}" height="${altoBarra}" rx="4" class="timeline-barra-fondo"/>`
         );
+
+        if (pendiente) {
+            piezas.push(
+                `<rect x="${x(maximo)}" y="${yBarra}" width="${Math.max(x(tope) - x(maximo), 1)}"`
+                + ` height="${altoBarra}" class="timeline-pendiente">`
+                + `<title>De la posición ${maximo} a la ${buscada}: lo que le falta a la bolsa`
+                + ` para llegar a tu número</title></rect>`
+            );
+        }
 
         tramos.forEach((tramo, i) => {
             const x0 = x(tramo.desde);
@@ -244,18 +299,25 @@ export default class extends Controller {
             ultimaEtiqueta = x1;
         });
 
-        // La posición buscada se marca sobre la barra para situarla dentro del recorrido
-        const buscada = this.posicionBuscada();
-        if (buscada !== null && buscada >= minimo && buscada <= maximo) {
+        if (buscada !== null && buscada >= minimo) {
             const xb = x(buscada);
+
+            // Pegada al extremo, la etiqueta centrada se saldría del lienzo: se ancla
+            // al lado que quede libre.
+            const anclaje = xb > ancho - 60 ? ' timeline-marca-tu-txt--fin'
+                : (xb < 60 ? ' timeline-marca-tu-txt--ini' : '');
+
             piezas.push(
                 `<line x1="${xb}" y1="${yBarra - 5}" x2="${xb}" y2="${yBarra + altoBarra + 5}" class="timeline-marca-tu"/>`
-                + `<text x="${xb}" y="${yBarra - 9}" class="timeline-marca-tu-txt">tú (${buscada})</text>`
+                + `<text x="${xb}" y="${yBarra - 9}" class="timeline-marca-tu-txt${anclaje}">tú (${buscada})</text>`
             );
         }
 
         piezas.push(`<text x="${margen}" y="14" class="timeline-extremo">pos. ${minimo}</text>`);
-        piezas.push(`<text x="${ancho - margen}" y="14" class="timeline-extremo timeline-extremo--fin">pos. ${maximo}</text>`);
+
+        if (!pendiente) {
+            piezas.push(`<text x="${ancho - margen}" y="14" class="timeline-extremo timeline-extremo--fin">pos. ${maximo}</text>`);
+        }
 
         this.barraTarget.innerHTML =
             `<svg viewBox="0 0 ${ancho} ${alto}" width="${ancho}" height="${alto}" role="img"`
@@ -288,20 +350,19 @@ export default class extends Controller {
         const maximos = this.maximosPorDia(puntos);
         const buscada = this.posicionBuscada();
 
-        this.actualizarResumen(maximos, buscada);
+        this.actualizarResumen(maximos, buscada, puntos);
 
-        if (maximos.size === 0) {
-            this.calendarioTarget.innerHTML = '<p class="timeline-vacio">Sin convocatorias con este filtro.</p>';
-            return;
-        }
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
 
-        const anio = this.inicioCurso.getFullYear();
-        const meses = MESES_CURSO.map(mes => this.mesHtml(mes < 8 ? anio + 1 : anio, mes, maximos, buscada));
+        const meses = MESES_CURSO.map(mes => this.mesHtml(
+            mes < 8 ? this.anioValue + 1 : this.anioValue, mes, maximos, buscada, hoy,
+        ));
 
         this.calendarioTarget.innerHTML = `<div class="cal-grid">${meses.join('')}</div>`;
     }
 
-    mesHtml(anio, mes, maximos, buscada) {
+    mesHtml(anio, mes, maximos, buscada, hoy) {
         const primerDia = new Date(anio, mes, 1).getDay();
         const offset = primerDia === 0 ? 6 : primerDia - 1;
         const total = new Date(anio, mes + 1, 0).getDate();
@@ -313,10 +374,14 @@ export default class extends Controller {
         }
 
         for (let dia = 1; dia <= total; dia++) {
-            const maximo = maximos.get(this.claveDia(new Date(anio, mes, dia)));
+            const fecha = new Date(anio, mes, dia);
+            const maximo = maximos.get(this.claveDia(fecha));
 
             if (maximo === undefined) {
-                celdas.push(`<span class="cal-day">${dia}</span>`);
+                // Distinguir el futuro de un día sin convocatoria evita que un curso a
+                // medias parezca un curso muerto.
+                const futuro = fecha > hoy ? ' cal-day--futuro' : '';
+                celdas.push(`<span class="cal-day${futuro}">${dia}</span>`);
                 continue;
             }
 
@@ -343,34 +408,126 @@ export default class extends Controller {
             + '</div>';
     }
 
-    actualizarResumen(maximos, buscada) {
-        if (maximos.size === 0) {
-            this.resumenTarget.innerHTML = '';
-            return;
-        }
+    /* ── Resumen en texto ───────────────────────────────────────────────────── */
 
+    actualizarResumen(maximos, buscada, puntos) {
         const ambito = this.textoAmbito();
+        const dias = [...maximos.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+        const maximo = Math.max(...puntos.map(p => p.orden));
 
         if (buscada === null) {
+            const donde = this.enMarcha
+                ? `Por ahora la bolsa de ${this.cursoValue}${ambito} va por la posición <strong>${maximo}</strong>.`
+                : `Cada casilla muestra hasta qué posición se adjudicó ese día${ambito}.`;
+
             this.resumenTarget.innerHTML =
-                '<span class="timeline-resumen-neutro">Cada casilla muestra hasta qué posición se adjudicó ese día'
-                + `${ambito}. Especifica arriba tu posición en la bolsa para compararla con estos datos.</span>`;
+                `${donde} <span class="timeline-resumen-neutro">Especifica arriba tu posición`
+                + ' en la bolsa para compararla con estos datos.</span>';
             return;
         }
 
-        const dias = [...maximos.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-        const alcanzan = dias.filter(([, maximo]) => maximo >= buscada);
+        const alcanzan = dias.filter(([, m]) => m >= buscada);
 
-        if (alcanzan.length === 0) {
+        if (alcanzan.length > 0) {
             this.resumenTarget.innerHTML =
-                `En ${this.cursoValue}${ambito} la bolsa no llegó a la posición <strong>${buscada}</strong>.`;
+                `En ${this.cursoValue}${ambito}, la primera vez que la bolsa llegó a la posición`
+                + ` <strong>${buscada}</strong> fue el`
+                + ` <strong>${this.fechaLarga(new Date(`${alcanzan[0][0]}T00:00:00`))}</strong>.`;
+            return;
+        }
+
+        if (this.enMarcha) {
+            this.resumenTarget.innerHTML =
+                `En ${this.cursoValue}${ambito} la bolsa va por la posición <strong>${maximo}</strong>`
+                + ` y todavía no ha llegado a la <strong>${buscada}</strong>.${this.comparativa(buscada)}`;
             return;
         }
 
         this.resumenTarget.innerHTML =
-            `En ${this.cursoValue}${ambito}, la primera vez que la bolsa llegó a la posición`
-            + ` <strong>${buscada}</strong> fue el`
-            + ` <strong>${this.fechaLarga(new Date(`${alcanzan[0][0]}T00:00:00`))}</strong>.`;
+            `En ${this.cursoValue}${ambito} la bolsa no llegó a la posición <strong>${buscada}</strong>:`
+            + ` se quedó en la <strong>${maximo}</strong>.`;
+    }
+
+    /**
+     * Referencia al curso anterior para el curso en marcha: por dónde iba en la misma
+     * fecha y cuándo llegó a la posición buscada. Sin esto, «va por la 900» no dice si
+     * el año va adelantado o atrasado.
+     */
+    comparativa(buscada) {
+        const anterior = this.cursoAnterior();
+        if (!anterior) {
+            return '';
+        }
+
+        const diaDeHoy = this.diasDesdeInicio(new Date(), this.inicioCurso);
+        const inicioAnterior = new Date(this.anioValue - 1, 8, 1);
+
+        let hastaHoy = -Infinity;
+        let alcance = null;
+        let maximoAcumulado = -Infinity;
+
+        [...anterior.puntos]
+            .sort((a, b) => a.conv - b.conv)
+            .forEach(p => {
+                const fecha = anterior.convocatorias[p.conv];
+                maximoAcumulado = Math.max(maximoAcumulado, p.orden);
+
+                if (this.diasDesdeInicio(fecha, inicioAnterior) <= diaDeHoy) {
+                    hastaHoy = maximoAcumulado;
+                }
+                if (alcance === null && maximoAcumulado >= buscada) {
+                    alcance = fecha;
+                }
+            });
+
+        const partes = [];
+
+        if (hastaHoy > -Infinity) {
+            partes.push(`a estas alturas del curso anterior iba por la <strong>${hastaHoy}</strong>`);
+        }
+        if (alcance) {
+            partes.push(`llegó a tu posición el <strong>${this.fechaLarga(alcance)}</strong>`);
+        } else if (partes.length > 0) {
+            partes.push('y no llegó a tu posición en todo el curso');
+        }
+
+        return partes.length > 0 ? ` Para comparar: ${partes.join(' y ')}.` : '';
+    }
+
+    /**
+     * Datos del curso anterior, leídos del panel hermano que ya los tiene en el DOM.
+     * Se cachean por filtro de provincias porque la comparación debe respetarlo.
+     */
+    cursoAnterior() {
+        const clave = [...this.provincias].sort().join(',');
+        if (this.cacheAnterior?.clave === clave) {
+            return this.cacheAnterior.datos;
+        }
+
+        const script = document.querySelector(
+            `[data-timeline-adjudicaciones-anio-value="${this.anioValue - 1}"]`
+            + ' [data-timeline-adjudicaciones-target="datos"]'
+        );
+
+        let datos = null;
+
+        if (script) {
+            const paquete = JSON.parse(script.textContent);
+            const puntos = this.filtrar(
+                paquete.adjudicaciones.map(([orden, conv, prov]) => ({ orden, conv, prov }))
+            );
+
+            if (puntos.length > 0) {
+                datos = {
+                    convocatorias: paquete.convocatorias.map(iso => new Date(`${iso}T00:00:00`)),
+                    puntos,
+                };
+            }
+        }
+
+        this.cacheAnterior = { clave, datos };
+
+        return datos;
     }
 
     /** Coletilla que nombra el filtro activo, para que el resumen no mienta al filtrar. */
@@ -388,14 +545,21 @@ export default class extends Controller {
         return ` en ${nombres.slice(0, -1).join(', ')}${nombres.length > 1 ? ' y ' : ''}${nombres.at(-1)}`;
     }
 
-    /* ── Utilidades de fecha ────────────────────────────────────────────────── */
+    /* ── Utilidades ─────────────────────────────────────────────────────────── */
 
-    /** El curso arranca el 1 de septiembre. */
-    calcularInicioCurso() {
-        const primera = this.convocatorias[0];
-        const anio = primera.getMonth() >= 8 ? primera.getFullYear() : primera.getFullYear() - 1;
+    /** Posición que ha escrito el usuario, o null si no hay ninguna válida. */
+    posicionBuscada() {
+        const n = parseInt(this.posicion, 10);
 
-        return new Date(anio, 8, 1);
+        return Number.isInteger(n) && n > 0 ? n : null;
+    }
+
+    /** Días de calendario entre dos fechas, sin que los cambios de hora desvíen la cuenta. */
+    diasDesdeInicio(fecha, inicio) {
+        const a = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+        const b = new Date(inicio.getFullYear(), inicio.getMonth(), inicio.getDate());
+
+        return Math.round((a - b) / 86400000);
     }
 
     /** Clave local 'YYYY-MM-DD'. No vale toISOString(): desplaza el día según la zona. */

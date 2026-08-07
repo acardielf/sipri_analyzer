@@ -3,42 +3,46 @@
    columnas de la tabla de detalle. #}
 <div data-controller="timeline-adjudicaciones"
      data-timeline-adjudicaciones-curso-value="{{ curso.nombre }}"
+     data-timeline-adjudicaciones-anio-value="{{ curso.id }}"
      data-timeline-adjudicaciones-especialidad-value="{{ especialidad.id }}">
 
-    {% if timeline is defined and timeline.adjudicaciones is not empty %}
-        <script type="application/json"
-                data-timeline-adjudicaciones-target="datos">{{ timeline|json_encode|raw }}</script>
+    {# El paquete se emite siempre, aunque venga vacío: el curso en marcha empieza
+       sin adjudicaciones y es el controller quien decide qué contar en ese caso. #}
+    <script type="application/json"
+            data-timeline-adjudicaciones-target="datos">{{ timeline|json_encode|raw }}</script>
 
-        <div class="timeline-bolsa">
-            <div class="timeline-bloque">
-                <h3 class="timeline-titulo">Recorrido de la bolsa en {{ curso.nombre }}</h3>
-                <div data-timeline-adjudicaciones-target="barra" class="timeline-barra-wrap"></div>
-                <p class="timeline-nota">
-                    La barra marca hasta qué posición había llegado la bolsa en cada momento del curso.
-                    No significa que se haya llamado a todas las posiciones del tramo: dentro hay huecos,
-                    y a lo largo de todo el curso se sigue llamando también a posiciones bajas por ceses
-                    y renuncias.
-                </p>
+    <div class="timeline-bolsa">
+        <div class="timeline-bloque" data-timeline-adjudicaciones-target="bloqueBarra">
+            <div class="timeline-cabecera">
+                <h3 class="timeline-titulo mb-0">Recorrido de la bolsa en {{ curso.nombre }}</h3>
+                <span class="timeline-estado" data-timeline-adjudicaciones-target="estado" hidden></span>
             </div>
-
-            <div class="timeline-bloque">
-                <h3 class="timeline-titulo">
-                    Calendario de convocatorias y máxima posición adjudicada en {{ especialidad.nombre }}
-                </h3>
-
-                <p class="timeline-resumen" data-timeline-adjudicaciones-target="resumen"></p>
-
-                <div data-timeline-adjudicaciones-target="calendario"></div>
-
-                <p class="timeline-nota">
-                    Cada casilla es una convocatoria, y la cifra pequeña es la posición más alta a la que
-                    se adjudicó ese día. Que la lista bajara hasta tu número no significa que te fueran a
-                    llamar: quien ya está trabajando no entra en el reparto, y la plaza pudo ser de otra
-                    provincia o de un tipo que no te encaja. Sirve para estimar, no para dar por hecho.
-                </p>
-            </div>
+            <div data-timeline-adjudicaciones-target="barra" class="timeline-barra-wrap"></div>
+            <p class="timeline-nota">
+                La barra marca hasta qué posición había llegado la bolsa en cada momento del curso.
+                No significa que se haya llamado a todas las posiciones del tramo: dentro hay huecos,
+                y a lo largo de todo el curso se sigue llamando también a posiciones bajas por ceses
+                y renuncias.
+            </p>
         </div>
-    {% endif %}
+
+        <div class="timeline-bloque">
+            <h3 class="timeline-titulo">
+                Calendario de convocatorias y máxima posición adjudicada en {{ especialidad.nombre }}
+            </h3>
+
+            <p class="timeline-resumen" data-timeline-adjudicaciones-target="resumen"></p>
+
+            <div data-timeline-adjudicaciones-target="calendario"></div>
+
+            <p class="timeline-nota" data-timeline-adjudicaciones-target="notaCalendario">
+                Cada casilla es una convocatoria, y la cifra pequeña es la posición más alta a la que
+                se adjudicó ese día. Que la lista bajara hasta tu número no significa que te fueran a
+                llamar: quien ya está trabajando no entra en el reparto, y la plaza pudo ser de otra
+                provincia o de un tipo que no te encaja. Sirve para estimar, no para dar por hecho.
+            </p>
+        </div>
+    </div>
 
     <details class="tabla-detalle">
         <summary class="tabla-detalle-summary">
