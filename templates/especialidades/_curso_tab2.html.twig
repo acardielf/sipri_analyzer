@@ -1,47 +1,109 @@
-<p class="text-muted" style="font-size:.9rem;max-width:75ch;margin-top:.5rem">
+<p class="text-muted" style="font-size:.9rem;margin-top:.5rem">
     Es imposible saber cuántas plazas se van a ofertar en cada curso, pero sí se puede ver el número de
     plazas que se han ido adjudicando en los cursos anteriores y en qué momento se han adjudicado.
     Por eso aquí se muestran de forma ordenada las posiciones en la bolsa que se han ido adjudicando y
     cuándo se han producido esas adjudicaciones. Se incluyen las de los 4 últimos cursos.
 </p>
 
-<div class="curso-pills" id="currar-cursos-tab" role="tablist">
+<div class="curso-pills" id="currar-cursos-tab" role="tablist"
+     data-controller="tabs-hash"
+     data-tabs-hash-key-value="curso">
     <button class="curso-pill active" id="currar-curso-main-tab"
             data-bs-toggle="pill" data-bs-target="#currar-curso-main"
+            data-hash="{{ cursoLast.id }}" data-tabs-hash-target="btn"
             type="button" role="tab" aria-controls="currar-curso-main" aria-selected="true">
         <i class="bi bi-circle-fill curso-pill-dot"></i>{{ cursoLast.nombre }}
         <span class="curso-pill-tag">actual</span>
     </button>
     <button class="curso-pill" id="currar-curso-previous1-tab"
             data-bs-toggle="pill" data-bs-target="#currar-curso-previous1"
+            data-hash="{{ cursoPrevio1.id }}" data-tabs-hash-target="btn"
             type="button" role="tab" aria-controls="currar-curso-previous1" aria-selected="false">
         {{ cursoPrevio1.nombre }}
     </button>
     <button class="curso-pill" id="currar-curso-previous2-tab"
             data-bs-toggle="pill" data-bs-target="#currar-curso-previous2"
+            data-hash="{{ cursoPrevio2.id }}" data-tabs-hash-target="btn"
             type="button" role="tab" aria-controls="currar-curso-previous2" aria-selected="false">
         {{ cursoPrevio2.nombre }}
     </button>
     <button class="curso-pill" id="currar-curso-previous3-tab"
             data-bs-toggle="pill" data-bs-target="#currar-curso-previous3"
+            data-hash="{{ cursoPrevio3.id }}" data-tabs-hash-target="btn"
             type="button" role="tab" aria-controls="currar-curso-previous3" aria-selected="false">
         {{ cursoPrevio3.nombre }}
     </button>
 </div>
+{# Posición y provincias son únicas para las cuatro pestañas: se eligen una vez y
+   se comparan los cursos con el mismo criterio. Ambos controles publican por
+   window, así que no envuelven a nadie. #}
+<div class="bolsa-filtros">
+
+    <div class="bolsa-posicion"
+         data-controller="posicion-bolsa"
+         data-posicion-bolsa-especialidad-value="{{ especialidad.id }}">
+        <label class="bolsa-posicion-label" for="posicion-bolsa-input">
+            Tu posición en la bolsa
+        </label>
+        <input type="number"
+               id="posicion-bolsa-input"
+               class="bolsa-posicion-input"
+               min="1"
+               inputmode="numeric"
+               placeholder="743"
+               data-posicion-bolsa-target="input"
+               data-action="input->posicion-bolsa#cambiar">
+        <span class="bolsa-posicion-pista">
+            Especifica tu posición en la bolsa para compararla y estimar con respecto a cursos anteriores
+        </span>
+    </div>
+
+    <div class="bolsa-provincias"
+         data-controller="selector-provincias"
+         data-selector-provincias-especialidad-value="{{ especialidad.id }}">
+        <span class="prov-filter-label">Provincias:</span>
+        <div class="prov-btns-wrap">
+        <button type="button"
+                class="prov-btn prov-btn--activo"
+                aria-pressed="true"
+                title="Ver todas las provincias"
+                data-selector-provincias-target="btn"
+                data-action="selector-provincias#select"
+                data-prov="all">
+            Todas
+        </button>
+        {% for provincia in provincias %}
+            <button type="button"
+                    class="prov-btn"
+                    aria-pressed="false"
+                    title="{{ provincia.nombre }}"
+                    data-nombre="{{ provincia.nombre }}"
+                    data-selector-provincias-target="btn"
+                    data-action="selector-provincias#select"
+                    data-prov="{{ provincia.id }}">
+                {{ provincia.twoLetterCode }}
+            </button>
+        {% endfor %}
+        </div>
+        <span class="prov-filter-ayuda">Puedes marcar varias, como en la solicitud de sustituciones</span>
+    </div>
+
+</div>
+
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="currar-curso-main" role="tabpanel" aria-labelledby="currar-curso-main-tab"
          tabindex="0">
-        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones, 'anchors': 1 }  %}
+        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones.tabla, 'timeline': adjudicaciones.timeline, 'curso': cursoLast, 'anchors': 1 }  %}
     </div>
     <div class="tab-pane fade" id="currar-curso-previous1" role="tabpanel" aria-labelledby="currar-curso-previous1-tab" tabindex="0">
-        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo1, 'anchors': 0 }  %}
+        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo1.tabla, 'timeline': adjudicaciones_previo1.timeline, 'curso': cursoPrevio1, 'anchors': 0 }  %}
     </div>
     <div class="tab-pane fade" id="currar-curso-previous2" role="tabpanel" aria-labelledby="currar-curso-previous2-tab"
          tabindex="0">
-        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo2, 'anchors': 0 }  %}
+        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo2.tabla, 'timeline': adjudicaciones_previo2.timeline, 'curso': cursoPrevio2, 'anchors': 0 }  %}
     </div>
     <div class="tab-pane fade" id="currar-curso-previous3" role="tabpanel" aria-labelledby="currar-curso-previous3-tab"
          tabindex="0">
-        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo3, 'anchors': 0 }  %}
+        {% include 'especialidades/_curso_tab2_content.html.twig' with {'listaAdjudicaciones': adjudicaciones_previo3.tabla, 'timeline': adjudicaciones_previo3.timeline, 'curso': cursoPrevio3, 'anchors': 0 }  %}
     </div>
 </div>

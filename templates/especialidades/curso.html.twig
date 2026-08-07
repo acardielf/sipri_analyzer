@@ -65,11 +65,15 @@
 {# ── Barra de tabs (sticky) ──────────────────────────────────────────────────── #}
 <div class="esp-tabs-wrap mt-3">
     <div class="container-fluid">
-        <div class="sipri-tabs" id="pills-tab" role="tablist">
+        <div class="sipri-tabs" id="pills-tab" role="tablist"
+             data-controller="tabs-hash"
+             data-tabs-hash-key-value="tab">
             <button class="sipri-tab active"
                     id="pills-one-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#pills-one"
+                    data-hash="resumen"
+                    data-tabs-hash-target="btn"
                     type="button" role="tab"
                     aria-controls="pills-one"
                     aria-selected="true">
@@ -80,6 +84,8 @@
                     id="pills-two-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#pills-two"
+                    data-hash="currar"
+                    data-tabs-hash-target="btn"
                     type="button" role="tab"
                     aria-controls="pills-two"
                     aria-selected="false">
@@ -90,6 +96,8 @@
                     id="pills-three-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#pills-three"
+                    data-hash="evolucion"
+                    data-tabs-hash-target="btn"
                     type="button" role="tab"
                     aria-controls="pills-three"
                     aria-selected="false">

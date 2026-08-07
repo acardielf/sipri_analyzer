@@ -845,6 +845,42 @@ main { flex: 1; }
   color: #fff;
 }
 
+/* Tabla de detalle plegada: es el dato en crudo, útil pero secundario frente al
+   calendario, y con miles de filas domina la página si va siempre abierta */
+.tabla-detalle {
+  margin-top: 1rem;
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  background: var(--sipri-surface);
+  padding: .75rem 1rem;
+}
+
+.tabla-detalle[open] { padding-bottom: 1rem; }
+
+.tabla-detalle-summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: .9rem;
+  color: var(--sipri-blue);
+  list-style-position: outside;
+}
+
+.tabla-detalle-summary:hover { color: var(--sipri-blue-mid); }
+
+.tabla-detalle-pista {
+  display: block;
+  font-weight: 400;
+  font-size: .75rem;
+  color: var(--sipri-muted);
+  margin-top: .15rem;
+}
+
+.prov-filter-ayuda {
+  font-size: .72rem;
+  color: var(--sipri-muted);
+  font-style: italic;
+}
+
 .prov-btn--disabled {
   opacity: .3;
   cursor: not-allowed;
@@ -1358,6 +1394,183 @@ a.cell-total:hover { color: var(--sipri-blue-mid); text-decoration: underline; }
 
 /* En la leyenda el chip va en línea, sin ocupar todo el ancho */
 .adj-chip--muestra { display: inline-block; margin: 0; }
+
+/* ── Línea de tiempo del tab «¿Cuándo voy a currar?» ─────────────────────────── */
+.timeline-bolsa {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.timeline-bloque {
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  box-shadow: var(--sipri-shadow-sm);
+  padding: .9rem 1rem;
+}
+
+.timeline-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.timeline-titulo {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--sipri-text);
+  margin-bottom: .6rem;
+}
+
+.timeline-barra-wrap { width: 100%; }
+
+/* max-width evita que un SVG dibujado con un ancho ya obsoleto (al reducir la
+   ventana entre dos renders) desborde el bloque y saque scroll horizontal */
+.timeline-barra-wrap svg { display: block; max-width: 100%; }
+
+.timeline-barra-fondo { fill: var(--sipri-border); }
+
+/* El verde de marca señala avance/identidad, no tipo de plaza: aquí el tramo
+   representa cuánto recorrió la bolsa, así que no compite con el ámbar y el azul
+   que codifican vacante y sustitución en el resto de la vista */
+.timeline-tramo { fill: var(--sipri-blue); transition: opacity var(--t); }
+.timeline-tramo:hover { opacity: 1 !important; }
+
+.timeline-tick { stroke: var(--sipri-muted); stroke-width: 1; }
+
+.timeline-etiqueta-mes,
+.timeline-etiqueta-pos,
+.timeline-extremo {
+  text-anchor: middle;
+  fill: var(--sipri-muted);
+  font-size: .68rem;
+}
+
+.timeline-etiqueta-pos { font-weight: 700; fill: var(--sipri-text); }
+
+.timeline-extremo { text-anchor: start; font-weight: 600; }
+.timeline-extremo--fin { text-anchor: end; }
+
+.timeline-nota {
+  font-size: .78rem;
+  color: var(--sipri-muted);
+  margin: .9rem 0 0;
+}
+
+.timeline-vacio {
+  font-size: .85rem;
+  color: var(--sipri-muted);
+  margin: 0;
+}
+
+/* Marca de la posición que ha escrito el usuario sobre la barra de recorrido */
+.timeline-marca-tu { stroke: var(--sipri-accent); stroke-width: 2; }
+
+.timeline-marca-tu-txt {
+  text-anchor: middle;
+  fill: var(--sipri-accent);
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+/* Barra de criterios común a las cuatro pestañas de curso: la posición pesa más
+   que el resto porque es el dato que convierte la página en una respuesta personal */
+.bolsa-filtros {
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+  background: var(--sipri-surface);
+  border: 1px solid var(--sipri-border);
+  border-radius: var(--sipri-radius);
+  box-shadow: var(--sipri-shadow-sm);
+  padding: 1rem 1.15rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.bolsa-posicion {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.bolsa-posicion-label {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--sipri-text);
+  margin: 0;
+}
+
+.bolsa-posicion-input {
+  width: 7.5rem;
+  padding: .4rem .7rem;
+  border: 2px solid var(--sipri-blue-light);
+  border-radius: var(--sipri-radius-sm);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--sipri-blue);
+  text-align: center;
+  background: var(--sipri-surface);
+}
+
+.bolsa-posicion-input::placeholder {
+  color: var(--sipri-muted);
+  font-weight: 500;
+  opacity: .55;
+}
+
+.bolsa-posicion-input:focus {
+  outline: none;
+  border-color: var(--sipri-blue-mid);
+  box-shadow: 0 0 0 3px rgba(46, 134, 54, .18);
+}
+
+.bolsa-posicion-pista {
+  font-size: .78rem;
+  color: var(--sipri-muted);
+}
+
+.bolsa-provincias {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--sipri-border);
+  padding-top: .85rem;
+}
+
+.timeline-resumen {
+  font-size: .88rem;
+  color: var(--sipri-text);
+  margin: 0 0 .25rem;
+}
+
+.timeline-resumen strong { color: var(--sipri-blue); }
+.timeline-resumen-neutro { color: var(--sipri-muted); }
+
+/* La cifra de la casilla es una posición de bolsa, no un número de plazas como en
+   el calendario de convocatorias: el prefijo «nº» evita que se confundan */
+.cal-day-pos {
+  font-size: .6rem;
+  opacity: .85;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Casillas del calendario: reutilizan .cal-day de la vista de convocatorias y sólo
+   cambian de color según si esa convocatoria llegó o no a la posición buscada */
+.cal-day--corto {
+  background: var(--sipri-border);
+  color: var(--sipri-muted);
+}
+
+.cal-day--corto .cal-day-num { color: var(--sipri-text); }
+
+.cal-day--alcanza { box-shadow: inset 0 0 0 2px var(--sipri-blue-light); }
 
 /* ── Tarjetas de resumen (ficha de provincia y de curso completo) ───────────── */
 .stats-grid {

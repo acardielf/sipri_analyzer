@@ -144,6 +144,19 @@ class EspecialidadIndexController extends AbstractController
         ]);
     }
 
+    /**
+     * Recorre una sola vez las adjudicaciones del curso y produce las dos
+     * estructuras que consume el tab «¿Cuándo voy a currar?»:
+     *
+     *  - `tabla`: rejilla orden × provincia con un chip por adjudicación.
+     *  - `timeline`: el mismo conjunto reducido a lo que necesitan la barra de
+     *    recorrido y el calendario, que se dibujan en cliente: posición,
+     *    convocatoria y provincia. Las fechas se repiten mucho (hasta 67
+     *    convocatorias para 3.500 adjudicaciones), así que van en una tabla
+     *    aparte y cada adjudicación guarda sólo su índice.
+     *
+     * @return array{tabla: array, timeline: array}
+     */
     private function getAdjudicaciones(Especialidad $especialidad, ?Curso $curso): array
     {
         if (!$curso) {
@@ -158,10 +171,14 @@ class EspecialidadIndexController extends AbstractController
         $i = 0;
         $adjudicaciones = [];
 
+        $convocatorias = [];
+        $puntos = [];
+
         /** @var Adjudicacion $adjudicacion */
         foreach ($adjudicacionesByCourse as $adjudicacion) {
             $provincia = $adjudicacion->getPlaza()->getCentro()->getLocalidad()->getProvincia()->getId();
-            $f = $adjudicacion->getPlaza()->getConvocatoria()->getFecha();
+            $convocatoria = $adjudicacion->getPlaza()->getConvocatoria();
+            $f = $convocatoria->getFecha();
             $fecha = $f->format('d/M/Y');
             $fechaMin = $f->format('d/m/y');
             $tipo = $adjudicacion->getPlaza()->getTipo()->getShortLabel();
@@ -174,11 +191,31 @@ class EspecialidadIndexController extends AbstractController
             $adjudicaciones[$orden][$provincia][$i]['tipo'] = $tipo;
             $adjudicaciones[$orden][$provincia][$i]['centro'] = $centro;
 
+            $convocatoriaId = $convocatoria->getId();
+            if (!isset($convocatorias[$convocatoriaId])) {
+                $convocatorias[$convocatoriaId] = [
+                    'idx' => count($convocatorias),
+                    'iso' => $f->format('Y-m-d'),
+                ];
+            }
+
+            $puntos[] = [
+                (int) $orden,
+                $convocatorias[$convocatoriaId]['idx'],
+                (string) $provincia,
+            ];
+
             $i++;
         }
         ksort($adjudicaciones);
 
-        return $adjudicaciones;
+        return [
+            'tabla' => $adjudicaciones,
+            'timeline' => [
+                'convocatorias' => array_values(array_column($convocatorias, 'iso')),
+                'adjudicaciones' => $puntos,
+            ],
+        ];
     }
 
 }

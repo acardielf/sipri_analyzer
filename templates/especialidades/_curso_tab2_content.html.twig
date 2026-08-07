@@ -1,93 +1,119 @@
-<div data-controller="selector-provincias">
+{# El controller envuelve todo el panel del curso: el filtro de provincias llega
+   por window desde el selector común y afecta a la barra, al calendario y a las
+   columnas de la tabla de detalle. #}
+<div data-controller="timeline-adjudicaciones"
+     data-timeline-adjudicaciones-curso-value="{{ curso.nombre }}"
+     data-timeline-adjudicaciones-especialidad-value="{{ especialidad.id }}">
 
-    <div class="d-flex align-items-center gap-2 mt-3 mb-2 flex-wrap">
-        <span class="prov-filter-label">Provincia:</span>
-        <div class="prov-btns-wrap">
-            <button class="prov-btn prov-btn--activo"
-                    data-selector-provincias-target="btn"
-                    data-action="selector-provincias#select"
-                    data-prov="all">
-                Todas
-            </button>
-            {% for provincia in provincias %}
-                <button class="prov-btn"
-                        data-selector-provincias-target="btn"
-                        data-action="selector-provincias#select"
-                        data-prov="{{ provincia.id }}">
-                    {{ provincia.twoLetterCode }}
-                </button>
-            {% endfor %}
+    {% if timeline is defined and timeline.adjudicaciones is not empty %}
+        <script type="application/json"
+                data-timeline-adjudicaciones-target="datos">{{ timeline|json_encode|raw }}</script>
+
+        <div class="timeline-bolsa">
+            <div class="timeline-bloque">
+                <h3 class="timeline-titulo">Recorrido de la bolsa en {{ curso.nombre }}</h3>
+                <div data-timeline-adjudicaciones-target="barra" class="timeline-barra-wrap"></div>
+                <p class="timeline-nota">
+                    La barra marca hasta qué posición había llegado la bolsa en cada momento del curso.
+                    No significa que se haya llamado a todas las posiciones del tramo: dentro hay huecos,
+                    y a lo largo de todo el curso se sigue llamando también a posiciones bajas por ceses
+                    y renuncias.
+                </p>
+            </div>
+
+            <div class="timeline-bloque">
+                <h3 class="timeline-titulo">
+                    Calendario de convocatorias y máxima posición adjudicada en {{ especialidad.nombre }}
+                </h3>
+
+                <p class="timeline-resumen" data-timeline-adjudicaciones-target="resumen"></p>
+
+                <div data-timeline-adjudicaciones-target="calendario"></div>
+
+                <p class="timeline-nota">
+                    Cada casilla es una convocatoria, y la cifra pequeña es la posición más alta a la que
+                    se adjudicó ese día. Que la lista bajara hasta tu número no significa que te fueran a
+                    llamar: quien ya está trabajando no entra en el reparto, y la plaza pudo ser de otra
+                    provincia o de un tipo que no te encaja. Sirve para estimar, no para dar por hecho.
+                </p>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
-    <div class="d-flex align-items-center gap-2 mt-2 mb-3 flex-wrap">
-        <span class="prov-filter-label">Tipo:</span>
-        <span class="adj-chip adj-chip--v adj-chip--muestra">Vacante</span>
-        <span class="adj-chip adj-chip--s adj-chip--muestra">Sustitución</span>
-    </div>
+    <details class="tabla-detalle">
+        <summary class="tabla-detalle-summary">
+            Ver el detalle posición a posición
+            <span class="tabla-detalle-pista">todas las adjudicaciones de {{ curso.nombre }}, con centro y fecha</span>
+        </summary>
 
-    <div class="tabla-currar-wrap">
-        <table class="table table-striped mb-0 tabla-currar">
-            <thead>
-            <tr>
-                <th class="header">
-                    <span class="d-none d-md-inline">Orden en la bolsa</span>
-                    <span class="d-xs d-md-none">Orden</span>
-                </th>
-                {% for provincia in provincias %}
-                    <th class="header"
-                        data-selector-provincias-target="col"
-                        data-prov="{{ provincia.id }}">
-                        <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
-                        <span class="d-xs d-md-none">{{ provincia.twoLetterCode }}</span>
-                    </th>
-                {% endfor %}
-            </tr>
-            </thead>
+        <div class="d-flex align-items-center gap-2 mt-3 mb-3 flex-wrap">
+            <span class="prov-filter-label">Tipo:</span>
+            <span class="adj-chip adj-chip--v adj-chip--muestra">Vacante</span>
+            <span class="adj-chip adj-chip--s adj-chip--muestra">Sustitución</span>
+        </div>
 
-            <tbody>
-            {% set last = 0 %}
-
-            {% for orden, adjudicacion in listaAdjudicaciones %}
+        <div class="tabla-currar-wrap">
+            <table class="table table-striped mb-0 tabla-currar">
+                <thead>
                 <tr>
-                    <td class="td-orden">
-                        {% if anchors == 1 %}
-                            {% if orden > last + 1 %}
-                                {% for i in (last + 1)..(orden - 1) %}
-                                    <a id="o{{ i }}"></a>
-                                {% endfor %}
-                            {% endif %}
-                            <a id="o{{ orden }}">{{ orden }}</a>
-                        {% else %}
-                            {{ orden }}
-                        {% endif %}
-                        {% set last = orden %}
-                    </td>
+                    <th class="header">
+                        <span class="d-none d-md-inline">Orden en la bolsa</span>
+                        <span class="d-xs d-md-none">Orden</span>
+                    </th>
                     {% for provincia in provincias %}
-                        {% set provId = provincia.id + 0 %}
-                        <td class="{{ provId in adjudicacion|keys ? 'small' : '' }}"
-                            data-selector-provincias-target="col"
+                        <th class="header"
+                            data-timeline-adjudicaciones-target="col"
                             data-prov="{{ provincia.id }}">
-                            {% if provId in adjudicacion|keys %}
-                                {% for entry in adjudicacion[provId] %}
-                                    <div class="adj-chip {{ entry['tipo'] == 'V' ? 'adj-chip--v' : 'adj-chip--s' }}"
-                                         title="{{ entry['tipo'] == 'V' ? 'Vacante' : 'Sustitución' }} · {{ entry['fecha'] }}{% if entry['centro'] is defined %} · {{ entry['centro'] }}{% endif %}">
-                                        <span class="d-none d-xl-inline">{{ entry['fecha'] }}</span>
-                                        <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
-                                        {% if entry['centro'] is defined %}
-                                            <span class="adj-chip__centro">{{ entry['centro'] }}</span>
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                –
-                            {% endif %}
-                        </td>
+                            <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
+                            <span class="d-xs d-md-none">{{ provincia.twoLetterCode }}</span>
+                        </th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
 
+                <tbody>
+                {% set last = 0 %}
+
+                {% for orden, adjudicacion in listaAdjudicaciones %}
+                    <tr>
+                        <td class="td-orden">
+                            {% if anchors == 1 %}
+                                {% if orden > last + 1 %}
+                                    {% for i in (last + 1)..(orden - 1) %}
+                                        <a id="o{{ i }}"></a>
+                                    {% endfor %}
+                                {% endif %}
+                                <a id="o{{ orden }}">{{ orden }}</a>
+                            {% else %}
+                                {{ orden }}
+                            {% endif %}
+                            {% set last = orden %}
+                        </td>
+                        {% for provincia in provincias %}
+                            {% set provId = provincia.id + 0 %}
+                            <td class="{{ provId in adjudicacion|keys ? 'small' : '' }}"
+                                data-timeline-adjudicaciones-target="col"
+                                data-prov="{{ provincia.id }}">
+                                {% if provId in adjudicacion|keys %}
+                                    {% for entry in adjudicacion[provId] %}
+                                        <div class="adj-chip {{ entry['tipo'] == 'V' ? 'adj-chip--v' : 'adj-chip--s' }}"
+                                             title="{{ entry['tipo'] == 'V' ? 'Vacante' : 'Sustitución' }} · {{ entry['fecha'] }}{% if entry['centro'] is defined %} · {{ entry['centro'] }}{% endif %}">
+                                            <span class="d-none d-xl-inline">{{ entry['fecha'] }}</span>
+                                            <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
+                                            {% if entry['centro'] is defined %}
+                                                <span class="adj-chip__centro">{{ entry['centro'] }}</span>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    –
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </details>
 </div>

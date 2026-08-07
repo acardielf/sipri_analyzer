@@ -84,3 +84,21 @@ export function savePosicion(especialidadId, posicion) {
 export function getPosicion(especialidadId) {
     return (getAll().buscador_posiciones ?? {})[especialidadId] ?? '';
 }
+
+/**
+ * Provincias elegidas en el filtro de la bolsa, por especialidad: cada una tiene
+ * su propio ámbito de interés y no tendría sentido compartir la selección entre
+ * todas. Lista vacía = todas las provincias.
+ */
+export function saveProvinciasBolsa(especialidadId, provincias) {
+    const data = getAll();
+    const porEspecialidad = data.bolsa_provincias ?? {};
+    porEspecialidad[especialidadId] = provincias;
+    data.bolsa_provincias = porEspecialidad;
+    // Silencioso, como la posición: es preferencia de consulta, no un favorito
+    localStorage.setItem(KEY, JSON.stringify(data));
+}
+
+export function getProvinciasBolsa(especialidadId) {
+    return (getAll().bolsa_provincias ?? {})[especialidadId] ?? [];
+}
