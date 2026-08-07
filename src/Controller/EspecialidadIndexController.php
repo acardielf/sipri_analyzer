@@ -166,11 +166,13 @@ class EspecialidadIndexController extends AbstractController
             $fechaMin = $f->format('d/m/y');
             $tipo = $adjudicacion->getPlaza()->getTipo()->getShortLabel();
             $orden = $adjudicacion->getOrden();
+            $centro = $adjudicacion->getPlaza()->getCentro()->getNombre();
 
 
             $adjudicaciones[$orden][$provincia][$i]['fecha'] = $fecha;
             $adjudicaciones[$orden][$provincia][$i]['fechaMin'] = $fechaMin;
             $adjudicaciones[$orden][$provincia][$i]['tipo'] = $tipo;
+            $adjudicaciones[$orden][$provincia][$i]['centro'] = $centro;
 
             $i++;
         }

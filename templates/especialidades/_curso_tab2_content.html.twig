@@ -71,9 +71,12 @@
                             {% if provId in adjudicacion|keys %}
                                 {% for entry in adjudicacion[provId] %}
                                     <div class="adj-chip {{ entry['tipo'] == 'V' ? 'adj-chip--v' : 'adj-chip--s' }}"
-                                         title="{{ entry['tipo'] == 'V' ? 'Vacante' : 'Sustitución' }} · {{ entry['fecha'] }}">
+                                         title="{{ entry['tipo'] == 'V' ? 'Vacante' : 'Sustitución' }} · {{ entry['fecha'] }}{% if entry['centro'] is defined %} · {{ entry['centro'] }}{% endif %}">
                                         <span class="d-none d-xl-inline">{{ entry['fecha'] }}</span>
                                         <span class="d-inline d-xl-none">{{ entry['fechaMin'] }}</span>
+                                        {% if entry['centro'] is defined %}
+                                            <span class="adj-chip__centro">{{ entry['centro'] }}</span>
+                                        {% endif %}
                                     </div>
                                 {% endfor %}
                             {% else %}
