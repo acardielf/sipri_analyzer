@@ -24,39 +24,6 @@ class EspecialidadProvinciaCursoController extends AbstractController
     ) {
     }
 
-    #[Route('/especialidad/{especialidad}/{curso}/{provincia}', name: 'app_especialidad_detail')]
-    public function index(string $especialidad, int $curso, int $provincia): Response
-    {
-        $curso = $this->cursoRepository->findOneBy(['id' => $curso]);
-        $especialidad = $this->especialidadRepository->findOneBy(['id' => $especialidad]);
-        $provincia = $this->provinciaRepository->findOneBy(['id' => $provincia]);
-
-        if (!$curso) {
-            throw $this->createNotFoundException('Curso not found');
-        }
-
-        if (!$especialidad) {
-            throw $this->createNotFoundException('Especialidad not found');
-        }
-
-        if (!$provincia) {
-            throw $this->createNotFoundException('Provincia not found');
-        }
-
-        $plazas = $this->plazaRepository->getEspecialidadesByCursoAndProvincia($curso, $especialidad, $provincia);
-
-        $sinCubrir = $this->plazaRepository->findSinCubrirPorPlaza($curso, $especialidad, $provincia);
-
-        return $this->render('especialidades/detalle.html.twig', [
-            'curso' => $curso,
-            'especialidad' => $especialidad,
-            'provincia' => $provincia,
-            'plazas' => $plazas,
-            'sinCubrir' => $sinCubrir,
-            'stats' => $this->calcularStats($plazas, $sinCubrir),
-        ]);
-    }
-
     /**
      * Todas las adjudicaciones del curso, de todas las provincias, por fecha.
      */

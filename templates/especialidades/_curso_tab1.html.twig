@@ -4,10 +4,10 @@
     da de alta en la cola de construcción toda URL que se genere, aparezca o no
     en un enlace: resolverla en las celdas vacías creaba una página por cada
     combinación especialidad × curso × provincia sin plazas. -#}
-{% macro celda(d, ruta, params) %}
+{% macro celda(d, ruta, params, query) %}
     {% if d.plazasOfertadas > 0 or d.plazas > 0 %}
         {% set titulo = d.plazas ~ ' adjudicaciones sobre ' ~ d.plazasOfertadas ~ ' ofertas publicadas' %}
-        {% set enlace = ruta ? path(ruta, params) : null %}
+        {% set enlace = ruta ? path(ruta, params) ~ (query ?? '') : null %}
 
         <div class="cell-head">
             {% if enlace %}
@@ -112,11 +112,10 @@
             {% for cursoId, byCurso in plazasFiltradas %}
                 <td class="{{ loop.first ? 'td-actual' : '' }}{{ loop.index > columnasVisibles ? ' td-hist d-none' : '' }}"
                     {% if loop.index > columnasVisibles %}data-tabla-historico-target="col"{% endif %}>
-                    {{ tabla.celda(byCurso[provincia.id], 'app_especialidad_detail', {
+                    {{ tabla.celda(byCurso[provincia.id], 'app_especialidad_curso', {
                         especialidad: especialidad.id,
-                        curso: cursoId,
-                        provincia: provincia.id
-                    }) }}
+                        curso: cursoId
+                    }, '?prov=' ~ provincia.id) }}
                 </td>
             {% endfor %}
         </tr>

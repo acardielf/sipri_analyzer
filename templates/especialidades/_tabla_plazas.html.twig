@@ -24,14 +24,14 @@
         {%- for plaza in plazas -%}
             {%- set esVacante = plaza.tipo == constant('App\\Enum\\TipoPlazaEnum::VACANTE') -%}
             {%- apply spaceless -%}
-            <tr{% if mostrarProvincia %} data-filtros-plazas-target="fila" data-prov="{{ plaza.centro.localidad.provincia.id }}" data-tipo="{{ esVacante ? 'V' : 'S' }}" data-numero="{{ plaza.numero }}"{% endif %}>
+            <tr{% if mostrarProvincia %} data-filtros-plazas-target="fila" data-prov="{{ plaza.centro.localidad.provincia.id }}" data-tipo="{{ esVacante ? 'V' : 'S' }}" data-numero="{{ plaza.numero }}" data-inicio="{{ plaza.convocatoria.fecha and plaza.convocatoria.fecha|date('m') == '09' ? '1' : '0' }}" data-sin-cubrir="{{ sinCubrir[plaza.id]|default(0) }}" data-adj="{{ plaza.adjudicaciones is not empty ? plaza.adjudicacionesAsString : '' }}"{% endif %}>
                 <td class="td-nowrap">
                     <a href="{{ path('app_convocatoria_detalle', { id: plaza.convocatoria.id }) }}" class="badge-code text-decoration-none">{{ plaza.convocatoria.id }}</a>
                     <span class="td-fecha">{{ plaza.convocatoria.fecha|date('d/m/Y') }}</span>
                 </td>
                 {%- if mostrarProvincia %}
                 <td class="td-nowrap">
-                    <a href="{{ path('app_especialidad_detail', { especialidad: especialidad.id, curso: curso.id, provincia: plaza.centro.localidad.provincia.id }) }}" class="td-link">{{ plaza.centro.localidad.provincia.nombre }}</a>
+                    <a href="{{ path('app_especialidad_curso', { especialidad: especialidad.id, curso: curso.id }) ~ '?prov=' ~ plaza.centro.localidad.provincia.id }}" class="td-link">{{ plaza.centro.localidad.provincia.nombre }}</a>
                 </td>
                 {%- endif %}
                 <td class="td-muted td-nowrap">{{ plaza.centro.localidad.nombre }}</td>

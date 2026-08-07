@@ -6,6 +6,8 @@
 
 {% block main_content %}
 
+<div data-controller="filtros-plazas">
+
 <div class="page-header">
     <div class="container-fluid">
         <nav aria-label="breadcrumb" class="mb-1">
@@ -24,7 +26,7 @@
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    {{ curso.nombre }} / Todas las provincias
+                    {{ curso.nombre }} / <span data-filtros-plazas-target="crumbProvNombre">Todas las provincias</span>
                 </li>
             </ol>
         </nav>
@@ -39,7 +41,7 @@
                         <i class="bi bi-calendar3 me-1"></i>Curso {{ curso.nombre }}
                     </span>
                     <span class="badge" style="background:var(--sipri-bg);color:var(--sipri-text);border:1px solid var(--sipri-border);font-size:.82rem">
-                        <i class="bi bi-geo-alt-fill me-1"></i>Todas las provincias
+                        <i class="bi bi-geo-alt-fill me-1"></i><span data-filtros-plazas-target="badgeProvNombre">Todas las provincias</span>
                     </span>
                 </div>
             </div>
@@ -49,10 +51,10 @@
 
 <div class="container-fluid py-4 pb-5">
 
-    {# ── Stats ───────────────────────────────────────────────────────────────── #}
-    {% include 'especialidades/_stats_plazas.html.twig' %}
-
-    <div data-controller="filtros-plazas">
+        {# ── Stats ───────────────────────────────────────────────────────────── #}
+        <div data-filtros-plazas-target="stats">
+            {% include 'especialidades/_stats_plazas.html.twig' %}
+        </div>
 
         {# ── Filtros ─────────────────────────────────────────────────────────── #}
         <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
@@ -66,7 +68,8 @@
                     <button class="prov-btn"
                             data-filtros-plazas-target="btnProv"
                             data-action="filtros-plazas#selectProv"
-                            data-prov="{{ provincia.id }}">
+                            data-prov="{{ provincia.id }}"
+                            data-prov-nombre="{{ provincia.nombre }}">
                         <span class="d-none d-md-inline">{{ provincia.nombre }}</span>
                         <span class="d-inline d-md-none">{{ provincia.twoLetterCode }}</span>
                     </button>
@@ -99,6 +102,8 @@
         {% include 'especialidades/_tabla_plazas.html.twig' with { mostrarProvincia: true } %}
 
     </div>
+
+</div>
 
 </div>
 {% endblock %}
