@@ -1467,6 +1467,33 @@ a.cell-total:hover { color: var(--sipri-blue-mid); text-decoration: underline; }
   margin: 0;
 }
 
+/* Lo que le falta a la bolsa para llegar a la posición del usuario: se pinta en
+   hueco para que se lea como «pendiente», no como recorrido */
+.timeline-pendiente {
+  fill: var(--sipri-border);
+  stroke: var(--sipri-muted);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+/* Distintivo del curso que aún no ha terminado: sus cifras no son comparables
+   con las de un curso completo */
+.timeline-estado {
+  background: var(--sipri-vacante-soft);
+  color: #7a5a06;
+  border-radius: 2rem;
+  padding: .1rem .6rem;
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+/* Días que todavía no han llegado: ni son días sin convocatoria ni deben sugerir
+   que el curso está parado */
+.cal-day--futuro { opacity: .35; }
+
 /* Marca de la posición que ha escrito el usuario sobre la barra de recorrido */
 .timeline-marca-tu { stroke: var(--sipri-accent); stroke-width: 2; }
 
@@ -1476,6 +1503,9 @@ a.cell-total:hover { color: var(--sipri-blue-mid); text-decoration: underline; }
   font-size: .68rem;
   font-weight: 700;
 }
+
+.timeline-marca-tu-txt--fin { text-anchor: end; }
+.timeline-marca-tu-txt--ini { text-anchor: start; }
 
 /* Barra de criterios común a las cuatro pestañas de curso: la posición pesa más
    que el resto porque es el dato que convierte la página en una respuesta personal */
