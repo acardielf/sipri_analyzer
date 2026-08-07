@@ -87,6 +87,8 @@ export default class extends Controller {
             maxOrden: 0,
         };
         let visibles = 0;
+        // Convocatoria de la última fila visible, para reubicar el separador de grupo
+        let convoPrevia = null;
 
         this.filaTargets.forEach(fila => {
             const okProv = this._prov === 'all' || fila.dataset.prov === this._prov;
@@ -95,6 +97,10 @@ export default class extends Controller {
 
             fila.classList.toggle('d-none', !visible);
             if (!visible) return;
+
+            const convo = fila.dataset.convo;
+            fila.classList.toggle('tr-convo-ini', convoPrevia !== null && convo !== convoPrevia);
+            convoPrevia = convo;
 
             // Una fila puede ofertar varios puestos
             const numero = parseInt(fila.dataset.numero || '1', 10);
