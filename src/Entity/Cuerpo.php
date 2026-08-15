@@ -13,7 +13,7 @@ class Cuerpo
     #[ORM\Id, ORM\Column]
     private ?string $id;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 60)]
     private ?string $nombre;
 
     /**

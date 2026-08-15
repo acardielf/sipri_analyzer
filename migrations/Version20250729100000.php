@@ -24,6 +24,7 @@ final class Version20250729100000 extends AbstractMigration
         '595' => 'Cuerpo de profesores de Artes Plásticas y Diseño',
         '596' => 'Cuerpo de Maestros de Taller de Artes Plásticas y Diseño',
         '597' => 'Cuerpo de Maestros',
+        '598' => 'Cuerpo de profesores Especialistas en Sectores Singulares',
         '999' => 'Otras especialidades / Puestos específicos',
     ];
 
