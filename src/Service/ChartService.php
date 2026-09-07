@@ -117,18 +117,19 @@ class ChartService
 
         $i = 0;
         foreach ($provincias as $provincia) {
+            $color = $colors[$i % count($colors)];
             $data[] = [
                 'label' => $provincia->getNombre(),
                 'data' => array_values($transpose[$provincia->getId()] ?? []),
                 'borderWidth' => 2,
-                'backgroundColor' => $colors[$i],
-                'borderColor' => $colors[$i],
+                'backgroundColor' => $color,
+                'borderColor' => $color,
                 'hidden' => true,
                 'datalabels' => [
                     'display' => true,
                     'anchor' => 'end',
                     'align' => 'top',
-                    'color' => $colors[$i],
+                    'color' => $color,
                     'font' => ['weight' => 'bold', 'size' => 10],
                     'padding' => 3,
                 ],
@@ -233,12 +234,14 @@ class ChartService
             }, $lastTwoCurses);
 
 
+            $color = $colors[$i % count($colors)];
+
             $datasets[] = [
                 'id' => $selectedCurso->getId(),
                 'label' => sprintf('Curso %s', $selectedCurso->getNombre()),
                 'data' => $data,
-                'backgroundColor' => $colors[$i],
-                'borderColor' => $colors[$i],
+                'backgroundColor' => $color,
+                'borderColor' => $color,
                 'fill' => false,
                 'hidden' => !in_array($selectedCurso->getId(), $lastTwoCursesIds),
             ];
@@ -274,6 +277,7 @@ class ChartService
             '#D35400',
             '#F39C12',
             '#16A085',
+            '#C2185B',
         ];
     }
 
