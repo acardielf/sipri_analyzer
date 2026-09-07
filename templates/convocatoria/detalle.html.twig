@@ -47,7 +47,9 @@
     </div>
 </div>
 
-<div class="container-fluid py-4 pb-5" data-controller="filtros-convocatoria">
+<div class="container-fluid py-4 pb-5" data-controller="filtros-convocatoria"
+     data-filtros-convocatoria-inicio-curso-value="{{ esInicioCurso ? 'true' : 'false' }}"
+     data-filtros-convocatoria-con-adjudicaciones-value="{{ tieneAdjudicaciones ? 'true' : 'false' }}">
 
     {# ── Stats ───────────────────────────────────────────────────────────────── #}
     {% include 'especialidades/_stats_plazas.html.twig' with { mostrarPosiciones: false } %}
@@ -129,15 +131,24 @@
                 <tr style="background:var(--sipri-bg)">
                     <th colspan="6" style="font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--sipri-blue);padding:.5rem .75rem;font-weight:700">
                         <i class="bi bi-geo-alt-fill me-1"></i>{{ provNombre }}
-                        <span style="font-weight:400;color:var(--sipri-muted)">({{ plazas|length }})</span>
+                        <span data-grupo-contador style="font-weight:400;color:var(--sipri-muted)">({{ plazas|length }})</span>
                     </th>
                 </tr>
 
                 {% for plaza in plazas %}
                 {% set tipoValue = plaza.tipo.value is defined ? plaza.tipo.value : plaza.tipo %}
+                {# `data-n` y `data-adj` alimentan el recálculo de las tarjetas al
+                   filtrar. Se omiten cuando coinciden con su valor por defecto (1
+                   puesto, y todo adjudicado si hay adjudicaciones extraídas): son
+                   la inmensa mayoría de filas y el HTML acaba versionado en git.
+                   El mismo criterio está replicado en el controlador Stimulus. #}
+                {% set adjPorDefecto = tieneAdjudicaciones ? plaza.numero : 0 %}
                 <tr data-filtros-convocatoria-target="fila"
                     data-prov="{{ provNombre }}"
-                    data-esp="{{ plaza.espId }}">
+                    data-esp="{{ plaza.espId }}"
+                    data-tipo="{{ tipoValue == 'VACANTE' ? 'V' : 'S' }}"
+                    {%- if plaza.numero != 1 %} data-n="{{ plaza.numero }}"{% endif %}
+                    {%- if plaza.adjCount != adjPorDefecto %} data-adj="{{ plaza.adjCount }}"{% endif %}>
                     <td>
                         <a href="{{ path('app_especialidad_index', { especialidad: plaza.espId }) }}"
                            class="text-decoration-none fw-semibold" style="color:var(--sipri-blue-mid)">

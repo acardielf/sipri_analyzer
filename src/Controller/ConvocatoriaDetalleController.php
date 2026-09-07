@@ -94,6 +94,10 @@ class ConvocatoriaDetalleController extends AbstractController
             'especialidades' => $especialidades,
             'stats'         => $stats,
             'sinCubrir'     => $sinCubrirPorPlaza,
+            // El recálculo de las tarjetas al filtrar se hace en cliente y
+            // necesita reproducir estas dos condiciones globales
+            'esInicioCurso' => $esInicioCurso,
+            'tieneAdjudicaciones' => $tieneAdjudicaciones,
         ]);
     }
 }
