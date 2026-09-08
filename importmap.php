@@ -16,9 +16,6 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
-    // Entrypoint opcional, cargado sólo por las plantillas que pintan gráficos:
-    // mantiene Chart.js y sus plugins fuera de las precargas de las ~19.500
-    // páginas restantes del sitio estático.
     'graficos' => [
         'path' => './assets/graficos.js',
         'entrypoint' => true,
@@ -76,5 +73,13 @@ return [
     ],
     'chartjs-plugin-datalabels' => [
         'version' => '2.2.0',
+    ],
+    'tom-select/dist/css/tom-select.default.css' => [
+        'version' => '2.6.2',
+        'type' => 'css',
+    ],
+    'tom-select/dist/css/tom-select.bootstrap4.css' => [
+        'version' => '2.6.2',
+        'type' => 'css',
     ],
 ];

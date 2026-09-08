@@ -317,7 +317,7 @@ jobs:
           # trata «adjudicaciones» y «plazas + convocatoria» como modos
           # excluyentes, de ahí las dos invocaciones. Sin --files: los PDFs que
           # hay en disco son ya los que se van a reprocesar.
-          php bin/console sipri:del "$CONV" --adjudicaciones
+          php bin/console sipri:del --files --adjudicaciones "$CONV"
           php bin/console sipri:del "$CONV"
 
           echo "== Después de borrar =="
