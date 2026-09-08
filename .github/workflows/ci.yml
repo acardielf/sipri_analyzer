@@ -261,7 +261,11 @@ jobs:
           path: ${{ runner.temp }}/data_prod_backup.db
           retention-days: 30
 
-      - name: Eliminar convocatoria a reprocesar
+      # Los PDFs se descargan ANTES de borrar nada: la Junta retira los anexos de
+      # adjudicados cuando va a republicar una adjudicación corregida, y en ese
+      # rato no hay nada que reprocesar. Si se borrase primero, el job se
+      # quedaría a medias (sin subir artefacto, pero habiendo gastado el build).
+      - name: Descargar PDFs antes de tocar la BD
         if: ${{ inputs.convocatoria != '' }}
         env:
           CONV: ${{ inputs.convocatoria }}
@@ -272,6 +276,38 @@ jobs:
             ''|*[!0-9]*) echo "::error::'$CONV' no es un número de convocatoria válido"; exit 1 ;;
           esac
 
+          HASH_ANTES=$(cat pdfs/*/"${CONV}"_plazas.pdf pdfs/*/"${CONV}"_adjudicados.pdf 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
+
+          if [ "$REDESCARGAR" = "true" ]; then
+            php bin/console sipri:get "$CONV" --force
+          else
+            php bin/console sipri:get "$CONV"
+          fi
+
+          # sipri:get devuelve SUCCESS aunque SIPRI no ofrezca los enlaces, y
+          # exige encontrar los dos anexos para descargar cualquiera de ellos:
+          # hay que comprobar los ficheros a mano.
+          PLAZAS_PDF=$(ls pdfs/*/"${CONV}"_plazas.pdf 2>/dev/null | head -1 || true)
+          ADJ_PDF=$(ls pdfs/*/"${CONV}"_adjudicados.pdf 2>/dev/null | head -1 || true)
+
+          if [ -z "$PLAZAS_PDF" ] || [ -z "$ADJ_PDF" ] || [ ! -s "$PLAZAS_PDF" ] || [ ! -s "$ADJ_PDF" ]; then
+            echo "::error::SIPRI no está sirviendo los dos anexos de la convocatoria $CONV (suele pasar mientras la Junta prepara una adjudicación corregida). No se ha borrado nada; reintenta cuando vuelvan a estar publicados."
+            exit 1
+          fi
+
+          HASH_AHORA=$(cat "$PLAZAS_PDF" "$ADJ_PDF" | sha256sum | cut -d' ' -f1)
+          if [ "$HASH_ANTES" = "$HASH_AHORA" ]; then
+            echo "::warning::Los PDFs son idénticos a los ya procesados. El reproceso solo cambiará algo si se ha tocado el código de extracción."
+          else
+            echo "PDFs distintos de los anteriores: la Junta los ha republicado."
+          fi
+
+      - name: Eliminar convocatoria a reprocesar
+        if: ${{ inputs.convocatoria != '' }}
+        env:
+          CONV: ${{ inputs.convocatoria }}
+        run: |
+          set -euo pipefail
           echo "== Antes de borrar =="
           php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
           php bin/console dbal:run-sql "SELECT count(*) AS adjudicaciones FROM adjudicacion a JOIN plaza p ON p.id = a.plaza_id WHERE p.convocatoria_id = $CONV"
@@ -279,13 +315,10 @@ jobs:
           # Orden obligatorio: adjudicacion.plaza_id es una FK sin ON DELETE
           # CASCADE, así que las adjudicaciones van primero. Además sipri:del
           # trata «adjudicaciones» y «plazas + convocatoria» como modos
-          # excluyentes, de ahí las dos invocaciones.
+          # excluyentes, de ahí las dos invocaciones. Sin --files: los PDFs que
+          # hay en disco son ya los que se van a reprocesar.
           php bin/console sipri:del "$CONV" --adjudicaciones
-          if [ "$REDESCARGAR" = "true" ]; then
-            php bin/console sipri:del "$CONV" --files
-          else
-            php bin/console sipri:del "$CONV"
-          fi
+          php bin/console sipri:del "$CONV"
 
           echo "== Después de borrar =="
           php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
@@ -297,14 +330,8 @@ jobs:
         if: ${{ inputs.convocatoria != '' }}
         env:
           CONV: ${{ inputs.convocatoria }}
-          REDESCARGAR: ${{ inputs.redescargar_pdfs }}
         run: |
           set -euo pipefail
-          if [ "$REDESCARGAR" = "true" ]; then
-            php bin/console sipri:get "$CONV" --force
-          else
-            php bin/console sipri:get "$CONV"
-          fi
           php bin/console sipri:ext "$CONV"
           php bin/console sipri:adj "$CONV"
 
