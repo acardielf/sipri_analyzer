@@ -11,7 +11,23 @@ on:
       - 'docs/**'
   schedule:
     - cron: "0 16 * 1-6,9-12 *" # todos los días de septiembre a junio (excluye julio y agosto) a las 16:00 UTC
-  workflow_dispatch: ~ # manual trigger
+  workflow_dispatch:
+    # Sin inputs se comporta exactamente igual que el cron: procesa las últimas
+    # convocatorias y regenera el sitio. Con `convocatoria` se borra esa
+    # convocatoria del artefacto heredado y se vuelve a extraer desde cero,
+    # que es la única forma de corregir datos malos: sipri:ext omite las plazas
+    # ya existentes (hash SHA-256) y sipri:adj sale sin hacer nada si la
+    # convocatoria ya tiene adjudicaciones.
+    inputs:
+      convocatoria:
+        description: 'Nº de convocatoria a borrar y reprocesar (vacío = ejecución normal)'
+        required: false
+        type: string
+      redescargar_pdfs:
+        description: 'Volver a descargar los PDFs (marcar si el error venía del propio PDF)'
+        required: false
+        type: boolean
+        default: true
   workflow_call:
 
 
@@ -218,6 +234,99 @@ jobs:
       - name: Check existing records
         run: |
           php bin/console dbal:run-sql "SELECT max(cast(id as integer)) FROM convocatoria"
+
+      # ---------------------------------------------------------------------
+      # Reproceso puntual de una convocatoria (solo con workflow_dispatch).
+      # Todo esto vive dentro de ci.yml a propósito: el artefacto heredado se
+      # busca por workflow_id, así que un workflow aparte subiría un
+      # sipri-analyzer-files que el CI diario nunca miraría y el arreglo se
+      # perdería en la siguiente ejecución.
+      # ---------------------------------------------------------------------
+      - name: Copia de seguridad de la BD antes de reprocesar
+        if: ${{ inputs.convocatoria != '' }}
+        run: |
+          if [ ! -f var/data_prod.db ]; then
+            echo "::error::No hay var/data_prod.db: no se ha heredado artefacto. Aborta antes de tocar nada."
+            exit 1
+          fi
+          cp var/data_prod.db "${{ runner.temp }}/data_prod_backup.db"
+
+      # Nombre distinto de sipri-analyzer-files a propósito: así queda fuera de
+      # la cadena que hereda el CI y sirve solo como vuelta atrás manual.
+      - name: Subir copia de seguridad de la BD
+        if: ${{ inputs.convocatoria != '' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: backup-db-antes-de-reprocesar-${{ github.run_id }}
+          path: ${{ runner.temp }}/data_prod_backup.db
+          retention-days: 30
+
+      - name: Eliminar convocatoria a reprocesar
+        if: ${{ inputs.convocatoria != '' }}
+        env:
+          CONV: ${{ inputs.convocatoria }}
+          REDESCARGAR: ${{ inputs.redescargar_pdfs }}
+        run: |
+          set -euo pipefail
+          case "$CONV" in
+            ''|*[!0-9]*) echo "::error::'$CONV' no es un número de convocatoria válido"; exit 1 ;;
+          esac
+
+          echo "== Antes de borrar =="
+          php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
+          php bin/console dbal:run-sql "SELECT count(*) AS adjudicaciones FROM adjudicacion a JOIN plaza p ON p.id = a.plaza_id WHERE p.convocatoria_id = $CONV"
+
+          # Orden obligatorio: adjudicacion.plaza_id es una FK sin ON DELETE
+          # CASCADE, así que las adjudicaciones van primero. Además sipri:del
+          # trata «adjudicaciones» y «plazas + convocatoria» como modos
+          # excluyentes, de ahí las dos invocaciones.
+          php bin/console sipri:del "$CONV" --adjudicaciones
+          if [ "$REDESCARGAR" = "true" ]; then
+            php bin/console sipri:del "$CONV" --files
+          else
+            php bin/console sipri:del "$CONV"
+          fi
+
+          echo "== Después de borrar =="
+          php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
+
+      # Reproceso explícito en lugar de confiar en sipri:last --back 2, que solo
+      # cubre las tres últimas convocatorias: así también se puede arreglar una
+      # antigua.
+      - name: Reprocesar convocatoria
+        if: ${{ inputs.convocatoria != '' }}
+        env:
+          CONV: ${{ inputs.convocatoria }}
+          REDESCARGAR: ${{ inputs.redescargar_pdfs }}
+        run: |
+          set -euo pipefail
+          if [ "$REDESCARGAR" = "true" ]; then
+            php bin/console sipri:get "$CONV" --force
+          else
+            php bin/console sipri:get "$CONV"
+          fi
+          php bin/console sipri:ext "$CONV"
+          php bin/console sipri:adj "$CONV"
+
+          echo "== Resultado del reproceso =="
+          php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
+          php bin/console dbal:run-sql "SELECT count(*) AS adjudicaciones FROM adjudicacion a JOIN plaza p ON p.id = a.plaza_id WHERE p.convocatoria_id = $CONV"
+
+      # Si el reproceso ha dejado la convocatoria vacía, algo ha ido mal: mejor
+      # fallar aquí que subir un artefacto peor que el heredado. Al no llegar al
+      # paso de subida, el siguiente run seguirá heredando el artefacto anterior.
+      - name: Comprobar que el reproceso ha dejado datos
+        if: ${{ inputs.convocatoria != '' }}
+        env:
+          CONV: ${{ inputs.convocatoria }}
+        run: |
+          set -euo pipefail
+          PLAZAS=$(php bin/console dbal:run-sql "SELECT count(*) FROM plaza WHERE convocatoria_id = $CONV" | grep -oE '[0-9]+' | tail -1)
+          echo "Plazas tras el reproceso: $PLAZAS"
+          if [ "${PLAZAS:-0}" -eq 0 ]; then
+            echo "::error::La convocatoria $CONV se ha quedado sin plazas. No se sube artefacto."
+            exit 1
+          fi
 
       - name: Run SIPRI Analyzer only last
         run: php bin/console sipri:last --back 2 || true
