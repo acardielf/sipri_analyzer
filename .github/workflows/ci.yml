@@ -13,21 +13,19 @@ on:
     - cron: "0 16 * 1-6,9-12 *" # todos los días de septiembre a junio (excluye julio y agosto) a las 16:00 UTC
   workflow_dispatch:
     # Sin inputs se comporta exactamente igual que el cron: procesa las últimas
-    # convocatorias y regenera el sitio. Con `convocatoria` se borra esa
-    # convocatoria del artefacto heredado y se vuelve a extraer desde cero,
-    # que es la única forma de corregir datos malos: sipri:ext omite las plazas
-    # ya existentes (hash SHA-256) y sipri:adj sale sin hacer nada si la
+    # convocatorias y regenera el sitio. Rellenando `convocatoria` se borra esa
+    # convocatoria del artefacto heredado —adjudicaciones, plazas, la propia
+    # convocatoria y sus PDFs— antes de procesar, y el paso de siempre
+    # (`sipri:last --back 2`) la vuelve a descargar y extraer desde cero.
+    #
+    # Es la única forma de corregir datos malos: sipri:ext omite las plazas ya
+    # existentes (hash SHA-256) y sipri:adj sale sin hacer nada si la
     # convocatoria ya tiene adjudicaciones.
     inputs:
       convocatoria:
-        description: 'Nº de convocatoria a borrar y reprocesar (vacío = ejecución normal)'
+        description: 'Nº de convocatoria a borrar y reprocesar, una de las 2 últimas (vacío = ejecución normal)'
         required: false
         type: string
-      redescargar_pdfs:
-        description: 'Volver a descargar los PDFs (marcar si el error venía del propio PDF)'
-        required: false
-        type: boolean
-        default: true
   workflow_call:
 
 
@@ -45,6 +43,19 @@ jobs:
       contents: write
 
     steps:
+
+      # Antes que nada: un input mal escrito no debe gastar un build entero.
+      # Que esté entre las dos últimas convocatorias se comprueba más abajo,
+      # cuando ya se ha heredado la BD.
+      - name: Validar el input de borrado
+        if: ${{ inputs.convocatoria != '' }}
+        env:
+          CONV: ${{ inputs.convocatoria }}
+        run: |
+          case "$CONV" in
+            ''|*[!0-9]*) echo "::error::'$CONV' no es un número de convocatoria válido"; exit 1 ;;
+          esac
+          echo "Se borrará y reprocesará la convocatoria $CONV."
 
       - name: Checkout repo
         uses: actions/checkout@v4.2.2
@@ -232,24 +243,45 @@ jobs:
           php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
       - name: Check existing records
+        id: bd
         run: |
+          set -euo pipefail
           php bin/console dbal:run-sql "SELECT max(cast(id as integer)) FROM convocatoria"
+          # Leer el número a pelo en vez de rascar con grep la tabla que pinta
+          # dbal:run-sql.
+          ULTIMA=$(php -r 'echo (int) (new PDO("sqlite:".$argv[1]))->query($argv[2])->fetchColumn();' -- var/data_prod.db 'SELECT max(cast(id as integer)) FROM convocatoria')
+          echo "ultima=$ULTIMA" >> "$GITHUB_OUTPUT"
 
       # ---------------------------------------------------------------------
-      # Reproceso puntual de una convocatoria (solo con workflow_dispatch).
-      # Todo esto vive dentro de ci.yml a propósito: el artefacto heredado se
-      # busca por workflow_id, así que un workflow aparte subiría un
-      # sipri-analyzer-files que el CI diario nunca miraría y el arreglo se
+      # Borrado puntual de una convocatoria (solo con workflow_dispatch y el
+      # input relleno). Vive dentro de ci.yml a propósito: el artefacto
+      # heredado se busca por workflow_id, así que un workflow aparte subiría
+      # un sipri-analyzer-files que el CI diario nunca miraría y el arreglo se
       # perdería en la siguiente ejecución.
       # ---------------------------------------------------------------------
-      - name: Copia de seguridad de la BD antes de reprocesar
+      - name: Comprobar que es una de las dos últimas convocatorias
         if: ${{ inputs.convocatoria != '' }}
+        env:
+          CONV: ${{ inputs.convocatoria }}
+          ULTIMA: ${{ steps.bd.outputs.ultima }}
         run: |
-          if [ ! -f var/data_prod.db ]; then
-            echo "::error::No hay var/data_prod.db: no se ha heredado artefacto. Aborta antes de tocar nada."
+          set -euo pipefail
+          # Del borrado se sale reprocesando con el `sipri:last --back 2` de
+          # siempre, que solo repasa el final de la lista. Una convocatoria más
+          # antigua se quedaría borrada y desaparecería del sitio.
+          if [ "${ULTIMA:-0}" -le 0 ]; then
+            echo "::error::La BD heredada no tiene convocatorias: o no se ha heredado artefacto o viene vacío. No se borra nada."
             exit 1
           fi
-          cp var/data_prod.db "${{ runner.temp }}/data_prod_backup.db"
+
+          if [ "$CONV" -lt "$(( ULTIMA - 1 ))" ] || [ "$CONV" -gt "$ULTIMA" ]; then
+            echo "::error::Solo se pueden borrar las dos últimas convocatorias ($(( ULTIMA - 1 )) y $ULTIMA); has pedido la $CONV."
+            exit 1
+          fi
+
+      - name: Copia de seguridad de la BD antes de borrar
+        if: ${{ inputs.convocatoria != '' }}
+        run: cp var/data_prod.db "${{ runner.temp }}/data_prod_backup.db"
 
       # Nombre distinto de sipri-analyzer-files a propósito: así queda fuera de
       # la cadena que hereda el CI y sirve solo como vuelta atrás manual.
@@ -257,52 +289,12 @@ jobs:
         if: ${{ inputs.convocatoria != '' }}
         uses: actions/upload-artifact@v7
         with:
-          name: backup-db-antes-de-reprocesar-${{ github.run_id }}
+          name: backup-db-antes-de-borrar-${{ github.run_id }}
           path: ${{ runner.temp }}/data_prod_backup.db
           retention-days: 30
 
-      # Los PDFs se descargan ANTES de borrar nada: la Junta retira los anexos de
-      # adjudicados cuando va a republicar una adjudicación corregida, y en ese
-      # rato no hay nada que reprocesar. Si se borrase primero, el job se
-      # quedaría a medias (sin subir artefacto, pero habiendo gastado el build).
-      - name: Descargar PDFs antes de tocar la BD
-        if: ${{ inputs.convocatoria != '' }}
-        env:
-          CONV: ${{ inputs.convocatoria }}
-          REDESCARGAR: ${{ inputs.redescargar_pdfs }}
-        run: |
-          set -euo pipefail
-          case "$CONV" in
-            ''|*[!0-9]*) echo "::error::'$CONV' no es un número de convocatoria válido"; exit 1 ;;
-          esac
-
-          HASH_ANTES=$(cat pdfs/*/"${CONV}"_plazas.pdf pdfs/*/"${CONV}"_adjudicados.pdf 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
-
-          if [ "$REDESCARGAR" = "true" ]; then
-            php bin/console sipri:get "$CONV" --force
-          else
-            php bin/console sipri:get "$CONV"
-          fi
-
-          # sipri:get devuelve SUCCESS aunque SIPRI no ofrezca los enlaces, y
-          # exige encontrar los dos anexos para descargar cualquiera de ellos:
-          # hay que comprobar los ficheros a mano.
-          PLAZAS_PDF=$(ls pdfs/*/"${CONV}"_plazas.pdf 2>/dev/null | head -1 || true)
-          ADJ_PDF=$(ls pdfs/*/"${CONV}"_adjudicados.pdf 2>/dev/null | head -1 || true)
-
-          if [ -z "$PLAZAS_PDF" ] || [ -z "$ADJ_PDF" ] || [ ! -s "$PLAZAS_PDF" ] || [ ! -s "$ADJ_PDF" ]; then
-            echo "::error::SIPRI no está sirviendo los dos anexos de la convocatoria $CONV (suele pasar mientras la Junta prepara una adjudicación corregida). No se ha borrado nada; reintenta cuando vuelvan a estar publicados."
-            exit 1
-          fi
-
-          HASH_AHORA=$(cat "$PLAZAS_PDF" "$ADJ_PDF" | sha256sum | cut -d' ' -f1)
-          if [ "$HASH_ANTES" = "$HASH_AHORA" ]; then
-            echo "::warning::Los PDFs son idénticos a los ya procesados. El reproceso solo cambiará algo si se ha tocado el código de extracción."
-          else
-            echo "PDFs distintos de los anteriores: la Junta los ha republicado."
-          fi
-
-      - name: Eliminar convocatoria a reprocesar
+      - name: Eliminar convocatoria, adjudicaciones y ficheros
+        id: borrado
         if: ${{ inputs.convocatoria != '' }}
         env:
           CONV: ${{ inputs.convocatoria }}
@@ -312,51 +304,68 @@ jobs:
           php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
           php bin/console dbal:run-sql "SELECT count(*) AS adjudicaciones FROM adjudicacion a JOIN plaza p ON p.id = a.plaza_id WHERE p.convocatoria_id = $CONV"
 
+          # Se guarda para poder decir luego si la Junta ha republicado los
+          # anexos o si el reproceso solo ha vuelto a pasar el extractor.
+          echo "hash=$(cat pdfs/*/"${CONV}"_plazas.pdf pdfs/*/"${CONV}"_adjudicados.pdf 2>/dev/null | sha256sum | cut -d' ' -f1 || true)" >> "$GITHUB_OUTPUT"
+
           # Orden obligatorio: adjudicacion.plaza_id es una FK sin ON DELETE
           # CASCADE, así que las adjudicaciones van primero. Además sipri:del
           # trata «adjudicaciones» y «plazas + convocatoria» como modos
-          # excluyentes, de ahí las dos invocaciones. Sin --files: los PDFs que
-          # hay en disco son ya los que se van a reprocesar.
+          # excluyentes, de ahí las dos invocaciones. --files borra los PDFs y
+          # el JSON de tabula.
           php bin/console sipri:del --files --adjudicaciones "$CONV"
           php bin/console sipri:del "$CONV"
 
           echo "== Después de borrar =="
           php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
 
-      # Reproceso explícito en lugar de confiar en sipri:last --back 2, que solo
-      # cubre las tres últimas convocatorias: así también se puede arreglar una
-      # antigua.
-      - name: Reprocesar convocatoria
-        if: ${{ inputs.convocatoria != '' }}
-        env:
-          CONV: ${{ inputs.convocatoria }}
-        run: |
-          set -euo pipefail
-          php bin/console sipri:ext "$CONV"
-          php bin/console sipri:adj "$CONV"
+          # sipri:get solo descarga lo que no está en disco, así que un fichero
+          # superviviente haría que el reproceso releyera el PDF viejo.
+          RESTOS=$(ls pdfs/*/"${CONV}"_* 2>/dev/null || true)
+          if [ -n "$RESTOS" ]; then
+            echo "::error::Quedan ficheros de la convocatoria $CONV en disco:"
+            echo "$RESTOS"
+            exit 1
+          fi
 
-          echo "== Resultado del reproceso =="
-          php bin/console dbal:run-sql "SELECT count(*) AS plazas FROM plaza WHERE convocatoria_id = $CONV"
-          php bin/console dbal:run-sql "SELECT count(*) AS adjudicaciones FROM adjudicacion a JOIN plaza p ON p.id = a.plaza_id WHERE p.convocatoria_id = $CONV"
+      # Este paso es también el reproceso: como la convocatoria y sus PDFs ya no
+      # están, sipri:get los vuelve a descargar y sipri:ext / sipri:adj los
+      # extraen desde cero. Por eso el borrado se limita a las dos últimas.
+      - name: Run SIPRI Analyzer only last
+        run: php bin/console sipri:last --back 2 || true
 
-      # Si el reproceso ha dejado la convocatoria vacía, algo ha ido mal: mejor
-      # fallar aquí que subir un artefacto peor que el heredado. Al no llegar al
-      # paso de subida, el siguiente run seguirá heredando el artefacto anterior.
+      # Si el reproceso no ha devuelto los datos, algo ha ido mal (p. ej. SIPRI
+      # ha retirado los anexos mientras la Junta prepara una corrección): mejor
+      # fallar aquí que subir un artefacto peor que el heredado. Al no llegar a
+      # «Upload artifacts», el siguiente run seguirá heredando el anterior.
       - name: Comprobar que el reproceso ha dejado datos
         if: ${{ inputs.convocatoria != '' }}
         env:
           CONV: ${{ inputs.convocatoria }}
+          HASH_ANTES: ${{ steps.borrado.outputs.hash }}
         run: |
           set -euo pipefail
-          PLAZAS=$(php bin/console dbal:run-sql "SELECT count(*) FROM plaza WHERE convocatoria_id = $CONV" | grep -oE '[0-9]+' | tail -1)
-          echo "Plazas tras el reproceso: $PLAZAS"
-          if [ "${PLAZAS:-0}" -eq 0 ]; then
-            echo "::error::La convocatoria $CONV se ha quedado sin plazas. No se sube artefacto."
+          q() { php -r 'echo (int) (new PDO("sqlite:".$argv[1]))->query($argv[2])->fetchColumn();' -- var/data_prod.db "$1"; }
+
+          PLAZAS=$(q "SELECT count(*) FROM plaza WHERE convocatoria_id = $CONV")
+          ADJUDICACIONES=$(q "SELECT count(*) FROM adjudicacion a JOIN plaza p ON p.id = a.plaza_id WHERE p.convocatoria_id = $CONV")
+          echo "Tras el reproceso -> plazas: $PLAZAS, adjudicaciones: $ADJUDICACIONES"
+
+          if [ "$PLAZAS" -eq 0 ]; then
+            echo "::error::La convocatoria $CONV se ha quedado sin plazas: SIPRI no ha servido el anexo o ha fallado la extracción. No se sube artefacto; la BD de antes del borrado está en backup-db-antes-de-borrar-${{ github.run_id }}."
             exit 1
           fi
 
-      - name: Run SIPRI Analyzer only last
-        run: php bin/console sipri:last --back 2 || true
+          if [ "$ADJUDICACIONES" -eq 0 ]; then
+            echo "::warning::La convocatoria $CONV ha vuelto sin adjudicaciones. Si el anexo de adjudicados está retirado mientras la Junta lo corrige, entrará en un run posterior."
+          fi
+
+          HASH_AHORA=$(cat pdfs/*/"${CONV}"_plazas.pdf pdfs/*/"${CONV}"_adjudicados.pdf 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
+          if [ "$HASH_ANTES" = "$HASH_AHORA" ]; then
+            echo "::warning::Los PDFs son idénticos a los que ya había: el reproceso solo cambia algo si se ha tocado el código de extracción."
+          else
+            echo "PDFs distintos de los anteriores: la Junta los ha republicado."
+          fi
 
       - name: Generate static website
         #        if: ${{ success() && steps.sipri.outcome == 'success' }}
