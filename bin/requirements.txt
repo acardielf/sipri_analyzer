@@ -1,0 +1,9 @@
+# Dependencias Python de la extracción de tablas (bin/tabula-*.py).
+# Vivían duplicadas en los dos workflows; aquí sirven además de clave para la
+# caché de pip de actions/setup-python.
+#
+# Sin versiones fijadas a propósito: es lo que ya hacían los workflows, y la
+# caché de pip guarda las descargas (~/.cache/pip), no el entorno
+# instalado, así que pip sigue resolviendo la última versión contra PyPI.
+tabula-py[jpype]
+pandas

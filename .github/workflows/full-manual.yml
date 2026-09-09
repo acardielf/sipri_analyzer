@@ -4,9 +4,12 @@ on:
   workflow_dispatch: ~ # manual trigger
 
 
+# Mismo arreglo que en ci.yml: con run_id en el grupo la exclusión nunca se
+# aplicaba. Aquí cancelar sería peor todavía —un reproceso completo son 393
+# convocatorias descargadas de una en una—, así que se encola.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   get-last-update:
@@ -52,11 +55,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+          cache: pip
+          cache-dependency-path: bin/requirements.txt
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install tabula-py[jpype] pandas
+          pip install -r bin/requirements.txt
 
       - name: Install Java (for tabula-py)
         run: sudo apt-get update && sudo apt-get install -y default-jre

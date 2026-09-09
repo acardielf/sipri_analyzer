@@ -43,12 +43,12 @@ src/
     TabulaPythonService # Wrapper que invoca scripts Python
     ChartService    # Construcción de datos para Chart.js
   Twig/             # Extensiones Twig (ProvinciaExtension)
-bin/                # Scripts Python de tabula (tabula-plazas.py, tabula-adjudicaciones.py)
+bin/                # Scripts de tabula (tabula-*.py, requirements.txt) y utilidades del CI (minify-docs.sh, huella-datos.php)
 templates/          # Plantillas Twig
 config/             # Configuración Symfony (packages/, routes.yaml, services.yaml)
 migrations/         # Migraciones Doctrine
 var/                # Bases de datos SQLite (data_dev.db, data_prod.db)
-docs/               # Salida del sitio estático (publicada en GitHub Pages)
+docs/               # Salida del sitio estático (en .gitignore; el CI la publica en la rama gh-pages)
 pdfs/               # PDFs descargados organizados por convocatoria
 ```
 
@@ -106,11 +106,38 @@ También disponible como script de Composer: `composer run generate-static`.
 
 Stenope copia `public/` completo a `docs/`, así que las imágenes de `public/og/` acaban publicadas en `docs/og/` sin configuración adicional.
 
+### Dónde vive el sitio publicado
+
+`docs/` **no se versiona**: está en `.gitignore` y el CI la publica en la rama
+`gh-pages`, que es la que sirve GitHub Pages. Cada publicación reescribe esa
+rama entera con un commit huérfano (`git init` dentro de `docs/` + `push
+--force`), así que no acumula historial.
+
+Antes el sitio se commiteaba en `main` y Pages servía desde `main:/docs`. Eso
+desplegaba ante **cualquier** push a `main` —23 de los últimos 120 despliegues
+fueron sobre commits que ni tocaban `docs/`— y hacía que el repositorio creciera
+sin freno (886 MB) además de provocar conflictos de merge en 8.300 ficheros.
+
 ### Minificación del HTML
 
 El workflow `ci.yml` minifica `docs/` tras generarlo con [minify-html](https://github.com/wilsonzlin/minify-html) (binario `minhtml`, Rust). Reduce los ~1,6 GB de HTML a algo menos de la mitad en segundos, lo que frena el crecimiento del historial de git. Se ejecuta con `--keep-closing-tags --keep-html-and-head-opening-tags`, y un paso posterior comprueba con un parser HTML que las meta etiquetas Open Graph siguen siendo legibles.
 
 No se aplica en el build local: es un paso exclusivo del CI, sobre la carpeta ya generada.
+
+### El cron no regenera el sitio si no hay datos nuevos
+
+`ci.yml` toma una huella de la BD (`bin/huella-datos.php`: filas y `max(rowid)`
+de cada tabla) antes y después de `sipri:last`. Si no cambia, se salta generar,
+minificar, commitear y publicar. Antes, un día sin convocatoria nueva gastaba
+igualmente ~2,5 min y 8.300 ficheros reescritos para cambiar solo la fecha
+«Datos actualizados a» de `docs/index.html` —y ese commit disparaba un
+despliegue de Pages entero—; era el 54% de las ejecuciones.
+
+**El atajo solo se aplica al cron.** Un `push` trae código que cambia el HTML sin
+tocar la BD, y un `workflow_dispatch` se lanza justamente para ver el sitio
+regenerado: en ambos se regenera siempre. Efecto secundario buscado: la fecha
+«Datos actualizados a» pasa a marcar el último día con datos nuevos, no el
+último día en que el cron pasó por SIPRI.
 
 ## Previsualización al compartir enlaces (Open Graph)
 
@@ -188,4 +215,4 @@ Componentes que los aplican: `.badge-vacante` / `.badge-sustitucion` (tablas de 
 - La identidad de una `Plaza` se determina por un hash SHA-256 de sus campos clave para detectar duplicados entre ejecuciones.
 - `ConvocatoriaConfigurationTrait` contiene la lógica que mapea número de convocatoria → curso académico, incluyendo la lista de convocatorias ausentes (p. ej. la 73, cancelada por COVID-19).
 - Los cuerpos docentes (511–597) están sembrados mediante migración (`Version20250729100000`).
-- El sitio generado se publica en GitHub Pages en `acardielf.github.io/sipri_analyzer`.
+- El sitio generado se publica en GitHub Pages en `acardielf.github.io/sipri_analyzer`, servido desde la rama `gh-pages` (no desde `main:/docs`).

@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-    # El propio workflow hace commit de docs/. Si ese commit se empuja con un PAT
-    # (secrets.PAT), GitHub sí dispara workflows de nuevo: sin esta exclusión se
-    # entraría en bucle.
-    paths-ignore:
-      - 'docs/**'
+    # Sin paths-ignore: docs/ ya no vive en main, el sitio se publica en la rama
+    # gh-pages. Un push a gh-pages no reentra aquí porque este disparador solo
+    # escucha main.
   schedule:
     - cron: "0 16 * 1-6,9-12 *" # todos los días de septiembre a junio (excluye julio y agosto) a las 16:00 UTC
   workflow_dispatch:
@@ -29,9 +27,18 @@ on:
   workflow_call:
 
 
+# El grupo va por ref, no por run_id: con run_id cada ejecución caía en un grupo
+# distinto y la exclusión no llegaba a aplicarse nunca. Dos runs sobre main —el
+# cron y un push, por ejemplo— heredaban el mismo artefacto, regeneraban el mismo
+# sitio y peleaban por el push de docs/; así murió el run 34121857427 con
+# «! [rejected] main -> main (fetch first)».
+#
+# cancel-in-progress: false a propósito. Cancelar a mitad de `sipri:last` deja
+# los PDFs ya descargados sin subir artefacto y el trabajo se pierde, así que
+# aquí interesa encolar, no cancelar.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   get-last-update:
@@ -62,67 +69,6 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-
-      - name: Download artifact from full-manual.yml
-        uses: actions/github-script@v7.0.1
-        continue-on-error: true
-        with:
-          script: |
-            try {
-              const workflowFileName = "full-manual.yml";
-              const artifactName = "sipri-analyzer-files";
-
-              async function downloadArtifact(workflowFileName) {
-                const runs = await github.rest.actions.listWorkflowRuns({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  workflow_id: workflowFileName,
-                  status: "success",
-                  per_page: 1
-                });
-
-                if (runs.data.workflow_runs.length === 0) {
-                  core.warning(`⚠️ No se encontró ejecución previa para ${workflowFileName}`);
-                  return false;
-                }
-
-                const run_id = runs.data.workflow_runs[0].id;
-
-                const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  run_id
-                });
-
-                const artifact = artifacts.data.artifacts.find(a => a.name === artifactName);
-                if (!artifact) {
-                  core.warning(`⚠️ No se encontró el artefacto ${artifactName} en ${workflowFileName}`);
-                  return false;
-                }
-
-                const download = await github.rest.actions.downloadArtifact({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  artifact_id: artifact.id,
-                  archive_format: "zip"
-                });
-
-                const fs = require("fs");
-                fs.writeFileSync(`${artifactName}-${workflowFileName}.zip`, Buffer.from(download.data));
-                return true;
-              }
-
-              await downloadArtifact("full-manual.yml");
-            } catch (e) {
-              core.warning(`⚠️ Error al descargar artefacto full-manual.yml: ${e.message}`);
-            }
-
-      - name: Unzip full-manual artifact if exists
-        continue-on-error: true
-        run: |
-          if [ -f sipri-analyzer-files-full-manual.yml.zip ]; then
-            unzip -o sipri-analyzer-files-full-manual.yml.zip -d .
-          fi
 
       - name: Download artifact from ci.yml
         uses: actions/github-script@v7.0.1
@@ -178,8 +124,7 @@ jobs:
               core.warning(`⚠️ Error al descargar artefacto ci.yml: ${e.message}`);
             }
 
-
-      - name: Unzip ci artifact if exists (overwrites duplicates)
+      - name: Unzip ci artifact if exists
         continue-on-error: true
         run: |
           if [ -f sipri-analyzer-files-ci.yml.zip ]; then
@@ -194,12 +139,6 @@ jobs:
           extensions: mbstring, intl, pdo, pdo_sqlite, xml, curl, zip, gd
           tools: composer:v2
           coverage: none
-
-      - name: Restore cache
-        uses: actions/cache@v6
-        with:
-          path: ./vendor/
-          key: sipri_cache
 
       - name: Make envfile
         run: |
@@ -216,18 +155,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vendor-
 
-      - name: Install PHP dependencies
-        run: composer install --no-interaction --no-progress
-
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.x'
+          cache: pip
+          cache-dependency-path: bin/requirements.txt
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install tabula-py[jpype] pandas
+          pip install -r bin/requirements.txt
 
       - name: Install Java (for tabula-py)
         run: sudo apt-get update && sudo apt-get install -y default-jre
@@ -328,6 +266,12 @@ jobs:
             exit 1
           fi
 
+      - name: Huella de los datos antes de procesar
+        id: datos_antes
+        run: |
+          set -euo pipefail
+          echo "huella=$(php bin/huella-datos.php var/data_prod.db)" >> "$GITHUB_OUTPUT"
+
       # Este paso es también el reproceso: como la convocatoria y sus PDFs ya no
       # están, sipri:get los vuelve a descargar y sipri:ext / sipri:adj los
       # extraen desde cero. Por eso el borrado se limita a las dos últimas.
@@ -367,8 +311,55 @@ jobs:
             echo "PDFs distintos de los anteriores: la Junta los ha republicado."
           fi
 
+      # Generar el sitio son ~2,5 min y 8.300 ficheros reescritos. Cuando el cron
+      # pasa por SIPRI y no hay convocatoria nueva —38 de los 71 commits
+      # automáticos medidos, el 54%— lo único que cambiaba en todo el sitio era
+      # la fecha «Datos actualizados a» de docs/index.html, y ese commit bastaba
+      # para disparar un despliegue de Pages entero.
+      #
+      # El atajo se limita al cron a propósito: un push trae código (plantillas,
+      # CSS, rutas) que cambia el HTML sin tocar la BD, y un dispatch manual se
+      # lanza justamente para ver el sitio regenerado.
+      - name: Decidir si hay que regenerar el sitio
+        id: sitio
+        env:
+          EVENTO: ${{ github.event_name }}
+          ANTES: ${{ steps.datos_antes.outputs.huella }}
+        run: |
+          set -euo pipefail
+          DESPUES=$(php bin/huella-datos.php var/data_prod.db)
+          echo "Antes:   $ANTES"
+          echo "Después: $DESPUES"
+
+          if [ "$EVENTO" != "schedule" ]; then
+            MOTIVO="evento $EVENTO: se regenera siempre"
+            REGENERAR=true
+          elif [ "$ANTES" != "$DESPUES" ]; then
+            MOTIVO="hay datos nuevos"
+            REGENERAR=true
+          else
+            MOTIVO="sin datos nuevos"
+            REGENERAR=false
+          fi
+
+          echo "regenerar=$REGENERAR" >> "$GITHUB_OUTPUT"
+
+          if [ "$REGENERAR" = true ]; then
+            echo "### Sitio regenerado ($MOTIVO)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::notice::Sin datos nuevos: se salta generar, minificar y publicar el sitio."
+            echo "### Sitio sin cambios ($MOTIVO)" >> "$GITHUB_STEP_SUMMARY"
+            echo "SIPRI no ha traído nada nuevo, así que no se regenera el sitio ni se publica." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "antes:   $ANTES" >> "$GITHUB_STEP_SUMMARY"
+          echo "después: $DESPUES" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      # success() explícito: al poner un `if:` propio se pierde el que los pasos
+      # llevan de serie, y sin él esto correría incluso con el job ya fallado.
       - name: Generate static website
-        #        if: ${{ success() && steps.sipri.outcome == 'success' }}
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
         run: |
           php bin/console sipri:og-images
           php bin/console asset-map:compile
@@ -381,11 +372,13 @@ jobs:
       # mitad, lo que además frena el crecimiento del historial del repositorio.
       # El script es el mismo que se usa en local: bin/minify-docs.sh
       - name: Minify generated HTML
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
         run: bin/minify-docs.sh ./docs
 
       # Si la minificación rompiera el <head>, las previsualizaciones al
       # compartir dejarían de funcionar sin que nadie se diera cuenta.
       - name: Verify metadata survived minification
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
         run: |
           python3 - <<'EOF'
           import glob, sys
@@ -418,17 +411,54 @@ jobs:
           print('Meta etiquetas Open Graph verificadas.')
           EOF
 
-      - name: Commit y push de docs
-        #        if: ${{ steps.sipri.outcome == 'success' }}
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: Actualizar página pública
-          file_pattern: 'docs/**'
+      # El sitio se publica en una rama aparte, no en main. Con Pages sirviendo
+      # desde main:/docs, GitHub desplegaba ante *cualquier* push a main: 23 de
+      # los últimos 120 despliegues fueron sobre commits que ni tocaban docs/.
+      # Sirviendo desde gh-pages, que solo escribe este paso, se despliega
+      # exactamente cuando hay sitio nuevo.
+      #
+      # La rama se reescribe entera cada vez (commit huérfano + push --force) en
+      # lugar de acumular historial: el sitio son ~8.300 ficheros y versionarlo
+      # en main es lo que ha llevado el repositorio a 886 MB.
+      - name: Publicar el sitio en gh-pages
+        id: publicar
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
+        env:
+          # PAT antes que GITHUB_TOKEN: un push hecho con GITHUB_TOKEN no
+          # dispara automatismos, y es el push a gh-pages el que tiene que
+          # despertar el despliegue de Pages.
+          TOKEN: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
 
+          # Repositorio propio y efímero dentro de docs/, que se va con el runner.
+          # docs/ está en .gitignore, así que no interfiere con el checkout.
+          cd docs
+
+          # Pages pasa el sitio por Jekyll salvo que exista este fichero, y Jekyll
+          # se come lo que empiece por _ o por punto.
+          touch .nojekyll
+
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Actualizar página pública ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+          git push -q --force \
+            "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            gh-pages
+
+          FICHEROS=$(git ls-files | wc -l)
+          echo "Publicados $FICHEROS ficheros en gh-pages ($(du -sh . | cut -f1))."
+          echo "Publicados **$FICHEROS ficheros** en \`gh-pages\`." >> "$GITHUB_STEP_SUMMARY"
+
+      # El CI solo lee el último sipri-analyzer-files correcto, así que los 90 días
+      # por defecto solo acumulaban gigas (60 artefactos vivos, 8,57 GB medidos).
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
           name: sipri-analyzer-files
+          retention-days: 7
           path: |
             pdfs/
             var/data_prod.db
