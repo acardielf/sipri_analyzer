@@ -43,7 +43,7 @@ src/
     TabulaPythonService # Wrapper que invoca scripts Python
     ChartService    # Construcción de datos para Chart.js
   Twig/             # Extensiones Twig (ProvinciaExtension)
-bin/                # Scripts Python de tabula (tabula-plazas.py, tabula-adjudicaciones.py)
+bin/                # Scripts Python de tabula (tabula-plazas.py, tabula-adjudicaciones.py) + requirements.txt
 templates/          # Plantillas Twig
 config/             # Configuración Symfony (packages/, routes.yaml, services.yaml)
 migrations/         # Migraciones Doctrine
