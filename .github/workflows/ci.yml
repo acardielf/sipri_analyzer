@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-    # El propio workflow hace commit de docs/. Si ese commit se empuja con un PAT
-    # (secrets.PAT), GitHub sí dispara workflows de nuevo: sin esta exclusión se
-    # entraría en bucle.
-    paths-ignore:
-      - 'docs/**'
+    # Sin paths-ignore: docs/ ya no vive en main, el sitio se publica en la rama
+    # gh-pages. Un push a gh-pages no reentra aquí porque este disparador solo
+    # escucha main.
   schedule:
     - cron: "0 16 * 1-6,9-12 *" # todos los días de septiembre a junio (excluye julio y agosto) a las 16:00 UTC
   workflow_dispatch:
@@ -413,13 +411,46 @@ jobs:
           print('Meta etiquetas Open Graph verificadas.')
           EOF
 
-      - name: Commit y push de docs
-        id: commit_docs
+      # El sitio se publica en una rama aparte, no en main. Con Pages sirviendo
+      # desde main:/docs, GitHub desplegaba ante *cualquier* push a main: 23 de
+      # los últimos 120 despliegues fueron sobre commits que ni tocaban docs/.
+      # Sirviendo desde gh-pages, que solo escribe este paso, se despliega
+      # exactamente cuando hay sitio nuevo.
+      #
+      # La rama se reescribe entera cada vez (commit huérfano + push --force) en
+      # lugar de acumular historial: el sitio son ~8.300 ficheros y versionarlo
+      # en main es lo que ha llevado el repositorio a 886 MB.
+      - name: Publicar el sitio en gh-pages
+        id: publicar
         if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: Actualizar página pública
-          file_pattern: 'docs/**'
+        env:
+          # PAT antes que GITHUB_TOKEN: un push hecho con GITHUB_TOKEN no
+          # dispara automatismos, y es el push a gh-pages el que tiene que
+          # despertar el despliegue de Pages.
+          TOKEN: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # Repositorio propio y efímero dentro de docs/, que se va con el runner.
+          # docs/ está en .gitignore, así que no interfiere con el checkout.
+          cd docs
+
+          # Pages pasa el sitio por Jekyll salvo que exista este fichero, y Jekyll
+          # se come lo que empiece por _ o por punto.
+          touch .nojekyll
+
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Actualizar página pública ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+          git push -q --force \
+            "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            gh-pages
+
+          FICHEROS=$(git ls-files | wc -l)
+          echo "Publicados $FICHEROS ficheros en gh-pages ($(du -sh . | cut -f1))."
+          echo "Publicados **$FICHEROS ficheros** en \`gh-pages\`." >> "$GITHUB_STEP_SUMMARY"
 
       # El CI solo lee el último sipri-analyzer-files correcto, así que los 90 días
       # por defecto solo acumulaban gigas (60 artefactos vivos, 8,57 GB medidos).
