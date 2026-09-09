@@ -43,7 +43,7 @@ src/
     TabulaPythonService # Wrapper que invoca scripts Python
     ChartService    # Construcción de datos para Chart.js
   Twig/             # Extensiones Twig (ProvinciaExtension)
-bin/                # Scripts Python de tabula (tabula-plazas.py, tabula-adjudicaciones.py) + requirements.txt
+bin/                # Scripts de tabula (tabula-*.py, requirements.txt) y utilidades del CI (minify-docs.sh, huella-datos.php)
 templates/          # Plantillas Twig
 config/             # Configuración Symfony (packages/, routes.yaml, services.yaml)
 migrations/         # Migraciones Doctrine
@@ -111,6 +111,21 @@ Stenope copia `public/` completo a `docs/`, así que las imágenes de `public/og
 El workflow `ci.yml` minifica `docs/` tras generarlo con [minify-html](https://github.com/wilsonzlin/minify-html) (binario `minhtml`, Rust). Reduce los ~1,6 GB de HTML a algo menos de la mitad en segundos, lo que frena el crecimiento del historial de git. Se ejecuta con `--keep-closing-tags --keep-html-and-head-opening-tags`, y un paso posterior comprueba con un parser HTML que las meta etiquetas Open Graph siguen siendo legibles.
 
 No se aplica en el build local: es un paso exclusivo del CI, sobre la carpeta ya generada.
+
+### El cron no regenera el sitio si no hay datos nuevos
+
+`ci.yml` toma una huella de la BD (`bin/huella-datos.php`: filas y `max(rowid)`
+de cada tabla) antes y después de `sipri:last`. Si no cambia, se salta generar,
+minificar, commitear y publicar. Antes, un día sin convocatoria nueva gastaba
+igualmente ~2,5 min y 8.300 ficheros reescritos para cambiar solo la fecha
+«Datos actualizados a» de `docs/index.html` —y ese commit disparaba un
+despliegue de Pages entero—; era el 54% de las ejecuciones.
+
+**El atajo solo se aplica al cron.** Un `push` trae código que cambia el HTML sin
+tocar la BD, y un `workflow_dispatch` se lanza justamente para ver el sitio
+regenerado: en ambos se regenera siempre. Efecto secundario buscado: la fecha
+«Datos actualizados a» pasa a marcar el último día con datos nuevos, no el
+último día en que el cron pasó por SIPRI.
 
 ## Previsualización al compartir enlaces (Open Graph)
 

@@ -268,6 +268,12 @@ jobs:
             exit 1
           fi
 
+      - name: Huella de los datos antes de procesar
+        id: datos_antes
+        run: |
+          set -euo pipefail
+          echo "huella=$(php bin/huella-datos.php var/data_prod.db)" >> "$GITHUB_OUTPUT"
+
       # Este paso es también el reproceso: como la convocatoria y sus PDFs ya no
       # están, sipri:get los vuelve a descargar y sipri:ext / sipri:adj los
       # extraen desde cero. Por eso el borrado se limita a las dos últimas.
@@ -307,8 +313,55 @@ jobs:
             echo "PDFs distintos de los anteriores: la Junta los ha republicado."
           fi
 
+      # Generar el sitio son ~2,5 min y 8.300 ficheros reescritos. Cuando el cron
+      # pasa por SIPRI y no hay convocatoria nueva —38 de los 71 commits
+      # automáticos medidos, el 54%— lo único que cambiaba en todo el sitio era
+      # la fecha «Datos actualizados a» de docs/index.html, y ese commit bastaba
+      # para disparar un despliegue de Pages entero.
+      #
+      # El atajo se limita al cron a propósito: un push trae código (plantillas,
+      # CSS, rutas) que cambia el HTML sin tocar la BD, y un dispatch manual se
+      # lanza justamente para ver el sitio regenerado.
+      - name: Decidir si hay que regenerar el sitio
+        id: sitio
+        env:
+          EVENTO: ${{ github.event_name }}
+          ANTES: ${{ steps.datos_antes.outputs.huella }}
+        run: |
+          set -euo pipefail
+          DESPUES=$(php bin/huella-datos.php var/data_prod.db)
+          echo "Antes:   $ANTES"
+          echo "Después: $DESPUES"
+
+          if [ "$EVENTO" != "schedule" ]; then
+            MOTIVO="evento $EVENTO: se regenera siempre"
+            REGENERAR=true
+          elif [ "$ANTES" != "$DESPUES" ]; then
+            MOTIVO="hay datos nuevos"
+            REGENERAR=true
+          else
+            MOTIVO="sin datos nuevos"
+            REGENERAR=false
+          fi
+
+          echo "regenerar=$REGENERAR" >> "$GITHUB_OUTPUT"
+
+          if [ "$REGENERAR" = true ]; then
+            echo "### Sitio regenerado ($MOTIVO)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::notice::Sin datos nuevos: se salta generar, minificar y publicar el sitio."
+            echo "### Sitio sin cambios ($MOTIVO)" >> "$GITHUB_STEP_SUMMARY"
+            echo "SIPRI no ha traído nada nuevo, así que no se regenera el sitio ni se publica." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          echo "antes:   $ANTES" >> "$GITHUB_STEP_SUMMARY"
+          echo "después: $DESPUES" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      # success() explícito: al poner un `if:` propio se pierde el que los pasos
+      # llevan de serie, y sin él esto correría incluso con el job ya fallado.
       - name: Generate static website
-        #        if: ${{ success() && steps.sipri.outcome == 'success' }}
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
         run: |
           php bin/console sipri:og-images
           php bin/console asset-map:compile
@@ -321,11 +374,13 @@ jobs:
       # mitad, lo que además frena el crecimiento del historial del repositorio.
       # El script es el mismo que se usa en local: bin/minify-docs.sh
       - name: Minify generated HTML
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
         run: bin/minify-docs.sh ./docs
 
       # Si la minificación rompiera el <head>, las previsualizaciones al
       # compartir dejarían de funcionar sin que nadie se diera cuenta.
       - name: Verify metadata survived minification
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
         run: |
           python3 - <<'EOF'
           import glob, sys
@@ -359,7 +414,8 @@ jobs:
           EOF
 
       - name: Commit y push de docs
-        #        if: ${{ steps.sipri.outcome == 'success' }}
+        id: commit_docs
+        if: ${{ success() && steps.sitio.outputs.regenerar == 'true' }}
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Actualizar página pública
