@@ -137,11 +137,21 @@ despliegue de Pages entero—; era el 54% de las ejecuciones.
 datos nuevos igualmente renueva `sipri-analyzer-files`, del que depende todo el
 estado del proyecto.
 
-**El atajo solo se aplica al cron.** Un `push` trae código que cambia el HTML sin
-tocar la BD, y un `workflow_dispatch` se lanza justamente para ver el sitio
-regenerado: en ambos se regenera siempre. Efecto secundario buscado: la fecha
-«Datos actualizados a» pasa a marcar el último día con datos nuevos, no el
-último día en que el cron pasó por SIPRI.
+**El atajo solo se aplica al cron**; un `workflow_dispatch` regenera siempre.
+Efecto secundario buscado: la fecha «Datos actualizados a» pasa a marcar el
+último día con datos nuevos, no el último día en que el cron pasó por SIPRI.
+
+### El CI no se dispara al empujar código
+
+`ci.yml` solo escucha `schedule` y `workflow_dispatch`. Es un pipeline de 5 a 15
+minutos (descarga de SIPRI, tabula y ~8.300 páginas), y un merge a `main` no
+trae datos nuevos que justifiquen pagarlo entero.
+
+**Consecuencia a tener presente**: un cambio de plantillas, CSS o rutas **no se
+publica solo**. Lo recoge el primer run que regenere el sitio, que será el cron
+del día en que haya convocatoria nueva —puede tardar—, o un `workflow_dispatch`
+lanzado a mano desde la pestaña Actions. Después de mergear cambios visuales,
+lanzar el dispatch es lo que los pone en producción.
 
 ## Previsualización al compartir enlaces (Open Graph)
 
