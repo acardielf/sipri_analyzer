@@ -133,6 +133,10 @@ igualmente ~2,5 min y 8.300 ficheros reescritos para cambiar solo la fecha
 «Datos actualizados a» de `docs/index.html` —y ese commit disparaba un
 despliegue de Pages entero—; era el 54% de las ejecuciones.
 
+**El atajo nunca afecta a `Upload artifacts`**, que va sin condición: un día sin
+datos nuevos igualmente renueva `sipri-analyzer-files`, del que depende todo el
+estado del proyecto.
+
 **El atajo solo se aplica al cron.** Un `push` trae código que cambia el HTML sin
 tocar la BD, y un `workflow_dispatch` se lanza justamente para ver el sitio
 regenerado: en ambos se regenera siempre. Efecto secundario buscado: la fecha
@@ -216,3 +220,4 @@ Componentes que los aplican: `.badge-vacante` / `.badge-sustitucion` (tablas de 
 - `ConvocatoriaConfigurationTrait` contiene la lógica que mapea número de convocatoria → curso académico, incluyendo la lista de convocatorias ausentes (p. ej. la 73, cancelada por COVID-19).
 - Los cuerpos docentes (511–597) están sembrados mediante migración (`Version20250729100000`).
 - El sitio generado se publica en GitHub Pages en `acardielf.github.io/sipri_analyzer`, servido desde la rama `gh-pages` (no desde `main:/docs`).
+- La BD y los PDFs solo viven en el artefacto `sipri-analyzer-files` (`var/` y `pdfs/` están en `.gitignore`), así que su caducidad es crítica: `retention-days: 90` —el máximo— más un cron de mantenimiento los lunes de julio y agosto, meses en los que el cron diario no corre. Sin ese latido pasan hasta 58 días entre ejecuciones y el artefacto caduca, dejando al pipeline arrancando en septiembre sobre una BD vacía.
