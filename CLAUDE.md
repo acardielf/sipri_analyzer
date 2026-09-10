@@ -124,6 +124,29 @@ El workflow `ci.yml` minifica `docs/` tras generarlo con [minify-html](https://g
 
 No se aplica en el build local: es un paso exclusivo del CI, sobre la carpeta ya generada.
 
+### Cuándo se ejecuta el cron
+
+| Periodo | Días | Hora peninsular |
+|---------|------|-----------------|
+| Septiembre → último día de junio | lunes a viernes | 09:00 y 20:00 |
+| Julio y agosto | solo lunes | 09:00 |
+
+GitHub Actions **solo entiende UTC**, no acepta zonas horarias, así que cada
+franja va desdoblada en dos entradas de cron: una para los meses en CEST
+(UTC+2) y otra para los de CET (UTC+1). El corte se hace por meses completos y
+el cambio de hora cae a finales de marzo y de octubre, de modo que esas dos
+semanas se ejecutan con una hora de desfase: 16 ejecuciones al año de 443. Se
+asume a cambio de no filtrar la hora dentro del job.
+
+El cron de verano no espera encontrar nada —en vacaciones no hay
+adjudicaciones—: existe para que `Upload artifacts` renueve el artefacto y no
+caduque. Con él, el hueco máximo entre ejecuciones en todo el año es de 7 días.
+
+GitHub encola los `schedule` y puede retrasarlos bastante cuando hay carga: la
+hora es una intención, no una garantía. Y desactiva los crons de un repositorio
+que pase 60 días sin actividad, cosa que aquí no puede ocurrir gracias al latido
+de verano.
+
 ### El cron no regenera el sitio si no hay datos nuevos
 
 `ci.yml` toma una huella de la BD (`bin/huella-datos.php`: filas y `max(rowid)`
@@ -230,4 +253,4 @@ Componentes que los aplican: `.badge-vacante` / `.badge-sustitucion` (tablas de 
 - `ConvocatoriaConfigurationTrait` contiene la lógica que mapea número de convocatoria → curso académico, incluyendo la lista de convocatorias ausentes (p. ej. la 73, cancelada por COVID-19).
 - Los cuerpos docentes (511–597) están sembrados mediante migración (`Version20250729100000`).
 - El sitio generado se publica en GitHub Pages en `acardielf.github.io/sipri_analyzer`, servido desde la rama `gh-pages` (no desde `main:/docs`).
-- La BD y los PDFs solo viven en el artefacto `sipri-analyzer-files` (`var/` y `pdfs/` están en `.gitignore`), así que su caducidad es crítica: `retention-days: 90` —el máximo— más un cron de mantenimiento los lunes de julio y agosto, meses en los que el cron diario no corre. Sin ese latido pasan hasta 58 días entre ejecuciones y el artefacto caduca, dejando al pipeline arrancando en septiembre sobre una BD vacía.
+- La BD y los PDFs solo viven en el artefacto `sipri-analyzer-files` (`var/` y `pdfs/` están en `.gitignore`), así que su caducidad es crítica: `retention-days: 90` —el máximo— más un cron de mantenimiento los lunes de julio y agosto, meses en los que el cron de temporada no corre. Sin ese latido pasan hasta 58 días entre ejecuciones y el artefacto caduca, dejando al pipeline arrancando en septiembre sobre una BD vacía.
