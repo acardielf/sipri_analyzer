@@ -1,12 +1,14 @@
 name: CI
 
+# Este workflow es el pipeline largo (descarga de SIPRI, extracción con tabula y
+# regeneración de las ~8.300 páginas): entre 5 y 15 minutos. No se dispara al
+# empujar código, solo por el cron y a mano, porque un cambio de código no trae
+# datos nuevos y no justifica pagar el pipeline entero en cada merge a main.
+#
+# La contrapartida: un cambio de plantillas, CSS o rutas no se publica solo. Lo
+# recoge el primer run que regenere el sitio —el cron con datos nuevos, o un
+# workflow_dispatch lanzado a mano desde la pestaña Actions.
 on:
-  push:
-    branches:
-      - main
-    # Sin paths-ignore: docs/ ya no vive en main, el sitio se publica en la rama
-    # gh-pages. Un push a gh-pages no reentra aquí porque este disparador solo
-    # escucha main.
   schedule:
     - cron: "0 16 * 1-6,9-12 *" # todos los días de septiembre a junio (excluye julio y agosto) a las 16:00 UTC
     # Latido de verano: los lunes de julio y agosto. No espera encontrar nada
@@ -35,9 +37,9 @@ on:
 
 
 # El grupo va por ref, no por run_id: con run_id cada ejecución caía en un grupo
-# distinto y la exclusión no llegaba a aplicarse nunca. Dos runs sobre main —el
-# cron y un push, por ejemplo— heredaban el mismo artefacto, regeneraban el mismo
-# sitio y peleaban por el push de docs/; así murió el run 34121857427 con
+# distinto y la exclusión no llegaba a aplicarse nunca. Dos runs a la vez —el
+# cron y un dispatch manual, por ejemplo— heredan el mismo artefacto, regeneran
+# el mismo sitio y pelean por el push; así murió el run 34121857427 con
 # «! [rejected] main -> main (fetch first)».
 #
 # cancel-in-progress: false a propósito. Cancelar a mitad de `sipri:last` deja
@@ -324,9 +326,9 @@ jobs:
       # la fecha «Datos actualizados a» de docs/index.html, y ese commit bastaba
       # para disparar un despliegue de Pages entero.
       #
-      # El atajo se limita al cron a propósito: un push trae código (plantillas,
-      # CSS, rutas) que cambia el HTML sin tocar la BD, y un dispatch manual se
-      # lanza justamente para ver el sitio regenerado.
+      # El atajo se limita al cron a propósito: un workflow_dispatch se lanza
+      # justamente para ver el sitio regenerado —es además la única vía de
+      # publicar un cambio de código, que cambia el HTML sin tocar la BD.
       - name: Decidir si hay que regenerar el sitio
         id: sitio
         env:
