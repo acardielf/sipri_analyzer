@@ -9,6 +9,13 @@ on:
     # escucha main.
   schedule:
     - cron: "0 16 * 1-6,9-12 *" # todos los días de septiembre a junio (excluye julio y agosto) a las 16:00 UTC
+    # Latido de verano: los lunes de julio y agosto. No espera encontrar nada
+    # —en vacaciones no hay adjudicaciones y P2 se saltará la regeneración—,
+    # está solo para que «Upload artifacts» renueve sipri-analyzer-files. Sin
+    # él, entre el último run de junio y el primero de septiembre pasan hasta 58
+    # días y el artefacto, que es el único sitio donde viven la BD y los PDFs,
+    # caducaría con el pipeline arrancando en septiembre sobre una BD vacía.
+    - cron: "0 16 * 7-8 1"
   workflow_dispatch:
     # Sin inputs se comporta exactamente igual que el cron: procesa las últimas
     # convocatorias y regenera el sitio. Rellenando `convocatoria` se borra esa
@@ -452,13 +459,20 @@ jobs:
           echo "Publicados $FICHEROS ficheros en gh-pages ($(du -sh . | cut -f1))."
           echo "Publicados **$FICHEROS ficheros** en \`gh-pages\`." >> "$GITHUB_STEP_SUMMARY"
 
-      # El CI solo lee el último sipri-analyzer-files correcto, así que los 90 días
-      # por defecto solo acumulaban gigas (60 artefactos vivos, 8,57 GB medidos).
+      # 90 días, el máximo, y no es negociable a la baja: este artefacto es el
+      # único sitio donde viven la BD y los PDFs (var/ y pdfs/ están en
+      # .gitignore), y el cron no corre en julio ni agosto. El hueco medido entre
+      # ejecuciones correctas llegó a 31 días —58 de no haber mediado dispatches
+      # manuales—, así que con 7 o 30 días el artefacto caduca durante el verano
+      # y en septiembre el pipeline arrancaría con la base de datos vacía.
+      #
+      # Acumular artefactos no cuesta nada: el repositorio es público y el
+      # almacenamiento de Actions es gratis. El ahorro era cosmético.
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
           name: sipri-analyzer-files
-          retention-days: 7
+          retention-days: 90
           path: |
             pdfs/
             var/data_prod.db
