@@ -78,6 +78,21 @@ class ConvocatoriaRepository extends ServiceEntityRepository
         return $this->idsConAdjudicaciones = array_column($convocatorias, 'id');
     }
 
+    /**
+     * Mayor número de convocatoria almacenado. El id es una cadena, así que la
+     * comparación tiene que ser numérica o la 99 saldría por delante de la 456.
+     *
+     * Devuelve 0 con la base de datos vacía.
+     */
+    public function findUltimoIdNumerico(): int
+    {
+        $max = $this->getEntityManager()
+            ->getConnection()
+            ->fetchOne('SELECT max(cast(id as integer)) FROM convocatoria');
+
+        return (int) $max;
+    }
+
     public function remove(Convocatoria $entity, bool $flush = true): void
     {
         $this->getEntityManager()->remove($entity);
