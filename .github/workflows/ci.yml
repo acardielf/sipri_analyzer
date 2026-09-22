@@ -35,7 +35,7 @@ on:
     # convocatorias y regenera el sitio. Rellenando `convocatoria` se borra esa
     # convocatoria del artefacto heredado —adjudicaciones, plazas, la propia
     # convocatoria y sus PDFs— antes de procesar, y el paso de siempre
-    # (`sipri:last --back 2`) la vuelve a descargar y extraer desde cero.
+    # (`sipri:last --back 2 --rellenar`) la vuelve a descargar y extraer desde cero.
     #
     # Es la única forma de corregir datos malos: sipri:ext omite las plazas ya
     # existentes (hash SHA-256) y sipri:adj sale sin hacer nada si la
@@ -43,6 +43,10 @@ on:
     inputs:
       convocatoria:
         description: 'Nº de convocatoria a borrar y reprocesar, una de las 2 últimas (vacío = ejecución normal)'
+        required: false
+        type: string
+      artefacto_run_id:
+        description: 'Run del que heredar la BD y los PDFs (vacío = el artefacto más reciente). Para volver atrás si la cadena se rompe.'
         required: false
         type: string
   workflow_call:
@@ -91,65 +95,102 @@ jobs:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
 
+      # El artefacto se elige por el listado de artefactos del repositorio
+      # —filtrado por nombre y ordenado del más reciente al más antiguo— en vez
+      # de por «el último run con éxito». El 22/09/2026 ese camino devolvió el
+      # artefacto del run 428, de doce días antes: el pipeline heredó una base
+      # de datos sin el curso 2026/2027, `sipri:last` solo repuso las dos
+      # últimas convocatorias y la 456 y la 457 desaparecieron del sitio. Había
+      # pasado ya cuatro veces en once ejecuciones sin que se notara, porque el
+      # paso iba con continue-on-error y no dejaba dicho de dónde había heredado.
+      #
+      # Por eso ahora: se registra qué artefacto se coge, se comprueba que sale
+      # de uno de los últimos runs con éxito, y un fallo de la API para el job
+      # en vez de seguir con lo que haya. Parar es barato: al no llegar a
+      # «Upload artifacts», el artefacto bueno sigue siendo el del run anterior.
       - name: Download artifact from ci.yml
+        id: heredado
         uses: actions/github-script@v7.0.1
-        continue-on-error: true
+        env:
+          RUN_FORZADO: ${{ inputs.artefacto_run_id }}
         with:
           script: |
-            try {
-              const workflowFileName = "ci.yml";
-              const artifactName = "sipri-analyzer-files";
-              const fs = require("fs");
+            const artifactName = "sipri-analyzer-files";
+            const forzado = (process.env.RUN_FORZADO || "").trim();
+            const fs = require("fs");
 
-              async function downloadArtifact(workflowFileName) {
-                const runs = await github.rest.actions.listWorkflowRuns({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  workflow_id: workflowFileName,
-                  status: "success",
-                  per_page: 1
-                });
+            // Filtrado por nombre y ordenado del más reciente al más antiguo.
+            // Con una página basta: son los 100 últimos, más de un mes de runs,
+            // y con 90 días de retención no pueden estar todos caducados.
+            const artefactos = (await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: artifactName,
+              per_page: 100,
+            })).data.artifacts.filter(a => !a.expired);
 
-                if (runs.data.workflow_runs.length === 0) {
-                  core.warning(`⚠️ No se encontró ejecución previa para ${workflowFileName}`);
-                  return false;
-                }
-
-                const run_id = runs.data.workflow_runs[0].id;
-
-                const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  run_id
-                });
-
-                const artifact = artifacts.data.artifacts.find(a => a.name === artifactName);
-                if (!artifact) {
-                  core.warning(`⚠️ No se encontró el artefacto ${artifactName} en ${workflowFileName}`);
-                  return false;
-                }
-
-                const download = await github.rest.actions.downloadArtifact({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  artifact_id: artifact.id,
-                  archive_format: "zip"
-                });
-
-                fs.writeFileSync(`${artifactName}-${workflowFileName}.zip`, Buffer.from(download.data));
-                return true;
-              }
-
-              await downloadArtifact("ci.yml");
-            } catch (e) {
-              core.warning(`⚠️ Error al descargar artefacto ci.yml: ${e.message}`);
+            if (artefactos.length === 0) {
+              core.warning(`No hay ningún artefacto ${artifactName} vivo: se arranca sin base de datos.`);
+              core.setOutput("origen", "");
+              return;
             }
 
+            let elegido;
+
+            if (forzado) {
+              elegido = artefactos.find(a => String(a.workflow_run && a.workflow_run.id) === forzado);
+              if (!elegido) {
+                core.setFailed(`El run ${forzado} no tiene ningún artefacto ${artifactName} vivo.`);
+                return;
+              }
+              core.notice(`Heredando a mano del run ${forzado}.`);
+            } else {
+              elegido = artefactos[0];
+
+              // Los últimos runs con éxito, sin contar el actual. El artefacto
+              // bueno sale de uno de ellos; si el más reciente que existe es
+              // más viejo, la cadena está rota y heredarlo perdería datos.
+              const runs = (await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: "ci.yml",
+                status: "success",
+                per_page: 10,
+              })).data.workflow_runs.filter(r => r.id !== context.runId);
+
+              const recientes = runs.slice(0, 3).map(r => r.id);
+              const origen = elegido.workflow_run && elegido.workflow_run.id;
+
+              if (recientes.length > 0 && !recientes.includes(origen)) {
+                core.setFailed(
+                  `El artefacto ${artifactName} más reciente (id ${elegido.id}, run ${origen}, ${elegido.created_at}) ` +
+                  `no sale de ninguno de los últimos runs con éxito (${recientes.join(", ")}). ` +
+                  `No se hereda nada. Si sabes cuál es el bueno, relanza con artefacto_run_id.`
+                );
+                return;
+              }
+            }
+
+            const origen = elegido.workflow_run && elegido.workflow_run.id;
+            core.info(`Artefacto ${elegido.id} del run ${origen}, creado ${elegido.created_at}, ${elegido.size_in_bytes} bytes.`);
+            core.setOutput("origen", String(origen));
+            core.summary.addRaw(`Base de datos heredada del run **${origen}** (artefacto ${elegido.id}, ${elegido.created_at}).\n\n`);
+            await core.summary.write();
+
+            const download = await github.rest.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: elegido.id,
+              archive_format: "zip",
+            });
+
+            fs.writeFileSync(`${artifactName}.zip`, Buffer.from(download.data));
+
       - name: Unzip ci artifact if exists
-        continue-on-error: true
         run: |
-          if [ -f sipri-analyzer-files-ci.yml.zip ]; then
-            unzip -o sipri-analyzer-files-ci.yml.zip -d .
+          set -euo pipefail
+          if [ -f sipri-analyzer-files.zip ]; then
+            unzip -q -o sipri-analyzer-files.zip -d .
           fi
 
       - name: Install PHP 8.5
@@ -160,6 +201,44 @@ jobs:
           extensions: mbstring, intl, pdo, pdo_sqlite, xml, curl, zip, gd
           tools: composer:v2
           coverage: none
+
+      # El artefacto lleva dentro un var/origen.txt con el run que lo generó y
+      # la huella que tenía al subirlo. Es la única fuente que no depende de lo
+      # que conteste la API: si lo que dice no cuadra con la base de datos que
+      # viene al lado, el artefacto no es el que se pidió.
+      - name: Comprobar la base de datos heredada
+        env:
+          ORIGEN: ${{ steps.heredado.outputs.origen }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "$ORIGEN" ]; then
+            echo "::warning::No se ha heredado artefacto: la base de datos arranca vacía."
+            exit 0
+          fi
+
+          if [ ! -f var/data_prod.db ]; then
+            echo "::error::El artefacto del run $ORIGEN no traía var/data_prod.db."
+            exit 1
+          fi
+
+          HUELLA=$(php bin/huella-datos.php var/data_prod.db)
+          echo "Heredado del run $ORIGEN -> $HUELLA"
+
+          if [ ! -f var/origen.txt ]; then
+            # Los artefactos anteriores a este cambio no lo llevan.
+            echo "::notice::El artefacto no trae var/origen.txt: no se puede contrastar su procedencia."
+            exit 0
+          fi
+
+          echo "El artefacto dice venir de:"
+          cat var/origen.txt
+
+          HUELLA_DECLARADA=$(sed -n 's/^huella=//p' var/origen.txt)
+          if [ "$HUELLA_DECLARADA" != "$HUELLA" ]; then
+            echo "::error::El artefacto declara la huella '$HUELLA_DECLARADA' pero su base de datos tiene '$HUELLA'."
+            exit 1
+          fi
 
       - name: Make envfile
         run: |
@@ -296,8 +375,14 @@ jobs:
       # Este paso es también el reproceso: como la convocatoria y sus PDFs ya no
       # están, sipri:get los vuelve a descargar y sipri:ext / sipri:adj los
       # extraen desde cero. Por eso el borrado se limita a las dos últimas.
+      # --rellenar amplía la ventana hacia atrás hasta la primera convocatoria
+      # que falte en la base de datos. Con --back 2 a secas, una base de datos
+      # atrasada nunca se ponía al día: las convocatorias fuera de la ventana no
+      # las recuperaba nadie, y así se perdieron la 456 y la 457. El comando
+      # tiene un tope para que una base de datos vacía no dispare un reproceso
+      # completo de cientos de convocatorias.
       - name: Run SIPRI Analyzer only last
-        run: php bin/console sipri:last --back 2 || true
+        run: php bin/console sipri:last --back 2 --rellenar || true
 
       # Si el reproceso no ha devuelto los datos, algo ha ido mal (p. ej. SIPRI
       # ha retirado los anexos mientras la Junta prepara una corrección): mejor
@@ -341,6 +426,31 @@ jobs:
       # El atajo se limita al cron a propósito: un workflow_dispatch se lanza
       # justamente para ver el sitio regenerado —es además la única vía de
       # publicar un cambio de código, que cambia el HTML sin tocar la BD.
+      # Red por debajo de la elección del artefacto. El pipeline solo inserta,
+      # así que una tabla con menos filas que al empezar significa que se ha
+      # trabajado sobre una base de datos que no era la que tocaba. Fallar aquí
+      # deja fuera «Generate static website» y «Upload artifacts», así que ni se
+      # publica el sitio peor ni se sustituye el artefacto bueno del run
+      # anterior: la siguiente ejecución vuelve a partir de él.
+      - name: Comprobar que no se han perdido datos
+        env:
+          ANTES: ${{ steps.datos_antes.outputs.huella }}
+        run: |
+          set -euo pipefail
+          DESPUES=$(php bin/huella-datos.php var/data_prod.db)
+
+          if ! php bin/comparar-huellas.php "$ANTES" "$DESPUES"; then
+            echo "::error::La base de datos ha encogido durante el procesado. No se publica ni se sube artefacto."
+            {
+              echo "### Abortado: la base de datos ha perdido filas"
+              echo '```'
+              echo "antes:   $ANTES"
+              echo "después: $DESPUES"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
       - name: Decidir si hay que regenerar el sitio
         id: sitio
         env:
@@ -482,6 +592,21 @@ jobs:
       #
       # Acumular artefactos no cuesta nada: el repositorio es público y el
       # almacenamiento de Actions es gratis. El ahorro era cosmético.
+      # Viaja dentro del artefacto: es lo que permite al run siguiente saber de
+      # dónde sale de verdad lo que ha heredado, sin depender de lo que conteste
+      # la API de artefactos.
+      - name: Sellar el origen del artefacto
+        run: |
+          set -euo pipefail
+          {
+            echo "run_id=${{ github.run_id }}"
+            echo "run_number=${{ github.run_number }}"
+            echo "evento=${{ github.event_name }}"
+            echo "fecha=$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+            echo "huella=$(php bin/huella-datos.php var/data_prod.db)"
+          } > var/origen.txt
+          cat var/origen.txt
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
@@ -490,3 +615,4 @@ jobs:
           path: |
             pdfs/
             var/data_prod.db
+            var/origen.txt

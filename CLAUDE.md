@@ -43,7 +43,7 @@ src/
     TabulaPythonService # Wrapper que invoca scripts Python
     ChartService    # Construcción de datos para Chart.js
   Twig/             # Extensiones Twig (ProvinciaExtension)
-bin/                # Scripts de tabula (tabula-*.py, requirements.txt) y utilidades del CI (minify-docs.sh, huella-datos.php)
+bin/                # Scripts de tabula (tabula-*.py, requirements.txt) y utilidades del CI (minify-docs.sh, huella-datos.php, comparar-huellas.php)
 templates/          # Plantillas Twig
 config/             # Configuración Symfony (packages/, routes.yaml, services.yaml)
 migrations/         # Migraciones Doctrine
@@ -163,6 +163,49 @@ estado del proyecto.
 **El atajo solo se aplica al cron**; un `workflow_dispatch` regenera siempre.
 Efecto secundario buscado: la fecha «Datos actualizados a» pasa a marcar el
 último día con datos nuevos, no el último día en que el cron pasó por SIPRI.
+
+### De qué artefacto hereda el CI
+
+La BD y los PDFs solo viven en el artefacto `sipri-analyzer-files`, así que cada
+run arranca heredando el del run anterior. Ese enlace es el punto más frágil de
+todo el pipeline: **si se hereda un artefacto viejo, el run publica una versión
+amputada del sitio y encima la deja como artefacto bueno para el siguiente.**
+
+Pasó el 22/09/2026 (run 443) y, sin que nadie lo notara, en los runs 434, 435 y
+440. El paso de descarga pedía «el último run con éxito» y recibió el artefacto
+del run 428, de doce días antes: una BD que terminaba en la convocatoria 455,
+sin nada del curso 2026/2027. Como `sipri:last --back 2` solo repone las dos
+últimas convocatorias que anuncia SIPRI, las intermedias —la 456 (03/09) y la
+457 (10/09, 3.435 plazas)— se quedaron fuera y desaparecieron del sitio.
+
+Qué lo hacía invisible: el paso iba con `continue-on-error: true`, no registraba
+de qué run heredaba y nada comprobaba que la BD no hubiera retrocedido.
+
+Ahora:
+
+- El artefacto se elige **listando los artefactos del repositorio por nombre**
+  (devueltos del más reciente al más antiguo), no preguntando por el último run.
+- Se comprueba que el elegido salga de **uno de los tres últimos runs con
+  éxito**. Si el más reciente que existe es más viejo, el job **falla**: parar es
+  barato, porque al no llegar a `Upload artifacts` el artefacto bueno sigue
+  siendo el del run anterior.
+- Cada run sella `var/origen.txt` dentro del artefacto (run, fecha y huella).
+  El run siguiente contrasta esa huella con la BD que viene al lado, sin
+  depender de lo que conteste la API.
+- `sipri:last --back 2 --rellenar` amplía la ventana hasta la primera
+  convocatoria que falte en la BD, con un tope de 20 para que una BD vacía no
+  dispare un reproceso completo. Así un hueco se rellena solo en el run
+  siguiente.
+- Antes de generar el sitio, `bin/comparar-huellas.php` aborta si alguna tabla
+  ha perdido filas. El pipeline solo inserta: que una tabla encoja significa que
+  la BD con la que se ha trabajado no era la que tocaba.
+
+El input `artefacto_run_id` del `workflow_dispatch` permite heredar de un run
+concreto, que es la vía para volver atrás si la cadena se rompe otra vez.
+
+**La comprobación de la huella heredada va antes de las migraciones** a
+propósito: una migración que añada una tabla cambia la huella, y compararla
+después haría fallar el run tras cualquier cambio de esquema.
 
 ### El CI no se dispara al empujar código
 

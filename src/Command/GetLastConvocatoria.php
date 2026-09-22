@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Repository\ConvocatoriaRepository;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\SessionCookieJar;
@@ -26,6 +27,21 @@ class GetLastConvocatoria extends Command
 
     private const string HISTORICO_URL = './historico/';
 
+    /**
+     * Tope del relleno de huecos. Con la base de datos al día no se alcanza
+     * nunca; está para que una base de datos vacía o muy atrasada no dispare
+     * sin querer un reproceso completo de cientos de convocatorias, que son
+     * horas de tabula. Si el hueco es mayor que esto, lo suyo es mirar qué ha
+     * pasado y lanzar un reproceso a mano.
+     */
+    private const int MAX_HUECOS = 20;
+
+    public function __construct(
+        private readonly ConvocatoriaRepository $convocatoriaRepository,
+    ) {
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this->setHelp('This command allows you to get last convocatoria from SIPRI');
@@ -35,6 +51,13 @@ class GetLastConvocatoria extends Command
             mode: InputOption::VALUE_OPTIONAL,
             description: 'Get last X convocatorias back',
             default: 0,
+        );
+        $this->addOption(
+            name: 'rellenar',
+            shortcut: 'r',
+            mode: InputOption::VALUE_NEGATABLE,
+            description: 'Empezar en la primera convocatoria que falte en la base de datos, no solo en las --back últimas',
+            default: false,
         );
     }
 
@@ -69,8 +92,41 @@ class GetLastConvocatoria extends Command
 
         if ($reduce > 0) {
             $startingConvocatoria = $lastConvocatoria - $reduce;
-            $output->writeln("Iniciando desde convocatoria: $startingConvocatoria");
         }
+
+        // Una ventana fija de --back solo vale si la base de datos viene al
+        // día. Si viene atrasada —el CI heredó un artefacto viejo, o un run se
+        // quedó a medias— las convocatorias intermedias caen fuera de la
+        // ventana y no las recupera nadie: hay que arrancar donde la base de
+        // datos se quedó.
+        if ($input->getOption('rellenar')) {
+            $ultimoEnBd = $this->convocatoriaRepository->findUltimoIdNumerico();
+            $primeraQueFalta = $ultimoEnBd + 1;
+            $suelo = $lastConvocatoria - self::MAX_HUECOS;
+
+            $output->writeln("Última convocatoria en la base de datos: $ultimoEnBd");
+
+            if ($primeraQueFalta < $startingConvocatoria) {
+                if ($primeraQueFalta < $suelo) {
+                    $output->writeln(sprintf(
+                        '<comment>El hueco (%d..%d) supera el tope de %d convocatorias: se arranca en la %d. '
+                        . 'Revisa de dónde viene la base de datos.</comment>',
+                        $primeraQueFalta,
+                        $lastConvocatoria,
+                        self::MAX_HUECOS,
+                        $suelo,
+                    ));
+                    $primeraQueFalta = $suelo;
+                }
+
+                $output->writeln("Hay convocatorias sin procesar: se amplía la ventana hasta la $primeraQueFalta");
+                $startingConvocatoria = $primeraQueFalta;
+            }
+        }
+
+        $startingConvocatoria = max(1, $startingConvocatoria);
+
+        $output->writeln("Iniciando desde convocatoria: $startingConvocatoria");
 
         $io = new SymfonyStyle($input, $output);
 
